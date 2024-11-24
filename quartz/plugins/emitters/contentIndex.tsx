@@ -19,7 +19,7 @@ import DepGraph from "../../depgraph"
 import chalk from "chalk"
 import { ProcessedContent } from "../vfile"
 
-export type ContentIndexMap = Map<FullSlug, ContentDetails>
+type ContentIndex = Tree<TreeNode>
 export type ContentDetails = {
   slug: FullSlug
   filePath: FilePath
@@ -40,7 +40,7 @@ interface Options {
   bypassIndexCheck: boolean
   rssLimit?: number
   rssFullHtml: boolean
-  rssSlug: string
+  rssSlug: FullSlug
   includeEmptyFiles: boolean
   titlePattern?: (cfg: GlobalConfiguration, dir: FullSlug, dirIndex?: ContentDetails) => string
 }
@@ -51,13 +51,13 @@ const defaultOptions: Options = {
   enableRSS: true,
   rssLimit: 10,
   rssFullHtml: false,
-  rssSlug: "index",
+  rssSlug: "index" as FullSlug,
   includeEmptyFiles: true,
   titlePattern: (cfg, dir, dirIndex) =>
     `${cfg.pageTitle} - ${dirIndex != null ? dirIndex.title : dir.split("/").pop()}`,
 }
 
-function generateSiteMap(cfg: GlobalConfiguration, idx: ContentIndexMap): string {
+function generateSiteMap(cfg: GlobalConfiguration, idx: ContentIndex): string {
   const base = cfg.baseUrl ?? ""
   const createURLEntry = (content: ContentDetails): string => `
   <url>
@@ -69,7 +69,7 @@ function generateSiteMap(cfg: GlobalConfiguration, idx: ContentIndexMap): string
 </urlset>`
 }
 
-function generateRSSFeed(cfg: GlobalConfiguration, idx: ContentIndexMap, limit?: number): string {
+function finishRSSFeed(cfg: GlobalConfiguration, opts: Partial<Options>, entries: Feed): string {
   const base = cfg.baseUrl ?? ""
   const feedTitle = opts.titlePattern!(cfg, entries.dir, entries.dirIndex)
   const limit = opts?.rssLimit ?? entries.raw.length
@@ -165,24 +165,26 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
       }
 
       const cfg = ctx.cfg.configuration
-      const linkIndex: ContentIndexMap = new Map()
-      for (const [tree, file] of content) {
-        const slug = file.data.slug!
-        const date = getDate(ctx.cfg.configuration, file.data) ?? new Date()
-        if (opts?.includeEmptyFiles || (file.data.text && file.data.text !== "")) {
-          linkIndex.set(slug, {
-            slug,
-            filePath: file.data.relativePath!,
-            title: file.data.frontmatter?.title!,
-            links: file.data.links ?? [],
-            tags: file.data.frontmatter?.tags ?? [],
-            content: file.data.text ?? "",
-            richContent: opts?.rssFullHtml
-              ? escapeHTML(toHtml(tree as Root, { allowDangerousHtml: true }))
-              : undefined,
-            date: date,
-            description: file.data.description ?? "",
-          })
+      const emitted: Promise<FilePath>[] = []
+      var indexTree = new Tree<TreeNode>(defaultFeed(), compareTreeNodes)
+
+      // ProcessedContent[] -> Tree<TreeNode>
+      // bfahrenfort: If I could finagle a Visitor pattern to cross
+      //  different datatypes (TransformVisitor<T, K>?), half of this pass could be
+      //  folded into the FeedGenerator postorder accept
+      const detailsOf = ([tree, file]: ProcessedContent): ContentDetails => {
+        return {
+          title: file.data.frontmatter?.title!,
+          links: file.data.links ?? [],
+          tags: file.data.frontmatter?.tags ?? [],
+          content: file.data.text ?? "",
+          richContent: opts?.rssFullHtml
+            ? escapeHTML(toHtml(tree as Root, { allowDangerousHtml: true }))
+            : undefined,
+          date: getDate(ctx.cfg.configuration, file.data) ?? new Date(),
+          description: file.data.description ?? "",
+          slug: slugifyFilePath(file.data.relativePath!, true),
+          noRSS: file.data.frontmatter?.noRSS ?? false,
         }
       }
       for (const [tree, file] of content) {
@@ -241,8 +243,8 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
         emitted.push(
           write({
             ctx,
-            content: generateRSSFeed(cfg, linkIndex, opts.rssLimit),
-            slug: (opts?.rssSlug ?? "index") as FullSlug,
+            content: finishRSSFeed(cfg, opts, feedTree.data as Feed),
+            slug: opts.rssSlug!, // Safety: defaults to "index"
             ext: ".xml",
           }),
         )
