@@ -1,6 +1,6 @@
 # Welchome to my Site
 
-I'm a Systemadministrator with +7 years expirence.
+I'm a Systemadministrator with +7 years expirence. 
 In my prior cajere i was a electronic engineer.
 
 ## contact
