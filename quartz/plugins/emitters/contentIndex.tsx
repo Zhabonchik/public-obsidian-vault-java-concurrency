@@ -40,7 +40,7 @@ interface Options {
   bypassIndexCheck: boolean
   rssLimit?: number
   rssFullHtml: boolean
-  rssSlug: FullSlug
+  rssSlug: string
   includeEmptyFiles: boolean
   titlePattern?: (cfg: GlobalConfiguration, dir: FullSlug, dirIndex?: ContentDetails) => string
 }
@@ -51,7 +51,7 @@ const defaultOptions: Options = {
   enableRSS: true,
   rssLimit: 10,
   rssFullHtml: false,
-  rssSlug: "index" as FullSlug,
+  rssSlug: "index",
   includeEmptyFiles: true,
   titlePattern: (cfg, dir, dirIndex) =>
     `${cfg.pageTitle} - ${dirIndex != null ? dirIndex.title : dir.split("/").pop()}`,
@@ -240,14 +240,27 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
         feedTree.acceptPostorder(new FeedGenerator(ctx, cfg, opts, emitted))
 
         // Generate index feed separately re-using the Entry[] composed upwards
+        let topFeed = finishRSSFeed(cfg, opts, feedTree.data as Feed)
         emitted.push(
           write({
             ctx,
-            content: finishRSSFeed(cfg, opts, feedTree.data as Feed),
-            slug: opts.rssSlug!, // Safety: defaults to "index"
+            content: topFeed,
+            slug: opts.rssSlug! as FullSlug, // Safety: defaults to "index"
             ext: ".xml",
           }),
         )
+
+        // Reader compatibility, don't break existing readers if the path changes
+        if (opts.rssSlug !== defaultOptions.rssSlug) {
+          emitted.push(
+            write({
+              ctx,
+              content: topFeed,
+              slug: "index" as FullSlug,
+              ext: ".xml",
+            }),
+          )
+        }
       }
 
       // Generate ContentIndex
