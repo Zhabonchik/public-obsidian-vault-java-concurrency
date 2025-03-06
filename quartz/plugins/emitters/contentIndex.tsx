@@ -298,7 +298,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
               rel="alternate"
               type="application/rss+xml"
               title="RSS Feed"
-              href={`https://${ctx.cfg.configuration.baseUrl}/index.xml`}
+              href={`https://${ctx.cfg.configuration.baseUrl}/${opts.rssSlug!}.xml`}
             />,
           ],
         }
