@@ -13,7 +13,7 @@ import { ProcessedContent } from "../vfile"
 
 type ContentIndex = Tree<TreeNode>
 export type ContentDetails = {
-  slug?: FullSlug
+  slug: FullSlug
   filePath: FilePath
   title: string
   links: SimpleSlug[]
@@ -246,9 +246,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
           delete content.date
           delete content.noRSS
 
-          var slug = content.slug
-          delete content.slug
-          return [slug, content]
+          return [content.slug, content]
         }),
       )
       emitted.push(
