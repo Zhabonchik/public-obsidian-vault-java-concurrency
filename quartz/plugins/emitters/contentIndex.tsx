@@ -8,20 +8,18 @@ import {
   SimpleSlug,
   joinSegments,
   simplifySlug,
-  slugifyFilePath,
 } from "../../util/path"
 import { QuartzEmitterPlugin } from "../types"
 import { toHtml } from "hast-util-to-html"
 import { write } from "./helpers"
 import { i18n } from "../../i18n"
 import { BuildCtx } from "../../util/ctx"
-import DepGraph from "../../depgraph"
 import chalk from "chalk"
 import { ProcessedContent } from "../vfile"
 
 type ContentIndex = Tree<TreeNode>
 export type ContentDetails = {
-  slug: FullSlug
+  slug?: FullSlug
   filePath: FilePath
   title: string
   links: SimpleSlug[]
@@ -30,7 +28,6 @@ export type ContentDetails = {
   richContent?: string
   date?: Date
   description?: string
-  slug?: FullSlug
   noRSS?: boolean
 }
 
@@ -125,27 +122,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
   opts = { ...defaultOptions, ...opts }
   return {
     name: "ContentIndex",
-    async getDependencyGraph(ctx, content, _resources) {
-      const graph = new DepGraph<FilePath>()
-
-      for (const [_tree, file] of content) {
-        const sourcePath = file.data.filePath!
-
-        graph.addEdge(
-          sourcePath,
-          joinSegments(ctx.argv.output, "static/contentIndex.json") as FilePath,
-        )
-        if (opts?.enableSiteMap) {
-          graph.addEdge(sourcePath, joinSegments(ctx.argv.output, "sitemap.xml") as FilePath)
-        }
-        if (opts?.enableRSS) {
-          graph.addEdge(sourcePath, joinSegments(ctx.argv.output, "index.xml") as FilePath)
-        }
-      }
-
-      return graph
-    },
-    async emit(ctx, content, _resources) {
+    async *emit(ctx, content) {
       // If we're missing an index file, don't bother with sitemap/RSS gen
       if (
         !(
@@ -174,6 +151,8 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
       //  folded into the FeedGenerator postorder accept
       const detailsOf = ([tree, file]: ProcessedContent): ContentDetails => {
         return {
+          slug: file.data.slug!,
+          filePath: file.data.relativePath!,
           title: file.data.frontmatter?.title!,
           links: file.data.links ?? [],
           tags: file.data.frontmatter?.tags ?? [],
@@ -183,7 +162,6 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
             : undefined,
           date: getDate(ctx.cfg.configuration, file.data) ?? new Date(),
           description: file.data.description ?? "",
-          slug: slugifyFilePath(file.data.relativePath!, true),
           noRSS: file.data.frontmatter?.noRSS ?? false,
         }
       }
@@ -288,7 +266,8 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
         }),
       )
 
-      return await Promise.all(emitted)
+      // Promise<FilePath>[] -> Promise<FilePath[]>
+      return Promise.all(emitted)
     },
     externalResources: (ctx) => {
       if (opts?.enableRSS) {
