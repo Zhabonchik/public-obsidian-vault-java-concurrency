@@ -14,11 +14,11 @@ const OverflowList = ({
 
 let numExplorers = 0
 export default () => {
-  const id = `list-${numExplorers++}`
+  const dataId = `list-${numExplorers++}`
 
   return {
     OverflowList: (props: JSX.HTMLAttributes<HTMLUListElement>) => (
-      <OverflowList {...props} id={id} />
+      <OverflowList {...props} data-list-id={dataId} />
     ),
     overflowListAfterDOMLoaded: `
 document.addEventListener("nav", (e) => {
@@ -34,7 +34,7 @@ document.addEventListener("nav", (e) => {
     }
   })
 
-  const ul = document.getElementById("${id}")
+  const ul = document.querySelector("ul[data-list-number='${dataId}']")
   if (!ul) return
 
   const end = ul.querySelector(".overflow-end")

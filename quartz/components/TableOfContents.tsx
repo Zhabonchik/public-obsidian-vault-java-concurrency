@@ -34,10 +34,11 @@ export default ((opts?: Partial<Options>) => {
         <button
           type="button"
           class={fileData.collapseToc ? "collapsed toc-header" : "toc-header"}
+          aria-labelledby="toc-heading"
           aria-controls="toc-content"
           aria-expanded={!fileData.collapseToc}
         >
-          <h3>{i18n(cfg.locale).components.tableOfContents.title}</h3>
+          <h3 id="toc-heading">{i18n(cfg.locale).components.tableOfContents.title}</h3>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -53,7 +54,7 @@ export default ((opts?: Partial<Options>) => {
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </button>
-        <OverflowList class={fileData.collapseToc ? "collapsed toc-content" : "toc-content"}>
+        <OverflowList id="toc-content" class={fileData.collapseToc ? "collapsed" : ""}>
           {fileData.toc.map((tocEntry) => (
             <li key={tocEntry.slug} class={`depth-${tocEntry.depth}`}>
               <a href={`#${tocEntry.slug}`} data-for={tocEntry.slug}>

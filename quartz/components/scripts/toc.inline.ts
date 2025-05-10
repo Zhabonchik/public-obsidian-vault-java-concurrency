@@ -27,7 +27,7 @@ function toggleToc(this: HTMLElement) {
 function setupToc() {
   for (const toc of document.getElementsByClassName("toc")) {
     const button = toc.querySelector(".toc-header")
-    const content = toc.querySelector(".toc-content")
+    const content = toc.querySelector("#toc-content")
     if (!button || !content) return
     button.addEventListener("click", toggleToc)
     window.addCleanup(() => button.removeEventListener("click", toggleToc))
