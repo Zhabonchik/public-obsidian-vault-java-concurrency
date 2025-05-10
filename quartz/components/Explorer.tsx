@@ -61,7 +61,7 @@ export default ((userOpts?: Partial<Options>) => {
 
   const Explorer: QuartzComponent = ({ cfg, displayClass }: QuartzComponentProps) => {
     return (
-      <div
+      <nav
         class={classNames(displayClass, "explorer")}
         data-behavior={opts.folderClickBehavior}
         data-collapsed={opts.folderDefaultState}
@@ -78,6 +78,7 @@ export default ((userOpts?: Partial<Options>) => {
           class="explorer-toggle mobile-explorer hide-until-loaded"
           data-mobile={true}
           aria-controls="explorer-content"
+          aria-label="Explorer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +117,7 @@ export default ((userOpts?: Partial<Options>) => {
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </button>
-        <div class="explorer-content" aria-expanded={false}>
+        <div id="explorer-content">
           <OverflowList class="explorer-ul" />
         </div>
         <template id="template-file">
@@ -152,7 +153,7 @@ export default ((userOpts?: Partial<Options>) => {
             </div>
           </li>
         </template>
-      </div>
+      </nav>
     )
   }
 
