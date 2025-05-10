@@ -1,11 +1,8 @@
 import { JSX } from "preact"
 
-const OverflowList = ({
-  children,
-  ...props
-}: JSX.HTMLAttributes<HTMLUListElement> & { id: string }) => {
+const OverflowList = ({ children, ...props }: JSX.HTMLAttributes<HTMLUListElement>) => {
   return (
-    <ul {...props} class={[props.class, "overflow"].filter(Boolean).join(" ")} id={props.id}>
+    <ul {...props} class={[props.class, "overflow"].filter(Boolean).join(" ")}>
       {children}
       <li class="overflow-end" />
     </ul>
@@ -34,7 +31,7 @@ document.addEventListener("nav", (e) => {
     }
   })
 
-  const ul = document.querySelector("ul[data-list-number='${dataId}']")
+  const ul = document.querySelector("ul[data-list-id='${dataId}']")
   if (!ul) return
 
   const end = ul.querySelector(".overflow-end")
