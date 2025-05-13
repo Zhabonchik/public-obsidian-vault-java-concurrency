@@ -11,10 +11,10 @@ interface ReplyByEmailOptions {
 
 // Default options will be used if not provided in the layout file
 const defaultOptions: ReplyByEmailOptions = {
-  username: "ZW1haWw=", // "email" in base64
-  domain: "ZXhhbXBsZS5jb20=", // "email.com" in base64
+  username: "Y29udGFjdA==", // "contact" encoded in base64, as in contact@example.com
+  domain: "ZXhhbXBsZS5jb20=", // "example.com" encoded in base64, as in contact@example.com
   includeTitles: [],
-  excludeTitles: ["Home", "About me", "Contact me"],
+  excludeTitles: [],
   buttonLabel: "Reply by email"
 }
 
