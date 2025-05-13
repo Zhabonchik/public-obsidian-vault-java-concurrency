@@ -47,14 +47,14 @@ const ReplyByEmail: QuartzComponent = ({
   if (shouldDisplay) {
     return (
       <div class="center-wrapper">
-      <button
-      class={classNames(displayClass, "reply-by-email-button")}
-      data-username={encodedPart1}
-      data-domain={encodedPart2}
-      data-title={encodeURIComponent(title)}
-      >
-      {label}
-      </button>
+        <button
+          class={classNames(displayClass, "reply-by-email-button")}
+          data-username={encodedPart1}
+          data-domain={encodedPart2}
+          data-title={encodeURIComponent(title)}
+        >
+          {label}
+        </button>
       </div>
     )
   } else {
