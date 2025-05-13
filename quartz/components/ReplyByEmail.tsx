@@ -6,6 +6,7 @@ interface ReplyByEmailOptions {
   domain?: string
   includeTitles?: string[]
   excludeTitles?: string[]
+  buttonLabel?: string
 }
 
 // Default options will be used if not provided in the layout file
@@ -13,7 +14,8 @@ const defaultOptions: ReplyByEmailOptions = {
   username: "ZW1haWw=", // "email" in base64
   domain: "ZXhhbXBsZS5jb20=", // "email.com" in base64
   includeTitles: [],
-  excludeTitles: ["Home", "About me", "Contact me"]
+  excludeTitles: ["Home", "About me", "Contact me"],
+  buttonLabel: "Reply by email"
 }
 
 const ReplyByEmail: QuartzComponent = ({
@@ -22,7 +24,8 @@ const ReplyByEmail: QuartzComponent = ({
   username,
   domain,
   includeTitles,
-  excludeTitles
+  excludeTitles,
+  buttonLabel
 }: QuartzComponentProps & ReplyByEmailOptions) => {
   const title = fileData.frontmatter?.title
 
@@ -31,6 +34,7 @@ const ReplyByEmail: QuartzComponent = ({
   const encodedPart2 = domain || defaultOptions.domain
   const includeList = includeTitles || defaultOptions.includeTitles
   const excludeList = excludeTitles || defaultOptions.excludeTitles
+  const label = buttonLabel || defaultOptions.buttonLabel
 
   // Display logic:
   // 1. If includeTitles is not empty, only show on those pages
@@ -49,7 +53,7 @@ const ReplyByEmail: QuartzComponent = ({
       data-domain={encodedPart2}
       data-title={encodeURIComponent(title)}
       >
-      Reply by email
+      {label}
       </button>
       </div>
     )
@@ -130,7 +134,8 @@ export default ((opts?: ReplyByEmailOptions) => {
       username: opts?.username,
       domain: opts?.domain,
       includeTitles: opts?.includeTitles,
-      excludeTitles: opts?.excludeTitles
+      excludeTitles: opts?.excludeTitles,
+      buttonLabel: opts?.buttonLabel
     })
   }
 
