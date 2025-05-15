@@ -41,11 +41,11 @@ const ReplyByEmail: QuartzComponent = ({
   if (shouldDisplay) {
     return (
       <div class="center-wrapper">
-      <button
-      class={classNames(displayClass, "reply-by-email-button")}
-      data-email={encodedEmail}
-      data-title={encodeURIComponent(title)}
-      onclick={`
+        <button
+          class={classNames(displayClass, "reply-by-email-button")}
+          data-email={encodedEmail}
+          data-title={encodeURIComponent(title)}
+          onclick={`
         const encodedEmail = this.getAttribute('data-email');
         const email = atob(encodedEmail);
         const title = this.getAttribute('data-title');
@@ -54,9 +54,9 @@ const ReplyByEmail: QuartzComponent = ({
         return false;
         `}
         >
-        {label}
+          {label}
         </button>
-        </div>
+      </div>
     )
   } else {
     return null
