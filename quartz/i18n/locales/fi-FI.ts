@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min lukuaika`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} muistiinpanoa`,
+    },
   },
   pages: {
     rss: {

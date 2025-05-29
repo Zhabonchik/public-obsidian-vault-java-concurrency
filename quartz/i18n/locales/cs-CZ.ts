@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min čtení`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} poznámek`,
+    },
   },
   pages: {
     rss: {

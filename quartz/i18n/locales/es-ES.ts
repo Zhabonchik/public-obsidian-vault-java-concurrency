@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `Se lee en ${minutes} min`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} notas`,
+    },
   },
   pages: {
     rss: {

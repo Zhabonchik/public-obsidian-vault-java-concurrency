@@ -60,6 +60,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `время чтения ~${minutes} мин.`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} замет${getForm(count, "ка", "ки", "ок")}`,
+    },
   },
   pages: {
     rss: {

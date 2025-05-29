@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes}分钟阅读`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count}条笔记`,
+    },
   },
   pages: {
     rss: {

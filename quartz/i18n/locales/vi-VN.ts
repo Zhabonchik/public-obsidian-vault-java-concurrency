@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `đọc ${minutes} phút`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} bài viết`,
+    },
   },
   pages: {
     rss: {

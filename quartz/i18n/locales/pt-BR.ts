@@ -57,7 +57,10 @@ export default {
       title: "Sumário",
     },
     contentMeta: {
-      readingTime: ({ minutes }) => `Leitura de ${minutes} min`,
+      readingTime: ({ minutes }) => `${minutes} min de leitura`,
+    },
+    pageCount: {
+      totalItems: ({ count }) => `${count} notas`,
     },
   },
   pages: {

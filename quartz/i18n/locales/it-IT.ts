@@ -57,7 +57,10 @@ export default {
       title: "Tabella dei contenuti",
     },
     contentMeta: {
-      readingTime: ({ minutes }) => `${minutes} minuti`,
+      readingTime: ({ minutes }) => `${minutes} min di lettura`,
+    },
+    pageCount: {
+      totalItems: ({ count }) => `${count} note`,
     },
   },
   pages: {

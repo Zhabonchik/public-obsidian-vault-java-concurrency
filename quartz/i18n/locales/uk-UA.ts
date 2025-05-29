@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} хв читання`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} нотатки`,
+    },
   },
   pages: {
     rss: {

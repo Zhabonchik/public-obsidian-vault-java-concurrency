@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min read`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count}件のページ`,
+    },
   },
   pages: {
     rss: {

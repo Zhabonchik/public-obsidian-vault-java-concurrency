@@ -57,8 +57,10 @@ export default {
       title: "Inhoudsopgave",
     },
     contentMeta: {
-      readingTime: ({ minutes }) =>
-        minutes === 1 ? "1 minuut leestijd" : `${minutes} minuten leestijd`,
+      readingTime: ({ minutes }) => `${minutes} min lezen`,
+    },
+    pageCount: {
+      totalItems: ({ count }) => `${count} notities`,
     },
   },
   pages: {

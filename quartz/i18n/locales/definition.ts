@@ -61,6 +61,9 @@ export interface Translation {
     contentMeta: {
       readingTime: (variables: { minutes: number }) => string
     }
+    pageCount: {
+      totalItems: (variables: { count: number }) => string
+    }
   }
   pages: {
     rss: {

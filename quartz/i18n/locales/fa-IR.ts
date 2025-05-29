@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `زمان تقریبی مطالعه: ${minutes} دقیقه`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} یادداشت`,
+    },
   },
   pages: {
     rss: {

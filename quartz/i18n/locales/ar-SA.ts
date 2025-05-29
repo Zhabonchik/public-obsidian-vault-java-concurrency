@@ -64,6 +64,9 @@ export default {
             ? `دقيقتان للقراءة`
             : `${minutes} دقائق للقراءة`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} ملاحظات`,
+    },
   },
   pages: {
     rss: {

@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `閱讀時間約 ${minutes} 分鐘`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} 條筆記`,
+    },
   },
   pages: {
     rss: {

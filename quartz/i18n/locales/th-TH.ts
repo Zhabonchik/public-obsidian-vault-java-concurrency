@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `อ่านราว ${minutes} นาที`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} บันทึก`,
+    },
   },
   pages: {
     rss: {

@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} dakika okuma süresi`,
     },
+    pageCount: {
+      totalItems: ({ count }) => `${count} notlar`,
+    },
   },
   pages: {
     rss: {

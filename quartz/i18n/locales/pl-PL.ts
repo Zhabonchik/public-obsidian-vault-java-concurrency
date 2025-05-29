@@ -57,7 +57,10 @@ export default {
       title: "Spis treści",
     },
     contentMeta: {
-      readingTime: ({ minutes }) => `${minutes} min. czytania `,
+      readingTime: ({ minutes }) => `${minutes} min czytania`,
+    },
+    pageCount: {
+      totalItems: ({ count }) => `${count} notatki`,
     },
   },
   pages: {
