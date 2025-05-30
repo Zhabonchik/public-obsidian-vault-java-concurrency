@@ -2,11 +2,7 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
 
-const PageCount: QuartzComponent = ({
-  allFiles,
-  displayClass,
-  cfg,
-}: QuartzComponentProps) => {
+const PageCount: QuartzComponent = ({ allFiles, displayClass, cfg }: QuartzComponentProps) => {
   const count = allFiles.length
   return (
     <div class={classNames(displayClass, "page-count")}>
