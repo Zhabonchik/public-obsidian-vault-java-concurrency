@@ -57,7 +57,7 @@ export default {
       title: "Oversikt",
     },
     contentMeta: {
-      readingTime: ({ minutes }) => `${minutes} min lesetid`,
+      readingTime: ({ minutes }) => `${minutes} min lesning`,
     },
     pageCount: {
       totalItems: ({ count }) => `${count} notater`,

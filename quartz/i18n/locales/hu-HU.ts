@@ -57,7 +57,7 @@ export default {
       title: "Tartalomjegyzék",
     },
     contentMeta: {
-      readingTime: ({ minutes }) => `${minutes} perc olvasás`,
+      readingTime: ({ minutes }) => `${minutes} perces olvasás`,
     },
     pageCount: {
       totalItems: ({ count }) => `${count} jegyzet`,

@@ -57,7 +57,7 @@ export default {
       title: "목차",
     },
     contentMeta: {
-      readingTime: ({ minutes }) => `${minutes}분 분량`,
+      readingTime: ({ minutes }) => `${minutes} min read`,
     },
     pageCount: {
       totalItems: ({ count }) => `${count}건의 페이지`,

@@ -57,7 +57,7 @@ export default {
       title: "Daftar Isi",
     },
     contentMeta: {
-      readingTime: ({ minutes }) => `${minutes} mnt baca`,
+      readingTime: ({ minutes }) => `${minutes} menit baca`,
     },
     pageCount: {
       totalItems: ({ count }) => `${count} catatan`,

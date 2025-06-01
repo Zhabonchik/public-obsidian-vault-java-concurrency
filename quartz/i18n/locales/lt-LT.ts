@@ -57,7 +57,7 @@ export default {
       title: "Turinys",
     },
     contentMeta: {
-      readingTime: ({ minutes }) => `${minutes} min. skaitymo`,
+      readingTime: ({ minutes }) => `${minutes} min skaitymo`,
     },
     pageCount: {
       totalItems: ({ count }) => `${count} užrašai`,
