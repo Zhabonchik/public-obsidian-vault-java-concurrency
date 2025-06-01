@@ -65,7 +65,7 @@ export default {
             : `${minutes} دقائق للقراءة`,
     },
     pageCount: {
-      totalItems: ({ count }) => `${count} ملاحظات`,
+      totalItems: ({ count }) => `${count} ملاحظة`,
     },
   },
   pages: {

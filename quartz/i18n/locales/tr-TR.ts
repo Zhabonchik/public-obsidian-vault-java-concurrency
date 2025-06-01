@@ -60,7 +60,7 @@ export default {
       readingTime: ({ minutes }) => `${minutes} dakika okuma süresi`,
     },
     pageCount: {
-      totalItems: ({ count }) => `${count} notlar`,
+      totalItems: ({ count }) => `${count} not`,
     },
   },
   pages: {

@@ -60,7 +60,7 @@ export default {
       readingTime: ({ minutes }) => `${minutes} min lesning`,
     },
     pageCount: {
-      totalItems: ({ count }) => `${count} notater`,
+      totalItems: ({ count }) => `${count} notat`,
     },
   },
   pages: {

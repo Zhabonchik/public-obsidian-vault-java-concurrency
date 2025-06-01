@@ -60,7 +60,7 @@ export default {
       readingTime: ({ minutes }) => `${minutes} min read`,
     },
     pageCount: {
-      totalItems: ({ count }) => `${count}건의 페이지`,
+      totalItems: ({ count }) => `${count} 건`,
     },
   },
   pages: {
