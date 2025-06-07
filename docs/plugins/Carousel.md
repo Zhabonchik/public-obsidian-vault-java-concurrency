@@ -12,10 +12,11 @@ The Carousel plugin transforms custom `<Carousel>` tags in your Markdown into in
 <img src="image2.jpg" alt="Second image">
 <img src="image3.jpg" alt="Third image">
 </Carousel>
+```
 
 ## Configuration
 
-```
+```typescript
 const config: QuartzConfig = {
   configuration: {
     // ...
@@ -28,10 +29,10 @@ const config: QuartzConfig = {
       }),
     ],
     filters: [
-       // ... 
+      // ...
     ],
     emitters: [
-       // ... 
+      // ...
     ],
   },
 }
@@ -47,4 +48,3 @@ The carousel automatically handles multiple images and provides intuitive naviga
 - Responsive: Adapts to different screen sizes
 - Accessibility: ARIA labels and keyboard navigation
 - Theme Support: Works with light/dark modes
-
