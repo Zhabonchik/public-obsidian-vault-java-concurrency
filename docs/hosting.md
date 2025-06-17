@@ -97,6 +97,7 @@ Then:
 > [!info]
 > Quartz generates files in the format of `file.html` instead of `file/index.html` which means the trailing slashes for _non-folder paths_ are dropped. As GitHub pages does not do this redirect, this may cause existing links to your site that use trailing slashes to break. If not breaking existing links is important to you (e.g. you are migrating from Quartz 3), consider using [[#Cloudflare Pages]].
 
+
 ### Custom Domain
 
 Here's how to add a custom domain to your GitHub pages deployment.
@@ -120,6 +121,47 @@ See the [GitHub documentation](https://docs.github.com/en/pages/configuring-a-cu
 > There could be many different reasons why your changes aren't showing up but the most likely reason is that you forgot to push your changes to GitHub.
 >
 > Make sure you save your changes to Git and sync it to GitHub by doing `npx quartz sync`. This will also make sure to pull any updates you may have made from other devices so you have them locally.
+
+## GitLab Pages
+
+> [!note]
+> GitLab Pages requires a verified phone number on your GitLab account to deploy pages.
+
+You can deploy your Quartz site to GitLab Pages using GitLab CI/CD. The pipeline will run on every commit to automatically build and deploy your site.
+
+### Method 1: Using `.gitlab-ci.yml`
+
+In your local Quartz, create a new file `.gitlab-ci.yml` in the root directory:
+
+```yaml title=".gitlab-ci.yml"
+# The Docker image that will be used to build your app
+image: node:lts
+create-pages:
+  pages:
+    # The folder that contains the files to be exposed at the Page URL
+    publish: public
+  rules:
+    # This ensures that only pushes to the default branch will trigger
+    # a pages deploy
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  # Functions that should be executed before the build script is run
+  before_script:
+    - npm ci
+  script:
+    - npx quartz build
+```
+
+Commit and push this file to your repository. GitLab will automatically detect the configuration and start building and deploying your site.
+
+### Method 2: Using GitLab UI
+
+Alternatively, you can set up GitLab Pages through the GitLab interface by following [GitLab's Pages UI setup guide](https://docs.gitlab.com/user/project/pages/getting_started/pages_ui/#create-the-pages-deployment).
+
+### Configuration Notes
+
+- If you've modified Quartz's output directory from the default `public` folder, make sure to update the `publish` field in your `.gitlab-ci.yml` to match your custom output directory.
+- Your site will be available at `https://<username>.gitlab.io/<repository-name>` once deployed if you've disabled `Use unique domain` in `Deploy > Pages > Domains and settings`.
+- The pipeline runs automatically on every commit to your default branch.
 
 ## Vercel
 
