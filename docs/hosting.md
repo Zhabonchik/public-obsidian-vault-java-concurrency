@@ -97,7 +97,6 @@ Then:
 > [!info]
 > Quartz generates files in the format of `file.html` instead of `file/index.html` which means the trailing slashes for _non-folder paths_ are dropped. As GitHub pages does not do this redirect, this may cause existing links to your site that use trailing slashes to break. If not breaking existing links is important to you (e.g. you are migrating from Quartz 3), consider using [[#Cloudflare Pages]].
 
-
 ### Custom Domain
 
 Here's how to add a custom domain to your GitHub pages deployment.
