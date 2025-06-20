@@ -14,6 +14,9 @@ const defaultOptions: Options = {
   showDescription: false,
 }
 
+/**
+ * LinkCard transformer plugin that processes link metadata at build time.
+ */
 export const LinkCard: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
   const opts = { ...defaultOptions, ...userOpts }
   return {

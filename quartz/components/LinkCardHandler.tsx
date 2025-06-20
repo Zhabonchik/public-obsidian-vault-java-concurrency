@@ -1,13 +1,8 @@
 // @ts-ignore
 import linkCardScript from "./scripts/linkcard.inline"
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import { QuartzComponent, QuartzComponentConstructor } from "./types"
 
-const LinkCardHandler: QuartzComponent = ({
-  displayClass: _displayClass,
-  cfg: _cfg,
-}: QuartzComponentProps) => {
-  return <></>
-}
+const LinkCardHandler: QuartzComponent = () => null
 
 LinkCardHandler.beforeDOMLoaded = linkCardScript
 
