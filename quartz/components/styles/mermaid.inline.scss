@@ -53,7 +53,7 @@ pre {
   }
 
   & > #mermaid-space {
-    border: 1px solid var(--lightgray);
+    border: 0.2vh solid var(--lightgray);
     background-color: var(--light);
     border-radius: 5px;
     position: fixed;
@@ -86,14 +86,14 @@ pre {
 
     & > .mermaid-controls {
       position: absolute;
-      bottom: 20px;
-      right: 20px;
+      bottom: 2.5vh;
+      right: 2.5vw;
       display: flex;
-      gap: 8px;
-      padding: 8px;
+      gap: 0.5vw;
+      padding: 1vh 0.5vw;
       background: var(--light);
-      border: 1px solid var(--lightgray);
-      border-radius: 6px;
+      border: 0.2vh solid var(--lightgray);
+      border-radius: 0.8vh;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       z-index: 2;
 
@@ -101,15 +101,15 @@ pre {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        height: 32px;
+        width: 4.5vh;
+        height: 4.5vh;
         padding: 0;
-        border: 1px solid var(--lightgray);
+        border: 0.2vh solid var(--lightgray);
         background: var(--light);
         color: var(--dark);
-        border-radius: 4px;
+        border-radius: 0.5vh;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 2vh;
         font-family: var(--bodyFont);
         transition: all 0.2s ease;
 
@@ -121,11 +121,10 @@ pre {
           transform: translateY(1px);
         }
 
-        // Style the reset button differently
         &:nth-child(2) {
           width: auto;
-          padding: 0 12px;
-          font-size: 14px;
+          padding: 0 1vw;
+          font-size: 2vh; 
         }
       }
     }
