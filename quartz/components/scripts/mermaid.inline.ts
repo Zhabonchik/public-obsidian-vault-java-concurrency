@@ -12,6 +12,7 @@ class DiagramPanZoom {
   private scale = 1
   private readonly MIN_SCALE = 0.5
   private readonly MAX_SCALE = 3
+  private resizeTimeout?: number
 
   cleanups: (() => void)[] = []
 
@@ -29,7 +30,7 @@ class DiagramPanZoom {
     const mouseDownHandler = this.onMouseDown.bind(this)
     const mouseMoveHandler = this.onMouseMove.bind(this)
     const mouseUpHandler = this.onMouseUp.bind(this)
-    const resizeHandler = this.resetTransform.bind(this)
+    const resizeHandler = this.onResize.bind(this)
 
     this.container.addEventListener("mousedown", mouseDownHandler)
     document.addEventListener("mousemove", mouseMoveHandler)
@@ -44,9 +45,19 @@ class DiagramPanZoom {
     )
   }
 
+  private onResize() {
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout)
+    }
+    this.resizeTimeout = window.setTimeout(() => this.resetTransform(), 50)
+  }
+
   cleanup() {
     for (const cleanup of this.cleanups) {
       cleanup()
+    }
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout)
     }
   }
 
@@ -126,17 +137,21 @@ class DiagramPanZoom {
   }
 
   private resetTransform() {
-    this.scale = 1
-
-    // Get container and SVG dimensions
+    // Get container dimensions
     const containerRect = this.container.getBoundingClientRect()
     const svg = this.content.querySelector("svg")!
+
     const svgRect = svg.getBoundingClientRect()
 
+    // svgRect is scaled by this.scale. We want the unscaled size.
+    const svgWidth = svgRect.width / this.scale
+    const svgHeight = svgRect.height / this.scale
+
+    this.scale = 1
     // Calculate center position relative to container
     this.currentPan = {
-      x: (containerRect.width - svgRect.width) / 2,
-      y: (containerRect.height - svgRect.height) / 2,
+      x: (containerRect.width - svgWidth) / 2,
+      y: (containerRect.height - svgHeight) / 2,
     }
 
     this.updateTransform()
