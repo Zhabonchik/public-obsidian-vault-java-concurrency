@@ -35,6 +35,7 @@
   flex: 0 1 auto;
   &.collapsed {
     flex: 0 1 1.2rem;
+    overflow: visible;
     & .fold {
       transform: rotateZ(-90deg);
     }
