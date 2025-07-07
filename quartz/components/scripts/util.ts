@@ -14,9 +14,14 @@ export function registerEscapeHandler(outsideContainer: HTMLElement | null, cb: 
   }
 
   outsideContainer?.addEventListener("click", click)
-  window.addCleanup(() => outsideContainer?.removeEventListener("click", click))
+  // Use type assertion to avoid TypeScript error when checking individual files
+  if (typeof (window as any).addCleanup === 'function') {
+    (window as any).addCleanup(() => outsideContainer?.removeEventListener("click", click))
+  }
   document.addEventListener("keydown", esc)
-  window.addCleanup(() => document.removeEventListener("keydown", esc))
+  if (typeof (window as any).addCleanup === 'function') {
+    (window as any).addCleanup(() => document.removeEventListener("keydown", esc))
+  }
 }
 
 export function removeAllChildren(node: HTMLElement) {
@@ -45,6 +50,39 @@ export async function fetchCanonical(url: URL): Promise<Response> {
   return redirect ? fetch(`${new URL(redirect, url)}`) : res
 }
 
+// Keep track of active highlights to clean them up
+let activeHighlights: Set<{
+  element: HTMLElement,
+  originalBackground: string,
+  originalTransition: string,
+  timeoutId: number
+}> = new Set()
+
+/**
+ * Clears all active highlights immediately
+ */
+export function clearAllHighlights() {
+  // Clear tracked highlights
+  activeHighlights.forEach(({ element, originalBackground, originalTransition, timeoutId }) => {
+    clearTimeout(timeoutId)
+    element.style.backgroundColor = originalBackground
+    element.style.transition = originalTransition
+  })
+  activeHighlights.clear()
+  
+  // Also clear any highlights that might not be tracked (backup cleanup)
+  // This catches highlights in popovers or other edge cases
+  const allHighlightedElements = document.querySelectorAll('[style*="background-color"]')
+  allHighlightedElements.forEach((el) => {
+    const element = el as HTMLElement
+    if (element.style.backgroundColor.includes('var(--highlight') || 
+        element.style.backgroundColor.includes('#ffeb3b')) {
+      element.style.backgroundColor = ''
+      element.style.transition = ''
+    }
+  })
+}
+
 /**
  * Highlights an element with a temporary background color effect
  * @param el - The element to highlight
@@ -52,6 +90,14 @@ export async function fetchCanonical(url: URL): Promise<Response> {
  * @param color - The highlight color (default: uses CSS variable --highlight)
  */
 export function highlightElement(el: HTMLElement, duration: number = 2000, color: string = 'var(--highlight, #ffeb3b40)') {
+  // Clear any existing highlight on this element
+  activeHighlights.forEach((highlight) => {
+    if (highlight.element === el) {
+      clearTimeout(highlight.timeoutId)
+      activeHighlights.delete(highlight)
+    }
+  })
+  
   // Store original styles
   const originalBackground = el.style.backgroundColor
   const originalTransition = el.style.transition
@@ -60,14 +106,28 @@ export function highlightElement(el: HTMLElement, duration: number = 2000, color
   el.style.transition = 'background-color 0.3s ease'
   el.style.backgroundColor = color
   
-  // Remove highlight after specified duration
-  setTimeout(() => {
+  // Set up cleanup
+  const timeoutId = window.setTimeout(() => {
     el.style.backgroundColor = originalBackground
     // Remove transition after background fades back
     setTimeout(() => {
       el.style.transition = originalTransition
+      // Remove from active highlights
+      activeHighlights.forEach((highlight) => {
+        if (highlight.element === el) {
+          activeHighlights.delete(highlight)
+        }
+      })
     }, 300)
   }, duration)
+  
+  // Track this highlight
+  activeHighlights.add({
+    element: el,
+    originalBackground,
+    originalTransition,
+    timeoutId
+  })
 }
 
 /**
@@ -113,14 +173,20 @@ export function scrollInContainerToElement(
   highlight: boolean = true,
   behavior: ScrollBehavior = 'instant'
 ) {
-  const targetPosition = target.offsetTop - buffer
-  container.scroll({ 
-    top: Math.max(0, targetPosition), 
-    behavior 
+  // Use requestAnimationFrame to ensure content is rendered before scrolling
+  requestAnimationFrame(() => {
+    const targetPosition = target.offsetTop - buffer
+    container.scroll({ 
+      top: Math.max(0, targetPosition), 
+      behavior 
+    })
+    
+    // Add highlight effect if requested
+    if (highlight) {
+      // Small delay to ensure scroll completes before highlighting
+      setTimeout(() => {
+        highlightElement(target)
+      }, 50)
+    }
   })
-  
-  // Add highlight effect if requested
-  if (highlight) {
-    highlightElement(target)
-  }
 }
