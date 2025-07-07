@@ -1,6 +1,7 @@
 import { computePosition, flip, inline, shift } from "@floating-ui/dom"
+import { fetchCanonical, scrollInContainerToElement } from "./util"
+
 import { normalizeRelativeURLs } from "../../util/path"
-import { fetchCanonical } from "./util"
 
 const p = new DOMParser()
 let activeAnchor: HTMLAnchorElement | null = null
@@ -33,8 +34,8 @@ async function mouseEnterHandler(
       const targetAnchor = `#popover-internal-${hash.slice(1)}`
       const heading = popoverInner.querySelector(targetAnchor) as HTMLElement | null
       if (heading) {
-        // leave ~12px of buffer when scrolling to a heading
-        popoverInner.scroll({ top: heading.offsetTop - 12, behavior: "instant" })
+        // Use utility function to scroll with buffer and highlight
+        scrollInContainerToElement(popoverInner, heading, 20, true, "instant")
       }
     }
   }
