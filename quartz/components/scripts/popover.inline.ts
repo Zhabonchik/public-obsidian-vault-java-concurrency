@@ -39,32 +39,32 @@ async function mouseEnterHandler(
       if (popoverInner) {
         const hashWithoutPound = targetHash.slice(1)
         const targetAnchor = `popover-internal-${hashWithoutPound}`
-        
+
         // Try to find the element by ID first
         let heading = popoverInner.querySelector(`#${targetAnchor}`) as HTMLElement | null
-        
+
         // If not found by ID, try to find by text content (fallback for headings)
         if (!heading) {
-          const headings = popoverInner.querySelectorAll('h1, h2, h3, h4, h5, h6')
+          const headings = popoverInner.querySelectorAll("h1, h2, h3, h4, h5, h6")
           for (const h of headings) {
             const headingElement = h as HTMLElement
-            const headingText = headingElement.textContent?.trim().toLowerCase() || ''
-            const targetText = hashWithoutPound.toLowerCase().replace(/-/g, ' ')
-            
+            const headingText = headingElement.textContent?.trim().toLowerCase() || ""
+            const targetText = hashWithoutPound.toLowerCase().replace(/-/g, " ")
+
             // More strict matching: avoid matching very short headings unless they're exact matches
             const isExactMatch = headingText === targetText
-            const isSubstringMatch = headingText.length >= 3 && (
-              headingText.includes(targetText) || 
-              (targetText.length >= 3 && targetText.includes(headingText))
-            )
-            
+            const isSubstringMatch =
+              headingText.length >= 3 &&
+              (headingText.includes(targetText) ||
+                (targetText.length >= 3 && targetText.includes(headingText)))
+
             if (isExactMatch || isSubstringMatch) {
               heading = headingElement
               break
             }
           }
         }
-        
+
         if (heading) {
           // Use utility function to scroll with buffer and highlight
           scrollInContainerToElement(popoverInner, heading, 20, true, "instant")
@@ -168,8 +168,8 @@ document.addEventListener("nav", () => {
     link.addEventListener("mouseenter", mouseEnterHandler)
     link.addEventListener("mouseleave", clearActivePopoverAndHighlights)
     // Use type assertion to avoid TypeScript error when checking individual files
-    if (typeof (window as any).addCleanup === 'function') {
-      (window as any).addCleanup(() => {
+    if (typeof (window as any).addCleanup === "function") {
+      ;(window as any).addCleanup(() => {
         link.removeEventListener("mouseenter", mouseEnterHandler)
         link.removeEventListener("mouseleave", clearActivePopoverAndHighlights)
       })
