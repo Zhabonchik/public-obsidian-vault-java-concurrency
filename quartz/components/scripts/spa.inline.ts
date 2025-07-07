@@ -1,6 +1,7 @@
-import micromorph from "micromorph"
 import { FullSlug, RelativeURL, getFullSlug, normalizeRelativeURLs } from "../../util/path"
-import { fetchCanonical } from "./util"
+import { fetchCanonical, scrollToElementWithBuffer } from "./util"
+
+import micromorph from "micromorph"
 
 // adapted from `micromorph`
 // https://github.com/natemoo-re/micromorph
@@ -108,7 +109,9 @@ async function _navigate(url: URL, isBack: boolean = false) {
   if (!isBack) {
     if (url.hash) {
       const el = document.getElementById(decodeURIComponent(url.hash.substring(1)))
-      el?.scrollIntoView()
+      if (el) {
+        scrollToElementWithBuffer(el)
+      }
     } else {
       window.scrollTo({ top: 0 })
     }
@@ -155,7 +158,9 @@ function createRouter() {
 
       if (isSamePage(url) && url.hash) {
         const el = document.getElementById(decodeURIComponent(url.hash.substring(1)))
-        el?.scrollIntoView()
+        if (el) {
+          scrollToElementWithBuffer(el)
+        }
         history.pushState({}, "", url)
         return
       }

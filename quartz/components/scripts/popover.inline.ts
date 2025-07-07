@@ -1,6 +1,7 @@
+import { clearAllHighlights, fetchCanonical, scrollInContainerToElement } from "./util"
 import { computePosition, flip, inline, shift } from "@floating-ui/dom"
+
 import { normalizeRelativeURLs } from "../../util/path"
-import { fetchCanonical } from "./util"
 
 const p = new DOMParser()
 let activeAnchor: HTMLAnchorElement | null = null
@@ -14,6 +15,9 @@ async function mouseEnterHandler(
     return
   }
 
+  // Clear any existing highlights immediately when entering a new link
+  clearAllHighlights()
+
   async function setPosition(popoverElement: HTMLElement) {
     const { x, y } = await computePosition(link, popoverElement, {
       strategy: "fixed",
@@ -24,17 +28,47 @@ async function mouseEnterHandler(
     })
   }
 
-  function showPopover(popoverElement: HTMLElement) {
+  function showPopover(popoverElement: HTMLElement, targetHash: string = "") {
     clearActivePopover()
     popoverElement.classList.add("active-popover")
     setPosition(popoverElement as HTMLElement)
 
-    if (hash !== "") {
-      const targetAnchor = `#popover-internal-${hash.slice(1)}`
-      const heading = popoverInner.querySelector(targetAnchor) as HTMLElement | null
-      if (heading) {
-        // leave ~12px of buffer when scrolling to a heading
-        popoverInner.scroll({ top: heading.offsetTop - 12, behavior: "instant" })
+    // Always scroll to hash anchor if present, regardless of popover state
+    if (targetHash !== "") {
+      const popoverInner = popoverElement.querySelector(".popover-inner") as HTMLElement | null
+      if (popoverInner) {
+        const hashWithoutPound = targetHash.slice(1)
+        const targetAnchor = `popover-internal-${hashWithoutPound}`
+        
+        // Try to find the element by ID first
+        let heading = popoverInner.querySelector(`#${targetAnchor}`) as HTMLElement | null
+        
+        // If not found by ID, try to find by text content (fallback for headings)
+        if (!heading) {
+          const headings = popoverInner.querySelectorAll('h1, h2, h3, h4, h5, h6')
+          for (const h of headings) {
+            const headingElement = h as HTMLElement
+            const headingText = headingElement.textContent?.trim().toLowerCase() || ''
+            const targetText = hashWithoutPound.toLowerCase().replace(/-/g, ' ')
+            
+            // More strict matching: avoid matching very short headings unless they're exact matches
+            const isExactMatch = headingText === targetText
+            const isSubstringMatch = headingText.length >= 3 && (
+              headingText.includes(targetText) || 
+              (targetText.length >= 3 && targetText.includes(headingText))
+            )
+            
+            if (isExactMatch || isSubstringMatch) {
+              heading = headingElement
+              break
+            }
+          }
+        }
+        
+        if (heading) {
+          // Use utility function to scroll with buffer and highlight
+          scrollInContainerToElement(popoverInner, heading, 20, true, "instant")
+        }
       }
     }
   }
@@ -48,7 +82,7 @@ async function mouseEnterHandler(
 
   // dont refetch if there's already a popover
   if (!!document.getElementById(popoverId)) {
-    showPopover(prevPopoverElement as HTMLElement)
+    showPopover(prevPopoverElement as HTMLElement, hash)
     return
   }
 
@@ -96,7 +130,7 @@ async function mouseEnterHandler(
         const targetID = `popover-internal-${el.id}`
         el.id = targetID
       })
-      const elts = [...html.getElementsByClassName("popover-hint")]
+      const elts = Array.from(html.getElementsByClassName("popover-hint"))
       if (elts.length === 0) return
 
       elts.forEach((elt) => popoverInner.appendChild(elt))
@@ -111,23 +145,34 @@ async function mouseEnterHandler(
     return
   }
 
-  showPopover(popoverElement)
+  showPopover(popoverElement, hash)
 }
 
 function clearActivePopover() {
   activeAnchor = null
   const allPopoverElements = document.querySelectorAll(".popover")
   allPopoverElements.forEach((popoverElement) => popoverElement.classList.remove("active-popover"))
+  // Clear any remaining highlights when closing popovers
+  clearAllHighlights()
+}
+
+function clearActivePopoverAndHighlights() {
+  clearActivePopover()
+  // Also clear highlights immediately when mouse leaves
+  clearAllHighlights()
 }
 
 document.addEventListener("nav", () => {
-  const links = [...document.querySelectorAll("a.internal")] as HTMLAnchorElement[]
+  const links = Array.from(document.querySelectorAll("a.internal")) as HTMLAnchorElement[]
   for (const link of links) {
     link.addEventListener("mouseenter", mouseEnterHandler)
-    link.addEventListener("mouseleave", clearActivePopover)
-    window.addCleanup(() => {
-      link.removeEventListener("mouseenter", mouseEnterHandler)
-      link.removeEventListener("mouseleave", clearActivePopover)
-    })
+    link.addEventListener("mouseleave", clearActivePopoverAndHighlights)
+    // Use type assertion to avoid TypeScript error when checking individual files
+    if (typeof (window as any).addCleanup === 'function') {
+      (window as any).addCleanup(() => {
+        link.removeEventListener("mouseenter", mouseEnterHandler)
+        link.removeEventListener("mouseleave", clearActivePopoverAndHighlights)
+      })
+    }
   }
 })
