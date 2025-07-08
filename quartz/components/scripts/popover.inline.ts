@@ -167,9 +167,8 @@ document.addEventListener("nav", () => {
   for (const link of links) {
     link.addEventListener("mouseenter", mouseEnterHandler)
     link.addEventListener("mouseleave", clearActivePopoverAndHighlights)
-    // Use type assertion to avoid TypeScript error when checking individual files
-    if (typeof (window as any).addCleanup === "function") {
-      ;(window as any).addCleanup(() => {
+    if (typeof window.addCleanup === "function") {
+      window.addCleanup(() => {
         link.removeEventListener("mouseenter", mouseEnterHandler)
         link.removeEventListener("mouseleave", clearActivePopoverAndHighlights)
       })
