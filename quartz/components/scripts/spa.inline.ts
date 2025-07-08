@@ -1,7 +1,6 @@
+import micromorph from "micromorph"
 import { FullSlug, RelativeURL, getFullSlug, normalizeRelativeURLs } from "../../util/path"
 import { fetchCanonical, scrollToElementWithBuffer } from "./util"
-
-import micromorph from "micromorph"
 
 // adapted from `micromorph`
 // https://github.com/natemoo-re/micromorph
