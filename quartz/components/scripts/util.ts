@@ -82,7 +82,7 @@ export function highlightElement(
   color: string = "var(--highlight, #ffeb3b40)",
 ) {
   // Clear any existing highlight on this element
-  const existingHighlight = Array.from(activeHighlights).find(h => h.element === el)
+  const existingHighlight = Array.from(activeHighlights).find((h) => h.element === el)
   if (existingHighlight) {
     clearTimeout(existingHighlight.timeoutId)
     activeHighlights.delete(existingHighlight)
