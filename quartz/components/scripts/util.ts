@@ -68,20 +68,6 @@ export function clearAllHighlights() {
     element.style.transition = originalTransition
   })
   activeHighlights.clear()
-
-  // Also clear any highlights that might not be tracked (backup cleanup)
-  // This catches highlights in popovers or other edge cases
-  const allHighlightedElements = document.querySelectorAll('[style*="background-color"]')
-  allHighlightedElements.forEach((el) => {
-    const element = el as HTMLElement
-    if (
-      element.style.backgroundColor.includes("var(--highlight") ||
-      element.style.backgroundColor.includes("#ffeb3b")
-    ) {
-      element.style.backgroundColor = ""
-      element.style.transition = ""
-    }
-  })
 }
 
 /**
