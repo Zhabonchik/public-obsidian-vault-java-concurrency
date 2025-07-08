@@ -96,12 +96,11 @@ export function highlightElement(
   color: string = "var(--highlight, #ffeb3b40)",
 ) {
   // Clear any existing highlight on this element
-  activeHighlights.forEach((highlight) => {
-    if (highlight.element === el) {
-      clearTimeout(highlight.timeoutId)
-      activeHighlights.delete(highlight)
-    }
-  })
+  const existingHighlight = Array.from(activeHighlights).find(h => h.element === el)
+  if (existingHighlight) {
+    clearTimeout(existingHighlight.timeoutId)
+    activeHighlights.delete(existingHighlight)
+  }
 
   // Store original styles
   const originalBackground = el.style.backgroundColor
@@ -112,27 +111,21 @@ export function highlightElement(
   el.style.backgroundColor = color
 
   // Set up cleanup
-  const timeoutId = window.setTimeout(() => {
-    el.style.backgroundColor = originalBackground
-    // Remove transition after background fades back
-    setTimeout(() => {
-      el.style.transition = originalTransition
-      // Remove from active highlights
-      activeHighlights.forEach((highlight) => {
-        if (highlight.element === el) {
-          activeHighlights.delete(highlight)
-        }
-      })
-    }, 300)
-  }, duration)
-
-  // Track this highlight
-  activeHighlights.add({
+  const highlight = {
     element: el,
     originalBackground,
     originalTransition,
-    timeoutId,
-  })
+    timeoutId: 0,
+  }
+
+  highlight.timeoutId = window.setTimeout(() => {
+    el.style.backgroundColor = originalBackground
+    el.style.transition = originalTransition
+    activeHighlights.delete(highlight)
+  }, duration)
+
+  // Track this highlight
+  activeHighlights.add(highlight)
 }
 
 /**
