@@ -130,7 +130,7 @@ async function mouseEnterHandler(
         const targetID = `popover-internal-${el.id}`
         el.id = targetID
       })
-      const elts = Array.from(html.getElementsByClassName("popover-hint"))
+      const elts = [...html.getElementsByClassName("popover-hint")]
       if (elts.length === 0) return
 
       elts.forEach((elt) => popoverInner.appendChild(elt))

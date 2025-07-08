@@ -161,20 +161,15 @@ export function scrollInContainerToElement(
   highlight: boolean = true,
   behavior: ScrollBehavior = "instant",
 ) {
-  // Use requestAnimationFrame to ensure content is rendered before scrolling
-  requestAnimationFrame(() => {
-    const targetPosition = target.offsetTop - buffer
-    container.scroll({
-      top: Math.max(0, targetPosition),
-      behavior,
-    })
-
-    // Add highlight effect if requested
-    if (highlight) {
-      // Small delay to ensure scroll completes before highlighting
-      setTimeout(() => {
-        highlightElement(target)
-      }, 50)
-    }
+  // Scroll immediately, since content should already be rendered in a static site
+  const targetPosition = target.offsetTop - buffer
+  container.scroll({
+    top: Math.max(0, targetPosition),
+    behavior,
   })
+
+  // Add highlight effect if requested
+  if (highlight) {
+    highlightElement(target)
+  }
 }
