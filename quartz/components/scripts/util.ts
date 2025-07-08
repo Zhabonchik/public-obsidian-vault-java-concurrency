@@ -14,13 +14,12 @@ export function registerEscapeHandler(outsideContainer: HTMLElement | null, cb: 
   }
 
   outsideContainer?.addEventListener("click", click)
-  // Use type assertion to avoid TypeScript error when checking individual files
-  if (typeof (window as any).addCleanup === "function") {
-    ;(window as any).addCleanup(() => outsideContainer?.removeEventListener("click", click))
+  if (typeof window.addCleanup === "function") {
+    window.addCleanup(() => outsideContainer?.removeEventListener("click", click))
   }
   document.addEventListener("keydown", esc)
-  if (typeof (window as any).addCleanup === "function") {
-    ;(window as any).addCleanup(() => document.removeEventListener("keydown", esc))
+  if (typeof window.addCleanup === "function") {
+    window.addCleanup(() => document.removeEventListener("keydown", esc))
   }
 }
 
