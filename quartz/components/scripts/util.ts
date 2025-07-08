@@ -14,13 +14,12 @@ export function registerEscapeHandler(outsideContainer: HTMLElement | null, cb: 
   }
 
   outsideContainer?.addEventListener("click", click)
-  // Use type assertion to avoid TypeScript error when checking individual files
-  if (typeof (window as any).addCleanup === "function") {
-    ;(window as any).addCleanup(() => outsideContainer?.removeEventListener("click", click))
+  if (typeof window.addCleanup === "function") {
+    window.addCleanup(() => outsideContainer?.removeEventListener("click", click))
   }
   document.addEventListener("keydown", esc)
-  if (typeof (window as any).addCleanup === "function") {
-    ;(window as any).addCleanup(() => document.removeEventListener("keydown", esc))
+  if (typeof window.addCleanup === "function") {
+    window.addCleanup(() => document.removeEventListener("keydown", esc))
   }
 }
 
@@ -69,20 +68,6 @@ export function clearAllHighlights() {
     element.style.transition = originalTransition
   })
   activeHighlights.clear()
-
-  // Also clear any highlights that might not be tracked (backup cleanup)
-  // This catches highlights in popovers or other edge cases
-  const allHighlightedElements = document.querySelectorAll('[style*="background-color"]')
-  allHighlightedElements.forEach((el) => {
-    const element = el as HTMLElement
-    if (
-      element.style.backgroundColor.includes("var(--highlight") ||
-      element.style.backgroundColor.includes("#ffeb3b")
-    ) {
-      element.style.backgroundColor = ""
-      element.style.transition = ""
-    }
-  })
 }
 
 /**
@@ -97,12 +82,11 @@ export function highlightElement(
   color: string = "var(--highlight, #ffeb3b40)",
 ) {
   // Clear any existing highlight on this element
-  activeHighlights.forEach((highlight) => {
-    if (highlight.element === el) {
-      clearTimeout(highlight.timeoutId)
-      activeHighlights.delete(highlight)
-    }
-  })
+  const existingHighlight = Array.from(activeHighlights).find(h => h.element === el)
+  if (existingHighlight) {
+    clearTimeout(existingHighlight.timeoutId)
+    activeHighlights.delete(existingHighlight)
+  }
 
   // Store original styles
   const originalBackground = el.style.backgroundColor
@@ -113,27 +97,21 @@ export function highlightElement(
   el.style.backgroundColor = color
 
   // Set up cleanup
-  const timeoutId = window.setTimeout(() => {
-    el.style.backgroundColor = originalBackground
-    // Remove transition after background fades back
-    setTimeout(() => {
-      el.style.transition = originalTransition
-      // Remove from active highlights
-      activeHighlights.forEach((highlight) => {
-        if (highlight.element === el) {
-          activeHighlights.delete(highlight)
-        }
-      })
-    }, 300)
-  }, duration)
-
-  // Track this highlight
-  activeHighlights.add({
+  const highlight = {
     element: el,
     originalBackground,
     originalTransition,
-    timeoutId,
-  })
+    timeoutId: 0,
+  }
+
+  highlight.timeoutId = window.setTimeout(() => {
+    el.style.backgroundColor = originalBackground
+    el.style.transition = originalTransition
+    activeHighlights.delete(highlight)
+  }, duration)
+
+  // Track this highlight
+  activeHighlights.add(highlight)
 }
 
 /**
@@ -183,20 +161,15 @@ export function scrollInContainerToElement(
   highlight: boolean = true,
   behavior: ScrollBehavior = "instant",
 ) {
-  // Use requestAnimationFrame to ensure content is rendered before scrolling
-  requestAnimationFrame(() => {
-    const targetPosition = target.offsetTop - buffer
-    container.scroll({
-      top: Math.max(0, targetPosition),
-      behavior,
-    })
-
-    // Add highlight effect if requested
-    if (highlight) {
-      // Small delay to ensure scroll completes before highlighting
-      setTimeout(() => {
-        highlightElement(target)
-      }, 50)
-    }
+  // Scroll immediately, since content should already be rendered in a static site
+  const targetPosition = target.offsetTop - buffer
+  container.scroll({
+    top: Math.max(0, targetPosition),
+    behavior,
   })
+
+  // Add highlight effect if requested
+  if (highlight) {
+    highlightElement(target)
+  }
 }

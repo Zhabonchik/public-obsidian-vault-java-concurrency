@@ -130,7 +130,7 @@ async function mouseEnterHandler(
         const targetID = `popover-internal-${el.id}`
         el.id = targetID
       })
-      const elts = Array.from(html.getElementsByClassName("popover-hint"))
+      const elts = [...html.getElementsByClassName("popover-hint")]
       if (elts.length === 0) return
 
       elts.forEach((elt) => popoverInner.appendChild(elt))
@@ -167,9 +167,8 @@ document.addEventListener("nav", () => {
   for (const link of links) {
     link.addEventListener("mouseenter", mouseEnterHandler)
     link.addEventListener("mouseleave", clearActivePopoverAndHighlights)
-    // Use type assertion to avoid TypeScript error when checking individual files
-    if (typeof (window as any).addCleanup === "function") {
-      ;(window as any).addCleanup(() => {
+    if (typeof window.addCleanup === "function") {
+      window.addCleanup(() => {
         link.removeEventListener("mouseenter", mouseEnterHandler)
         link.removeEventListener("mouseleave", clearActivePopoverAndHighlights)
       })
