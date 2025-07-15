@@ -99,7 +99,12 @@ const REGEXP = /\[!!([^\]]+)\]/gm
 const CODEREGEX = /`([^`\n]+)`/g
 
 export interface Options {
-  customBadges: Array<[string, string, [number, number, number, number], number]> // Write in format [ [icon,name,[RED,GREEN,BLUE,ALPHA],TEXT_ALPHA], [icon,name,[RED,GREEN,BLUE,ALPHA],TEXT_ALPHA] ]
+  customBadges: Array<{
+    name: string
+    icon: string
+    color: [number, number, number, number]
+    textOpacity: number
+  }>
   useObsidianCSS: boolean
 }
 
@@ -116,7 +121,7 @@ export const InlineBadges: QuartzTransformerPlugin<Partial<Options>> = (userOpts
     textTransform(_ctx, src) {
       // Append custom badges.
       for (let badge of opts.customBadges) {
-        allBadges.push([badge[1], badge[1], badge[0]]) // Pushes it to the array in the format [icon,icon,name].
+        allBadges.push([badge.name, badge.name, badge.icon]) // Pushes it to the array in the format.
       }
 
       var srcReplacement: string = src //Start by assuming there are no badges.
@@ -143,13 +148,13 @@ export const InlineBadges: QuartzTransformerPlugin<Partial<Options>> = (userOpts
       })
       // Sets the colour of custom badges.
       for (let badgeDef of opts.customBadges) {
-        let badgeColor: string = `${badgeDef[2][0]},${badgeDef[2][1]},${badgeDef[2][2]}`
-        let textColor: string = `rgba(var(--badge-color),${badgeDef[3]})`
-        let badgeName: string = badgeDef[1] // Removes the "" from the name.
+        let badgeColor: string = `${badgeDef.color[0]},${badgeDef.color[1]},${badgeDef.color[2]}`
+        let textColor: string = `rgba(var(--badge-color),${badgeDef.textOpacity})`
+        let badgeName: string = badgeDef.name
         css.push({
           content: `.inline-badge[data-inline-badge=${badgeName}] {
                       --badge-color: ${badgeColor};
-                      color: rgba(var(--badge-color), ${badgeDef[2][3]});
+                      color: rgba(var(--badge-color), ${badgeDef.color[3]});
                       background-color: ${textColor};
                     }`,
           inline: true,
