@@ -98,7 +98,7 @@ const REGEXP = /\[!!([^\]]+)\]/gm
 const CODEREGEX = /`([^`\n]+)`/g
 
 export interface Options {
-  customBadges: Array, // Write in format [ [icon,name,[RED,GREEN,BLUE,ALPHA],TEXT_ALPHA], [icon,name,[RED,GREEN,BLUE,ALPHA],TEXT_ALPHA] ]
+  customBadges: Array<[string, string, [number, number, number, number], number]>, // Write in format [ [icon,name,[RED,GREEN,BLUE,ALPHA],TEXT_ALPHA], [icon,name,[RED,GREEN,BLUE,ALPHA],TEXT_ALPHA] ]
 }
 
 const defaultOptions: Options = {
