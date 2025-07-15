@@ -92,18 +92,30 @@ export const BADGE_TYPES: any[] = [
   ["vault", "Vault", "vault"],
 ]
 
+var allBadges: any[] = BADGE_TYPES //Append custom badges to the end of this array.
+
 const REGEXP = /\[!!([^\]]+)\]/gm
 const CODEREGEX = /`([^`\n]+)`/g
 
-// This plugin has no options.
 export interface Options {
-  dummyOption: boolean
+  customBadges: Array, // Write in format [ [icon,name,[RED,GREEN,BLUE,ALPHA],TEXT_ALPHA], [icon,name,[RED,GREEN,BLUE,ALPHA],TEXT_ALPHA] ]
 }
 
-export const InlineBadges: QuartzTransformerPlugin<Partial<Options>> = (_userOpts) => {
+const defaultOptions: Options = {
+  customBadges: []
+}
+
+export const InlineBadges: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
+  const opts = { ...defaultOptions, ...userOpts }
+
   return {
     name: "InlineBadges",
     textTransform(_ctx, src) {
+      // Append custom badges.
+      for (let badge of opts.customBadges){
+        allBadges.push([badge[1],badge[1],badge[0]]) // Pushes it to the array in the format [icon,icon,name].
+      }
+
       var srcReplacement: string = src //Start by assuming there are no badges.
       for (const match of src.matchAll(CODEREGEX)) {
         for (const badgeMatch of match[0].matchAll(REGEXP)) {
@@ -126,6 +138,20 @@ export const InlineBadges: QuartzTransformerPlugin<Partial<Options>> = (_userOpt
         content: ".inline-badge .inline-badge-icon svg {display: flex;align-self: center;}",
         inline: true,
       })
+      // Sets the colour of custom badges.
+      for (let badgeDef of opts.customBadges){
+       let badgeColor: string = `${badgeDef[2][0]},${badgeDef[2][1]},${badgeDef[2][2]}`
+       let textColor:  string = `rgba(var(--badge-color),${badgeDef[3]})`
+       let badgeName: string = badgeDef[1] // Removes the "" from the name.
+        css.push({
+         content: `.inline-badge[data-inline-badge=${badgeName}] {
+                      --badge-color: ${badgeColor};
+                      color: rgba(var(--badge-color), ${badgeDef[2][3]});
+                      background-color: ${textColor};
+                    }`,
+        inline: true,
+      })
+      }
       return { js, css }
     },
   }
@@ -201,7 +227,7 @@ function buildBadge(text: string) {
     } else {
       // Non-github
       attrType = badgeType.trim()
-      BADGE_TYPES.forEach((el) => {
+      allBadges.forEach((el) => {
         if (el.indexOf(badgeType.toLowerCase()) == 0 && el[2].length > 0) {
           iconEl = `<span class="inline-badge-icon" aria-label=${badgeType.trim()}>${getLucideIconSvg(el[2])}</span>`
         }
