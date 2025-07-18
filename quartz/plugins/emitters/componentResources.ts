@@ -209,6 +209,14 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       matomoScript.innerHTML = \`
       var _paq = window._paq = window._paq || [];
       var currentUrl = location.href;
+      // https://developer.matomo.org/guides/spa-tracking
+
+      // Track SPA navigation
+      document.addEventListener("nav", () => {
+        _paq.push(['setCustomUrl', location.pathname]);
+        _paq.push(['setDocumentTitle', document.title]);
+        _paq.push(['trackPageView']);
+      });
 
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
