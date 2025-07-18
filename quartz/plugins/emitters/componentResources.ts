@@ -201,6 +201,28 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       })(window, document, "clarity", "script", "${cfg.analytics.projectId}");\`
       document.head.appendChild(clarityScript)
     `)
+  } else if (cfg.analytics?.provider === "matomo") {
+    const siteId = cfg.analytics.siteId
+    const matomoHost = cfg.analytics.host
+    componentResources.afterDOMLoaded.push(`
+      const matomoScript = document.createElement("script");
+      matomoScript.innerHTML = \`
+      var _paq = window._paq = window._paq || [];
+      var currentUrl = location.href;
+
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//${matomoHost}/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', ${siteId}]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName
+('script')[0];
+        g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+      \`
+      document.head.appendChild(matomoScript);
+    `)
   }
 
   if (cfg.enableSPA) {
