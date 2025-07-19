@@ -1,3 +1,6 @@
+# Belief in Angels in Islam
+
+30-06-2025
 [[Islamic Studies]] [[religion]] 
 
 Belief in angels is one of the articles of Islamic faith. Non-believers thought of angels to be lesser deities or daughters of Allah, but [[The Doctrine of Tawhid in Islam|Tawhid]] claims that there is no god but Allah. Therefore, the angels do not share in His divinity and are His servants just like humans.

@@ -1,3 +1,6 @@
+# Indus Waters Treaty suspended by India after Pahalgam attack
+
+07-07-2025
 [[Pakistan Affairs]] [[international relations]] 
 
 ## History

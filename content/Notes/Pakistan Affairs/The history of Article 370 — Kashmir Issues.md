@@ -1,3 +1,6 @@
+# The history of Article 370 — Kashmir Issues
+
+03-07-2025
 [[history]] [[Pakistan Affairs]] 
 
 Before the partition of India, the British used to rule via two methods. In certain areas they had direct government and direct rule (provinces), while in others, they were ruling indirectly through a local raja or Nizam. These areas were called the princely states. The princely states were allowed to manage all internal affairs except for three important ones: defense, foreign affairs, and communications. There were a total of 565 princely states in India.

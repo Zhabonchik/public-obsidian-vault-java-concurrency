@@ -1,3 +1,6 @@
+# Challenges and Opportunities in redefining Pak-US relations in a post-9/11 and post-Afghanistan context
+
+05-07-2025
 [[Pakistan Affairs]] 
 
 The Pakistan–United States relationship has historically been defined by strategic necessities rather than mutual convergence. From the Cold War alliances to the post-9/11 cooperation in the War on Terror, relations have remained transactional and security-focused. With the withdrawal of US forces from Afghanistan (2021), this relationship has entered a transitional phase, creating both challenges and opportunities for a more balanced, multi-dimensional relationship rooted in economic, technological, and regional cooperation.

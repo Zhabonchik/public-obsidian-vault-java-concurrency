@@ -1,3 +1,6 @@
+# Belt and Road Inititative (BRI)
+
+12-07-2025
 [[Pakistan Affairs]] [[international relations]] 
 
 The Belt and Road Initiative is a global infrastructure development strategy adopted by the government of China in 2013 to invest in more than 150 countries and international organizations. The BRI is composed of six urban development land corridors linked by road, rail, energy, digital infrastructure, and the Maritime Silk Road linked by the development of ports.

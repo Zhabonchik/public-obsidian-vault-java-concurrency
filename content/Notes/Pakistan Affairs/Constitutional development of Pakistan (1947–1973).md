@@ -1,3 +1,6 @@
+# Constitutional development of Pakistan (1947–1973)
+
+26-06-2025
 
 [[Pakistan Affairs]] [[history]] 
 

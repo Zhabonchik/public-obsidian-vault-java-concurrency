@@ -1,3 +1,6 @@
+# Political structure of Pakistan and the ideal structure for political stability
+
+19-06-2025
 [[Pakistan Affairs]] [[current affairs]]
 
 Since its inception in 1947, Pakistan has been a Federal Parliamentary Republic and has been guided by the Constitution of 1973. However, the political landscape of Pakistan has faced various challenges in the form of military coups and interference, weak democratic institutions, and dynastic politics within political parties. Understanding Pakistan's political structure is necessary to understand the country's governance challenges and determine which system is best for fostering political stability.

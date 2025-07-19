@@ -1,3 +1,6 @@
+# The Doctrine of Tawhid in Islam
+
+30-06-2025
 [[Islamic Studies]] [[religion]] 
 
 The doctrine of Tawhid (Oneness of Allah) is the most important article of faith in Islam. It means that there is no god but Allah, and He is the supreme Being, the highest authority, and the only one worthy of worship. 

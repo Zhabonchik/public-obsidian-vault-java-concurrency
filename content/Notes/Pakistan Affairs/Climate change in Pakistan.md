@@ -1,3 +1,6 @@
+# Climate change in Pakistan
+
+09-07-2025
 [[Pakistan Affairs]] 
 
 Pakistan is ranked number 5th in the countries affected by extreme weather caused by climate change even thought Pakistan's greenhouse gas (GHG) emissions are less than 1% of the world total. Pakistan faces severe issues due to climate change such as heatwaves, droughts, river and flash floods, landslides, and storms, including cyclones.

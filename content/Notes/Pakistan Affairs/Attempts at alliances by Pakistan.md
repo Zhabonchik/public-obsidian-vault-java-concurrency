@@ -1,3 +1,6 @@
+# Attempts at alliances by Pakistan
+
+14-03-2025
 [[pakistan's foreign policy]] [[Pakistan Affairs]] [[international relations]] 
 
 Pakistan is honestly a very inasupicious country, and it's not because of its people. Yes, corruption is prevalent and nobody really cares about the well-being of others, but that's not the main reason for its stagnation. No, Pakistan is just generally down on its luck. It has been like this since its inception and it will remain like this for the foreseeable future. 

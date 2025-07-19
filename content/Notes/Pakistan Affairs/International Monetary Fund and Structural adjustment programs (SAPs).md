@@ -1,3 +1,6 @@
+# International Monetary Fund and Structural adjustment programs (SAPs)
+
+15-07-2025
 [[Pakistan Affairs]] [[international relations]] 
 
 The International Monetary Fund (IMF) is a major financial agency of the United Nations, with headquarters in Washington, D.C. It is regarded as the global lender of last resort to national governments. 191

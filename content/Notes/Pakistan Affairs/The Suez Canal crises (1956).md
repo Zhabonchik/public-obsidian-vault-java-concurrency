@@ -1,3 +1,6 @@
+# The Suez Canal crises (1956)
+
+23-05-2025
 [[history]] [[pakistan's foreign policy]] 
 
 The Suez Canal, which was completed in 1869, connects the Mediterranean Sea to the Red Sea. This makes it a crucial shortcut between Europe and Asia, especially as a trade route.

@@ -1,3 +1,6 @@
+# Pakistan’s foreign policy is primarily reactive rather than proactive
+
+05-07-2025
 [[Pakistan Affairs]] 
 
 Foreign policy is a reflection of a state’s strategic objectives, ideological orientation, and geopolitical interests. Since its inception, Pakistan's foreign policy has largely been influenced by security concerns, particularly with regards to India, and dependence on external alliances. Despite efforts to assert strategic autonomy, Pakistan’s foreign policy has often been reactive—responding to crises and pressures—rather than proactive, with long-term vision or regional leadership.

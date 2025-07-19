@@ -1,3 +1,6 @@
+# Shanghai Cooperation Organization's significance for Pakistan
+
+18-06-2025
 [[Pakistan Affairs]] [[current affairs]] [[pakistan's foreign policy]] 
 
 The Shanghai Cooperation Organization (SCO) is a Eurasian political, economic, and security alliance comprising nine permanent members, including China, Russia, and Pakistan. All members combined, the SCO makes up 44% of the entire world's population.

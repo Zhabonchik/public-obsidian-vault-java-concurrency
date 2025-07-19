@@ -1,3 +1,6 @@
+# Hydropolitics - Water Issues in Domestic and Regional Context of Pakistan
+
+20-06-2025
 
 [[Pakistan Affairs]] 
 

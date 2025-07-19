@@ -1,3 +1,6 @@
+# Evolution of Pakistan's foreign policy since 1947
+
+09-07-2025
 [[Pakistan Affairs]] 
 
 Pakistan’s foreign policy has evolved in response to its geostrategic location, security concerns, and global power alignments. Since independence, its foreign relations have been dominated by concerns over national survival, Kashmir, regional balance with India, and global alliances. Despite intermittent successes, Pakistan’s foreign policy has often been reactive, security-centric, and dependent on external powers, limiting its long-term strategic autonomy.

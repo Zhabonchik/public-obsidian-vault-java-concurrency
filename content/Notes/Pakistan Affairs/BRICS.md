@@ -1,3 +1,6 @@
+# BRICS
+
+12-07-2025
 [[Pakistan Affairs]] [[international relations]] 
 
 BRICS is an intergovernmental organization comprising ten countries – Brazil, Russia, India, China, South Africa, Egypt, Ethiopia, Indonesia, Iran and the United Arab Emirates. Established in 2009

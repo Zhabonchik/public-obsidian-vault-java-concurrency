@@ -1,3 +1,6 @@
+# Muslim world and its contemporary challenges
+
+16-07-2025
 [[Islamic Studies]] [[religion]] 
 
 ## Internal Challenges 

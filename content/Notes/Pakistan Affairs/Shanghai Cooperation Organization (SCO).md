@@ -1,3 +1,6 @@
+# Shanghai Cooperation Organization (SCO)
+
+10-07-2025
 [[Pakistan Affairs]] [[international relations]] 
 
 

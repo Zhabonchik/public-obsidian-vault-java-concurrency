@@ -1,3 +1,6 @@
+# The ups and downs in Pakistan-US relations
+
+05-07-2025
 [[Pakistan Affairs]] 
 
 United States of America remains one of the first countries to have established diplomatic ties with Pakistan. Although the relationship dates back to October 1947, during each era the relation has been based strictly on military and economic support.

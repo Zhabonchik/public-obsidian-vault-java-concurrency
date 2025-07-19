@@ -1,3 +1,6 @@
+# Sources of Islamic Law
+
+19-07-2025
 [[Islamic Studies]] [[religion]]
 
 In Islamic jurisprudence, Shari’a is considered to make rules for every aspect of life, whether economic, social, or religious. The primary sources of Shari’a are the Quran and Sunnah. The secondary sources are:

@@ -1,3 +1,6 @@
+# Pakistan’s foreign policy and relations with other countries
+
+05-07-2025
 [[Pakistan Affairs]] 
 
 Foreign policy refers to a country's strategy in dealing with other nations to protect its national interests, ensure security, promote economic ties, and enhance its global image.

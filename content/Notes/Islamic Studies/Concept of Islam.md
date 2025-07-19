@@ -1,3 +1,6 @@
+# Concept of Islam
+
+19-07-2025
 [[Islamic Studies]] [[religion]]
 
 Islam is an Arabic word which has meanings of "submission", "surrender", and "obedience". As a religion, Islam stands for complete submission and obedience to Allah. 

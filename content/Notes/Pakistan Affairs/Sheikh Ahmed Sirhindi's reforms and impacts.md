@@ -1,3 +1,6 @@
+# Sheikh Ahmed Sirhindi's reforms and impacts
+
+12-06-2025
 [[history]] [[Pakistan Affairs]]
 
 Sheikh Ahmed Sirhindi was 16th century a Sunni Muslim scholar during the Mughal Empire. During his time, the Mughal emperor Akbar declared a new religion called Deen-e-Ilahi that aimed to synchronize all the different religions of South Asia. In response to this, Sheikh Ahmed Sirhindi started a reformist movement that aimed to reestablish Sunni orthodox Muslim ideology and remove all sorts of bi'dah.

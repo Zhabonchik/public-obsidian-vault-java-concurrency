@@ -1,3 +1,6 @@
+# Economic challenges of Pakistan's and their possible solutions
+
+17-06-2025
 
 [[Pakistan Affairs]] [[current affairs]]
 

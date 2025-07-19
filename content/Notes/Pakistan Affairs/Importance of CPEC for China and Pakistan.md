@@ -1,3 +1,6 @@
+# Importance of CPEC for China and Pakistan
+
+07-07-2025
 [[Pakistan Affairs]] [[international relations]] 
 
 The China-Pakistan Economic Corridor (CPEC) is a flagship project under China's Belt and Road Initiative (BRI), aiming to enhance connectivity between Gwadar Port in Pakistan and Kashgar in China's Xinjiang province. It includes infrastructure development, energy projects, industrial zones, and more.

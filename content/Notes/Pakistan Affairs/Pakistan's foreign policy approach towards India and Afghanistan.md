@@ -1,3 +1,6 @@
+# Pakistan's foreign policy approach towards India and Afghanistan
+
+05-07-2025
 [[Pakistan Affairs]] 
 
 Pakistan’s foreign policy has largely been shaped by **security imperatives**, especially concerning **India and Afghanistan**, its two most geopolitically significant neighbors. While the overarching objectives—**territorial security**, **strategic depth**, and **regional influence**—have remained consistent, the **tactical approaches** have shifted due to changing regional dynamics, global pressures, and internal political transitions.

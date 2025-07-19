@@ -1,3 +1,6 @@
+# Finality of Prophethood
+
+30-06-2025
 [[Islamic Studies]] [[religion]] 
 
 The Prophet Muhammad is the final prophet of Islam and the seal of prophets (Khatam-un-Nabiyyin). This means that the revelation and Sharia he brought is final, and there will be no more prophets after him.

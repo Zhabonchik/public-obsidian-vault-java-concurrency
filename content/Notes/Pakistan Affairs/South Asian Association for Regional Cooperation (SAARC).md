@@ -1,3 +1,6 @@
+# South Asian Association for Regional Cooperation (SAARC)
+
+12-07-2025
 [[Pakistan Affairs]] [[international relations]] 
 
 The South Asian Association for Regional Cooperation (SAARC) is the regional intergovernmental organization and geopolitical union of states in South Asia. Its member states are Afghanistan, Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, and Sri Lanka.

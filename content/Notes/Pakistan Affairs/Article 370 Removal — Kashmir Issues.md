@@ -1,3 +1,6 @@
+# Article 370 — Kashmir Issues
+
+02-07-2025
 [[international relations]] [[Pakistan Affairs]] 
 
 According to Article 370 of the Indian constitution, the Indian-administered region of Jammu and Kashmir (J&K) was granted special status. It had selective autonomy, meaning it could have its own constitution separate from the Indian constitution. It also allowed the region to manage its own affairs except for foreign affairs, defense, and communications. 

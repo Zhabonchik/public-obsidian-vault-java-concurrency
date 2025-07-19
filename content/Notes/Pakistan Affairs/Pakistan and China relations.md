@@ -1,3 +1,6 @@
+# Pakistan and China relations
+
+07-07-2025
 [[Pakistan Affairs]] 
 
 ## Related Ideas 

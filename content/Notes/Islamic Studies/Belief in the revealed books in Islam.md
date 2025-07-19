@@ -1,3 +1,6 @@
+# Belief in the revealed books in Islam
+
+30-06-2025
 [[Islamic Studies]] [[religion]] 
 
 Throughout history, Allah has guided mankind by sending divine guidance. This guidance is contained in the books of revelation sent to mankind through prophets and messengers. Belief in these revealed books is one of the six required faiths in Islam.

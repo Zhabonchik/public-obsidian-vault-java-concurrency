@@ -1,3 +1,6 @@
+# Energy crisis of Pakistan and ways to counter it
+
+19-06-2025
 [[Pakistan Affairs]] [[pakistan issues]]
 
 Energy is the lifeblood of any economy. Pakistan, despite its vast natural resources and potential for renewable energy, continues to face a chronic energy crisis that hinders its economic growth, industrial productivity, and public welfare. This crisis is due to power shortages, circular debt, and inefficient infrastructure. Tackling this multifaceted crisis requires a combination of structural reforms, investments in renewable energy, and strengthening institutions.

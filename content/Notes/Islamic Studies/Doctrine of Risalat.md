@@ -1,3 +1,6 @@
+# Doctrine of Risalat
+
+30-06-2025
 [[Islamic Studies]] [[religion]] 
 
 Belief in Allah's prophets is one of the articles of faith in Islam. The doctrine of Risalat is the belief that Allah sends his divine guidance to mankind through appointed messengers called Rasools. The word prophet (Nabi) means someone who is very near to Allah and receives revelation from him, while a prophet who receives an entire scripture (or Shariah) is a messenger (Rasool).

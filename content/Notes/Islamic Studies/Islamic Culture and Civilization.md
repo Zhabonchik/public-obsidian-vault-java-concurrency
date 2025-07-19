@@ -1,3 +1,6 @@
+# Islamic Culture and Civilization 
+
+14-07-2025
 [[Islamic Studies]] [[religion]] [[culture]]
 
 Islamic culture, encompassing customs, traditions, and societal norms, is rooted in the teachings of Islam and the Quran. It's a diverse and dynamic culture shaped by the global Muslim community (umma). Islamic civilization refers to the rich and diverse cultural, scientific, and socio-political developments that emerged from the Islamic world, particularly from the 7th century onwards

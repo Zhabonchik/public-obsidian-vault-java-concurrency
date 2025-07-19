@@ -1,3 +1,6 @@
+# Political instability in Pakistan
+
+19-06-2025
 
 [[Pakistan Affairs]] [[current affairs]]
 
