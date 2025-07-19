@@ -84,7 +84,7 @@ The region is now a flashpoint between three nuclear powers: India, Pakistan, an
 
 ## Mind Map: The Kashmir Issue
 
-![[kashmir issue mindmap.excalidraw|600]]
+![[kashmir issue mindmap.excalidraw.svg|600]]
 
 ## Related Issues
 [[The history of Article 370 — Kashmir Issues]]
