@@ -76,9 +76,7 @@ export default ((userOpts?: Partial<Options>) => {
                   )}
 
                   {opts.showDescription && page.frontmatter?.description && (
-                    <p class="description">
-                      {page.frontmatter.description}
-                    </p>
+                    <p class="description">{page.frontmatter.description}</p>
                   )}
                 </div>
               </li>
