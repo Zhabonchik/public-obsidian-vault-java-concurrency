@@ -26,6 +26,7 @@ Component.Explorer({
   title: "Explorer", // title of the explorer component
   folderClickBehavior: "collapse", // what happens when you click a folder ("link" to navigate to folder page on click or "collapse" to collapse folder on click)
   folderDefaultState: "collapsed", // default state of folders ("collapsed" or "open")
+  maxExpandLevel: 0, // number of folder levels expanded initially when folders are open; 0 means no limit (all levels expanded)
   useSavedState: true, // whether to use local storage to save "state" (which folders are opened) of explorer
   // omitted but shown later
   sortFn: ...,
@@ -35,6 +36,9 @@ Component.Explorer({
   order: ["filter", "map", "sort"],
 })
 ```
+
+- When `folderDefaultState` is `"collapsed"`, folders are collapsed by default, and `maxExpandLevel` does not affect initial folder expansion.
+- When `folderDefaultState` is `"open"`, `maxExpandLevel` controls how many folder levels are expanded initially.
 
 When passing in your own options, you can omit any or all of these fields if you'd like to keep the default value for that field.
 
