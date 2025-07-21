@@ -7,7 +7,7 @@ type MaybeHTMLElement = HTMLElement | undefined
 interface ParsedOptions {
   folderClickBehavior: "collapse" | "link"
   folderDefaultState: "collapsed" | "open"
-  maxExpandLevel?: number
+  maxExpandLevel: number
   useSavedState: boolean
   sortFn: (a: FileTrieNode, b: FileTrieNode) => number
   filterFn: (node: FileTrieNode) => boolean
