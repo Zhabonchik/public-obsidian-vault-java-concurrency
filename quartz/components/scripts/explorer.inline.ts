@@ -138,7 +138,7 @@ function createFolderNode(
 
   const maxLevel = opts.maxExpandLevel ?? 0
 
-  if (!isCollapsedByState || folderIsPrefixOfCurrentSlug || maxLevel === 0 || level <= maxLevel) {
+  if (!isCollapsedByState || folderIsPrefixOfCurrentSlug || level <= maxLevel) {
     folderOuter.classList.add("open")
   } else {
     folderOuter.classList.remove("open")
