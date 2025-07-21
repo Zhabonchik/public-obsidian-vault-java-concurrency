@@ -14,7 +14,7 @@ type OrderEntries = "sort" | "filter" | "map"
 export interface Options {
   title?: string
   folderDefaultState: "collapsed" | "open"
-  maxExpandLevel?: number
+  maxExpandLevel: number
   folderClickBehavior: "collapse" | "link"
   useSavedState: boolean
   sortFn: (a: FileTrieNode, b: FileTrieNode) => number
