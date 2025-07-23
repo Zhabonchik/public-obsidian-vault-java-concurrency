@@ -138,11 +138,6 @@ export const InlineBadges: QuartzTransformerPlugin<Partial<Options>> = (userOpts
         content: badgesCSS,
         inline: true,
       })
-      css.push({
-        // Requirement for the SVG to align properly.
-        content: ".inline-badge .inline-badge-icon svg {display: flex;align-self: center;}",
-        inline: true,
-      })
       // Sets the colour of custom badges.
       for (let badgeDef of opts.customBadges) {
         let badgeColor: string = `${badgeDef.color[0]},${badgeDef.color[1]},${badgeDef.color[2]}`

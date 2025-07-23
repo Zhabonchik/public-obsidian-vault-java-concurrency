@@ -69,7 +69,10 @@ body {
 .inline-badge .inline-badge-icon svg {
   width: 14px;
   height: 14px;
+  display: flex;
+  align-self: center;
 }
+
 .inline-badge .inline-badge-extra,
 .inline-badge .inline-badge-icon {
   display: inline-flex !important;
