@@ -94,8 +94,11 @@ export const BADGE_TYPES: any[] = [
 
 var allBadges: any[] = BADGE_TYPES //Append custom badges to the end of this array.
 
-const REGEXP = /\[!!([^\]]+)\]/gm
-const CODEREGEX = /`([^`\n]+)`/g
+// Catches all badge blocks with syntax `[!!...]` but not `[!!]
+const REGEXP = /\`\[!!([^\]]+)\]\`/gm
+
+// Catches all multiline code blocks
+const FENCED_CODE_REGEX = /(```[\s\S]*?```|~~~[\s\S]*?~~~)/gm
 
 export interface Options {
   customBadges: Array<{
@@ -121,12 +124,31 @@ export const InlineBadges: QuartzTransformerPlugin<Partial<Options>> = (userOpts
         allBadges.push([badge.name, badge.name, badge.icon]) // Pushes it to the array in the format.
       }
 
-      var srcReplacement: string = src //Start by assuming there are no badges.
-      for (const match of src.matchAll(CODEREGEX)) {
-        for (const badgeMatch of match[0].matchAll(REGEXP)) {
-          srcReplacement = srcReplacement.replace(match[0], buildBadge(badgeMatch[0]))
+      // Required later to ensure we don't change badges that are within multiline code blocks
+      const fencedCodeBlocks: Array<[number, number]> = []
+      for (const match of src.matchAll(FENCED_CODE_REGEX)) {
+        fencedCodeBlocks.push([match.index!, match.index! + match[0].length])
+      }
+      // Helper to check if a given index is inside any code block
+      function isInFencedBlock(idx: number) {
+        return fencedCodeBlocks.some(([start, end]) => idx >= start && idx < end)
+      }
+
+      let lastIndex = 0 //Last code block that was checked
+      let srcReplacement = "" //Build the source text from this.
+
+      for (const match of src.matchAll(REGEXP)) {
+        const matchIndex = match.index!
+        const matchEnd = matchIndex + match[0].length
+
+        if (!isInFencedBlock(matchIndex)) {
+          srcReplacement += src.slice(lastIndex, matchIndex)
+          srcReplacement += buildBadge(match[0].replaceAll("`", "")) //Get rid of trailing code block syntax.
+          lastIndex = matchEnd
         }
       }
+
+      srcReplacement += src.slice(lastIndex)
       return srcReplacement
     },
     externalResources() {
