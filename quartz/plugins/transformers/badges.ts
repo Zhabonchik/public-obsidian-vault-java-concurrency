@@ -1,6 +1,5 @@
 import { QuartzTransformerPlugin } from "../types"
 import badgesCSS from "../../styles/badges.scss"
-import obsidianOptionalCSS from "../../styles/badges-optional.scss"
 import { JSResource, CSSResource } from "../../util/resources"
 import icons from "lucide-static"
 
@@ -105,12 +104,10 @@ export interface Options {
     color: [number, number, number, number]
     textOpacity: number
   }>
-  useObsidianCSS: boolean
 }
 
 const defaultOptions: Options = {
   customBadges: [],
-  useObsidianCSS: false,
 }
 
 export const InlineBadges: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
@@ -159,13 +156,6 @@ export const InlineBadges: QuartzTransformerPlugin<Partial<Options>> = (userOpts
                     }`,
           inline: true,
         })
-
-        if (opts.useObsidianCSS) {
-          css.push({
-            content: obsidianOptionalCSS,
-            inline: true,
-          })
-        }
       }
       return { js, css }
     },

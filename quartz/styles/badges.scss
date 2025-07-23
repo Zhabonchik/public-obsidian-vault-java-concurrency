@@ -1,9 +1,40 @@
+:root {
+  body {
+    --radius-l: 12px;
+    --radius-m: 8px;
+    --radius-s: 4px;
+    a.external .external-icon {
+      height: 0px;
+      margin: 0em;
+      display: none;
+    }
+  }
+}
+
+:root {
+  --color-blue: #448aff;
+  --color-blue-rgb: 68, 138, 256;
+  --color-cyan: #00b0ff;
+  --color-cyan-rgb: 00, 176, 256;
+  --color-green: #09ad7a;
+  --color-green-rgb: 9, 173, 122;
+  --color-orange: #db8942;
+  --color-orange-rgb: 219, 137, 66;
+  --color-pink: #fa99cd;
+  --color-pink-rgb: 250, 153, 205;
+  --color-purple: #7a43b5;
+  --color-purple-rgb: 122, 67, 181;
+  --color-red: #db4242;
+  --color-red-rgb: 219, 66, 66;
+  --color-yellow: #dba642;
+  --color-yellow-rgb: 219, 166, 66;
+}
+
 body {
   --inline-badge-border-color: transparent;
   --inline-badge-font-size: 0.8em;
   --inline-badge-border-radius: var(--radius-s);
   --inline-badge-border: 1px solid var(--inline-badge-border-color);
-  --my-custom-rgb: var(--color-green-rgb);
 }
 .inline-badge {
   display: inline-flex;
