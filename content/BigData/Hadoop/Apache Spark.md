@@ -36,6 +36,7 @@ aliases:
 	- Each [[RDD]] keeps track of how it was derived. If a node fails, Spark **recomputes only the lost partition** from the original transformations.
 	
 ##### Writing Spark Code in Python
+{% raw %}
 ```
 # Spark Context Initialization
 from pyspark import SparkConf, SparkContext
@@ -52,6 +53,8 @@ distData = sc.parallelize(data)
 distFile = sc.textFile("data.txt")
 distFile = sc.textFile("folder/*.txt")
 ```
+{% endraw %}
+
 ##### **RDD Transformations (Lazy)**
 These create a new RDD from an existing one.
 

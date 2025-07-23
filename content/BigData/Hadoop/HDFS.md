@@ -21,6 +21,7 @@ Stores huge files (Typical file size GB-TB) across multiple machines.
 - Parquet Files - Yet another RC file
 
 ##### HDFS Command Line
+{% raw %}
 ```
 # List files
 hadoop fs -ls /path
@@ -34,7 +35,7 @@ hadoop fs -cat /file
 # Upload file
 hadoop fs -copyFromLocal file.txt hdfs://...
 ```
-
+{% endraw %}
 #### HDFS Architecture – Main Components
 ##### **1.** NameNode (Master Node)
 - **Stores metadata** about the filesystem:
