@@ -59,7 +59,7 @@ function generateRSSFeed(cfg: GlobalConfiguration, idx: ContentIndexMap, limit?:
     <title>${escapeHTML(content.title)}</title>
     <link>https://${joinSegments(base, encodeURI(slug))}</link>
     <guid>https://${joinSegments(base, encodeURI(slug))}</guid>
-    <description><![CDATA[ ${content.encrypted ? content.description : content.richContent ?? content.description} ]]></description>
+    <description><![CDATA[ ${content.encrypted ? content.description : (content.richContent ?? content.description)} ]]></description>
     <pubDate>${content.date?.toUTCString()}</pubDate>
   </item>`
 
@@ -146,7 +146,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
           // actually uses it. we only keep it in the index as we need it
           // for the RSS feed
           if (content.encrypted) {
-            delete content.content
+            content.description = ""
             delete content.richContent
           }
 

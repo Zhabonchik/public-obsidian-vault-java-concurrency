@@ -115,19 +115,20 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
       return frontmatter.password as string
     }
 
-    let deepestFolder = "";
+    let deepestFolder = ""
     for (const folder of Object.keys(opts.encryptedFolders ?? {})) {
-        if (file.data?.relativePath?.startsWith(folder) && deepestFolder.length < folder.length) {
-          deepestFolder = folder;
-        }
+      if (file.data?.relativePath?.startsWith(folder) && deepestFolder.length < folder.length) {
+        deepestFolder = folder
+      }
     }
 
     if (deepestFolder) {
-      if (frontmatter?.password) { // if frontmatter has a password, use it
-        return frontmatter.password as string;
+      if (frontmatter?.password) {
+        // if frontmatter has a password, use it
+        return frontmatter.password as string
       }
 
-      return opts.encryptedFolders[deepestFolder] as string;
+      return opts.encryptedFolders!![deepestFolder] as string
     }
   }
 
@@ -219,7 +220,6 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
     },
   }
 }
-
 
 declare module "vfile" {
   interface DataMap {

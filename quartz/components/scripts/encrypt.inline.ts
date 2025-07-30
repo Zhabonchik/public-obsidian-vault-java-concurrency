@@ -44,7 +44,6 @@ function getRelevantPasswords(filePath: string): string[] {
   })
 
   // Get passwords by directory hierarchy (closest first)
-  const pathParts = filePath.split("/")
 
   // Sort cache keys by how many directory levels they share with current file
   const sortedPaths = Object.keys(cache).sort((a, b) => {
@@ -102,7 +101,7 @@ function arrayBufferToHex(buffer: ArrayBuffer): string {
 // Helper: string to ArrayBuffer
 function stringToArrayBuffer(str: string): ArrayBuffer {
   const encoder = new TextEncoder()
-  return encoder.encode(str)
+  return encoder.encode(str).buffer as ArrayBuffer
 }
 
 // Helper: ArrayBuffer to string
