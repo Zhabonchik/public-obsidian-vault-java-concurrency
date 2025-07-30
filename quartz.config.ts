@@ -75,8 +75,7 @@ const config: QuartzConfig = {
         algorithm: "aes-256-cbc",
         keyLength: 32,
         iterations: 100000,
-        encryptedFolders: {
-        },
+        encryptedFolders: {},
         ttl: 3600 * 24 * 7, // A week
       }),
       Plugin.Description(),

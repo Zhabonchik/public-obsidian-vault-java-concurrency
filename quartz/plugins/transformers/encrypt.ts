@@ -123,7 +123,11 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
     }
 
     if (deepestFolder) {
-      return String(opts.encryptedFolders[deepestFolder])
+      if (frontmatter?.password) { // if frontmatter has a password, use it
+        return frontmatter.password as string;
+      }
+
+      return opts.encryptedFolders[deepestFolder] as string;
     }
   }
 
