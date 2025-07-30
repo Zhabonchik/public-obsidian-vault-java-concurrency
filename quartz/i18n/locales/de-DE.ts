@@ -67,7 +67,8 @@ export default {
       decrypting: "Entschlüsselt...",
       incorrectPassword: "Falsches Passwort. Bitte versuchen Sie es erneut.",
       decryptionFailed: "Entschlüsselung fehlgeschlagen, überprüfen Sie die Protokolle",
-      encryptedDescription: "Diese Datei ist verschlüsselt. Öffnen Sie sie, um den Inhalt zu sehen.",
+      encryptedDescription:
+        "Diese Datei ist verschlüsselt. Öffnen Sie sie, um den Inhalt zu sehen.",
     },
   },
   pages: {

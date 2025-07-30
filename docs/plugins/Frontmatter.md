@@ -64,6 +64,10 @@ Quartz supports the following frontmatter:
   - `published`
   - `publishDate`
   - `date`
+- encrypt
+  - `encrypt`
+- password
+  - `password`
 
 ## API
 
