@@ -118,6 +118,19 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
 
             if (socialImage) data.socialImage = socialImage
 
+            const encrypted = coalesceAliases(data, ["encrypted", "encrypt"])
+            if (encrypted) data.encrypt = true
+
+            const password = coalesceAliases(data, ["password"])
+            if (password) data.password = password
+
+            const encryptMessage = coalesceAliases(data, [
+              "encryptMessage",
+              "encrypt_message",
+              "encrypt-message",
+            ])
+            if (encryptMessage) data.encryptMessage = encryptMessage
+
             // Remove duplicate slugs
             const uniqueSlugs = [...new Set(allSlugs)]
             allSlugs.splice(0, allSlugs.length, ...uniqueSlugs)

@@ -2,6 +2,9 @@
 title: "Encrypt"
 tags:
   - plugin/transformer
+encrypt: true
+encrypt_message: '^ Password is "quartz"'
+password: "quartz"
 ---
 
 This plugin enables content encryption for sensitive pages in your Quartz site. It uses AES encryption with password-based access control, allowing you to protect specific pages or entire folders with passwords.
@@ -63,6 +66,7 @@ Use frontmatter to encrypt individual pages or override folder passwords:
 title: "My Secret Page"
 encrypt: true
 password: "page-specific-password"
+encrypt_message: "Sorry, this one is only for my eyes,"
 ---
 This content will be encrypted and require a password to view.
 ```
@@ -73,6 +77,7 @@ The plugin recognizes these frontmatter fields:
 
 - `encrypt`: Set to `true` to enable encryption for this page
 - `password`: The password required to decrypt this page
+- `encrypt_message`: Message to be shown on the unlock page.
 
 If a page is in an encrypted folder but has its own `password` field, the page-specific password will be used instead of the folder password.
 

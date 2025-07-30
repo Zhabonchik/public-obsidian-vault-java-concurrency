@@ -146,6 +146,10 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
             }
 
             file.data.encrypted = true
+            file.data.password = password
+            if (file.data?.frontmatter?.encryptMessage) {
+              file.data.encryptMessage = file.data.frontmatter.encryptMessage as string
+            }
 
             if (file.data?.frontmatter?.title) {
               file.data.frontmatter.title = `🔒 ${file.data.frontmatter.title}`
@@ -171,6 +175,7 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
 
             // Encrypt the content
             const encryptedContent = encryptContent(htmlContent, password, opts)
+            console.log(file.data)
 
             // Create a new tree with encrypted content placeholder
             const encryptedTree = fromHtml(
@@ -182,6 +187,7 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
                   <div class="decrypt-form">
                     <input type="password" class="decrypt-password" placeholder="${t.enterPassword}" />
                     <button class="decrypt-button">${t.decrypt}</button>
+                    ${file.data.encryptMessage ? `<p class="encrypted-message-footnote">${file.data.encryptMessage}</p>` : ""}
                   </div>
                   <div class="decrypt-loading">
                     <div class="loading-spinner"></div>
@@ -228,5 +234,7 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
 declare module "vfile" {
   interface DataMap {
     encrypted: boolean
+    encryptMessage?: string
+    password?: string
   }
 }

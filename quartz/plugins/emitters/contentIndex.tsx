@@ -59,7 +59,7 @@ function generateRSSFeed(cfg: GlobalConfiguration, idx: ContentIndexMap, limit?:
     <title>${escapeHTML(content.title)}</title>
     <link>https://${joinSegments(base, encodeURI(slug))}</link>
     <guid>https://${joinSegments(base, encodeURI(slug))}</guid>
-    <description><![CDATA[ ${content.encrypted ? content.description : (content.richContent ?? content.description)} ]]></description>
+    <description><![CDATA[ ${content.richContent ?? content.description} ]]></description>
     <pubDate>${content.date?.toUTCString()}</pubDate>
   </item>`
 
@@ -111,9 +111,10 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
             links: file.data.links ?? [],
             tags: file.data.frontmatter?.tags ?? [],
             content: file.data.text ?? "",
-            richContent: opts?.rssFullHtml
-              ? escapeHTML(toHtml(tree as Root, { allowDangerousHtml: true }))
-              : undefined,
+            richContent:
+              !file.data.encrypted && opts?.rssFullHtml
+                ? escapeHTML(toHtml(tree as Root, { allowDangerousHtml: true }))
+                : undefined,
             date: date,
             description: file.data.description ?? "",
             encrypted: file.data.encrypted,

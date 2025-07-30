@@ -32,7 +32,6 @@
 }
 
 .encryption-notice p {
-  margin: 0 0 1.5rem 0;
   color: var(--gray);
   line-height: 1.4;
   font-size: 0.95rem;
@@ -150,4 +149,14 @@
   .decrypt-button {
     font-size: 16px; /* Prevent zoom on iOS */
   }
+}
+
+.encrypted-message-footnote {
+  color: var(--gray);
+  font-size: 0.85rem;
+  opacity: 0.8;
+  text-align: center;
+  width: 100%;
+  font-style: italic;
+  margin: 0;
 }

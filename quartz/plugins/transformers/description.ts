@@ -30,9 +30,9 @@ export const Description: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
         () => {
           return async (tree: HTMLRoot, file) => {
             if (file.data?.encrypted) {
-              file.data.description = i18n(
-                ctx.cfg.configuration.locale,
-              ).components.encryption.encryptedDescription
+              file.data.description =
+                file.data.encryptMessage ||
+                i18n(ctx.cfg.configuration.locale).components.encryption.encryptedDescription
               return
             }
 

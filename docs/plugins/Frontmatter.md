@@ -66,6 +66,11 @@ Quartz supports the following frontmatter:
   - `date`
 - encrypt
   - `encrypt`
+  - `encrypted`
+- encryptMessage
+  - `encrypt_message`
+  - `encryptMessage`
+  - `encrypt-message`
 - password
   - `password`
 
