@@ -28,6 +28,11 @@ export const Description: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
       return [
         () => {
           return async (tree: HTMLRoot, file) => {
+            if (file.data?.encrypted) {
+              file.data.description = "This file is encrypted. Open it to see the contents."
+              return;
+            }
+
             let frontMatterDescription = file.data.frontmatter?.description
             let text = escapeHTML(toString(tree))
 

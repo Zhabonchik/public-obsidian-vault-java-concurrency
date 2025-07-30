@@ -70,8 +70,16 @@ const config: QuartzConfig = {
       Plugin.GitHubFlavoredMarkdown(),
       Plugin.TableOfContents(),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
-      Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),
+      Plugin.EncryptPlugin({
+        algorithm: "aes-256-cbc",
+        keyLength: 32,
+        iterations: 100000,
+        encryptedFolders: {
+        },
+        ttl: 3600 * 24 * 7, // A week
+      }),
+      Plugin.Description(),
     ],
     filters: [Plugin.RemoveDrafts()],
     emitters: [
