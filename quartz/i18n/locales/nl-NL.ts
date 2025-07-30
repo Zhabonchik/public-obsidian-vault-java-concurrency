@@ -60,6 +60,16 @@ export default {
       readingTime: ({ minutes }) =>
         minutes === 1 ? "1 minuut leestijd" : `${minutes} minuten leestijd`,
     },
+    encryption: {
+      title: "🛡️ Beperkte Inhoud 🛡️",
+      restricted: "Deze inhoud is beperkt. Voer het wachtwoord in om te bekijken:",
+      enterPassword: "Voer wachtwoord in",
+      decrypt: "Ontsleutelen",
+      decrypting: "Ontsleutelen...",
+      incorrectPassword: "Onjuist wachtwoord. Probeer opnieuw.",
+      decryptionFailed: "Ontsleuteling mislukt, controleer logs",
+      encryptedDescription: "Dit bestand is versleuteld. Open het om de inhoud te zien.",
+    },
   },
   pages: {
     rss: {

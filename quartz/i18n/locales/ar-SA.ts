@@ -64,6 +64,16 @@ export default {
             ? `دقيقتان للقراءة`
             : `${minutes} دقائق للقراءة`,
     },
+    encryption: {
+      title: "🛡️ محتوى محدود 🛡️",
+      restricted: "هذا المحتوى محدود. ادخل كلمة المرور للعرض:",
+      enterPassword: "ادخل كلمة المرور",
+      decrypt: "فك التشفير",
+      decrypting: "جاري فك التشفير...",
+      incorrectPassword: "كلمة مرور خاطئة. حاول مرة أخرى.",
+      decryptionFailed: "فشل فك التشفير، تحقق من السجلات",
+      encryptedDescription: "هذا الملف مشفر. افتحه لرؤية المحتويات.",
+    },
   },
   pages: {
     rss: {

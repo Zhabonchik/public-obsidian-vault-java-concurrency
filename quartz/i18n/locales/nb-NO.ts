@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min lesning`,
     },
+    encryption: {
+      title: "🛡️ Begrenset Innhold 🛡️",
+      restricted: "Dette innholdet er begrenset. Skriv inn passord for å vise:",
+      enterPassword: "Skriv inn passord",
+      decrypt: "Dekrypter",
+      decrypting: "Dekrypterer...",
+      incorrectPassword: "Feil passord. Prøv igjen.",
+      decryptionFailed: "Dekryptering mislyktes, sjekk logger",
+      encryptedDescription: "Denne filen er kryptert. Åpne den for å se innholdet.",
+    },
   },
   pages: {
     rss: {

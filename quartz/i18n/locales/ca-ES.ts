@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `Es llegeix en ${minutes} min`,
     },
+    encryption: {
+      title: "🛡️ Contingut Restringit 🛡️",
+      restricted: "Aquest contingut està restringit. Introduïu la contrasenya per veure:",
+      enterPassword: "Introduïu la contrasenya",
+      decrypt: "Desxifrar",
+      decrypting: "Desxifrant...",
+      incorrectPassword: "Contrasenya incorrecta. Torneu-ho a intentar.",
+      decryptionFailed: "Ha fallat el desxifratge, comproveu els registres",
+      encryptedDescription: "Aquest fitxer està xifrat. Obriu-lo per veure els continguts.",
+    },
   },
   pages: {
     rss: {

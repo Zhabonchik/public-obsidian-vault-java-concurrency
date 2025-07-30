@@ -2,6 +2,7 @@ import { Root as HTMLRoot } from "hast"
 import { toString } from "hast-util-to-string"
 import { QuartzTransformerPlugin } from "../types"
 import { escapeHTML } from "../../util/escape"
+import { i18n } from "../../i18n"
 
 export interface Options {
   descriptionLength: number
@@ -24,12 +25,12 @@ export const Description: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
   const opts = { ...defaultOptions, ...userOpts }
   return {
     name: "Description",
-    htmlPlugins() {
+    htmlPlugins(ctx) {
       return [
         () => {
           return async (tree: HTMLRoot, file) => {
             if (file.data?.encrypted) {
-              file.data.description = "This file is encrypted. Open it to see the contents."
+              file.data.description = i18n(ctx.cfg.configuration.locale).components.encryption.encryptedDescription
               return
             }
 

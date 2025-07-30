@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} dakika okuma süresi`,
     },
+    encryption: {
+      title: "🛡️ Kısıtlı İçerik 🛡️",
+      restricted: "Bu içerik kısıtlıdır. Görüntülemek için şifreyi girin:",
+      enterPassword: "Şifreyi girin",
+      decrypt: "Şifre çöz",
+      decrypting: "Şifre çözülüyor...",
+      incorrectPassword: "Yanlış şifre. Tekrar deneyin.",
+      decryptionFailed: "Şifre çözme başarısız, günlükleri kontrol edin",
+      encryptedDescription: "Bu dosya şifrelenmiş. İçeriği görmek için açın.",
+    },
   },
   pages: {
     rss: {

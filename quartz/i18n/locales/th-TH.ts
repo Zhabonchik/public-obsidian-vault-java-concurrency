@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `อ่านราว ${minutes} นาที`,
     },
+    encryption: {
+      title: "🛡️ เนื้อหาถูกจำกัด 🛡️",
+      restricted: "เนื้อหานี้ถูกจำกัด กรุณาใส่รหัสผ่านเพื่อดู:",
+      enterPassword: "ใส่รหัสผ่าน",
+      decrypt: "ถอดรหัส",
+      decrypting: "กำลังถอดรหัส...",
+      incorrectPassword: "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่",
+      decryptionFailed: "การถอดรหัสล้มเหลว ตรวจสอบบันทึก",
+      encryptedDescription: "ไฟล์นี้ถูกเข้ารหัส เปิดเพื่อดูเนื้อหา",
+    },
   },
   pages: {
     rss: {

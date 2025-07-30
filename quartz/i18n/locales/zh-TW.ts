@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `閱讀時間約 ${minutes} 分鐘`,
     },
+    encryption: {
+      title: "🛡️ 受限內容 🛡️",
+      restricted: "此內容受限制。輸入密碼以檢視：",
+      enterPassword: "輸入密碼",
+      decrypt: "解密",
+      decrypting: "解密中...",
+      incorrectPassword: "密碼錯誤。請重試。",
+      decryptionFailed: "解密失敗，請檢查日誌",
+      encryptedDescription: "此檔案已加密。打開以檢視內容。",
+    },
   },
   pages: {
     rss: {

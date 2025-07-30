@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `đọc ${minutes} phút`,
     },
+    encryption: {
+      title: "🛡️ Nội Dung Bị Hạn Chế 🛡️",
+      restricted: "Nội dung này bị hạn chế. Nhập mật khẩu để xem:",
+      enterPassword: "Nhập mật khẩu",
+      decrypt: "Giải mã",
+      decrypting: "Đang giải mã...",
+      incorrectPassword: "Mật khẩu sai. Vui lòng thử lại.",
+      decryptionFailed: "Giải mã thất bại, kiểm tra nhật ký",
+      encryptedDescription: "Tệp này đã được mã hóa. Mở để xem nội dung.",
+    },
   },
   pages: {
     rss: {

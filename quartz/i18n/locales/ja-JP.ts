@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min read`,
     },
+    encryption: {
+      title: "🛡️ 制限されたコンテンツ 🛡️",
+      restricted: "このコンテンツは制限されています。表示するにはパスワードを入力してください：",
+      enterPassword: "パスワードを入力",
+      decrypt: "復号化",
+      decrypting: "復号化中...",
+      incorrectPassword: "パスワードが間違っています。もう一度お試しください。",
+      decryptionFailed: "復号化に失敗しました。ログを確認してください",
+      encryptedDescription: "このファイルは暗号化されています。内容を見るには開いてください。",
+    },
   },
   pages: {
     rss: {

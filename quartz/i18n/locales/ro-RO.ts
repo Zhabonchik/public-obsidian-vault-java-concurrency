@@ -60,6 +60,16 @@ export default {
       readingTime: ({ minutes }) =>
         minutes == 1 ? `lectură de 1 minut` : `lectură de ${minutes} minute`,
     },
+    encryption: {
+      title: "🛡️ Conținut Restricționat 🛡️",
+      restricted: "Acest conținut este restricționat. Introduceți parola pentru a vizualiza:",
+      enterPassword: "Introduceți parola",
+      decrypt: "Decriptați",
+      decrypting: "Se decriptează...",
+      incorrectPassword: "Parolă incorectă. Încercați din nou.",
+      decryptionFailed: "Decriptarea a eșuat, verificați jurnalele",
+      encryptedDescription: "Acest fișier este criptat. Deschideți-l pentru a vedea conținutul.",
+    },
   },
   pages: {
     rss: {

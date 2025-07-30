@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min read`,
     },
+    encryption: {
+      title: "🛡️ Restricted Content 🛡️",
+      restricted: "This content is restricted. Enter the password to view:",
+      enterPassword: "Enter password",
+      decrypt: "Decrypt",
+      decrypting: "Decrypting...",
+      incorrectPassword: "Incorrect password. Please try again.",
+      decryptionFailed: "Decryption failed, check logs",
+      encryptedDescription: "This file is encrypted. Open it to see the contents.",
+    },
   },
   pages: {
     rss: {

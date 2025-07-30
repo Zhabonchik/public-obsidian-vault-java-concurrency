@@ -60,6 +60,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `время чтения ~${minutes} мин.`,
     },
+    encryption: {
+      title: "🛡️ Ограниченный Контент 🛡️",
+      restricted: "Этот контент ограничен. Введите пароль для просмотра:",
+      enterPassword: "Введите пароль",
+      decrypt: "Расшифровать",
+      decrypting: "Расшифровка...",
+      incorrectPassword: "Неверный пароль. Попробуйте снова.",
+      decryptionFailed: "Расшифровка не удалась, проверьте логи",
+      encryptedDescription: "Этот файл зашифрован. Откройте его, чтобы увидеть содержимое.",
+    },
   },
   pages: {
     rss: {

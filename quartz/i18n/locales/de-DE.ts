@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min read`,
     },
+    encryption: {
+      title: "🛡️ Eingeschränkter Inhalt 🛡️",
+      restricted: "Dieser Inhalt ist eingeschränkt. Geben Sie das Passwort ein, um ihn anzuzeigen:",
+      enterPassword: "Passwort eingeben",
+      decrypt: "Entschlüsseln",
+      decrypting: "Entschlüsselt...",
+      incorrectPassword: "Falsches Passwort. Bitte versuchen Sie es erneut.",
+      decryptionFailed: "Entschlüsselung fehlgeschlagen, überprüfen Sie die Protokolle",
+      encryptedDescription: "Diese Datei ist verschlüsselt. Öffnen Sie sie, um den Inhalt zu sehen.",
+    },
   },
   pages: {
     rss: {

@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min read`,
     },
+    encryption: {
+      title: "🛡️ 제한된 콘텐츠 🛡️",
+      restricted: "이 콘텐츠는 제한되어 있습니다. 보려면 비밀번호를 입력하세요:",
+      enterPassword: "비밀번호 입력",
+      decrypt: "복호화",
+      decrypting: "복호화 중...",
+      incorrectPassword: "비밀번호가 틀렸습니다. 다시 시도해주세요.",
+      decryptionFailed: "복호화에 실패했습니다. 로그를 확인하세요",
+      encryptedDescription: "이 파일은 암호화되어 있습니다. 내용을 보려면 열어주세요.",
+    },
   },
   pages: {
     rss: {

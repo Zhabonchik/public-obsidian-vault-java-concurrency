@@ -61,6 +61,16 @@ export interface Translation {
     contentMeta: {
       readingTime: (variables: { minutes: number }) => string
     }
+    encryption: {
+      title: string
+      restricted: string
+      enterPassword: string
+      decrypt: string
+      decrypting: string
+      incorrectPassword: string
+      decryptionFailed: string
+      encryptedDescription: string
+    }
   }
   pages: {
     rss: {

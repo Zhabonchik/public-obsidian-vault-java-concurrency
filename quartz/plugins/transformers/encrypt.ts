@@ -4,6 +4,7 @@ import { Root } from "hast"
 import { toHtml } from "hast-util-to-html"
 import { fromHtml } from "hast-util-from-html"
 import { VFile } from "vfile"
+import { i18n } from "../../i18n"
 
 // @ts-ignore
 import encryptScript from "../../components/scripts/encrypt.inline.ts"
@@ -153,7 +154,7 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
         },
       ]
     },
-    htmlPlugins() {
+    htmlPlugins(ctx) {
       return [
         () => {
           return (tree: Root, file) => {
@@ -161,6 +162,9 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
             if (!password) {
               return tree // No encryption, return original tree
             }
+
+            const locale = ctx.cfg.configuration.locale
+            const t = i18n(locale).components.encryption
 
             // Convert the HTML tree to string
             const htmlContent = toHtml(tree)
@@ -171,20 +175,20 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
             // Create a new tree with encrypted content placeholder
             const encryptedTree = fromHtml(
               `
-              <div class="encrypted-content" data-encrypted="${encryptedContent}" data-config='${JSON.stringify(opts)}'>
+              <div class="encrypted-content" data-encrypted="${encryptedContent}" data-config='${JSON.stringify(opts)}' data-i18n='${JSON.stringify(t)}'>
                 <div class="encryption-notice">
-                  <h3>🛡️ Restricted Content 🛡️</h3>
-                  <p>This content is restricted. Enter the password to view:</p>
+                  <h3>${t.title}</h3>
+                  <p>${t.restricted}</p>
                   <div class="decrypt-form">
-                    <input type="password" class="decrypt-password" placeholder="Enter password" />
-                    <button class="decrypt-button">Decrypt</button>
+                    <input type="password" class="decrypt-password" placeholder="${t.enterPassword}" />
+                    <button class="decrypt-button">${t.decrypt}</button>
                   </div>
                   <div class="decrypt-loading">
                     <div class="loading-spinner"></div>
-                    <span>Decrypting...</span>
+                    <span>${t.decrypting}</span>
                   </div>
                   <div class="decrypt-error">
-                    Incorrect password. Please try again.
+                    ${t.incorrectPassword}
                   </div>
                 </div>
               </div>

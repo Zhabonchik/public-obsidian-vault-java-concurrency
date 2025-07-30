@@ -239,6 +239,7 @@ async function decryptWithPassword(
   const errorDiv = container.querySelector(".decrypt-error") as HTMLElement
   const encryptedData = (container as HTMLElement).dataset.encrypted!
   const config = JSON.parse((container as HTMLElement).dataset.config!)
+  const i18n = JSON.parse((container as HTMLElement).dataset.i18n!)
 
   if (showError) errorDiv.style.display = "none"
 
@@ -249,7 +250,7 @@ async function decryptWithPassword(
     const isValidPassword = await verifyPassword(password, parsed)
 
     if (!isValidPassword) {
-      if (showError) throw new Error("Incorrect password")
+      if (showError) throw new Error(i18n.incorrectPassword)
       return false
     }
 
@@ -277,11 +278,11 @@ async function decryptWithPassword(
         return true
       }
 
-      if (showError) throw new Error("Decryption failed, check logs")
+      if (showError) throw new Error(i18n.decryptionFailed)
       return false
     } catch (decryptError) {
       if (showError) showLoading(container, false)
-      if (showError) throw new Error("Decryption failed, check logs")
+      if (showError) throw new Error(i18n.decryptionFailed)
       return false
     }
   } catch (error) {

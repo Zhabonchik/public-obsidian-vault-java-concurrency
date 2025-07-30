@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min skaitymo`,
     },
+    encryption: {
+      title: "🛡️ Apribotas Turinys 🛡️",
+      restricted: "Šis turinys yra apribotas. Įveskite slaptažodį, kad peržiūrėtumėte:",
+      enterPassword: "Įvesti slaptažodį",
+      decrypt: "Iššifruoti",
+      decrypting: "Iššifruojama...",
+      incorrectPassword: "Neteisingas slaptažodis. Bandykite dar kartą.",
+      decryptionFailed: "Iššifravimas nepavyko, patikrinkite žurnalus",
+      encryptedDescription: "Šis failas yra užšifruotas. Atidarykite jį, kad pamatytumėte turinį.",
+    },
   },
   pages: {
     rss: {

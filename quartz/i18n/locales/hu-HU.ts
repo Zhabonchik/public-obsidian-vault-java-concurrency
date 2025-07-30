@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} perces olvasás`,
     },
+    encryption: {
+      title: "🛡️ Korlátozott Tartalom 🛡️",
+      restricted: "Ez a tartalom korlátozott. Adja meg a jelszót a megtekintéshez:",
+      enterPassword: "Jelszó megadása",
+      decrypt: "Visszafejtés",
+      decrypting: "Visszafejtés...",
+      incorrectPassword: "Helytelen jelszó. Kérjük, próbálja újra.",
+      decryptionFailed: "A visszafejtés sikertelen, ellenőrizze a naplókat",
+      encryptedDescription: "Ez a fájl titkosított. Nyissa meg a tartalom megtekintéséhez.",
+    },
   },
   pages: {
     rss: {

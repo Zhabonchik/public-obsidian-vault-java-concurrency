@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} menit baca`,
     },
+    encryption: {
+      title: "🛡️ Konten Terbatas 🛡️",
+      restricted: "Konten ini terbatas. Masukkan kata sandi untuk melihat:",
+      enterPassword: "Masukkan kata sandi",
+      decrypt: "Dekripsi",
+      decrypting: "Mendekripsi...",
+      incorrectPassword: "Kata sandi salah. Silakan coba lagi.",
+      decryptionFailed: "Dekripsi gagal, periksa log",
+      encryptedDescription: "File ini terenkripsi. Buka untuk melihat konten.",
+    },
   },
   pages: {
     rss: {

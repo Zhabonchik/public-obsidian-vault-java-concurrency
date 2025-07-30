@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} хв читання`,
     },
+    encryption: {
+      title: "🛡️ Обмежений Контент 🛡️",
+      restricted: "Цей контент обмежений. Введіть пароль, щоб переглянути:",
+      enterPassword: "Введіть пароль",
+      decrypt: "Розшифрувати",
+      decrypting: "Розшифрування...",
+      incorrectPassword: "Неправильний пароль. Спробуйте ще раз.",
+      decryptionFailed: "Розшифрування не вдалося, перевірте журнали",
+      encryptedDescription: "Цей файл зашифрований. Відкрийте його, щоб побачити вміст.",
+    },
   },
   pages: {
     rss: {

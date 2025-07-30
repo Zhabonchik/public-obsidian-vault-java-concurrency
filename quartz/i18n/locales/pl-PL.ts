@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min. czytania `,
     },
+    encryption: {
+      title: "🛡️ Ograniczona Treść 🛡️",
+      restricted: "Ta treść jest ograniczona. Wprowadź hasło, aby wyświetlić:",
+      enterPassword: "Wprowadź hasło",
+      decrypt: "Odszyfruj",
+      decrypting: "Odszyfrowywanie...",
+      incorrectPassword: "Nieprawidłowe hasło. Spróbuj ponownie.",
+      decryptionFailed: "Odszyfrowanie nie powiodło się, sprawdź logi",
+      encryptedDescription: "Ten plik jest zaszyfrowany. Otwórz go, aby zobaczyć zawartość.",
+    },
   },
   pages: {
     rss: {

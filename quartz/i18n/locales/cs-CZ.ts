@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min čtení`,
     },
+    encryption: {
+      title: "🛡️ Omezený obsah 🛡️",
+      restricted: "Tento obsah je omezen. Zadejte heslo pro zobrazení:",
+      enterPassword: "Zadejte heslo",
+      decrypt: "Dešifrovat",
+      decrypting: "Dešifruji...",
+      incorrectPassword: "Nesprávné heslo. Zkuste to znovu.",
+      decryptionFailed: "Dešifrování selhalo, zkontrolujte protokoly",
+      encryptedDescription: "Tento soubor je zašifrován. Otevřete jej pro zobrazení obsahu.",
+    },
   },
   pages: {
     rss: {

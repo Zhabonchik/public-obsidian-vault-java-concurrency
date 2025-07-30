@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `زمان تقریبی مطالعه: ${minutes} دقیقه`,
     },
+    encryption: {
+      title: "🛡️ محتوای محدود 🛡️",
+      restricted: "این محتوا محدود است. رمز عبور را وارد کنید:",
+      enterPassword: "رمز عبور را وارد کنید",
+      decrypt: "رمزگشایی",
+      decrypting: "در حال رمزگشایی...",
+      incorrectPassword: "رمز عبور اشتباه است. دوباره تلاش کنید.",
+      decryptionFailed: "رمزگشایی ناموفق، لاگ‌ها را بررسی کنید",
+      encryptedDescription: "این فایل رمزگذاری شده است. آن را باز کنید تا محتوا را ببینید.",
+    },
   },
   pages: {
     rss: {

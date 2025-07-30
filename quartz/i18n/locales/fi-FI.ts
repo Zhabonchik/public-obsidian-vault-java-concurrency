@@ -59,6 +59,16 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min lukuaika`,
     },
+    encryption: {
+      title: "🛡️ Rajoitettu Sisältö 🛡️",
+      restricted: "Tämä sisältö on rajoitettu. Anna salasana nähdäksesi:",
+      enterPassword: "Anna salasana",
+      decrypt: "Pura salaus",
+      decrypting: "Puretaan salausta...",
+      incorrectPassword: "Väärä salasana. Yritä uudelleen.",
+      decryptionFailed: "Salauksen purku epäonnistui, tarkista lokit",
+      encryptedDescription: "Tämä tiedosto on salattu. Avaa se nähdäksesi sisällön.",
+    },
   },
   pages: {
     rss: {
