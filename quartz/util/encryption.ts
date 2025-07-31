@@ -28,11 +28,8 @@ export interface DirectoryConfig extends EncryptionConfig {
   password: string
 }
 
-export interface EncryptionOptions {
-  algorithm: string
+export interface EncryptionOptions extends EncryptionConfig {
   encryptedFolders: { [folderPath: string]: string | DirectoryConfig }
-  message: string
-  ttl: number
 }
 
 // =============================================================================
