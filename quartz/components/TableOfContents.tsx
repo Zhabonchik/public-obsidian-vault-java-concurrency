@@ -25,7 +25,7 @@ export default ((opts?: Partial<Options>) => {
     displayClass,
     cfg,
   }: QuartzComponentProps) => {
-    if (!fileData.toc) {
+    if (!fileData.toc || fileData.encryptionResult) {
       return null
     }
 
@@ -54,13 +54,14 @@ export default ((opts?: Partial<Options>) => {
           </svg>
         </button>
         <OverflowList class={fileData.collapseToc ? "collapsed toc-content" : "toc-content"}>
-          {fileData.toc.map((tocEntry) => (
-            <li key={tocEntry.slug} class={`depth-${tocEntry.depth}`}>
-              <a href={`#${tocEntry.slug}`} data-for={tocEntry.slug}>
-                {tocEntry.text}
-              </a>
-            </li>
-          ))}
+          {!fileData.encryptionResult &&
+            fileData.toc.map((tocEntry) => (
+              <li key={tocEntry.slug} class={`depth-${tocEntry.depth}`}>
+                <a href={`#${tocEntry.slug}`} data-for={tocEntry.slug}>
+                  {tocEntry.text}
+                </a>
+              </li>
+            ))}
         </OverflowList>
       </div>
     )
