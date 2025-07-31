@@ -1,7 +1,7 @@
 import FlexSearch from "flexsearch"
-import { ContentDetails } from "../../plugins/emitters/contentIndex"
 import { registerEscapeHandler, removeAllChildren } from "./util"
 import { FullSlug, normalizeRelativeURLs, resolveRelative } from "../../util/path"
+import { contentDecryptedEventListener, decryptContent } from "../../util/encryption"
 
 interface Item {
   id: number
@@ -143,6 +143,13 @@ function highlightHTML(searchTerm: string, el: HTMLElement) {
   return html.body
 }
 
+function notifyNav(url: FullSlug) {
+  const event: CustomEventMap["nav"] = new CustomEvent("nav", {
+    detail: { url, rerender: true },
+  })
+  document.dispatchEvent(event)
+}
+
 async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: ContentIndex) {
   const container = searchElement.querySelector(".search-container") as HTMLElement
   if (!container) return
@@ -265,10 +272,18 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
   const formatForDisplay = (term: string, id: number) => {
     const slug = idDataMap[id]
+    let title = data[slug].title
+
+    if (data[slug].decrypted === false) {
+      title = "🔒 " + title
+    } else if (data[slug].decrypted === true) {
+      title = "🔓 " + title
+    }
+
     return {
       id,
       slug,
-      title: searchType === "tags" ? data[slug].title : highlight(term, data[slug].title ?? ""),
+      title: searchType === "tags" ? title : highlight(term, title ?? ""),
       content: highlight(term, data[slug].content ?? "", true),
       tags: highlightTags(term.substring(1), data[slug].tags),
     }
@@ -389,6 +404,9 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       (a, b) => b.innerHTML.length - a.innerHTML.length,
     )
     highlights[0]?.scrollIntoView({ block: "start" })
+    await new Promise((resolve) => setTimeout(resolve, 100))
+
+    notifyNav(slug)
   }
 
   async function onType(e: HTMLElementEventMap["input"]) {
@@ -470,16 +488,55 @@ async function fillDocument(data: ContentIndex) {
   if (indexPopulated) return
   let id = 0
   const promises: Array<Promise<unknown>> = []
-  for (const [slug, fileData] of Object.entries<ContentDetails>(data)) {
-    promises.push(
-      index.addAsync(id++, {
-        id,
-        slug: slug as FullSlug,
-        title: fileData.title,
-        content: fileData.content,
-        tags: fileData.tags,
-      }),
-    )
+  for (const [slug, fileData] of Object.entries(data)) {
+    if (fileData.encryptionResult) {
+      const slugId = id
+      promises.push(
+        index.addAsync(id, {
+          id: id++,
+          slug: slug as FullSlug,
+          title: fileData.title,
+          content: "",
+          tags: fileData.tags,
+        }),
+      )
+      fileData.decrypted = false
+
+      promises.push(
+        contentDecryptedEventListener(
+          slug,
+          fileData.hash!,
+          fileData.encryptionConfig!,
+          async (password) => {
+            const decryptedContent = await decryptContent(
+              fileData.encryptionResult!,
+              fileData.encryptionConfig!,
+              password,
+            )
+
+            fileData.decrypted = true
+
+            index.updateAsync(slugId, {
+              id,
+              slug: slug as FullSlug,
+              title: fileData.title,
+              content: decryptedContent,
+              tags: fileData.tags,
+            })
+          },
+        ),
+      )
+    } else {
+      promises.push(
+        index.addAsync(id++, {
+          id,
+          slug: slug as FullSlug,
+          title: fileData.title,
+          content: fileData.content,
+          tags: fileData.tags,
+        }),
+      )
+    }
   }
 
   await Promise.all(promises)
@@ -487,6 +544,9 @@ async function fillDocument(data: ContentIndex) {
 }
 
 document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
+  // Ignore rerender events
+  if (e.detail.rerender) return
+
   const currentSlug = e.detail.url
   const data = await fetchData
   const searchElement = document.getElementsByClassName("search")

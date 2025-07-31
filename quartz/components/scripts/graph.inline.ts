@@ -95,6 +95,7 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
       v,
     ]),
   )
+
   const links: SimpleLinkData[] = []
   const tags: SimpleSlug[] = []
   const validLinks = new Set(data.keys())
@@ -575,6 +576,10 @@ function cleanupGlobalGraphs() {
 
 document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
   const slug = e.detail.url
+
+  // if we are rerendering, we can ignore this event
+  if (e.detail.rerender) return
+
   addToVisited(simplifySlug(slug))
 
   async function renderLocalGraph() {

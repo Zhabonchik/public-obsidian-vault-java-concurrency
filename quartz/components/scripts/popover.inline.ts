@@ -1,9 +1,16 @@
 import { computePosition, flip, inline, shift } from "@floating-ui/dom"
-import { normalizeRelativeURLs } from "../../util/path"
+import { FullSlug, normalizeRelativeURLs } from "../../util/path"
 import { fetchCanonical } from "./util"
 
 const p = new DOMParser()
 let activeAnchor: HTMLAnchorElement | null = null
+
+function notifyNav(url: FullSlug) {
+  const event: CustomEventMap["nav"] = new CustomEvent("nav", {
+    detail: { url, rerender: true },
+  })
+  document.dispatchEvent(event)
+}
 
 async function mouseEnterHandler(
   this: HTMLAnchorElement,
@@ -37,6 +44,8 @@ async function mouseEnterHandler(
         popoverInner.scroll({ top: heading.offsetTop - 12, behavior: "instant" })
       }
     }
+
+    notifyNav(link.getAttribute("href") as FullSlug)
   }
 
   const targetUrl = new URL(link.href)

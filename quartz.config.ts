@@ -71,10 +71,8 @@ const config: QuartzConfig = {
       Plugin.TableOfContents(),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Latex({ renderEngine: "katex" }),
-      Plugin.EncryptPlugin({
+      Plugin.Encrypt({
         algorithm: "aes-256-cbc",
-        keyLength: 32,
-        iterations: 100000,
         encryptedFolders: {},
         ttl: 3600 * 24 * 7, // A week
       }),

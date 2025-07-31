@@ -2,9 +2,9 @@
 title: "Encrypt"
 tags:
   - plugin/transformer
-encrypt: true
-encrypt_message: '^ Password is "quartz"'
-password: "quartz"
+encryptConfig:
+  password: "quartz"
+  message: '^ Password is "quartz"'
 ---
 
 This plugin enables content encryption for sensitive pages in your Quartz site. It uses AES encryption with password-based access control, allowing you to protect specific pages or entire folders with passwords.
@@ -16,17 +16,27 @@ This plugin enables content encryption for sensitive pages in your Quartz site. 
 
 ```typescript
 Plugin.Encrypt({
-  algorithm: "aes-256-cbc", // Encryption algorithm
-  keyLength: 32, // Key length in bytes
-  iterations: 100000, // PBKDF2 iterations
+  algorithm: "aes-256-cbc", // Encryption algorithm (key length auto-inferred)
   encryptedFolders: {
-    // Folder-level encryption
+    // Folder-level encryption with simple passwords
     "private/": "folder-password",
     "work/confidential/": "work-password",
+    // Advanced per-folder configuration
+    "secure/": {
+      password: "advanced-password",
+      algorithm: "aes-256-gcm",
+      ttl: 3600 * 24 * 30, // 30 days
+    },
   },
   ttl: 3600 * 24 * 7, // Password cache TTL in seconds (7 days)
 })
 ```
+
+> [!warning]
+> It is very important to note that:
+>
+> - All non-markdown files will be left unencrypted in the final build.
+> - Marking something as encrypted will only encrypt the page in the final build. The file's content can still be viewed if your repository is public.
 
 ### Configuration Options
 
@@ -34,10 +44,26 @@ Plugin.Encrypt({
   - `"aes-256-cbc"` (default): AES-256 in CBC mode
   - `"aes-256-gcm"`: AES-256 in GCM mode (authenticated encryption)
   - `"aes-256-ecb"`: AES-256 in ECB mode (not recommended for security)
-- `keyLength`: Key length in bytes (default: 32 for AES-256)
-- `iterations`: Number of PBKDF2 iterations for key derivation (default: 100000)
-- `encryptedFolders`: Object mapping folder paths to passwords for folder-level encryption
+  - Key length is automatically inferred from the algorithm (e.g., 256-bit = 32 bytes)
+- `encryptedFolders`: Object mapping folder paths to passwords or configuration objects for folder-level encryption
 - `ttl`: Time-to-live for cached passwords in seconds (default: 604800 = 7 days, set to 0 for session-only)
+- `message`: Message to be displayed in the decryption page
+
+### Advanced Folder Configuration
+
+You can provide detailed configuration for each encrypted folder:
+
+```typescript
+encryptedFolders: {
+  "basic/": "simple-password", // Simple string password
+  "advanced/": {
+    password: "complex-password",
+    algorithm: "aes-256-gcm",     // Override global algorithm
+    ttl: 3600 * 24 * 30,        // Override global TTL (30 days)
+    message: "This content is encrypted", // Message to be displayed
+  }
+}
+```
 
 ## Usage
 
@@ -59,34 +85,43 @@ All pages within these folders will be encrypted with the specified password. Ne
 
 ### Page-level Encryption
 
-Use frontmatter to encrypt individual pages or override folder passwords:
+Use frontmatter to encrypt individual pages or override folder passwords.
 
 ```yaml
 ---
 title: "My Secret Page"
-encrypt: true
 password: "page-specific-password"
-encrypt_message: "Sorry, this one is only for my eyes,"
+encryptConfig:
+  password: "password-also-allowed-here"
+  message: "Sorry, this one is only for my eyes"
+  algorithm: "aes-256-gcm" # Optional: override algorithm
+  ttl: 86400 # Optional: override TTL (1 day)
 ---
 This content will be encrypted and require a password to view.
 ```
 
 ### Frontmatter Fields
 
-The plugin recognizes these frontmatter fields:
+#### encryptConfig object fields:
+
+- `password`: (required) The password required to decrypt this page
+- `message`: (optional) Custom message to show on the unlock page
+- `algorithm`: (optional) Override the encryption algorithm for this page
+- `ttl`: (optional) Override password cache TTL for this page
+
+#### Legacy fields (still supported):
 
 - `encrypt`: Set to `true` to enable encryption for this page
 - `password`: The password required to decrypt this page
-- `encrypt_message`: Message to be shown on the unlock page.
 
-If a page is in an encrypted folder but has its own `password` field, the page-specific password will be used instead of the folder password.
+If a page is in an encrypted folder but has its own password configuration, the page-specific settings will be used instead of the folder settings.
 
 ### Security Considerations
 
 - Use strong passwords for sensitive content
 - Consider using AES-256-GCM mode for authenticated encryption
-- The default 100,000 PBKDF2 iterations provide good security but can be increased for higher security needs, or decreased for slow devices
 - ECB mode is provided for compatibility but is not recommended for security-critical applications
+- Key lengths are automatically determined by the algorithm (no manual configuration needed)
 
 ## Security Features
 
@@ -103,7 +138,6 @@ The plugin implements intelligent password caching:
 - **Full Content Encryption**: The entire HTML content is encrypted, not just hidden
 - **SEO Protection**: Search engines and RSS feeds see generic placeholder descriptions
 - **Client-side Decryption**: Content is never transmitted in plain text
-- **Secure Key Derivation**: Uses PBKDF2 with configurable iterations
 - **Password Verification**: Fast password hash verification before attempting decryption
 
 ## API

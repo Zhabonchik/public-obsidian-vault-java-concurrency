@@ -6,6 +6,7 @@ import toml from "toml"
 import { FilePath, FullSlug, getFileExtension, slugifyFilePath, slugTag } from "../../util/path"
 import { QuartzPluginData } from "../vfile"
 import { i18n } from "../../i18n"
+import { DirectoryConfig } from "../../util/encryption"
 
 export interface Options {
   delimiters: string | [string, string]
@@ -122,14 +123,17 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
             if (encrypted) data.encrypt = true
 
             const password = coalesceAliases(data, ["password"])
-            if (password) data.password = password
+            if (password) data.encryptConfig = { password: password }
 
-            const encryptMessage = coalesceAliases(data, [
-              "encryptMessage",
-              "encrypt_message",
-              "encrypt-message",
-            ])
-            if (encryptMessage) data.encryptMessage = encryptMessage
+            const encryptConfig = coalesceAliases(data, ["encryptConfig", "encrypt_config"])
+            if (encryptConfig && typeof encryptConfig === "object") {
+              data.encryptConfig = {
+                password: encryptConfig.password || password,
+                message: encryptConfig.message || undefined,
+                algorithm: encryptConfig.algorithm || undefined,
+                ttl: encryptConfig.ttl || undefined,
+              }
+            }
 
             // Remove duplicate slugs
             const uniqueSlugs = [...new Set(allSlugs)]
@@ -164,6 +168,8 @@ declare module "vfile" {
         cssclasses: string[]
         socialImage: string
         comments: boolean | string
+        encrypt: boolean
+        encryptConfig: DirectoryConfig
       }>
   }
 }

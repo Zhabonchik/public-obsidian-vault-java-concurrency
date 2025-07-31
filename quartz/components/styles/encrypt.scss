@@ -4,118 +4,164 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .encryption-notice {
+    background: color-mix(in srgb, var(--lightgray) 60%, var(--light));
+    border: 1px solid var(--lightgray);
+    border-radius: 5px;
+    padding: 2rem 1.5rem;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 6px 36px rgba(0, 0, 0, 0.15);
+    margin-top: 2rem;
+    font-family: var(--bodyFont);
+
+    & h3 {
+      margin: 0 0 0.5rem 0;
+      color: var(--dark);
+      font-size: 1.3rem;
+      font-weight: $semiBoldWeight;
+      font-family: var(--headerFont);
+    }
+
+    & p {
+      color: var(--darkgray);
+      line-height: 1.5;
+      font-size: 0.95rem;
+      margin: 0 0 1rem 0;
+    }
+
+    .decrypt-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+
+      .decrypt-password {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.75rem 1rem;
+        border-radius: 5px;
+        font-family: var(--bodyFont);
+        font-size: 1rem;
+        border: 1px solid var(--lightgray);
+        background: var(--light);
+        color: var(--dark);
+        transition: border-color 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: var(--secondary);
+          box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary) 20%, transparent);
+        }
+
+        @media all and ($mobile) {
+          font-size: 16px; // Prevent zoom on iOS
+        }
+      }
+
+      .decrypt-button {
+        background: var(--secondary);
+        color: var(--light);
+        border: none;
+        border-radius: 5px;
+        padding: 0.75rem 2rem;
+        font-family: var(--bodyFont);
+        font-size: 1rem;
+        font-weight: $semiBoldWeight;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-width: 120px;
+
+        &:hover {
+          background: color-mix(in srgb, var(--secondary) 90%, var(--dark));
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px color-mix(in srgb, var(--secondary) 30%, transparent);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+
+        @media all and ($mobile) {
+          font-size: 16px; // Prevent zoom on iOS
+        }
+      }
+
+      .encrypted-message-footnote {
+        color: var(--gray);
+        font-size: 0.85rem;
+        opacity: 0.8;
+        text-align: center;
+        width: 100%;
+        font-style: italic;
+        margin: 0;
+      }
+    }
+
+    .decrypt-loading {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: color-mix(in srgb, var(--secondary) 10%, var(--light));
+      border: 1px solid color-mix(in srgb, var(--secondary) 30%, transparent);
+      border-radius: 5px;
+      color: var(--secondary);
+      font-size: 0.9rem;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      .loading-spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid color-mix(in srgb, var(--secondary) 20%, transparent);
+        border-top: 2px solid var(--secondary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+
+    .decrypt-error {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: color-mix(in srgb, #ef4444 10%, var(--light));
+      border: 1px solid color-mix(in srgb, #ef4444 30%, transparent);
+      border-radius: 5px;
+      color: #dc2626;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media all and ($mobile) {
+      padding: 1.5rem 1rem;
+      margin: 1rem;
+    }
+  }
 }
 
-.encryption-notice {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid var(--lightgray);
-  border-radius: 8px;
-  padding: 2rem 1.5rem;
-  max-width: 450px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  margin-top: 2rem;
+// Hide the decrypt form when encrypted content appears in popover and search
+.popover .encrypted-content .encryption-notice .decrypt-form {
+  display: none;
+}
+
+.search-space .encrypted-content .encryption-notice .decrypt-form {
+  display: none;
+}
+
+.decrypted-content-wrapper {
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
 .encryption-icon {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
   opacity: 0.7;
-}
-
-.encryption-notice h3 {
-  margin: 0 0 0.5rem 0;
-  color: var(--darkgray);
-  font-size: 1.3rem;
-  font-weight: 600;
-}
-
-.encryption-notice p {
-  color: var(--gray);
-  line-height: 1.4;
-  font-size: 0.95rem;
-}
-
-.decrypted-content-wrapper {
-  /* Reset any container styles that might interfere */
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-
-.decrypt-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-}
-
-.decrypt-password {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0.75rem 1rem;
-  border-radius: 5px;
-  font-family: var(--bodyFont);
-  font-size: 1rem;
-  border: 1px solid var(--gray);
-  background: rgba(0, 0, 0, 0);
-  color: var(--dark);
-  transition: border-color 0.2s ease;
-}
-
-.decrypt-password:focus {
-  outline: none;
-  border-color: var(--secondary);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary) 20%, transparent);
-}
-
-.decrypt-button {
-  background: var(--secondary);
-  color: var(--light);
-  border: none;
-  border-radius: 5px;
-  padding: 0.75rem 2rem;
-  font-family: var(--bodyFont);
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-width: 120px;
-}
-
-.decrypt-button:hover {
-  background: color-mix(in srgb, var(--secondary) 90%, var(--dark));
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--secondary) 30%, transparent);
-}
-
-.decrypt-button:active {
-  transform: translateY(0);
-}
-
-.decrypt-loading {
-  display: none;
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
-  background: color-mix(in srgb, var(--secondary) 10%, var(--light));
-  border: 1px solid color-mix(in srgb, var(--secondary) 30%, transparent);
-  border-radius: 5px;
-  color: var(--secondary);
-  font-size: 0.9rem;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.loading-spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid color-mix(in srgb, var(--secondary) 20%, transparent);
-  border-top: 2px solid var(--secondary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -125,38 +171,4 @@
   100% {
     transform: rotate(360deg);
   }
-}
-
-.decrypt-error {
-  display: none;
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
-  background: color-mix(in srgb, #ef4444 10%, var(--light));
-  border: 1px solid color-mix(in srgb, #ef4444 30%, transparent);
-  border-radius: 5px;
-  color: #dc2626;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-@media (max-width: 600px) {
-  .encryption-notice {
-    padding: 1.5rem 1rem;
-    margin: 1rem;
-  }
-
-  .decrypt-password,
-  .decrypt-button {
-    font-size: 16px; /* Prevent zoom on iOS */
-  }
-}
-
-.encrypted-message-footnote {
-  color: var(--gray);
-  font-size: 0.85rem;
-  opacity: 0.8;
-  text-align: center;
-  width: 100%;
-  font-style: italic;
-  margin: 0;
 }

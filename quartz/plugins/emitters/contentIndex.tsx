@@ -7,8 +7,11 @@ import { QuartzEmitterPlugin } from "../types"
 import { toHtml } from "hast-util-to-html"
 import { write } from "./helpers"
 import { i18n } from "../../i18n"
+import { Hash, EncryptionResult, EncryptionConfig } from "../../util/encryption"
 
 export type ContentIndexMap = Map<FullSlug, ContentDetails>
+
+// Base content details without encryption-specific fields
 export type ContentDetails = {
   slug: FullSlug
   filePath: FilePath
@@ -19,7 +22,9 @@ export type ContentDetails = {
   richContent?: string
   date?: Date
   description?: string
-  encrypted?: boolean
+  encryptionConfig?: EncryptionConfig
+  hash?: Hash
+  encryptionResult?: EncryptionResult
 }
 
 interface Options {
@@ -104,7 +109,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
         const slug = file.data.slug!
         const date = getDate(ctx.cfg.configuration, file.data) ?? new Date()
         if (opts?.includeEmptyFiles || (file.data.text && file.data.text !== "")) {
-          linkIndex.set(slug, {
+          const contentDetails: ContentDetails = {
             slug,
             filePath: file.data.relativePath!,
             title: file.data.frontmatter?.title!,
@@ -112,13 +117,17 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
             tags: file.data.frontmatter?.tags ?? [],
             content: file.data.text ?? "",
             richContent:
-              !file.data.encrypted && opts?.rssFullHtml
+              !file.data.encryptionResult && opts?.rssFullHtml
                 ? escapeHTML(toHtml(tree as Root, { allowDangerousHtml: true }))
                 : undefined,
             date: date,
             description: file.data.description ?? "",
-            encrypted: file.data.encrypted,
-          })
+            encryptionConfig: file.data.encryptionConfig,
+            hash: file.data.hash,
+            encryptionResult: file.data.encryptionResult,
+          }
+
+          linkIndex.set(slug, contentDetails)
         }
       }
 
@@ -146,9 +155,12 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
           // remove description and from content index as nothing downstream
           // actually uses it. we only keep it in the index as we need it
           // for the RSS feed
-          if (content.encrypted) {
-            content.description = ""
+          if (content.encryptionResult) {
             delete content.richContent
+          } else {
+            delete content.hash
+            delete content.encryptionConfig
+            delete content.encryptionResult
           }
 
           delete content.description

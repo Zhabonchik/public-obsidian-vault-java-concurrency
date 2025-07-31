@@ -1,159 +1,86 @@
-import { createCipheriv, randomBytes, pbkdf2Sync, createHash } from "crypto"
 import { QuartzTransformerPlugin } from "../types"
 import { Root } from "hast"
 import { toHtml } from "hast-util-to-html"
 import { fromHtml } from "hast-util-from-html"
+import { toString } from "hast-util-to-string"
 import { VFile } from "vfile"
 import { i18n } from "../../i18n"
+import {
+  EncryptionOptions,
+  DirectoryConfig,
+  defaultEncryptionConfig,
+  SUPPORTED_ALGORITHMS,
+  SupportedEncryptionAlgorithm,
+  encryptContent,
+  getEncryptionConfigForPath,
+  Hash,
+  hashString,
+  EncryptionResult,
+  EncryptionConfig,
+} from "../../util/encryption"
 
 // @ts-ignore
 import encryptScript from "../../components/scripts/encrypt.inline.ts"
 import encryptStyle from "../../components/styles/encrypt.scss"
 
-export interface Options {
-  algorithm?: string
-  keyLength?: number
-  iterations?: number
-  encryptedFolders?: { [folderPath: string]: string } // json object with folder paths as keys and passwords as values
-  ttl: number
-}
+export interface Options extends EncryptionOptions {}
 
 const defaultOptions: Options = {
-  algorithm: "aes-256-cbc",
-  keyLength: 32,
-  iterations: 100000,
+  ...defaultEncryptionConfig,
   encryptedFolders: {},
-  ttl: 3600 * 24 * 7,
 }
 
-const SUPPORTED_ALGORITHMS = ["aes-256-cbc", "aes-256-gcm", "aes-256-ecb"] as const
-
-type SupportedAlgorithm = (typeof SUPPORTED_ALGORITHMS)[number]
-
-function deriveKey(password: string, salt: Buffer, keyLength: number, iterations: number): Buffer {
-  return pbkdf2Sync(password, salt, iterations, keyLength, "sha256")
-}
-
-function hashPassword(password: string, salt: Buffer): string {
-  // Create a fast hash for password verification (separate from key derivation)
-  const hash = createHash("sha256")
-  hash.update(password)
-  hash.update(salt)
-  const result = hash.digest("hex")
-  return result
-}
-
-function encryptContent(content: string, password: string, options: Options): string {
-  const { algorithm, keyLength, iterations } = { ...defaultOptions, ...options }
-
-  // Validate algorithm
-  if (!SUPPORTED_ALGORITHMS.includes(algorithm as SupportedAlgorithm)) {
-    throw new Error(
-      `Unsupported encryption algorithm: ${algorithm}. Supported: ${SUPPORTED_ALGORITHMS.join(", ")}`,
-    )
-  }
-
-  const salt = randomBytes(16)
-  const key = deriveKey(password, salt, keyLength!, iterations!)
-
-  let iv: Buffer | undefined
-  let cipher: any
-
-  // Handle different encryption modes
-  if (algorithm === "aes-256-ecb") {
-    // ECB doesn't use IV
-    cipher = createCipheriv(algorithm!, key, null)
-  } else {
-    // CBC and GCM use IV
-    iv = randomBytes(16)
-    cipher = createCipheriv(algorithm!, key, iv)
-  }
-
-  let encrypted = cipher.update(content, "utf8", "hex")
-  encrypted += cipher.final("hex")
-
-  // Handle auth tag for GCM
-  let authTag: string | undefined
-  if (algorithm === "aes-256-gcm") {
-    authTag = cipher.getAuthTag().toString("hex")
-  }
-
-  // Create password hash for verification
-  const passwordHash = hashPassword(password, salt)
-
-  // Build result object
-  const result: any = {
-    salt: salt.toString("hex"),
-    content: encrypted,
-    passwordHash,
-  }
-
-  if (iv) {
-    result.iv = iv.toString("hex")
-  }
-
-  if (authTag) {
-    result.authTag = authTag
-  }
-
-  return Buffer.from(JSON.stringify(result)).toString("base64")
-}
-
-export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
+export const Encrypt: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
   const opts = { ...defaultOptions, ...userOpts }
 
   // Validate algorithm at build time
-  if (opts.algorithm && !SUPPORTED_ALGORITHMS.includes(opts.algorithm as SupportedAlgorithm)) {
+  if (opts.algorithm && !SUPPORTED_ALGORITHMS.includes(opts.algorithm as SupportedEncryptionAlgorithm)) {
     throw new Error(
       `[EncryptPlugin] Unsupported encryption algorithm: ${opts.algorithm}. Supported algorithms: ${SUPPORTED_ALGORITHMS.join(", ")}`,
     )
   }
 
-  const getPassword = (file: VFile): string | undefined => {
+  const getEncryptionConfig = (file: VFile): DirectoryConfig | undefined => {
     const frontmatter = file.data?.frontmatter
+    const frontmatterConfig = (frontmatter?.encryptConfig ?? {}) as DirectoryConfig
+    const relativePath = file.data?.relativePath
 
-    if (frontmatter?.encrypt && frontmatter?.password) {
-      return frontmatter.password as string
+    const folderConfig = relativePath ? getEncryptionConfigForPath(relativePath, opts) : null
+
+    if (!folderConfig && !frontmatterConfig.password) {
+      return undefined
+    } else if (!folderConfig && !frontmatter?.encrypt) {
+      return undefined
     }
 
-    let deepestFolder = ""
-    for (const folder of Object.keys(opts.encryptedFolders ?? {})) {
-      if (file.data?.relativePath?.startsWith(folder) && deepestFolder.length < folder.length) {
-        deepestFolder = folder
-      }
+    const config = {
+      algorithm: frontmatterConfig.algorithm || folderConfig?.algorithm || opts.algorithm,
+      password: frontmatterConfig.password || folderConfig?.password || "",
+      message: frontmatterConfig.message || folderConfig?.message || opts.message,
+      ttl: frontmatterConfig.ttl || folderConfig?.ttl || opts.ttl,
     }
 
-    if (deepestFolder) {
-      if (frontmatter?.password) {
-        // if frontmatter has a password, use it
-        return frontmatter.password as string
-      }
-
-      return opts.encryptedFolders!![deepestFolder] as string
+    if (!config.password) {
+      return undefined
     }
+
+    return config
   }
 
   return {
-    name: "EncryptPlugin",
+    name: "Encrypt",
     markdownPlugins() {
-      // If encypted, prepend lock emoji before the title
+      // If encrypted, prepend lock emoji before the title
       return [
         () => {
-          return (_, file) => {
-            const password = getPassword(file)
-            if (!password) {
+          return async (_, file) => {
+            const config = getEncryptionConfig(file)
+            if (!config) {
               return
             }
 
-            file.data.encrypted = true
-            file.data.password = password
-            if (file.data?.frontmatter?.encryptMessage) {
-              file.data.encryptMessage = file.data.frontmatter.encryptMessage as string
-            }
-
-            if (file.data?.frontmatter?.title) {
-              file.data.frontmatter.title = `🔒 ${file.data.frontmatter.title}`
-            }
+            file.data.encryptionConfig = config
+            file.data.hash = await hashString(config.password)
           }
         },
       ]
@@ -161,40 +88,54 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
     htmlPlugins(ctx) {
       return [
         () => {
-          return (tree: Root, file) => {
-            const password = getPassword(file)
-            if (!password) {
-              return tree // No encryption, return original tree
+          return async (tree: Root, file) => {
+            const config = getEncryptionConfig(file)
+
+            if (!file.data.hash || !config) {
+              return tree
             }
 
             const locale = ctx.cfg.configuration.locale
             const t = i18n(locale).components.encryption
 
-            // Convert the HTML tree to string
-            const htmlContent = toHtml(tree)
+            // Convert html to plaintext and encrypt it
+            file.data.encryptionResult = await encryptContent(
+              toString(tree),
+              config.password,
+              config,
+            )
 
-            // Encrypt the content
-            const encryptedContent = encryptContent(htmlContent, password, opts)
-            console.log(file.data)
+            // Encrypt the content and generate verification hash
+            const encryptionResult = await encryptContent(toHtml(tree), config.password, config)
+
+            // Create individual attributes for each field instead of JSON
+            const attributes = [
+              `data-config='${JSON.stringify(config)}'`,
+              `data-encrypted='${JSON.stringify(encryptionResult)}'`,
+              `data-hash='${JSON.stringify(file.data.hash)}'`,
+              `data-slug='${file.data.slug}'`,
+            ].join(" ")
 
             // Create a new tree with encrypted content placeholder
             const encryptedTree = fromHtml(
               `
-              <div class="encrypted-content" data-encrypted="${encryptedContent}" data-config='${JSON.stringify(opts)}' data-i18n='${JSON.stringify(t)}'>
+              <div class="encrypted-content" ${attributes}>
                 <div class="encryption-notice">
                   <h3>${t.title}</h3>
-                  <p>${t.restricted}</p>
+                  ${config.message ? `<p>${config.message}</p>` : ""}
                   <div class="decrypt-form">
                     <input type="password" class="decrypt-password" placeholder="${t.enterPassword}" />
                     <button class="decrypt-button">${t.decrypt}</button>
-                    ${file.data.encryptMessage ? `<p class="encrypted-message-footnote">${file.data.encryptMessage}</p>` : ""}
                   </div>
                   <div class="decrypt-loading">
                     <div class="loading-spinner"></div>
                     <span>${t.decrypting}</span>
                   </div>
-                  <div class="decrypt-error">
+                  <div class="decrypt-error" data-error="incorrect-password">
                     ${t.incorrectPassword}
+                  </div>
+                  <div class="decrypt-error" data-error="decryption-failed">
+                    ${t.decryptionFailed}
                   </div>
                 </div>
               </div>
@@ -233,8 +174,8 @@ export const EncryptPlugin: QuartzTransformerPlugin<Partial<Options>> = (userOpt
 
 declare module "vfile" {
   interface DataMap {
-    encrypted: boolean
-    encryptMessage?: string
-    password?: string
+    encryptionConfig: EncryptionConfig
+    encryptionResult: EncryptionResult
+    hash: Hash
   }
 }

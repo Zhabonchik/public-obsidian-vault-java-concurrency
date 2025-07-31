@@ -1,6 +1,7 @@
 import { FileTrieNode } from "../../util/fileTrie"
 import { FullSlug, resolveRelative, simplifySlug } from "../../util/path"
 import { ContentDetails } from "../../plugins/emitters/contentIndex"
+import { contentDecryptedEventListener } from "../../util/encryption"
 
 type MaybeHTMLElement = HTMLElement | undefined
 
@@ -88,6 +89,18 @@ function createFileNode(currentSlug: FullSlug, node: FileTrieNode): HTMLLIElemen
   a.dataset.for = node.slug
   a.textContent = node.displayName
 
+  const span = li.querySelector("span") as HTMLSpanElement
+
+  if (span && node.data?.encryptionResult) {
+    span.textContent = "🔒 "
+
+    contentDecryptedEventListener(node.slug, node.data.hash!, node.data.encryptionConfig!, () => {
+      span.textContent = "🔓 "
+    })
+  } else if (span) {
+    span.remove()
+  }
+
   if (currentSlug === node.slug) {
     a.classList.add("active")
   }
@@ -111,6 +124,15 @@ function createFolderNode(
   const folderPath = node.slug
   folderContainer.dataset.folderpath = folderPath
 
+  const span = titleContainer.querySelector("span.folder-title-icon") as HTMLElement
+
+  if (span && node.data?.encryptionResult) {
+    span.textContent = "🔒 "
+    contentDecryptedEventListener(folderPath, node.data.hash!, node.data.encryptionConfig!, () => {
+      span.textContent = "🔓 "
+    })
+  }
+
   if (opts.folderClickBehavior === "link") {
     // Replace button with link for link behavior
     const button = titleContainer.querySelector(".folder-button") as HTMLElement
@@ -120,8 +142,9 @@ function createFolderNode(
     a.className = "folder-title"
     a.textContent = node.displayName
     button.replaceWith(a)
+    titleContainer.insertBefore(span, a)
   } else {
-    const span = titleContainer.querySelector(".folder-title") as HTMLElement
+    const span = titleContainer.querySelector(".folder-title-text") as HTMLElement
     span.textContent = node.displayName
   }
 
@@ -173,6 +196,7 @@ async function setupExplorer(currentSlug: FullSlug) {
     )
 
     const data = await fetchData
+
     const entries = [...Object.entries(data)] as [FullSlug, ContentDetails][]
     const trie = FileTrieNode.fromEntries(entries)
 
@@ -267,6 +291,13 @@ document.addEventListener("prenav", async () => {
 
 document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
   const currentSlug = e.detail.url
+  const rerender = e.detail.rerender
+
+  // If this is secondary nav call, do not populate explorer again
+  if (rerender) {
+    return
+  }
+
   await setupExplorer(currentSlug)
 
   // if mobile hamburger is visible, collapse by default

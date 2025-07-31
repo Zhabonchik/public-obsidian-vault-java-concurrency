@@ -143,9 +143,11 @@ const cssVars = [
 ] as const
 
 let mermaidImport = undefined
+
 document.addEventListener("nav", async () => {
-  const center = document.querySelector(".center") as HTMLElement
-  const nodes = center.querySelectorAll("code.mermaid") as NodeListOf<HTMLElement>
+  const nodes = document.querySelectorAll(
+    "code.mermaid:not([data-processed])",
+  ) as NodeListOf<HTMLElement>
   if (nodes.length === 0) return
 
   mermaidImport ||= await import(
@@ -162,9 +164,9 @@ document.addEventListener("nav", async () => {
   async function renderMermaid() {
     // de-init any other diagrams
     for (const node of nodes) {
-      node.removeAttribute("data-processed")
       const oldText = textMapping.get(node)
       if (oldText) {
+        node.removeAttribute("data-processed")
         node.innerHTML = oldText
       }
     }

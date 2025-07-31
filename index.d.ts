@@ -6,10 +6,14 @@ declare module "*.scss" {
 // dom custom event
 interface CustomEventMap {
   prenav: CustomEvent<{}>
-  nav: CustomEvent<{ url: FullSlug }>
+  nav: CustomEvent<{ url: FullSlug; rerender?: boolean }>
   themechange: CustomEvent<{ theme: "light" | "dark" }>
   readermodechange: CustomEvent<{ mode: "on" | "off" }>
 }
 
-type ContentIndex = Record<FullSlug, ContentDetails>
+type DecryptedFlag = {
+  decrypted?: boolean
+}
+
+type ContentIndex = Record<FullSlug, ContentDetails & DecryptedFlag>
 declare const fetchData: Promise<ContentIndex>
