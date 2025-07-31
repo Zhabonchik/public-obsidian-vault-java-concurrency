@@ -87,18 +87,15 @@ function createFileNode(currentSlug: FullSlug, node: FileTrieNode): HTMLLIElemen
   const a = li.querySelector("a") as HTMLAnchorElement
   a.href = resolveRelative(currentSlug, node.slug)
   a.dataset.for = node.slug
-  a.textContent = node.displayName
 
-  const span = li.querySelector("span") as HTMLSpanElement
-
-  if (span && node.data?.encryptionResult) {
-    span.textContent = "🔒 "
+  if (node.data?.encryptionResult) {
+    a.textContent = "🔒 " + node.displayName
 
     contentDecryptedEventListener(node.slug, node.data.hash!, node.data.encryptionConfig!, () => {
-      span.textContent = "🔓 "
+      a.textContent = "🔓 " + node.displayName
     })
-  } else if (span) {
-    span.remove()
+  } else {
+    a.textContent = node.displayName
   }
 
   if (currentSlug === node.slug) {
@@ -124,14 +121,7 @@ function createFolderNode(
   const folderPath = node.slug
   folderContainer.dataset.folderpath = folderPath
 
-  const span = titleContainer.querySelector("span.folder-title-icon") as HTMLElement
-
-  if (span && node.data?.encryptionResult) {
-    span.textContent = "🔒 "
-    contentDecryptedEventListener(folderPath, node.data.hash!, node.data.encryptionConfig!, () => {
-      span.textContent = "🔓 "
-    })
-  }
+  let titleElement: HTMLElement
 
   if (opts.folderClickBehavior === "link") {
     // Replace button with link for link behavior
@@ -140,12 +130,20 @@ function createFolderNode(
     a.href = resolveRelative(currentSlug, folderPath)
     a.dataset.for = folderPath
     a.className = "folder-title"
-    a.textContent = node.displayName
+    titleElement = a
     button.replaceWith(a)
-    titleContainer.insertBefore(span, a)
   } else {
     const span = titleContainer.querySelector(".folder-title-text") as HTMLElement
-    span.textContent = node.displayName
+    titleElement = span
+  }
+
+  if (node.data?.encryptionResult) {
+    titleElement.textContent = "🔒 " + node.displayName
+    contentDecryptedEventListener(folderPath, node.data.hash!, node.data.encryptionConfig!, () => {
+      titleElement.textContent = "🔓 " + node.displayName
+    })
+  } else {
+    titleElement.textContent = node.displayName
   }
 
   // if the saved state is collapsed or the default state is collapsed

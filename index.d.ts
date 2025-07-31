@@ -8,6 +8,7 @@ interface CustomEventMap {
   prenav: CustomEvent<{}>
   nav: CustomEvent<{ url: FullSlug }>
   render: CustomEvent<{ htmlElement: HTMLElement }>
+  decrypt: CustomEvent<{ filePath: FullSlug; password: string }>
   themechange: CustomEvent<{ theme: "light" | "dark" }>
   readermodechange: CustomEvent<{ mode: "on" | "off" }>
 }

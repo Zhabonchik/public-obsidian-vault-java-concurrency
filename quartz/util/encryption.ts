@@ -1,16 +1,17 @@
 // =============================================================================
 // TYPES AND INTERFACES
 // =============================================================================
-
 export const SUPPORTED_ALGORITHMS = ["aes-256-cbc", "aes-256-gcm", "aes-256-ecb"] as const
 
 export type SupportedEncryptionAlgorithm = (typeof SUPPORTED_ALGORITHMS)[number]
 
+// Result of hash operation
 export interface Hash {
   hash: string
   salt: string
 }
 
+// Result of encryption operation
 export interface EncryptionResult {
   encryptedContent: string
   encryptionSalt: string
@@ -18,28 +19,26 @@ export interface EncryptionResult {
   authTag?: string
 }
 
-export interface EncryptionConfig {
-  algorithm: string
+// Base crypto configuration without password
+export interface BaseCryptoConfig {
+  algorithm?: SupportedEncryptionAlgorithm
+  ttl?: number
+  message?: string
+}
+
+// Directory configuration can be partial or just a password string
+export type DirectoryConfig = (BaseCryptoConfig & { password: string }) | string
+
+// Complete crypto configuration with all required fields
+export interface CompleteCryptoConfig {
+  algorithm: SupportedEncryptionAlgorithm
   ttl: number
   message: string
 }
 
-export interface DirectoryConfig extends EncryptionConfig {
+// Encryption configuration includes password
+export interface EncryptionConfig extends CompleteCryptoConfig {
   password: string
-}
-
-export interface EncryptionOptions extends EncryptionConfig {
-  encryptedFolders: { [folderPath: string]: string | DirectoryConfig }
-}
-
-// =============================================================================
-// CONSTANTS AND CONFIGURATION
-// =============================================================================
-
-export const defaultEncryptionConfig: EncryptionConfig = {
-  algorithm: "aes-256-cbc",
-  ttl: 3600 * 24 * 7,
-  message: "This content is encrypted.",
 }
 
 const ENCRYPTION_CACHE_KEY = "quartz-encrypt-passwords"
@@ -197,7 +196,7 @@ export async function verifyPasswordHash(
 export async function encryptContent(
   content: string,
   password: string,
-  config: EncryptionConfig,
+  config: CompleteCryptoConfig,
 ): Promise<EncryptionResult> {
   checkCryptoSupport()
 
@@ -290,7 +289,7 @@ export async function encryptContent(
 
 export async function decryptContent(
   encrypted: EncryptionResult,
-  config: EncryptionConfig,
+  config: CompleteCryptoConfig,
   password: string,
 ): Promise<string> {
   checkCryptoSupport()
@@ -364,71 +363,26 @@ export async function decryptContent(
   return arrayBufferToString(decryptedBuffer)
 }
 
-// =============================================================================
-// CONFIGURATION MANAGEMENT
-// =============================================================================
-
-export function normalizeDirectoryConfig(
-  folderConfig: string | DirectoryConfig,
-  globalConfig: EncryptionConfig,
-): DirectoryConfig {
-  if (typeof folderConfig === "string") {
-    return {
-      ...globalConfig,
-      password: folderConfig,
-    }
-  }
-
-  return {
-    algorithm: folderConfig.algorithm || globalConfig.algorithm,
-    ttl: folderConfig.ttl || globalConfig.ttl,
-    password: folderConfig.password,
-    message: folderConfig.message || globalConfig.message,
-  }
-}
-
-export function getEncryptionConfigForPath(
-  filePath: string,
-  options: EncryptionOptions,
-): DirectoryConfig | undefined {
-  if (!options.encryptedFolders) {
-    return undefined
-  }
-
-  let deepestFolder = ""
-  let deepestConfig: string | DirectoryConfig | undefined
-
-  for (const [folder, config] of Object.entries(options.encryptedFolders)) {
-    if (filePath.startsWith(folder) && deepestFolder.length < folder.length) {
-      deepestFolder = folder
-      deepestConfig = config
-    }
-  }
-
-  if (deepestConfig) {
-    const globalConfig = {
-      algorithm: options.algorithm || defaultEncryptionConfig.algorithm,
-      ttl: options.ttl || defaultEncryptionConfig.ttl,
-      message: options.message || defaultEncryptionConfig.message,
-    }
-
-    return normalizeDirectoryConfig(deepestConfig, globalConfig)
-  }
-
-  return undefined
-}
-
 export async function searchForValidPassword(
   filePath: string,
   hash: Hash,
-  config: EncryptionConfig,
+  config: CompleteCryptoConfig,
+  blacklist: Set<string> | null = null,
 ): Promise<string | undefined> {
   const passwords = getRelevantPasswords(filePath)
 
   for (const password of passwords) {
+    if (blacklist && blacklist.has(password)) {
+      continue
+    }
+
     if (await verifyPasswordHash(password, hash)) {
       addPasswordToCache(password, filePath, config.ttl)
       return password
+    }
+
+    if (blacklist) {
+      blacklist.add(password)
     }
   }
 
@@ -566,27 +520,36 @@ export function getSharedDirectoryDepth(path1: string, path2: string): number {
 export async function contentDecryptedEventListener(
   filePath: string,
   hash: Hash,
-  config: EncryptionConfig,
+  config: CompleteCryptoConfig,
   callback: (password: string) => void,
-  once: boolean = true,
 ) {
-  const checkForValidPassword: () => Promise<boolean> = async () => {
-    const password = await searchForValidPassword(filePath, hash, config)
-    if (password) {
-      callback(password)
-      return true
+  const blacklist = new Set<string>()
+
+  async function decryptionSuccessful(password: string) {
+    addPasswordToCache(password, filePath, config.ttl)
+    callback(password)
+  }
+
+  async function listener(e: CustomEventMap["decrypt"]) {
+    const password = e.detail.password
+
+    if (blacklist.has(password)) {
+      return
     }
-    return false
+
+    if (await verifyPasswordHash(password, hash)) {
+      document.removeEventListener("decrypt", listener)
+      await decryptionSuccessful(password)
+      return
+    } else {
+      blacklist.add(password)
+    }
   }
 
-  const result = await checkForValidPassword()
-
-  if (!result || !once) {
-    document.addEventListener("nav", async function listener() {
-      const result = await checkForValidPassword()
-      if (result && once) {
-        document.removeEventListener("nav", listener)
-      }
-    })
+  const password = await searchForValidPassword(filePath, hash, config, blacklist)
+  if (password) {
+    callback(password)
   }
+
+  document.addEventListener("decrypt", listener)
 }

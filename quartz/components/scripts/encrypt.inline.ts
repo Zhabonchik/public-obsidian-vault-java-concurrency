@@ -3,7 +3,7 @@ import {
   verifyPasswordHash,
   addPasswordToCache,
   Hash,
-  EncryptionConfig,
+  CompleteCryptoConfig,
   searchForValidPassword,
   EncryptionResult,
 } from "../../util/encryption"
@@ -25,6 +25,16 @@ const showLoading = (container: Element, show: boolean) => {
   }
 }
 
+function dispatchDecryptEvent(filePath: FullSlug, password: string) {
+  const event = new CustomEvent("decrypt", {
+    detail: {
+      filePath,
+      password,
+    },
+  })
+  document.dispatchEvent(event)
+}
+
 const decryptWithPassword = async (
   container: Element,
   password: string,
@@ -33,7 +43,7 @@ const decryptWithPassword = async (
   const errorDivs = container.querySelectorAll(".decrypt-error") as NodeListOf<HTMLElement>
   const containerElement = container as HTMLElement
 
-  const config = JSON.parse(containerElement.dataset.config!) as EncryptionConfig
+  const config = JSON.parse(containerElement.dataset.config!) as CompleteCryptoConfig
   const encrypted = JSON.parse(containerElement.dataset.encrypted!) as EncryptionResult
   const hash = JSON.parse(containerElement.dataset.hash!) as Hash
 
@@ -137,13 +147,14 @@ function updateTitle(container: HTMLElement | null) {
 
 const tryAutoDecrypt = async (parent: HTMLElement, container: HTMLElement): Promise<boolean> => {
   const fullSlug = container.dataset.slug as FullSlug
-  const config = JSON.parse(container.dataset.config!) as EncryptionConfig
+  const config = JSON.parse(container.dataset.config!) as CompleteCryptoConfig
   const hash = JSON.parse(container.dataset.hash!) as Hash
 
   const password = await searchForValidPassword(fullSlug, hash, config)
 
   if (password && (await decryptWithPassword(container, password, false))) {
     dispatchRenderEvent(parent)
+    dispatchDecryptEvent(fullSlug, password)
     updateTitle(parent)
     return true
   }
@@ -151,6 +162,7 @@ const tryAutoDecrypt = async (parent: HTMLElement, container: HTMLElement): Prom
 }
 
 const manualDecrypt = async (parent: HTMLElement, container: HTMLElement) => {
+  const fullSlug = container.dataset.slug as FullSlug
   const passwordInput = container.querySelector(".decrypt-password") as HTMLInputElement
   const password = passwordInput.value
 
@@ -161,6 +173,7 @@ const manualDecrypt = async (parent: HTMLElement, container: HTMLElement) => {
 
   if (await decryptWithPassword(container, password, true)) {
     dispatchRenderEvent(parent)
+    dispatchDecryptEvent(fullSlug, password)
     updateTitle(parent)
   }
 }

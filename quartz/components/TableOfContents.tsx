@@ -54,14 +54,13 @@ export default ((opts?: Partial<Options>) => {
           </svg>
         </button>
         <OverflowList class={fileData.collapseToc ? "collapsed toc-content" : "toc-content"}>
-          {!fileData.encryptionResult &&
-            fileData.toc.map((tocEntry) => (
-              <li key={tocEntry.slug} class={`depth-${tocEntry.depth}`}>
-                <a href={`#${tocEntry.slug}`} data-for={tocEntry.slug}>
-                  {tocEntry.text}
-                </a>
-              </li>
-            ))}
+          {fileData.toc.map((tocEntry) => (
+            <li key={tocEntry.slug} class={`depth-${tocEntry.depth}`}>
+              <a href={`#${tocEntry.slug}`} data-for={tocEntry.slug}>
+                {tocEntry.text}
+              </a>
+            </li>
+          ))}
         </OverflowList>
       </div>
     )
@@ -71,7 +70,7 @@ export default ((opts?: Partial<Options>) => {
   TableOfContents.afterDOMLoaded = concatenateResources(script, overflowListAfterDOMLoaded)
 
   const LegacyTableOfContents: QuartzComponent = ({ fileData, cfg }: QuartzComponentProps) => {
-    if (!fileData.toc) {
+    if (!fileData.toc || fileData.encryptionResult) {
       return null
     }
     return (

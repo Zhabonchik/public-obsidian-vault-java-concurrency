@@ -121,7 +121,6 @@ export default ((userOpts?: Partial<Options>) => {
         </div>
         <template id="template-file">
           <li>
-            <span class="file-title"></span>
             <a href="#"></a>
           </li>
         </template>
@@ -144,7 +143,6 @@ export default ((userOpts?: Partial<Options>) => {
               </svg>
               <div>
                 <button class="folder-button">
-                  <span class="folder-title folder-title-icon"></span>
                   <span class="folder-title folder-title-text"></span>
                 </button>
               </div>

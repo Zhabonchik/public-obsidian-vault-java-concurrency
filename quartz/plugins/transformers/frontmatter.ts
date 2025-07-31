@@ -6,7 +6,7 @@ import toml from "toml"
 import { FilePath, FullSlug, getFileExtension, slugifyFilePath, slugTag } from "../../util/path"
 import { QuartzPluginData } from "../vfile"
 import { i18n } from "../../i18n"
-import { DirectoryConfig } from "../../util/encryption"
+import { EncryptionConfig } from "../../util/encryption"
 
 export interface Options {
   delimiters: string | [string, string]
@@ -169,7 +169,7 @@ declare module "vfile" {
         socialImage: string
         comments: boolean | string
         encrypt: boolean
-        encryptConfig: DirectoryConfig
+        encryptConfig: EncryptionConfig
       }>
   }
 }
