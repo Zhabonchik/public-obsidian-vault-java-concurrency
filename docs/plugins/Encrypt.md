@@ -2,6 +2,7 @@
 title: "Encrypt"
 tags:
   - plugin/transformer
+encrypt: true
 encryptConfig:
   password: "quartz"
   message: '^ Password is "quartz"'
