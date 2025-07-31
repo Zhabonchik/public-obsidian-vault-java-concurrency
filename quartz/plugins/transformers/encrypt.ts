@@ -117,6 +117,7 @@ export const Encrypt: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => 
               `data-encrypted='${JSON.stringify(encryptionResult)}'`,
               `data-hash='${JSON.stringify(file.data.hash)}'`,
               `data-slug='${file.data.slug}'`,
+              `data-decrypted='false'`,
             ].join(" ")
 
             // Create a new tree with encrypted content placeholder

@@ -1,16 +1,9 @@
 import { computePosition, flip, inline, shift } from "@floating-ui/dom"
 import { FullSlug, normalizeRelativeURLs } from "../../util/path"
-import { fetchCanonical } from "./util"
+import { fetchCanonical, dispatchRenderEvent, addRenderListener } from "./util"
 
 const p = new DOMParser()
 let activeAnchor: HTMLAnchorElement | null = null
-
-function notifyNav(url: FullSlug) {
-  const event: CustomEventMap["nav"] = new CustomEvent("nav", {
-    detail: { url, rerender: true },
-  })
-  document.dispatchEvent(event)
-}
 
 async function mouseEnterHandler(
   this: HTMLAnchorElement,
@@ -45,7 +38,7 @@ async function mouseEnterHandler(
       }
     }
 
-    notifyNav(link.getAttribute("href") as FullSlug)
+    dispatchRenderEvent(popoverInner)
   }
 
   const targetUrl = new URL(link.href)
@@ -129,8 +122,9 @@ function clearActivePopover() {
   allPopoverElements.forEach((popoverElement) => popoverElement.classList.remove("active-popover"))
 }
 
-document.addEventListener("nav", () => {
-  const links = [...document.querySelectorAll("a.internal")] as HTMLAnchorElement[]
+addRenderListener((element) => {
+  const links = [...element.querySelectorAll("a.internal")] as HTMLAnchorElement[]
+
   for (const link of links) {
     link.addEventListener("mouseenter", mouseEnterHandler)
     link.addEventListener("mouseleave", clearActivePopover)

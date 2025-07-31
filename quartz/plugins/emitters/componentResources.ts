@@ -211,6 +211,8 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       window.addCleanup = () => {}
       const event = new CustomEvent("nav", { detail: { url: document.body.dataset.slug } })
       document.dispatchEvent(event)
+      const renderEvent = new CustomEvent("render", { detail: { htmlElement: document.body } })
+      document.dispatchEvent(renderEvent)
     `)
   }
 }

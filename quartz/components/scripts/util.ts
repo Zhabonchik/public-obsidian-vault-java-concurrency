@@ -44,3 +44,16 @@ export async function fetchCanonical(url: URL): Promise<Response> {
   const [_, redirect] = text.match(canonicalRegex) ?? []
   return redirect ? fetch(`${new URL(redirect, url)}`) : res
 }
+
+export function addRenderListener(renderFn: (container: HTMLElement) => void) {
+  document.addEventListener("render", (e: CustomEventMap["render"]) => {
+    renderFn(e.detail.htmlElement)
+  })
+}
+
+export function dispatchRenderEvent(htmlElement: HTMLElement) {
+  const event: CustomEventMap["render"] = new CustomEvent("render", {
+    detail: { htmlElement },
+  })
+  document.dispatchEvent(event)
+}

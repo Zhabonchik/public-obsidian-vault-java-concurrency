@@ -1,4 +1,4 @@
-import { registerEscapeHandler, removeAllChildren } from "./util"
+import { registerEscapeHandler, removeAllChildren, addRenderListener } from "./util"
 
 interface Position {
   x: number
@@ -144,8 +144,8 @@ const cssVars = [
 
 let mermaidImport = undefined
 
-document.addEventListener("nav", async () => {
-  const nodes = document.querySelectorAll(
+addRenderListener(async (container: HTMLElement) => {
+  const nodes = container.querySelectorAll(
     "code.mermaid:not([data-processed])",
   ) as NodeListOf<HTMLElement>
   if (nodes.length === 0) return

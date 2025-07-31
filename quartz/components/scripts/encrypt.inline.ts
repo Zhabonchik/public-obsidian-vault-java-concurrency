@@ -8,6 +8,7 @@ import {
   EncryptionResult,
 } from "../../util/encryption"
 import { FullSlug, getFullSlug } from "../../util/path"
+import { addRenderListener, dispatchRenderEvent } from "./util"
 
 const showLoading = (container: Element, show: boolean) => {
   const loadingDiv = container.querySelector(".decrypt-loading") as HTMLElement
@@ -78,6 +79,9 @@ const decryptWithPassword = async (
         contentWrapper.className = "decrypted-content-wrapper"
         contentWrapper.innerHTML = decryptedContent
         container.parentNode!.replaceChild(contentWrapper, container)
+        // set data-decrypted of the original container to true
+        containerElement.dataset.decrypted = "true"
+
         return true
       }
 
@@ -121,13 +125,6 @@ const decryptWithPassword = async (
   }
 }
 
-const notifyNav = (url: FullSlug) => {
-  const event: CustomEventMap["nav"] = new CustomEvent("nav", {
-    detail: { url, rerender: true },
-  })
-  document.dispatchEvent(event)
-}
-
 function updateTitle(container: HTMLElement | null) {
   console.log(container)
   if (container) {
@@ -138,32 +135,22 @@ function updateTitle(container: HTMLElement | null) {
   }
 }
 
-const tryAutoDecrypt = async (container: HTMLElement): Promise<boolean> => {
-  const filePath = getFullSlug(window)
+const tryAutoDecrypt = async (parent: HTMLElement, container: HTMLElement): Promise<boolean> => {
   const fullSlug = container.dataset.slug as FullSlug
   const config = JSON.parse(container.dataset.config!) as EncryptionConfig
   const hash = JSON.parse(container.dataset.hash!) as Hash
-  const parent =
-    (container.closest(".popover") as HTMLElement) ||
-    (container.closest(".preview-inner") as HTMLElement) ||
-    (container.closest(".center") as HTMLElement) ||
-    null
 
   const password = await searchForValidPassword(fullSlug, hash, config)
 
   if (password && (await decryptWithPassword(container, password, false))) {
-    notifyNav(filePath)
+    dispatchRenderEvent(parent)
     updateTitle(parent)
     return true
   }
   return false
 }
 
-const manualDecrypt = async (container: HTMLElement) => {
-  const parent =
-    (container.closest(".preview-inner") as HTMLElement) ||
-    (container.closest(".center") as HTMLElement) ||
-    null
+const manualDecrypt = async (parent: HTMLElement, container: HTMLElement) => {
   const passwordInput = container.querySelector(".decrypt-password") as HTMLInputElement
   const password = passwordInput.value
 
@@ -173,29 +160,28 @@ const manualDecrypt = async (container: HTMLElement) => {
   }
 
   if (await decryptWithPassword(container, password, true)) {
-    const filePath = getFullSlug(window)
-    notifyNav(filePath)
+    dispatchRenderEvent(parent)
     updateTitle(parent)
   }
 }
 
-document.addEventListener("nav", async () => {
-  // Try auto-decryption for all encrypted content
-  const encryptedElements = document.querySelectorAll(
-    ".encrypted-content",
+addRenderListener(async (element) => {
+  // Try auto-decryption for all encrypted content with data-decrypted="false"
+  const encryptedElements = element.querySelectorAll(
+    ".encrypted-content[data-decrypted='false']",
   ) as NodeListOf<HTMLElement>
 
   for (const encryptedContainer of encryptedElements) {
-    await tryAutoDecrypt(encryptedContainer)
+    await tryAutoDecrypt(element, encryptedContainer)
   }
 
   // Manual decryption handlers
-  const buttons = document.querySelectorAll(".decrypt-button")
+  const buttons = element.querySelectorAll(".decrypt-button")
 
   buttons.forEach((button) => {
     const handleClick = async function (this: HTMLElement) {
       const encryptedContainer = this.closest(".encrypted-content")!
-      await manualDecrypt(encryptedContainer as HTMLElement)
+      await manualDecrypt(element, encryptedContainer as HTMLElement)
     }
 
     button.addEventListener("click", handleClick)
@@ -206,12 +192,12 @@ document.addEventListener("nav", async () => {
   })
 
   // Enter key handler
-  document.querySelectorAll(".decrypt-password").forEach((input) => {
+  element.querySelectorAll(".decrypt-password").forEach((input) => {
     const handleKeypress = async function (this: HTMLInputElement, e: Event) {
       const keyEvent = e as KeyboardEvent
       if (keyEvent.key === "Enter") {
         const encryptedContainer = this.closest(".encrypted-content")!
-        await manualDecrypt(encryptedContainer as HTMLElement)
+        await manualDecrypt(element, encryptedContainer as HTMLElement)
       }
     }
 

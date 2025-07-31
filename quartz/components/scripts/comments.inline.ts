@@ -1,3 +1,5 @@
+import { addRenderListener } from "./util"
+
 const changeTheme = (e: CustomEventMap["themechange"]) => {
   const theme = e.detail.theme
   const iframe = document.querySelector("iframe.giscus-frame") as HTMLIFrameElement
@@ -59,8 +61,8 @@ type GiscusElement = Omit<HTMLElement, "dataset"> & {
   }
 }
 
-document.addEventListener("nav", () => {
-  const giscusContainer = document.querySelector(".giscus") as GiscusElement
+addRenderListener((container: HTMLElement) => {
+  const giscusContainer = container.querySelector(".giscus") as GiscusElement
   if (!giscusContainer) {
     return
   }

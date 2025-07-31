@@ -149,15 +149,46 @@ As the names suggest, the `.beforeDOMLoaded` scripts are executed _before_ the p
 
 The `.afterDOMLoaded` script executes once the page has been completely loaded. This is a good place to setup anything that should last for the duration of a site visit (e.g. getting something saved from local storage).
 
-If you need to create an `afterDOMLoaded` script that depends on _page specific_ elements that may change when navigating to a new page, you can listen for the `"nav"` event that gets fired whenever a page loads (which may happen on navigation if [[SPA Routing]] is enabled).
+If you need to create an `afterDOMLoaded` script that depends on _page specific_ elements that may change when navigating to a new page, you have two options:
+
+**For navigation-specific logic**, listen for the `"nav"` event that gets fired whenever the user navigates to a new page:
 
 ```ts
-document.addEventListener("nav", () => {
-  // do page specific logic here
-  // e.g. attach event listeners
-  const toggleSwitch = document.querySelector("#switch") as HTMLInputElement
-  toggleSwitch.addEventListener("change", switchTheme)
-  window.addCleanup(() => toggleSwitch.removeEventListener("change", switchTheme))
+document.addEventListener("nav", (e) => {
+  // runs only on page navigation
+  // e.detail.url contains the new page URL
+  const currentUrl = e.detail.url
+  console.log(`Navigated to: ${currentUrl}`)
+})
+```
+
+**For rendering/re-rendering content**, use the `"render"` event which is fired when content needs to be processed or updated:
+
+```ts
+document.addEventListener("render", (e) => {
+  // runs when content is rendered or re-rendered
+  // e.detail.htmlElement contains the DOM element that was updated
+  const container = e.detail.htmlElement
+  
+  // attach event listeners to elements within this container
+  const toggleSwitch = container.querySelector("#switch") as HTMLInputElement
+  if (toggleSwitch) {
+    toggleSwitch.addEventListener("change", switchTheme)
+    window.addCleanup(() => toggleSwitch.removeEventListener("change", switchTheme))
+  }
+})
+```
+
+You can also use the utility function from `"./util"` to simplify render event handling:
+
+```ts
+import { addRenderListener } from "./util"
+
+addRenderListener((container) => {
+  // your rendering logic here
+  // container is the DOM element that was updated
+  const elements = container.querySelectorAll(".my-component")
+  elements.forEach(setupElement)
 })
 ```
 

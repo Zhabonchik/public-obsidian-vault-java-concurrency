@@ -1,5 +1,5 @@
 import FlexSearch from "flexsearch"
-import { registerEscapeHandler, removeAllChildren } from "./util"
+import { registerEscapeHandler, removeAllChildren, dispatchRenderEvent } from "./util"
 import { FullSlug, normalizeRelativeURLs, resolveRelative } from "../../util/path"
 import { contentDecryptedEventListener, decryptContent } from "../../util/encryption"
 
@@ -143,13 +143,6 @@ function highlightHTML(searchTerm: string, el: HTMLElement) {
   return html.body
 }
 
-function notifyNav(url: FullSlug) {
-  const event: CustomEventMap["nav"] = new CustomEvent("nav", {
-    detail: { url, rerender: true },
-  })
-  document.dispatchEvent(event)
-}
-
 async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: ContentIndex) {
   const container = searchElement.querySelector(".search-container") as HTMLElement
   if (!container) return
@@ -274,10 +267,8 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     const slug = idDataMap[id]
     let title = data[slug].title
 
-    if (data[slug].decrypted === false) {
-      title = "🔒 " + title
-    } else if (data[slug].decrypted === true) {
-      title = "🔓 " + title
+    if (data[slug].encryptionResult) {
+      title = (data[slug].decrypted ? "🔓 " : "🔒 ") + data[slug].title
     }
 
     return {
@@ -406,7 +397,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     highlights[0]?.scrollIntoView({ block: "start" })
     await new Promise((resolve) => setTimeout(resolve, 100))
 
-    notifyNav(slug)
+    dispatchRenderEvent(previewInner)
   }
 
   async function onType(e: HTMLElementEventMap["input"]) {
@@ -544,9 +535,6 @@ async function fillDocument(data: ContentIndex) {
 }
 
 document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
-  // Ignore rerender events
-  if (e.detail.rerender) return
-
   const currentSlug = e.detail.url
   const data = await fetchData
   const searchElement = document.getElementsByClassName("search")

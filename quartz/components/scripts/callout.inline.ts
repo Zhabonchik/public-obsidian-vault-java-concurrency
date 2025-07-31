@@ -1,3 +1,5 @@
+import { addRenderListener } from "./util"
+
 function toggleCallout(this: HTMLElement) {
   const outerBlock = this.parentElement!
   outerBlock.classList.toggle("is-collapsed")
@@ -7,8 +9,8 @@ function toggleCallout(this: HTMLElement) {
   content.style.gridTemplateRows = collapsed ? "0fr" : "1fr"
 }
 
-function setupCallout() {
-  const collapsible = document.getElementsByClassName(
+function setupCallout(container: HTMLElement) {
+  const collapsible = container.getElementsByClassName(
     `callout is-collapsible`,
   ) as HTMLCollectionOf<HTMLElement>
   for (const div of collapsible) {
@@ -24,4 +26,4 @@ function setupCallout() {
   }
 }
 
-document.addEventListener("nav", setupCallout)
+addRenderListener(setupCallout)

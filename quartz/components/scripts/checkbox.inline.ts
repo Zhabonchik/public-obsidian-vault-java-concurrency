@@ -1,9 +1,10 @@
 import { getFullSlug } from "../../util/path"
+import { addRenderListener } from "./util"
 
 const checkboxId = (index: number) => `${getFullSlug(window)}-checkbox-${index}`
 
-document.addEventListener("nav", () => {
-  const checkboxes = document.querySelectorAll(
+addRenderListener((container: HTMLElement) => {
+  const checkboxes = container.querySelectorAll(
     "input.checkbox-toggle",
   ) as NodeListOf<HTMLInputElement>
   checkboxes.forEach((el, index) => {

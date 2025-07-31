@@ -45,8 +45,12 @@ This question is best answered by tracing what happens when a user (you!) runs `
 
 1. The browser opens a Quartz page and loads the HTML. The `<head>` also links to page styles (emitted to `public/index.css`) and page-critical JS (emitted to `public/prescript.js`)
 2. Then, once the body is loaded, the browser loads the non-critical JS (emitted to `public/postscript.js`)
-3. Once the page is done loading, the page will then dispatch a custom synthetic browser event `"nav"`. This is used so client-side scripts declared by components can 'setup' anything that requires access to the page DOM.
-   1. If the [[SPA Routing|enableSPA option]] is enabled in the [[configuration]], this `"nav"` event is also fired on any client-navigation to allow for components to unregister and reregister any event handlers and state.
-   2. If it's not, we wire up the `"nav"` event to just be fired a single time after page load to allow for consistency across how state is setup across both SPA and non-SPA contexts.
+3. Once the page is done loading, the page will dispatch two custom synthetic browser events:
+   1. **`"nav"`** event: Fired when the user navigates to a new page. This is used for navigation-specific logic like updating URL-dependent state, analytics tracking, etc.
+      - Contains `e.detail.url` with the current page URL
+      - Fired on initial page load and on client-side navigation (if [[SPA Routing|enableSPA option]] is enabled)
+   2. **`"render"`** event: Fired when content needs to be processed or re-rendered. This is used for DOM manipulation, setting up event listeners, and other content-specific logic.
+      - Contains `e.detail.htmlElement` with the DOM element that was updated
+      - Fired on initial page load (with `document.body`) and whenever content is dynamically updated (e.g., in popovers, search results, after decryption)
 
 The architecture and design of the plugin system was intentionally left pretty vague here as this is described in much more depth in the guide on [[making plugins|making your own plugin]].

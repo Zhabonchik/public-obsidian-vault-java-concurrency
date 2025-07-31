@@ -1,6 +1,6 @@
 import micromorph from "micromorph"
 import { FullSlug, RelativeURL, getFullSlug, normalizeRelativeURLs } from "../../util/path"
-import { fetchCanonical } from "./util"
+import { fetchCanonical, dispatchRenderEvent } from "./util"
 
 // adapted from `micromorph`
 // https://github.com/natemoo-re/micromorph
@@ -38,6 +38,9 @@ const getOpts = ({ target }: Event): { url: URL; scroll?: boolean } | undefined 
 function notifyNav(url: FullSlug) {
   const event: CustomEventMap["nav"] = new CustomEvent("nav", { detail: { url } })
   document.dispatchEvent(event)
+  
+  // Also trigger render event for the whole document body
+  dispatchRenderEvent(document.body)
 }
 
 const cleanupFns: Set<(...args: any[]) => void> = new Set()
