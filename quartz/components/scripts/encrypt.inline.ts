@@ -128,17 +128,6 @@ const notifyNav = (url: FullSlug) => {
   document.dispatchEvent(event)
 }
 
-const getFirstParentWithClass = (container: HTMLElement, className: string): HTMLElement | null => {
-  let current = container.parentElement
-  while (current) {
-    if (current.classList.contains(className)) {
-      return current
-    }
-    current = current.parentElement
-  }
-  return null
-}
-
 function updateTitle(container: HTMLElement | null) {
   console.log(container)
   if (container) {

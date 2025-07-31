@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ 제한된 콘텐츠 🛡️",
-      restricted: "이 콘텐츠는 제한되어 있습니다. 보려면 비밀번호를 입력하세요:",
       enterPassword: "비밀번호 입력",
       decrypt: "복호화",
       decrypting: "복호화 중...",

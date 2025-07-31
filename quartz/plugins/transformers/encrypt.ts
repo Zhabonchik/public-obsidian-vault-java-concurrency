@@ -34,7 +34,10 @@ export const Encrypt: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => 
   const opts = { ...defaultOptions, ...userOpts }
 
   // Validate algorithm at build time
-  if (opts.algorithm && !SUPPORTED_ALGORITHMS.includes(opts.algorithm as SupportedEncryptionAlgorithm)) {
+  if (
+    opts.algorithm &&
+    !SUPPORTED_ALGORITHMS.includes(opts.algorithm as SupportedEncryptionAlgorithm)
+  ) {
     throw new Error(
       `[EncryptPlugin] Unsupported encryption algorithm: ${opts.algorithm}. Supported algorithms: ${SUPPORTED_ALGORITHMS.join(", ")}`,
     )

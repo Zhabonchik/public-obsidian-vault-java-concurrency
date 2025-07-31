@@ -62,7 +62,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Conținut Restricționat 🛡️",
-      restricted: "Acest conținut este restricționat. Introduceți parola pentru a vizualiza:",
       enterPassword: "Introduceți parola",
       decrypt: "Decriptați",
       decrypting: "Se decriptează...",

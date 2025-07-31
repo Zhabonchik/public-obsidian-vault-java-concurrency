@@ -62,7 +62,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Ограниченный Контент 🛡️",
-      restricted: "Этот контент ограничен. Введите пароль для просмотра:",
       enterPassword: "Введите пароль",
       decrypt: "Расшифровать",
       decrypting: "Расшифровка...",

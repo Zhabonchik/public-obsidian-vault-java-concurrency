@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Kısıtlı İçerik 🛡️",
-      restricted: "Bu içerik şifreli. Görüntülemek için şifreyi girin:",
       enterPassword: "Şifreyi girin",
       decrypt: "Şifreyi Çöz",
       decrypting: "Şifre çözülüyor...",

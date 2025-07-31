@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Eingeschränkter Inhalt 🛡️",
-      restricted: "Dieser Inhalt ist eingeschränkt. Geben Sie das Passwort ein, um ihn anzuzeigen:",
       enterPassword: "Passwort eingeben",
       decrypt: "Entschlüsseln",
       decrypting: "Entschlüsselt...",

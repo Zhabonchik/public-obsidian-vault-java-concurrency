@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ 受限内容 🛡️",
-      restricted: "此内容受限制。输入密码以查看：",
       enterPassword: "输入密码",
       decrypt: "解密",
       decrypting: "解密中...",

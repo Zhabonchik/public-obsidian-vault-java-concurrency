@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ 制限されたコンテンツ 🛡️",
-      restricted: "このコンテンツは制限されています。表示するにはパスワードを入力してください：",
       enterPassword: "パスワードを入力",
       decrypt: "復号化",
       decrypting: "復号化中...",

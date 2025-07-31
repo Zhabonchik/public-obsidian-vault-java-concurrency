@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Apribotas Turinys 🛡️",
-      restricted: "Šis turinys yra apribotas. Įveskite slaptažodį, kad peržiūrėtumėte:",
       enterPassword: "Įvesti slaptažodį",
       decrypt: "Iššifruoti",
       decrypting: "Iššifruojama...",

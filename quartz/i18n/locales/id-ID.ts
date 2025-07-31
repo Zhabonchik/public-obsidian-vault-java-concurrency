@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Konten Terbatas 🛡️",
-      restricted: "Konten ini terbatas. Masukkan kata sandi untuk melihat:",
       enterPassword: "Masukkan kata sandi",
       decrypt: "Dekripsi",
       decrypting: "Mendekripsi...",

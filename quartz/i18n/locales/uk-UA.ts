@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Обмежений Контент 🛡️",
-      restricted: "Цей контент обмежений. Введіть пароль, щоб переглянути:",
       enterPassword: "Введіть пароль",
       decrypt: "Розшифрувати",
       decrypting: "Розшифрування...",

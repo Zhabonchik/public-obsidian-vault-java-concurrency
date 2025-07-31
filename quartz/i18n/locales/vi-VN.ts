@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Nội Dung Bị Hạn Chế 🛡️",
-      restricted: "Nội dung này bị hạn chế. Nhập mật khẩu để xem:",
       enterPassword: "Nhập mật khẩu",
       decrypt: "Giải mã",
       decrypting: "Đang giải mã...",

@@ -66,7 +66,6 @@ export default {
     },
     encryption: {
       title: "🛡️ محتوى محدود 🛡️",
-      restricted: "هذا المحتوى محدود. ادخل كلمة المرور للعرض:",
       enterPassword: "ادخل كلمة المرور",
       decrypt: "فك التشفير",
       decrypting: "جاري فك التشفير...",

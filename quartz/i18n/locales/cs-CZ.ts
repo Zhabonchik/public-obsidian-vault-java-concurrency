@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Omezený obsah 🛡️",
-      restricted: "Tento obsah je omezen. Zadejte heslo pro zobrazení:",
       enterPassword: "Zadejte heslo",
       decrypt: "Dešifrovat",
       decrypting: "Dešifruji...",

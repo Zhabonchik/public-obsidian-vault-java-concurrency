@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Ograniczona Treść 🛡️",
-      restricted: "Ta treść jest ograniczona. Wprowadź hasło, aby wyświetlić:",
       enterPassword: "Wprowadź hasło",
       decrypt: "Odszyfruj",
       decrypting: "Odszyfrowywanie...",

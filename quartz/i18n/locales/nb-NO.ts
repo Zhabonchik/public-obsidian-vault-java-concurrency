@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Begrenset Innhold 🛡️",
-      restricted: "Dette innholdet er begrenset. Skriv inn passord for å vise:",
       enterPassword: "Skriv inn passord",
       decrypt: "Dekrypter",
       decrypting: "Dekrypterer...",

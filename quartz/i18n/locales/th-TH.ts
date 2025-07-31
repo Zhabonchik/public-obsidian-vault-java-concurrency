@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ เนื้อหาถูกจำกัด 🛡️",
-      restricted: "เนื้อหานี้ถูกจำกัด กรุณาใส่รหัสผ่านเพื่อดู:",
       enterPassword: "ใส่รหัสผ่าน",
       decrypt: "ถอดรหัส",
       decrypting: "กำลังถอดรหัส...",

@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Korlátozott Tartalom 🛡️",
-      restricted: "Ez a tartalom korlátozott. Adja meg a jelszót a megtekintéshez:",
       enterPassword: "Jelszó megadása",
       decrypt: "Visszafejtés",
       decrypting: "Visszafejtés...",

@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Contenuto Riservato 🛡️",
-      restricted: "Questo contenuto è riservato. Inserisci la password per visualizzare:",
       enterPassword: "Inserisci password",
       decrypt: "Decripta",
       decrypting: "Decriptando...",

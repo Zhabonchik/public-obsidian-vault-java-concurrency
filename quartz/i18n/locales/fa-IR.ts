@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ محتوای محدود 🛡️",
-      restricted: "این محتوا محدود است. رمز عبور را وارد کنید:",
       enterPassword: "رمز عبور را وارد کنید",
       decrypt: "رمزگشایی",
       decrypting: "در حال رمزگشایی...",

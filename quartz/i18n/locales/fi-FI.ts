@@ -61,7 +61,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Rajoitettu Sisältö 🛡️",
-      restricted: "Tämä sisältö on rajoitettu. Anna salasana nähdäksesi:",
       enterPassword: "Anna salasana",
       decrypt: "Pura salaus",
       decrypting: "Puretaan salausta...",

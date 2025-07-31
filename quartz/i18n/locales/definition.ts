@@ -63,7 +63,6 @@ export interface Translation {
     }
     encryption: {
       title: string
-      restricted: string
       enterPassword: string
       decrypt: string
       decrypting: string

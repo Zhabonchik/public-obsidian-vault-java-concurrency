@@ -62,7 +62,6 @@ export default {
     },
     encryption: {
       title: "🛡️ Beperkte Inhoud 🛡️",
-      restricted: "Deze inhoud is beperkt. Voer het wachtwoord in om te bekijken:",
       enterPassword: "Voer wachtwoord in",
       decrypt: "Ontsleutelen",
       decrypting: "Ontsleutelen...",
