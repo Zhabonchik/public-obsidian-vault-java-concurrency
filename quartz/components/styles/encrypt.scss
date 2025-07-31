@@ -137,7 +137,8 @@
 }
 
 // Hide the decrypt form when encrypted content appears in popover and search
-.search-space, .popover {
+.search-space,
+.popover {
   .encrypted-content .encryption-notice .decrypt-form {
     display: none;
   }

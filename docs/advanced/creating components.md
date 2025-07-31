@@ -169,7 +169,7 @@ document.addEventListener("render", (e) => {
   // runs when content is rendered or re-rendered
   // e.detail.htmlElement contains the DOM element that was updated
   const container = e.detail.htmlElement
-  
+
   // attach event listeners to elements within this container
   const toggleSwitch = container.querySelector("#switch") as HTMLInputElement
   if (toggleSwitch) {

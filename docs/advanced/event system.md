@@ -15,16 +15,17 @@ document.addEventListener("nav", (e: CustomEventMap["nav"]) => {
   // Access the current page URL
   const currentUrl = e.detail.url
   console.log(`User navigated to: ${currentUrl}`)
-  
+
   // Good for:
   // - Analytics tracking
-  // - URL-dependent state updates  
+  // - URL-dependent state updates
   // - Setting up page-level event handlers
   // - Theme/mode initialization
 })
 ```
 
 **When it fires:**
+
 - On initial page load
 - On client-side navigation (if SPA routing is enabled)
 - Does NOT fire on content re-renders
@@ -37,11 +38,11 @@ The `render` event is fired when content needs to be processed or updated. This 
 document.addEventListener("render", (e: CustomEventMap["render"]) => {
   // Access the container that was updated
   const container = e.detail.htmlElement
-  
+
   // Process elements within this container
   const codeBlocks = container.querySelectorAll("pre code")
   codeBlocks.forEach(addSyntaxHighlighting)
-  
+
   // Good for:
   // - Setting up event listeners on new content
   // - Processing dynamic content (syntax highlighting, math rendering, etc.)
@@ -50,6 +51,7 @@ document.addEventListener("render", (e: CustomEventMap["render"]) => {
 ```
 
 **When it fires:**
+
 - On initial page load (with `document.body` as the container)
 - When popover content is loaded
 - When search results are displayed
@@ -106,10 +108,12 @@ Always clean up event handlers to prevent memory leaks:
 ```ts
 addRenderListener((container) => {
   const buttons = container.querySelectorAll(".my-button")
-  
-  const handleClick = (e) => { /* ... */ }
-  
-  buttons.forEach(button => {
+
+  const handleClick = (e) => {
+    /* ... */
+  }
+
+  buttons.forEach((button) => {
     button.addEventListener("click", handleClick)
     // Clean up when navigating away
     window.addCleanup(() => {

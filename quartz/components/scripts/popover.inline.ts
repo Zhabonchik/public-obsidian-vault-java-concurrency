@@ -1,5 +1,5 @@
 import { computePosition, flip, inline, shift } from "@floating-ui/dom"
-import { FullSlug, normalizeRelativeURLs } from "../../util/path"
+import { normalizeRelativeURLs } from "../../util/path"
 import { fetchCanonical, dispatchRenderEvent, addRenderListener } from "./util"
 
 const p = new DOMParser()

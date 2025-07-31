@@ -291,12 +291,6 @@ document.addEventListener("prenav", async () => {
 
 document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
   const currentSlug = e.detail.url
-  const rerender = e.detail.rerender
-
-  // If this is secondary nav call, do not populate explorer again
-  if (rerender) {
-    return
-  }
 
   await setupExplorer(currentSlug)
 
