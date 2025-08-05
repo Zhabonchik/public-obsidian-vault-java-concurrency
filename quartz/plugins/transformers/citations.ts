@@ -30,7 +30,11 @@ export const Citations: QuartzTransformerPlugin<Partial<Options>> = (userOpts) =
       // thus, we optimistically assume there is indeed an appropriate
       // locale available and simply create the lang url-string
       let lang: string = "en-US"
-      if (ctx.cfg.configuration.locale !== null && ctx.cfg.configuration.locale !== undefined) {
+      if (
+        ctx.cfg.configuration.locale !== null &&
+        ctx.cfg.configuration.locale !== undefined &&
+        ctx.cfg.configuration.locale !== "en-US"
+      ) {
         lang =
           "https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-" +
           ctx.cfg.configuration.locale +
