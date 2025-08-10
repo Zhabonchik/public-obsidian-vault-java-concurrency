@@ -3,7 +3,7 @@ import badgesCSS from "../../styles/badges.scss"
 import { JSResource, CSSResource } from "../../util/resources"
 import icons from "lucide-static"
 
-export const BADGE_TYPES: any[] = [
+export const BADGE_TYPES: [string, string, string][] = [
   ["note", "Note", "lucide-pencil"],
   ["info", "Info", "lucide-info"],
   ["todo", "Todo", "lucide-check-circle-2"],
@@ -92,7 +92,7 @@ export const BADGE_TYPES: any[] = [
   ["vault", "Vault", "vault"],
 ]
 
-var allBadges: any[] = BADGE_TYPES //Append custom badges to the end of this array.
+var allBadges: [string, string, string][] = BADGE_TYPES //Append custom badges to the end of this array.
 
 // Catches all badge blocks with syntax `[!!...]` but not `[!!]
 const REGEXP = /\`\[!!([^\]]+)\]\`/gm
