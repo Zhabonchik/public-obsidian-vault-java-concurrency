@@ -54,10 +54,10 @@ A badge object is defined like so:
 
 ```ts
 {
-	name: "foobar",
-	icon: "icon_name",
-	color: [10, 10, 10, 1],
-	textOpacity: 0.117,
+  name: "foobar",
+  icon: "icon_name",
+  color: [10, 10, 10, 1],
+  textOpacity: 0.117,
 }
 ```
 
