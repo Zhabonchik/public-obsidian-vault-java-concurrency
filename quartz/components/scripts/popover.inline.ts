@@ -43,7 +43,9 @@ async function mouseEnterHandler(
   const hash = decodeURIComponent(targetUrl.hash)
   targetUrl.hash = ""
   targetUrl.search = ""
-  const popoverId = `popover-${link.pathname}`
+
+  // use the full path + encoded hash as the unique identifier
+  const popoverId = `popover-${targetUrl.pathname}${hash.replace(/#/g, '-')}`
   const prevPopoverElement = document.getElementById(popoverId)
 
   // dont refetch if there's already a popover
