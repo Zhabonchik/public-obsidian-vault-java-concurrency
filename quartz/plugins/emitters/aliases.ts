@@ -1,4 +1,4 @@
-import { FullSlug, isRelativeURL, resolveRelative, simplifySlug } from "../../util/path"
+import { FullSlug, resolveRelative, simplifySlug } from "../../util/path"
 import { QuartzEmitterPlugin } from "../types"
 import { write } from "./helpers"
 import { BuildCtx } from "../../util/ctx"
@@ -9,11 +9,15 @@ async function* processFile(ctx: BuildCtx, file: VFile) {
   const ogSlug = simplifySlug(file.data.slug!)
 
   for (const aliasTarget of file.data.aliases ?? []) {
-    const aliasTargetSlug = (
-      isRelativeURL(aliasTarget)
-        ? path.normalize(path.join(ogSlug, "..", aliasTarget))
-        : aliasTarget
-    ) as FullSlug
+    let aliasTargetSlug: FullSlug
+
+    if (aliasTarget.startsWith('/')) {
+      // Root-absolute paths: /index -> index
+      aliasTargetSlug = aliasTarget.slice(1) as FullSlug
+    } else {
+      // Everything else is relative to current directory: ./file, ../folder/file, index, xxx/yyy
+      aliasTargetSlug = path.posix.normalize(path.posix.join(path.posix.dirname(ogSlug), aliasTarget)) as FullSlug
+    }
 
     const redirUrl = resolveRelative(aliasTargetSlug, ogSlug)
     yield write({
