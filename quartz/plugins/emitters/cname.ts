@@ -1,7 +1,6 @@
 import { QuartzEmitterPlugin } from "../types"
 import { write } from "./helpers"
 import { styleText } from "util"
-import { BuildCtx } from "../../util/ctx"
 import { FullSlug } from "../../util/path"
 
 export function extractDomainFromBaseUrl(baseUrl: string) {
