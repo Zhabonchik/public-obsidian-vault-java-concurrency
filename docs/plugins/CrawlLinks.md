@@ -19,6 +19,7 @@ This plugin accepts the following configuration options:
 - `openLinksInNewTab`: If `true`, configures external links to open in a new tab. Defaults to `false`.
 - `lazyLoad`: If `true`, adds lazy loading to resource elements (`img`, `video`, etc.) to improve page load performance. Defaults to `false`.
 - `externalLinkIcon`: Adds an icon next to external links when `true` (default) to visually distinguishing them from internal links.
+- `showLinkFavicon`: If `true`, displays the favicon of external websites before each external link, making it easier to visually identify the source of the link. Defaults to `false`.
 
 > [!warning]
 > Removing this plugin is _not_ recommended and will likely break the page.
