@@ -8,7 +8,7 @@ import { toHtml } from "hast-util-to-html"
 import { write } from "./helpers"
 import { i18n } from "../../i18n"
 import { BuildCtx } from "../../util/ctx"
-import chalk from "chalk"
+import pc from "picocolors"
 import { ProcessedContent } from "../vfile"
 
 type ContentIndex = Tree<TreeNode>
@@ -125,7 +125,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
         )
       ) {
         console.warn(
-          chalk.yellow(`Warning: contentIndex: 
+          pc.yellow(`Warning: contentIndex: 
   content/ folder is missing an index.md. RSS feeds and sitemap will not be generated.
   If you still wish to generate these files, add:
     bypassIndexCheck: true,
