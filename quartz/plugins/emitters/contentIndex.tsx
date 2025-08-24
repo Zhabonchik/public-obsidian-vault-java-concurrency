@@ -101,7 +101,7 @@ function generateRSSEntry(cfg: GlobalConfiguration, details: ContentDetails): En
       <title>${escapeHTML(details.title)}</title>
       <link>https://${joinSegments(base, encodeURI(simplifySlug(details.slug!)))}</link>
       <guid>https://${joinSegments(base, encodeURI(simplifySlug(details.slug!)))}</guid>
-      <description>${details.richContent ?? details.description}</description>
+      <description><![CDATA[ ${details.richContent ?? details.description} ]]></description>
       <pubDate>${details.date?.toUTCString()}</pubDate>
     </item>`
 
