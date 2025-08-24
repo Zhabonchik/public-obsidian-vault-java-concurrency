@@ -164,6 +164,11 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
         var pointer = indexTree
         const dirs = file.data.relativePath?.split("/").slice(0, -1) ?? []
 
+        // If file is blank, don't include it unless specified
+        if (!opts?.includeEmptyFiles || (file.data.text && file.data.text === "")) {
+          continue
+        }
+
         // Skips descent if file is top-level (ex. content/index.md)
         for (var i = 1; i <= dirs.length; i++) {
           // Initialize directories
