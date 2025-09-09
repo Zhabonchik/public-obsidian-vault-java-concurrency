@@ -228,7 +228,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       \`
       document.head.appendChild(matomoScript);
     `)
-   } else if (cfg.analytics?.provider === "vercel") {
+  } else if (cfg.analytics?.provider === "vercel") {
     /**
      * script from {@link https://vercel.com/docs/analytics/quickstart?framework=html#add-the-script-tag-to-your-site|Vercel Docs}
      */
