@@ -80,6 +80,7 @@ export const CreatedModifiedDate: QuartzTransformerPlugin<Partial<Options>> = (u
               } else if (source === "git" && repo) {
                 try {
                   const relativePath = path.relative(repositoryWorkdir, fullFp)
+                  created ||= await repo.getFileLatestModifiedDateAsync(relativePath)
                   modified ||= await repo.getFileLatestModifiedDateAsync(relativePath)
                 } catch {
                   console.log(
