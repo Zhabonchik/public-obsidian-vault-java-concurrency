@@ -35,6 +35,15 @@ export default ((opts: Options) => {
       return <></>
     }
 
+    const mapping = opts.options.mapping ?? "url"
+    const commentId = fileData.frontmatter?.commentId as string | undefined
+
+    if (mapping === "specific" && !commentId) {
+      const identifier = fileData.filePath ?? fileData.slug ?? "unknown"
+      console.warn(`[Quartz] Missing commentId for page ${identifier}, skipping giscus mounting.`)
+      return <></>
+    }
+
     return (
       <div
         class={classNames(displayClass, "giscus")}
@@ -42,7 +51,8 @@ export default ((opts: Options) => {
         data-repo-id={opts.options.repoId}
         data-category={opts.options.category}
         data-category-id={opts.options.categoryId}
-        data-mapping={opts.options.mapping ?? "url"}
+        data-mapping={mapping}
+        data-term={mapping === "specific" ? commentId : undefined}
         data-strict={boolToStringBool(opts.options.strict ?? true)}
         data-reactions-enabled={boolToStringBool(opts.options.reactionsEnabled ?? true)}
         data-input-position={opts.options.inputPosition ?? "bottom"}

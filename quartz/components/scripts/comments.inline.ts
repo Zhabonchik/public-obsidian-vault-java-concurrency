@@ -56,12 +56,22 @@ type GiscusElement = Omit<HTMLElement, "dataset"> & {
     reactionsEnabled: string
     inputPosition: "top" | "bottom"
     lang: string
+    term?: string
   }
 }
 
 document.addEventListener("nav", () => {
   const giscusContainer = document.querySelector(".giscus") as GiscusElement
   if (!giscusContainer) {
+    return
+  }
+
+  giscusContainer
+    .querySelectorAll("iframe.giscus-frame, script[src*='giscus.app']")
+    .forEach((node) => node.remove())
+
+  if (giscusContainer.dataset.mapping === "specific" && !giscusContainer.dataset.term) {
+    console.warn("[Giscus] mapping='specific' but data-term is missing; skipping widget injection.")
     return
   }
 
@@ -76,6 +86,9 @@ document.addEventListener("nav", () => {
   giscusScript.setAttribute("data-category", giscusContainer.dataset.category)
   giscusScript.setAttribute("data-category-id", giscusContainer.dataset.categoryId)
   giscusScript.setAttribute("data-mapping", giscusContainer.dataset.mapping)
+  if (giscusContainer.dataset.term) {
+    giscusScript.setAttribute("data-term", giscusContainer.dataset.term)
+  }
   giscusScript.setAttribute("data-strict", giscusContainer.dataset.strict)
   giscusScript.setAttribute("data-reactions-enabled", giscusContainer.dataset.reactionsEnabled)
   giscusScript.setAttribute("data-input-position", giscusContainer.dataset.inputPosition)
