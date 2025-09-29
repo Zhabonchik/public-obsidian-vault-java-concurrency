@@ -1,12 +1,25 @@
 import { QuartzTransformerPlugin } from "../types"
 
-// ViewImage.js灯箱插件
-// 简化版实现
 export const ViewImage: QuartzTransformerPlugin = () => {
   return {
     name: "ViewImage",
     externalResources() {
       return {
+        css: [
+          {
+            content: `
+              img {
+                cursor: zoom-in !important;
+                border: 2px dashed #284b63 !important;
+                transition: border-color 0.2s ease !important;
+              }
+              img:hover {
+                border-color: #1a365d !important;
+              }
+            `,
+            inline: true,
+          }
+        ],
         js: [
           {
             src: "https://cdn.jsdelivr.net/gh/Tokinx/ViewImage/view-image.min.js",
@@ -15,19 +28,62 @@ export const ViewImage: QuartzTransformerPlugin = () => {
           },
           {
             script: `
-              // 简单的初始化代码
-              document.addEventListener('DOMContentLoaded', function() {
+              function initViewImage() {
                 if (window.ViewImage) {
-                  // 使用更通用的选择器
-                  ViewImage.init('article img, .content img');
-                  // 添加视觉反馈
-                  const style = document.createElement('style');
-                  style.textContent = 'article img, .content img { cursor: zoom-in; border: 2px dashed #284b63; }';
-                  document.head.appendChild(style);
-                  console.log('ViewImage灯箱插件已初始化');
+                  const existingImages = document.querySelectorAll('img[data-viewimage]');
+                  existingImages.forEach(img => {
+                    img.removeAttribute('data-viewimage');
+                    const newImg = img.cloneNode(true);
+                    img.parentNode.replaceChild(newImg, img);
+                  });
+                  
+                  ViewImage.init('img');
+                  console.log('ViewImage灯箱插件已初始化，处理了', document.querySelectorAll('img').length, '张图片');
                 } else {
                   console.error('ViewImage库未加载成功');
                 }
+              }
+              
+              function setupViewImageObserver() {
+                const observer = new MutationObserver(function(mutations) {
+                  let shouldReinit = false;
+                  mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList') {
+                      mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                          const element = node;
+                          if (element.tagName === 'IMG' || element.querySelector('img')) {
+                            shouldReinit = true;
+                          }
+                        }
+                      });
+                    }
+                  });
+                  
+                  if (shouldReinit) {
+                    console.log('检测到页面内容变化，重新初始化 ViewImage');
+                    setTimeout(initViewImage, 50);
+                  }
+                });
+                
+                observer.observe(document.body, {
+                  childList: true,
+                  subtree: true
+                });
+                
+                return observer;
+              }
+              
+              document.addEventListener('DOMContentLoaded', function() {
+                initViewImage();
+                setupViewImageObserver();
+              });
+              
+              document.addEventListener('nav', function() {
+                console.log('SPA 导航事件触发，准备重新初始化 ViewImage');
+                setTimeout(function() {
+                  initViewImage();
+                }, 200);
               });
             `,
             loadTime: "afterDOMReady",
@@ -39,7 +95,6 @@ export const ViewImage: QuartzTransformerPlugin = () => {
   }
 }
 
-// 告诉TypeScript我们添加的内容
 declare module "vfile" {
   interface DataMap {
     viewImage?: boolean
