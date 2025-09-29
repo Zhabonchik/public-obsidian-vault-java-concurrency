@@ -18,7 +18,7 @@ export const ViewImage: QuartzTransformerPlugin = () => {
               }
             `,
             inline: true,
-          }
+          },
         ],
         js: [
           {
