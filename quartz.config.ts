@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "Quartz 4",
+    pageTitle: "PATRICK> NHAT.NTM",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
@@ -29,27 +29,27 @@ const config: QuartzConfig = {
       },
       colors: {
         lightMode: {
-          light: "#faf8f8",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
+          light: "#f9f9fa",                    // Màu nền chính của trang (background)
+          lightgray: "#dedede",                // Màu viền nhẹ, đường kẻ phân cách, border
+          gray: "#b0b0b0",                     // Màu liên kết trong graph view, đường nối giữa các node
+          darkgray: "#444444",                 // Màu chữ chính trong nội dung (paragraph, text)
+          dark: "#1c1c1e",                     // Màu tiêu đề (h1, h2, h3...), icon, text quan trọng
+          secondary: "#007aff",                // Màu link thường, node hiện tại trong graph, button
+          tertiary: "#d6b745",                 // Màu hover state, node đã thăm trong graph, accent color (vàng)
+          highlight: "rgba(0, 122, 255, 0.1)", // Màu nền cho link nội bộ (internal link background)
+          textHighlight: "#ffcc00aa",          // Màu nền cho text được highlight/đánh dấu
         },
         darkMode: {
-          light: "#161618",
-          lightgray: "#393639",
-          gray: "#646464",
-          darkgray: "#d4d4d4",
-          dark: "#ebebec",
-          secondary: "#7b97aa",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#b3aa0288",
-        },
+          light: "#1c1c1e",                    // Màu nền chính của trang (background) - dark theme
+          lightgray: "#2c2c2e",                // Màu viền nhẹ, đường kẻ phân cách, border - dark theme
+          gray: "#636366",                     // Màu liên kết trong graph view, đường nối giữa các node - dark theme
+          darkgray: "#e5e5e7",                 // Màu chữ chính trong nội dung (paragraph, text) - dark theme
+          dark: "#f2f2f7",                     // Màu tiêu đề (h1, h2, h3...), icon, text quan trọng - dark theme
+          secondary: "#0a84ff",                // Màu link thường, node hiện tại trong graph, button - dark theme
+          tertiary: "#d6b745",                 // Màu hover state, node đã thăm trong graph, accent color (vàng)
+          highlight: "rgba(10, 132, 255, 0.15)", // Màu nền cho link nội bộ (internal link background) - dark theme
+          textHighlight: "#ffd60a99",          // Màu nền cho text được highlight/đánh dấu - dark theme
+        }
       },
     },
   },
@@ -68,7 +68,7 @@ const config: QuartzConfig = {
       }),
       Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
       Plugin.GitHubFlavoredMarkdown(),
-      Plugin.TableOfContents(),
+      Plugin.TableOfContents({ maxDepth: 4 }),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),
