@@ -21,12 +21,12 @@ We need someone who can translate between technical depth and accessible explana
 - High cultural alignment with Plastic Labs' ethos, vision, & mission
 - Ability to rapidly onboard to Plastic & get to work right away
 - Bias for rapid execution, fast iteration, consistency, and risky, high-volume experiments
-- 2-y years in DevRel, technical writing, developer advocacy, or similar/equivalent roles
+- 2-7 years in DevRel, technical writing, developer advocacy, or similar/equivalent roles
 - Strong technical foundation--comfortable reading & writing code across the stack
 - Experience with Python, TypeScript, & REST APIs
 - Experience building demos, sample applications, & integration projects
-- Experience with LLMs, AI infrastructure, & developer tools
-- Ability to build LLM-based applications
+- Competence building LLM-based POC & MVP applications swiftly
+- Experience across LLMs, AI infrastructure, & developer tools
 - Ability to keep pace with the AI space, synthesize, & execute
 - High literacy--technical & conceptual, written & spoken 
 - Natural storyteller who can explain complex technical concepts clearly
