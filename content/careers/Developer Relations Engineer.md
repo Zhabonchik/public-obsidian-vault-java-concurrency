@@ -6,7 +6,7 @@ tags:
   - dev
   - announcements
 ---
-> 140-160k + equity & benefits  
+> 175-205k + equity & benefits  
 > NYC, in-person, full-time
 # About the Role
 
@@ -20,11 +20,13 @@ We need someone who can translate between technical depth and accessible explana
 - NYC-based or open to NYC relocation
 - High cultural alignment with Plastic Labs' ethos, vision, & mission
 - Ability to rapidly onboard to Plastic & get to work right away
-- 2-4 years in DevRel, technical writing, developer advocacy, similar roles, or equivalent
+- Bias for rapid execution, fast iteration, consistency, and risky, high-volume experiments
+- 2-y years in DevRel, technical writing, developer advocacy, or similar/equivalent roles
 - Strong technical foundation--comfortable reading & writing code across the stack
 - Experience with Python, TypeScript, & REST APIs
 - Experience building demos, sample applications, & integration projects
-- Experience with in LLMs, AI infrastructure, & developer tools
+- Experience with LLMs, AI infrastructure, & developer tools
+- Ability to build LLM-based applications
 - Ability to keep pace with the AI space, synthesize, & execute
 - High literacy--technical & conceptual, written & spoken 
 - Natural storyteller who can explain complex technical concepts clearly
