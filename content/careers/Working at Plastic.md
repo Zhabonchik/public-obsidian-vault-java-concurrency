@@ -31,6 +31,6 @@ LFG.
 - $5,000 optional NYC relocation stipend
 - In-person Williamsburg office in the [Domino Refinery](https://www.therefineryatdomino.com/)
 - In-building Equinox gym membership
-- Unlimited PTO (performance-based)
+- Unlimited PTO (performance-contingent)
 - M4 Pro Macbook Pro (+ NVIDIA DGX Spark for ML hires)
 - & more...
