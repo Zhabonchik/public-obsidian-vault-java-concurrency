@@ -17,7 +17,7 @@ And we believe you deny models intellectual respect at your own risk.
 
 Plastic is seeking high-agency autodidacts to add intellectual diversity to the team. If you thrive in techno-optimistic, interdisciplinary cultures, this is the place for you. We're a subversive ethos at the edge of emerging tech, more interested in grit than credentials. We stay high touch, build in the open, and teach each other daily.
 
-Join us. Build at the edge.
+Join us. Get leverage on the future and have a blast doing it.
 
 LFG.
 # Open Positions
@@ -31,5 +31,6 @@ LFG.
 - $5,000 optional NYC relocation stipend
 - In-person Williamsburg office in the [Domino Refinery](https://www.therefineryatdomino.com/)
 - In-building Equinox gym membership
-- Macbook Pro
+- Unlimited PTO (performance based)
+- Macbook Pro (+ NVIDIA DGX Spark for ML hires)
 - & more...
