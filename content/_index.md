@@ -14,7 +14,7 @@ Here you'll find our blog, research, and public notes. You can also [engage with
 
 Our focus is developing systems that map personal identity using AI-native memory & social cognition. These systems enable individually-aligned agents you can trust to act autonomously on your behalf & agents with rich identities all their own.
 
-The foundational layer of intelligence being built is just the beginning. Latent among the scores of specialized secondary and tertiary layers yet to be built exists one for personal identity. 
+The foundational layer of intelligence being built is just the beginning. Latent among the scores of specialized secondary and tertiary layers yet to be realized exists one for personal identity. 
 
 And we're building it.
 # Guide
