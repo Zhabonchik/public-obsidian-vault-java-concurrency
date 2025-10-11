@@ -6,7 +6,7 @@ description: Welcome to our collaborative second brain.
 > [!custom] PLASTIC IS HIRING!
 > Check out our [[Working at Plastic|open positions here]].
 
-Welcome to our collaborative second brain. 
+Welcome.
 
 Here you'll find our blog, research, and public notes. You can also [engage with the ideas directly](https://github.com/plastic-labs/blog) on GitHub.
 
