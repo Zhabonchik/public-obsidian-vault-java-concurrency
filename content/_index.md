@@ -10,9 +10,9 @@ Welcome to our collaborative second brain.
 
 Here you'll find our blog, research, and public notes. You can also [engage with the ideas directly](https://github.com/plastic-labs/blog) on GitHub.
 
-[Plastic](https://plasticlabs.ai) is a research-driven company building at the intersection of human and machine learning. We believe re-centering LLM app development around the user will unlock a rich landscape of deeply personalized, autonomous agents.
+[Plastic](https://plasticlabs.ai) Plastic is an engineering-driven AI lab building at the intersection of machine learning and cognitive science.
 
-It’s our mission to realize this future.
+Our focus is developing systems that map personal identity using AI-native memory & social cognition. These systems enable individually-aligned agents you can trust to act autonomously on your behalf & agents with rich identities all their own.
 
 ## Guide
 
