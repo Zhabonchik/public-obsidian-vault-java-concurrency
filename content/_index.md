@@ -34,4 +34,4 @@ If you find the content here compelling, explore our active projects:
 - [Honcho](https://honcho.dev) — An AI-native memory, reasoning, & social cognition platform for AI apps & agent
 - [YouSim](https://yousim.ai) -- A Honcho-powered open-ended, CLI game that allows you to simulate any identity ([repo](https://github.com/plastic-labs/yousim))
 - [Penny for Your Thoughts](https://www.pennyforyourthoughts.ai/) -- A Honcho-powered personal expertise market
-- [Bloom](https://bloombot.ai) — A Honcho-powered AI learning companion, open-sourced as [Tutor-GPT](https://github.com/plastic-labs/tutor-gpt) 
+- [Bloom](https://bloombot.ai) — A Honcho-powered learning companion, open-sourced as [Tutor-GPT](https://github.com/plastic-labs/tutor-gpt) 
