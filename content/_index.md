@@ -16,12 +16,11 @@ Our focus is developing systems that map personal identity using AI-native memor
 
 The foundational layer of intelligence being built is just the beginning. Latent among the scores of specialized secondary and tertiary layers yet to be realized exists one for personal identity. 
 
-And we're building it.
+We're building it.
 # Guide
-
 We post a few different types of content here:
   
-- [[blog | Blog]] -- Deep dives into the philosophy, cognitive science, & machine learning underpinning our projects
+- [[blog | Blog]] -- Deep dives into the philosophy, cognitive science, machine learning, & development underpinning our projects
 - [[careers | Careers]] -- Open positions at Plastic Labs
 - [[notes | Evergreen Notes]] -- Short form working notes on Plastic theses
 - [[extrusions | Extrusions]] -- Brief, densely-linked reflections synthesizing recent conceptual work
@@ -32,9 +31,9 @@ We post a few different types of content here:
 - [Subscribe to Extrusions](https://plasticlabs.typeform.com/extrusions)  
 - [Subscribe to Release Notes](https://plasticlabs.typeform.com/honchoupdates)  
 # Projects
-
 If you find the content here compelling, explore our active projects:
 
-- [Honcho](https://honcho.dev) — A personalization platform for AI-powered applications, currently in [private beta](https://plasticlabs.typeform.com/honchobeta)  
-- [YouSim](https://yousim.ai) -- An open-ended, CLI game that allows you to simulate any identity ([now open source](https://github.com/plastic-labs/yousim))
-- [Bloom](https://bloombot.ai) — A theory of mind-powered AI learning companion, open sourced as [Tutor-GPT](https://github.com/plastic-labs/tutor-gpt) (slated for relaunch soon...)  
+- [Honcho](https://honcho.dev) — An AI-native memory, reasoning, & social cognition platform for AI apps & agent
+- [YouSim](https://yousim.ai) -- A Honcho-powered open-ended, CLI game that allows you to simulate any identity ([repo](https://github.com/plastic-labs/yousim))
+- [Penny for Your Thoughts](https://www.pennyforyourthoughts.ai/) -- A Honcho-powered personal expertise market
+- [Bloom](https://bloombot.ai) — A Honcho-powered AI learning companion, open-sourced as [Tutor-GPT](https://github.com/plastic-labs/tutor-gpt) 
