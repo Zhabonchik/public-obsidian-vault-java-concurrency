@@ -20,12 +20,12 @@ We're building it.
 # Guide
 We post a few different types of content here:
   
-- [[blog | Blog]] -- Deep dives into the philosophy, cognitive science, machine learning, & development underpinning our projects
-- [[careers | Careers]] -- Open positions at Plastic Labs
+- [[blog | Blog]] -- Deep dives into the philosophy, cogsci, ML, & development underpinning our projects
+- [[careers | Careers]] -- Open positions at Plastic
 - [[notes | Evergreen Notes]] -- Short form working notes on Plastic theses
 - [[extrusions | Extrusions]] -- Brief, densely-linked reflections synthesizing recent conceptual work
 - [[releases | Release Notes]] -- Changelogs & details on new product features  
-- [[research | Research]] -- Formal published, preprint, or blog-style company research we've made public
+- [[research | Research]] -- Formal published, preprint, or blog-style research we've made public
 
 [*Subscribe to Updates*](https://plasticlabs.typeform.com/mailing)  
 # Projects
