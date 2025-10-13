@@ -1,10 +1,11 @@
 ---
-title: "Memory as Reasoning"
+title: Memory as Reasoning
 date: 08.19.2025
 tags:
   - blog
   - ml
-author: "Courtland Leer and Vince Trost"
+  - "#neuromancer"
+author: Courtland Leer and Vince Trost
 ---
 
 ## TL;DR
