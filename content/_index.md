@@ -31,7 +31,8 @@ We post a few different types of content here:
 # Projects
 If you find the content here compelling, explore our active projects:
 
-- [Honcho](https://honcho.dev) — An AI-native memory, reasoning, & social cognition platform for AI apps & agent
-- [YouSim](https://yousim.ai) -- A Honcho-powered open-ended, CLI game that allows you to simulate any identity ([repo](https://github.com/plastic-labs/yousim))
-- [Penny for Your Thoughts](https://www.pennyforyourthoughts.ai/) -- A Honcho-powered personal expertise market
-- [Bloom](https://bloombot.ai) — A Honcho-powered learning companion, open-sourced as [Tutor-GPT](https://github.com/plastic-labs/tutor-gpt) 
+- [Honcho](https://honcho.dev) — AI-native memory, reasoning, & socialcog platform for apps & agents → #honcho
+- [YouSim](https://yousim.ai) -- Honcho-powered infinite identity simulator → #yousim
+- [Penny for Your Thoughts](https://www.pennyforyourthoughts.ai/) -- Honcho/x402-powered personal expertise market → #penny
+- [Bloom](https://bloombot.ai) — Honcho-powered learning companion → #bloom
+- [Xeno Grant](https://x.com/xenograntai) - Direct to agent grants program → #grants

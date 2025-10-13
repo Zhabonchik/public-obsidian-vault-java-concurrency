@@ -9,6 +9,7 @@ tags:
   - dev
   - ml
   - announcements
+  - "#penny"
 ---
 ![[penny_banner.png]]
 # TL;DR
