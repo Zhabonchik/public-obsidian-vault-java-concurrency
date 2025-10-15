@@ -1,4 +1,5 @@
 import { QuartzConfig } from "../cfg"
+import { isUnlisted } from "../plugins/filters/unlisted"
 import { QuartzPluginData } from "../plugins/vfile"
 import { FileTrieNode } from "./fileTrie"
 import { FilePath, FullSlug } from "./path"
@@ -31,10 +32,16 @@ export interface BuildCtx {
   incremental: boolean
 }
 
-export function trieFromAllFiles(allFiles: QuartzPluginData[]): FileTrieNode<BuildTimeTrieData> {
+export function trieFromAllFiles(
+  allFiles: QuartzPluginData[],
+  cfg?: QuartzConfig
+): FileTrieNode<BuildTimeTrieData> {
   const trie = new FileTrieNode<BuildTimeTrieData>([])
   allFiles.forEach((file) => {
     if (file.frontmatter) {
+      if (cfg && isUnlisted(file, cfg.configuration)) {
+        return
+      }
       trie.add({
         ...file,
         slug: file.slug!,
