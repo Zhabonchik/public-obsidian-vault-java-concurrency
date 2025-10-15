@@ -104,7 +104,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
         const slug = file.data.slug!
         const date = getDate(ctx.cfg.configuration, file.data) ?? new Date()
 
-        if(isUnlisted(file.data, cfg)) {
+        if (isUnlisted(file.data, cfg)) {
           continue
         }
 

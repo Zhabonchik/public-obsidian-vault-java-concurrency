@@ -123,7 +123,9 @@ export const TagPage: QuartzEmitterPlugin<Partial<TagPageOptions>> = (userOpts) 
       ]
     },
     async *emit(ctx, content, resources) {
-      const allFiles = content.map((c) => c[1].data).filter(f => !isUnlisted(f, ctx.cfg.configuration))
+      const allFiles = content
+        .map((c) => c[1].data)
+        .filter((f) => !isUnlisted(f, ctx.cfg.configuration))
       const cfg = ctx.cfg.configuration
       const [tags, tagDescriptions] = computeTagInfo(allFiles, content, cfg.locale)
 
@@ -132,7 +134,9 @@ export const TagPage: QuartzEmitterPlugin<Partial<TagPageOptions>> = (userOpts) 
       }
     },
     async *partialEmit(ctx, content, resources, changeEvents) {
-      const allFiles = content.map((c) => c[1].data).filter(f => !isUnlisted(f, ctx.cfg.configuration))
+      const allFiles = content
+        .map((c) => c[1].data)
+        .filter((f) => !isUnlisted(f, ctx.cfg.configuration))
       const cfg = ctx.cfg.configuration
 
       // Find all tags that need to be updated based on changed files

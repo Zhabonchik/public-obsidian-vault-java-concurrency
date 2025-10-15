@@ -130,7 +130,9 @@ export const FolderPage: QuartzEmitterPlugin<Partial<FolderPageOptions>> = (user
       ]
     },
     async *emit(ctx, content, resources) {
-      const allFiles = content.map((c) => c[1].data).filter(f => !isUnlisted(f, ctx.cfg.configuration))
+      const allFiles = content
+        .map((c) => c[1].data)
+        .filter((f) => !isUnlisted(f, ctx.cfg.configuration))
       const cfg = ctx.cfg.configuration
 
       const folders: Set<SimpleSlug> = new Set(
@@ -147,7 +149,9 @@ export const FolderPage: QuartzEmitterPlugin<Partial<FolderPageOptions>> = (user
       yield* processFolderInfo(ctx, folderInfo, allFiles, opts, resources)
     },
     async *partialEmit(ctx, content, resources, changeEvents) {
-      const allFiles = content.map((c) => c[1].data).filter(f => !isUnlisted(f, ctx.cfg.configuration))
+      const allFiles = content
+        .map((c) => c[1].data)
+        .filter((f) => !isUnlisted(f, ctx.cfg.configuration))
       const cfg = ctx.cfg.configuration
 
       // Find all folders that need to be updated based on changed files

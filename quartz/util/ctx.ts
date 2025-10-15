@@ -34,7 +34,7 @@ export interface BuildCtx {
 
 export function trieFromAllFiles(
   allFiles: QuartzPluginData[],
-  cfg?: QuartzConfig
+  cfg?: QuartzConfig,
 ): FileTrieNode<BuildTimeTrieData> {
   const trie = new FileTrieNode<BuildTimeTrieData>([])
   allFiles.forEach((file) => {
