@@ -2,7 +2,8 @@ import sourceMapSupport from "source-map-support"
 sourceMapSupport.install(options)
 import path from "path"
 import { PerfTimer } from "./util/perf"
-import { rm } from "fs/promises"
+import { readdir, rm } from "fs/promises"
+import { join } from "path"
 import { GlobbyFilterFunction, isGitIgnored } from "globby"
 import { styleText } from "util"
 import { parseMarkdown } from "./processors/parse"
@@ -42,6 +43,19 @@ type BuildData = {
   lastBuildMs: number
 }
 
+async function clearDir(dir: string) {
+  let files
+  try {
+    files = await readdir(dir)
+  } catch {
+    return
+  }
+
+  for (const file of files) {
+    await rm(join(dir, file), { recursive: true, force: true })
+  }
+}
+
 async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
   const ctx: BuildCtx = {
     buildId: randomIdNonSecure(),
@@ -67,7 +81,7 @@ async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
 
   const release = await mut.acquire()
   perf.addEvent("clean")
-  await rm(output, { recursive: true, force: true })
+  await clearDir(output)
   console.log(`Cleaned output directory \`${output}\` in ${perf.timeSince("clean")}`)
 
   perf.addEvent("glob")
