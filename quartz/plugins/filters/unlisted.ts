@@ -14,7 +14,7 @@ export function isUnlisted(
 
   const patterns = unlistedPatterns ?? cfg.unlistedPatterns
   if (patterns && patterns.length > 0 && fileData.slug) {
-    const slug = fileData.slug as string
+    const slug = fileData.slug
     for (const pattern of patterns) {
       if (minimatch(slug, pattern)) {
         return true
