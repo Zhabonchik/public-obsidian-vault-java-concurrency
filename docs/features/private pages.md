@@ -47,9 +47,9 @@ Common examples include:
 
 Quartz supports **Unlisted Pages**, which allow you to publish notes that remain **accessible by direct link** but **hidden from navigation components** such as:
 
-- the explorer sidebar  
-- recent notes lists  
-- tag or folder listings  
+- the explorer sidebar
+- recent notes lists
+- tag or folder listings
 
 This is useful for sharing content privately with collaborators, collecting feedback, or keeping drafts semi-private without fully unpublishing them.
 

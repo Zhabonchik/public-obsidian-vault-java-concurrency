@@ -2,10 +2,7 @@ import { minimatch } from "minimatch"
 import { QuartzPluginData } from "../vfile"
 import { GlobalConfiguration } from "../../cfg"
 
-export function isUnlisted(
-  fileData: QuartzPluginData,
-  cfg: GlobalConfiguration,
-): boolean {
+export function isUnlisted(fileData: QuartzPluginData, cfg: GlobalConfiguration): boolean {
   const unlistedFlag: boolean =
     fileData?.frontmatter?.unlisted === true || fileData?.frontmatter?.unlisted === "true"
 
