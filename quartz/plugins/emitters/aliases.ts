@@ -11,12 +11,14 @@ async function* processFile(ctx: BuildCtx, file: VFile) {
   for (const aliasTarget of file.data.aliases ?? []) {
     let aliasTargetSlug: FullSlug
 
-    if (aliasTarget.startsWith('/')) {
+    if (aliasTarget.startsWith("/")) {
       // Root-absolute paths: /index -> index
       aliasTargetSlug = aliasTarget.slice(1) as FullSlug
     } else {
       // Everything else is relative to current directory: ./file, ../folder/file, index, xxx/yyy
-      aliasTargetSlug = path.posix.normalize(path.posix.join(path.posix.dirname(ogSlug), aliasTarget)) as FullSlug
+      aliasTargetSlug = path.posix.normalize(
+        path.posix.join(path.posix.dirname(ogSlug), aliasTarget),
+      ) as FullSlug
     }
 
     const redirUrl = resolveRelative(aliasTargetSlug, ogSlug)
