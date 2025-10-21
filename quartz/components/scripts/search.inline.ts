@@ -44,6 +44,7 @@ const fetchContentCache: Map<FullSlug, Element[]> = new Map()
 const contextWindowWords = 30
 const numSearchResults = 8
 const numTagResults = 5
+const RENDER_DELAY_MS = 100
 
 const tokenizeTerm = (term: string) => {
   const tokens = term.split(/\s+/).filter((t) => t.trim() !== "")
@@ -395,7 +396,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       (a, b) => b.innerHTML.length - a.innerHTML.length,
     )
     highlights[0]?.scrollIntoView({ block: "start" })
-    await new Promise((resolve) => setTimeout(resolve, 100))
+    await new Promise((resolve) => setTimeout(resolve, RENDER_DELAY_MS))
 
     dispatchRenderEvent(previewInner)
   }

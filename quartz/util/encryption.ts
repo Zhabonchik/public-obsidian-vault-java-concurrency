@@ -1,7 +1,4 @@
-// =============================================================================
-// TYPES AND INTERFACES
-// =============================================================================
-export const SUPPORTED_ALGORITHMS = ["aes-256-cbc", "aes-256-gcm", "aes-256-ecb"] as const
+export const SUPPORTED_ALGORITHMS = ["aes-256-cbc", "aes-256-gcm"] as const
 
 export type SupportedEncryptionAlgorithm = (typeof SUPPORTED_ALGORITHMS)[number]
 
@@ -88,7 +85,7 @@ export function base64Encode(data: string): string {
     return Buffer.from(data).toString("base64")
   } else {
     // Browser environment
-    return btoa(unescape(encodeURIComponent(data)))
+    return btoa(encodeURIComponent(data))
   }
 }
 
@@ -98,16 +95,17 @@ export function base64Decode(data: string): string {
     return Buffer.from(data, "base64").toString()
   } else {
     // Browser environment
-    return decodeURIComponent(escape(atob(data)))
+    return decodeURIComponent(atob(data))
   }
 }
 
 // Utility functions for array buffer conversions
 export function hexToArrayBuffer(hex: string): ArrayBuffer {
   if (!hex) return new ArrayBuffer(0)
+
   const bytes = new Uint8Array(hex.length / 2)
   for (let i = 0; i < bytes.length; i++) {
-    bytes[i] = parseInt(hex.substr(i * 2, 2), 16)
+    bytes[i] = parseInt(hex.substring(i * 2, i * 2 + 2), 16)
   }
   return bytes.buffer
 }
@@ -209,8 +207,7 @@ export async function encryptContent(
   }
 
   // Generate random salt for encryption
-  const initializationVector =
-    algorithm === "aes-256-ecb" ? new Uint8Array(16) : crypto.getRandomValues(new Uint8Array(16)) // Zero IV for ECB simulation
+  const initializationVector = crypto.getRandomValues(new Uint8Array(16))
 
   // Create encryption hash and derive key
   const encryptionHashData = await hashString(password)
@@ -251,16 +248,6 @@ export async function encryptContent(
         key,
         contentBuffer,
       )
-    } else if (algorithm === "aes-256-ecb") {
-      // ECB simulation using CBC with zero IV
-      encryptedBuffer = await crypto.subtle.encrypt(
-        {
-          name: "AES-CBC",
-          iv: initializationVector, // Zero IV for ECB simulation
-        },
-        key,
-        contentBuffer,
-      )
     } else {
       throw new Error("Unsupported algorithm: " + algorithm)
     }
@@ -274,10 +261,7 @@ export async function encryptContent(
   const result: EncryptionResult = {
     encryptedContent: arrayBufferToHex(encryptedBuffer),
     encryptionSalt: encryptionHashData.salt,
-  }
-
-  if (algorithm !== "aes-256-ecb") {
-    result.iv = arrayBufferToHex(initializationVector.buffer)
+    iv: arrayBufferToHex(initializationVector.buffer as ArrayBuffer),
   }
 
   if (authTag) {
@@ -335,18 +319,6 @@ export async function decryptContent(
         {
           name: "AES-CBC",
           iv: initializationVectorBuffer,
-        },
-        key,
-        ciphertext,
-      )
-    } else if (config.algorithm === "aes-256-ecb") {
-      // ECB simulation using CBC with zero IV
-      const zeroInitializationVector = new ArrayBuffer(16)
-
-      decryptedBuffer = await crypto.subtle.decrypt(
-        {
-          name: "AES-CBC",
-          iv: zeroInitializationVector,
         },
         key,
         ciphertext,

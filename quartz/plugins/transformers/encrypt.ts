@@ -143,16 +143,22 @@ function getConfigurationForPath(
 /**
  * Validates the plugin configuration
  */
-function validateConfig(config: PluginConfig): void {
+function validateConfig(config: EncryptionConfig, file: VFile | null = null): void {
+  let suffixedPath = ""
+
+  if (file && file.data && file.data.relativePath) {
+    suffixedPath = `(in file: ${file.data.relativePath})`
+  }
+
   if (!SUPPORTED_ALGORITHMS.includes(config.algorithm)) {
     throw new Error(
       `[EncryptPlugin] Unsupported encryption algorithm: ${config.algorithm}. ` +
-        `Supported algorithms: ${SUPPORTED_ALGORITHMS.join(", ")}`,
+        `Supported algorithms: ${SUPPORTED_ALGORITHMS.join(", ")} ${suffixedPath}`,
     )
   }
 
-  if (config.ttl <= 0) {
-    throw new Error(`[EncryptPlugin] TTL must be a positive number`)
+  if (config.ttl < 0) {
+    throw new Error(`[EncryptPlugin] TTL cannot be negative. ${suffixedPath}`)
   }
 }
 
@@ -167,9 +173,6 @@ export const Encrypt: QuartzTransformerPlugin<PluginOptions> = (userOpts) => {
     ...userOpts,
     encryptedFolders: userOpts?.encryptedFolders ?? {},
   }
-
-  // Validate configuration
-  validateConfig(pluginConfig)
 
   // Pre-process folder configurations for efficient lookup
   const folderConfigs = createFolderConfigHierarchy(pluginConfig.encryptedFolders, pluginConfig)
@@ -241,6 +244,8 @@ export const Encrypt: QuartzTransformerPlugin<PluginOptions> = (userOpts) => {
             if (!config) {
               return
             }
+            // Validate configuration
+            validateConfig(config, file)
 
             file.data.encryptionConfig = config
             file.data.hash = await hashString(config.password)

@@ -47,10 +47,10 @@ Plugin.Encrypt({
 - `algorithm`: Encryption algorithm to use
   - `"aes-256-cbc"` (default): AES-256 in CBC mode
   - `"aes-256-gcm"`: AES-256 in GCM mode (authenticated encryption)
-  - `"aes-256-ecb"`: AES-256 in ECB mode (not recommended)
-- `ttl`: Time-to-live for cached passwords in seconds (default: 7 days)
-- `message`: Default message shown on encrypted pages
-- `encryptedFolders`: Configure folder-level encryption
+  - Key length is automatically inferred from the algorithm (e.g., 256-bit = 32 bytes)
+- `encryptedFolders`: Object mapping folder paths to passwords or configuration objects for folder-level encryption
+- `ttl`: Time-to-live for cached passwords in seconds (default: 604800 = 7 days, set to 0 for session-only)
+- `message`: Message to be displayed in the decryption page
 
 ## How Configuration Works
 

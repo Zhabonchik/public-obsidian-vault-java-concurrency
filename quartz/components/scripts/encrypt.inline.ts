@@ -98,6 +98,7 @@ const decryptWithPassword = async (
       if (showError) throw new Error("decryption-failed")
       return false
     } catch (decryptError) {
+      console.error("Decryption failed:", decryptError)
       if (showError) showLoading(container, false)
       if (showError) throw new Error("decryption-failed")
       return false
@@ -136,7 +137,6 @@ const decryptWithPassword = async (
 }
 
 function updateTitle(container: HTMLElement | null) {
-  console.log(container)
   if (container) {
     const span = container.querySelector(".article-title-icon") as HTMLElement
     if (span) {
