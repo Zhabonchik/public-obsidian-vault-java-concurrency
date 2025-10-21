@@ -488,10 +488,10 @@ async function fillDocument(data: ContentIndex) {
   const promises: Array<Promise<unknown>> = []
   for (const [slug, fileData] of Object.entries(data)) {
     if (fileData.encryptionResult) {
-      const slugId = id
+      let slugId = id
       promises.push(
-        index.addAsync(id, {
-          id: id++,
+        index.addAsync(id++, {
+          id: id,
           slug: slug as FullSlug,
           title: fileData.title,
           content: "",
@@ -511,11 +511,10 @@ async function fillDocument(data: ContentIndex) {
               fileData.encryptionConfig!,
               password,
             )
-
             fileData.decrypted = true
 
-            index.updateAsync(slugId, {
-              id,
+            index.update(slugId++, {
+              id: slugId,
               slug: slug as FullSlug,
               title: fileData.title,
               content: decryptedContent,

@@ -429,7 +429,7 @@ export async function addPasswordToCache(
 
     cache[filePath] = {
       password,
-      ttl: ttl <= 0 ? 0 : now + ttl,
+      ttl: ttl == 0 ? 0 : now + ttl,
     }
 
     savePasswordCache(cache)
@@ -449,7 +449,7 @@ export function getRelevantPasswords(filePath: string): string[] {
     }
   })
 
-  if (cache[filePath] && cache[filePath].ttl > now) {
+  if (cache[filePath] && (cache[filePath].ttl > now || cache[filePath].ttl === 0)) {
     // If the exact file path is cached, return its password
     return [cache[filePath].password]
   }

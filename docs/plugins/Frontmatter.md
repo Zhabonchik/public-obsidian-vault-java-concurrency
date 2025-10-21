@@ -67,10 +67,8 @@ Quartz supports the following frontmatter:
 - encrypt
   - `encrypt`
   - `encrypted`
-- encryptMessage
-  - `encrypt_message`
-  - `encryptMessage`
-  - `encrypt-message`
+- encryptConfig
+  - Overrides for the [[plugins/Encrypt|encryptConfig]]
 - password
   - `password`
 
