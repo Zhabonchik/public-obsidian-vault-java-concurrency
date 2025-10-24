@@ -1,18 +1,22 @@
-import { formatDate, getDate } from "./Date"
+import { Date, getDate } from "./Date"
 import { QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import readingTime from "reading-time"
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
+import { JSX } from "preact"
+import style from "./styles/contentMeta.scss"
 
 interface ContentMetaOptions {
   /**
    * Whether to display reading time
    */
   showReadingTime: boolean
+  showComma: boolean
 }
 
 const defaultOptions: ContentMetaOptions = {
   showReadingTime: true,
+  showComma: true,
 }
 
 export default ((opts?: Partial<ContentMetaOptions>) => {
@@ -22,17 +26,18 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
   function ContentMetadata({ cfg, fileData, displayClass }: QuartzComponentProps) {
     const text = fileData.text
 
-    if (text && fileData.frontmatter.title != "Home") {
-      const segments: string[] = []
+    if (text) {
+      const segments: (string | JSX.Element)[] = []
 
       if (fileData.dates) {
-        const createdDate = formatDate(getDate(cfg, fileData)!, cfg.locale)
-        segments.push(createdDate)
+        segments.push(<Date date={getDate(cfg, fileData)!} locale={cfg.locale} />)
       }
 
-      // Add author if it exists in frontmatter
-      if (fileData.frontmatter.author) {
-        segments.push(`by ${fileData.frontmatter.author}`)
+      // Display author if available
+      const author = fileData.frontmatter?.author || fileData.frontmatter?.authors
+      if (author) {
+        const authorText = Array.isArray(author) ? author.join(", ") : author
+        segments.push(<span>by {authorText}</span>)
       }
 
       // Display reading time if enabled
@@ -41,20 +46,20 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
         const displayedTime = i18n(cfg.locale).components.contentMeta.readingTime({
           minutes: Math.ceil(minutes),
         })
-        segments.push(displayedTime)
+        segments.push(<span>{displayedTime}</span>)
       }
 
-      return <p class={classNames(displayClass, "content-meta")}>{segments.join(" · ")}</p>
+      return (
+        <p show-comma={options.showComma} class={classNames(displayClass, "content-meta")}>
+          {segments}
+        </p>
+      )
     } else {
       return null
     }
   }
 
-  ContentMetadata.css = `
-  .content-meta {
-    margin-top: 0;
-    color: var(--gray);
-  }
-  `
+  ContentMetadata.css = style
+
   return ContentMetadata
 }) satisfies QuartzComponentConstructor

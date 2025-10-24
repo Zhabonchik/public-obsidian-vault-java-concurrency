@@ -64,13 +64,14 @@ const CopyStatic = () => ({
 });
 
 /**
- * Quartz 4.0 Configuration
+ * Quartz 4 Configuration
  *
  * See https://quartz.jzhao.xyz/configuration for more information.
  */
 const config: QuartzConfig = {
 	configuration: {
 		pageTitle: "🥽 Plastic Labs",
+		pageTitleSuffix: "",
 		enableSPA: true,
 		enablePopovers: true,
 		analytics: {
@@ -81,6 +82,7 @@ const config: QuartzConfig = {
 		locale: "en-US",
 		defaultDateType: "created",
 		theme: {
+			fontOrigin: "googleFonts",
 			cdnCaching: true,
 			typography: {
 				header: "Departure Mono",
@@ -96,8 +98,9 @@ const config: QuartzConfig = {
 					dark: "#4E4E4E",
 					secondary: "#4e4e4e",
 					tertiary: "#C0FFE1",
-					customCallout: "rgba(183, 255, 236, 0.35)",
 					highlight: "rgba(128, 128, 128, 0.35)", //code bg, note bg, graph bg (ONLY ON LIGHT MODE)
+					textHighlight: "#fff23688",
+					customCallout: "rgba(183, 255, 236, 0.35)",
 					searchBackground: "#D3D3D3",
 				},
 				darkMode: {
@@ -109,6 +112,7 @@ const config: QuartzConfig = {
 					secondary: "#7C7C7C",
 					tertiary: "#C0FFE1",
 					highlight: "rgba(125, 125, 125, 0.15)", //code bg, note bg
+					textHighlight: "#b3aa0288",
 					customCallout: "#00b8d410",
 					searchBackground: "#252525",
 				},
@@ -134,9 +138,6 @@ const config: QuartzConfig = {
 			Plugin.TableOfContents(),
 			Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
 			Plugin.Description(),
-			Plugin.OpenGraphImage({
-				defaultImage: "/og-image.png",
-			}),
 		],
 		filters: [Plugin.RemoveDrafts()],
 		emitters: [
@@ -152,7 +153,11 @@ const config: QuartzConfig = {
 			Plugin.Assets(),
 			CopyStatic(),
 			Plugin.Static(),
+			Plugin.Favicon(),
 			Plugin.NotFoundPage(),
+			Plugin.CustomOgImages({
+				defaultImage: "/og-image.png",
+			}),
 		],
 	},
 };
