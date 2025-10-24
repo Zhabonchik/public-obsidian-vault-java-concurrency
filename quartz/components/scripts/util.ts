@@ -44,3 +44,12 @@ export async function fetchCanonical(url: URL): Promise<Response> {
   const [_, redirect] = text.match(canonicalRegex) ?? []
   return redirect ? fetch(`${new URL(redirect, url)}`) : res
 }
+
+/**
+ * Wraps a DOM update in a View Transition if supported by the browser.
+ * Falls back to immediate execution if the API is unavailable.
+ * @param callback - The function containing DOM updates to animate
+ */
+export function startViewTransition(callback: () => void): void {
+  document.startViewTransition?.(() => callback()) ?? callback()
+}
