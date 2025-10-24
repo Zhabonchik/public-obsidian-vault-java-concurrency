@@ -5,6 +5,7 @@ tags:
   - positions
   - announcements
 ---
+
 Plastic is an engineering-driven AI lab building at the intersection of machine learning and cognitive science.
 
 Our focus is developing systems that map personal identity using AI-native memory & social cognition. These systems enable individually-aligned agents you can trust to act autonomously on your behalf & agents with rich identities all their own.
@@ -20,11 +21,13 @@ Plastic is seeking high-agency autodidacts to add intellectual diversity to the 
 Join us. Get leverage on the future and have a blast doing it.
 
 LFG.
+
 # Open Positions
 
-- [[Developer Relations Engineer]]
 - [[Summer Internships]]
+
 ## Full-Time Benefits
+
 - Full premium medical, dental, & vision insurance coverage
 - Starter 401(k) plan
 - $5,000 annual lifestyle stipend
@@ -34,3 +37,4 @@ LFG.
 - Unlimited PTO (performance-contingent)
 - M4 Pro Macbook Pro (+ NVIDIA DGX Spark for ML hires)
 - & more...
+
