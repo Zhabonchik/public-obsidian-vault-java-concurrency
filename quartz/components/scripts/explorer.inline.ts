@@ -43,11 +43,11 @@ function toggleFolder(evt: MouseEvent) {
   if (!target) return
 
   // Check if target was svg icon or button
-  const isSvg = target.nodeName === "svg"
+  const isFolderExpand = target.classList.contains("folder-expand")
 
   // corresponding <ul> element relative to clicked button/folder
   const folderContainer = (
-    isSvg
+    isFolderExpand
       ? // svg -> div.folder-container
         target.parentElement
       : // button.folder-button -> div -> div.folder-container
@@ -248,12 +248,12 @@ async function setupExplorer(currentSlug: FullSlug) {
       }
     }
 
-    const folderIcons = explorer.getElementsByClassName(
-      "folder-icon",
+    const folderExpands = explorer.getElementsByClassName(
+      "folder-expand",
     ) as HTMLCollectionOf<HTMLElement>
-    for (const icon of folderIcons) {
-      icon.addEventListener("click", toggleFolder)
-      window.addCleanup(() => icon.removeEventListener("click", toggleFolder))
+    for (const expand of folderExpands) {
+      expand.addEventListener("click", toggleFolder)
+      window.addCleanup(() => expand.removeEventListener("click", toggleFolder))
     }
   }
 }
