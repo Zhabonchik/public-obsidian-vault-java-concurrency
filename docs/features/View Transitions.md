@@ -42,7 +42,7 @@ startViewTransition(() => {
 })
 ```
 
-The `startViewTransition` function will automatically use the View Transitions API if it's supported and enabled, or fall back to immediate execution otherwise.
+The `startViewTransition` function will automatically use the View Transitions API if the browser is supported, otherwise it will fallback to eager execution.
 
 ## Configuration
 
