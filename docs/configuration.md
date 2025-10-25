@@ -23,6 +23,7 @@ This part of the configuration concerns anything that can affect the whole site.
 - `pageTitle`: title of the site. This is also used when generating the [[RSS Feed]] for your site.
 - `pageTitleSuffix`: a string added to the end of the page title. This only applies to the browser tab title, not the title shown at the top of the page.
 - `enableSPA`: whether to enable [[SPA Routing]] on your site.
+- `enableViewTransitions`: whether to enable browser-native [[View Transitions]] on your site.
 - `enablePopovers`: whether to enable [[popover previews]] on your site.
 - `analytics`: what to use for analytics on your site. Values can be
   - `null`: don't use analytics;
