@@ -1,6 +1,8 @@
 @use "../../styles/variables.scss" as *;
 
 .graph {
+  view-transition-name: graph;
+
   & > h3 {
     font-size: 1rem;
     margin: 0;

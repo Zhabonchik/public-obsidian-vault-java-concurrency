@@ -30,9 +30,10 @@
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
-
   min-height: 1.2rem;
   flex: 0 1 auto;
+  view-transition-name: explorer;
+
   &.collapsed {
     flex: 0 1 1.2rem;
     & .fold {

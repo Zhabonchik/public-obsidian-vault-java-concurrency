@@ -9,6 +9,7 @@
   margin: 0;
   text-align: inherit;
   flex-shrink: 0;
+  view-transition-name: readermode;
 
   & svg {
     position: absolute;

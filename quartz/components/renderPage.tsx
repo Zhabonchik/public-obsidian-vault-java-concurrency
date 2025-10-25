@@ -235,7 +235,7 @@ export function renderPage(
   const doc = (
     <html lang={lang} dir={direction}>
       <Head {...componentData} />
-      <body data-slug={slug}>
+      <body data-slug={slug} data-view-transitions={cfg.enableViewTransitions}>
         <div id="quartz-root" class="page">
           <Body {...componentData}>
             {LeftComponent}

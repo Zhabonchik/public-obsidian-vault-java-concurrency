@@ -46,10 +46,15 @@ export async function fetchCanonical(url: URL): Promise<Response> {
 }
 
 /**
- * Wraps a DOM update in a View Transition if supported by the browser.
- * Falls back to immediate execution if the API is unavailable.
- * @param callback - The function containing DOM updates to animate
+ * Wraps a DOM update in a View Transition if supported by the browser and enabled in config.
+ * Falls back to immediate execution if the API is unavailable or disabled.
  */
 export function startViewTransition(callback: () => void): void {
-  document.startViewTransition?.(() => callback()) ?? callback()
+  const enableViewTransitions = document.body.dataset.viewTransitions === "true"
+
+  if (enableViewTransitions && document.startViewTransition) {
+    document.startViewTransition(() => callback())
+  } else {
+    callback()
+  }
 }

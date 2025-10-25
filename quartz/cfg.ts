@@ -56,6 +56,12 @@ export interface GlobalConfiguration {
   pageTitleSuffix?: string
   /** Whether to enable single-page-app style rendering. this prevents flashes of unstyled content and improves smoothness of Quartz */
   enableSPA: boolean
+  /**
+   * `enableSPA: true` required; Whether to enable browser-native view transitions for single-page-app style rendering.
+   *
+   * Customizing your animations: https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#customizing_your_animations.
+   */
+  enableViewTransitions: boolean
   /** Whether to display Wikipedia-style popovers when hovering over links */
   enablePopovers: boolean
   /** Analytics mode */

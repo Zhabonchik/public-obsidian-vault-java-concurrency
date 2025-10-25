@@ -128,9 +128,8 @@ async function _navigate(url: URL, isBack: boolean = false) {
     }
 
     notifyNav(getFullSlug(window))
+    delete announcer.dataset.persist
   })
-
-  delete announcer.dataset.persist
 }
 
 async function navigate(url: URL, isBack: boolean = false) {
