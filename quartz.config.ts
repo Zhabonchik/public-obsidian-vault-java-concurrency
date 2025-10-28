@@ -158,6 +158,7 @@ const config: QuartzConfig = {
 			Plugin.CustomOgImages({
 				defaultImage: "/og-image.png",
 			}),
+			Plugin.LLMSTxt(),
 		],
 	},
 };
