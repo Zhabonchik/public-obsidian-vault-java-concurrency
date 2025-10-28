@@ -11,7 +11,7 @@ const config: QuartzConfig = {
     pageTitle: "Quartz 4",
     pageTitleSuffix: "",
     enableSPA: true,
-    enableViewTransitions: true,
+    enableViewTransitions: false,
     enablePopovers: true,
     analytics: {
       provider: "plausible",
