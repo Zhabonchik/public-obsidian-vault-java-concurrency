@@ -41,7 +41,36 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      sortFn: (a, b) => {
+        // Sort folders first, then files by date (newest first)
+        if (a.isFolder && b.isFolder) {
+          // Both folders: alphabetical
+          return a.displayName.localeCompare(b.displayName, undefined, {
+            numeric: true,
+            sensitivity: "base",
+          })
+        }
+
+        if (a.isFolder) return -1  // Folders before files
+        if (b.isFolder) return 1   // Folders before files
+
+        // Both files: sort by date descending (newest first)
+        // Note: dates come from JSON as strings, need to convert to Date objects
+        const aDate = a.data?.date ? new Date(a.data.date).getTime() : 0
+        const bDate = b.data?.date ? new Date(b.data.date).getTime() : 0
+
+        if (aDate !== bDate) {
+          return bDate - aDate  // Descending order (newest first)
+        }
+
+        // Same date or no dates: alphabetical fallback
+        return a.displayName.localeCompare(b.displayName, undefined, {
+          numeric: true,
+          sensitivity: "base",
+        })
+      },
+    }),
   ],
   right: [
     Component.ConditionalRender({
@@ -82,7 +111,36 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      sortFn: (a, b) => {
+        // Sort folders first, then files by date (newest first)
+        if (a.isFolder && b.isFolder) {
+          // Both folders: alphabetical
+          return a.displayName.localeCompare(b.displayName, undefined, {
+            numeric: true,
+            sensitivity: "base",
+          })
+        }
+
+        if (a.isFolder) return -1  // Folders before files
+        if (b.isFolder) return 1   // Folders before files
+
+        // Both files: sort by date descending (newest first)
+        // Note: dates come from JSON as strings, need to convert to Date objects
+        const aDate = a.data?.date ? new Date(a.data.date).getTime() : 0
+        const bDate = b.data?.date ? new Date(b.data.date).getTime() : 0
+
+        if (aDate !== bDate) {
+          return bDate - aDate  // Descending order (newest first)
+        }
+
+        // Same date or no dates: alphabetical fallback
+        return a.displayName.localeCompare(b.displayName, undefined, {
+          numeric: true,
+          sensitivity: "base",
+        })
+      },
+    }),
   ],
   right: [],
 }

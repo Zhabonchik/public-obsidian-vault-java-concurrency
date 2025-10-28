@@ -23,6 +23,21 @@ function coerceDate(fp: string, d: any): Date {
     d = `${d}T00:00:00`
   }
 
+  // Handle MM.DD.YY format (e.g., "03.21.24")
+  if (typeof d === "string") {
+    const mmddyyRegex = /^(\d{1,2})\.(\d{1,2})\.(\d{2})$/
+    const match = d.match(mmddyyRegex)
+    if (match) {
+      const month = match[1]
+      const day = match[2]
+      const year = match[3]
+      // Convert YY to YYYY (assume 20XX for years 00-99)
+      const fullYear = `20${year}`
+      // Convert to ISO format: YYYY-MM-DD
+      d = `${fullYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T00:00:00`
+    }
+  }
+
   const dt = new Date(d)
   const invalidDate = isNaN(dt.getTime()) || dt.getTime() === 0
   if (invalidDate && d !== undefined) {
