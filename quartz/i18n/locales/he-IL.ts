@@ -15,7 +15,7 @@ export default {
       tip: "טיפ",
       success: "הצלחה",
       question: "שאלה",
-      warning: "אכזבה",
+      warning: "אזהרה",
       failure: "כשלון",
       danger: "סכנה",
       bug: "באג",
@@ -40,7 +40,7 @@ export default {
       createdWith: "נוצר באמצעות",
     },
     graph: {
-      title: "מבט גרך",
+      title: "מבט גרף",
     },
     recentNotes: {
       title: "הערות אחרונות",
