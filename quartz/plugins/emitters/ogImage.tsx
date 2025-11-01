@@ -125,7 +125,7 @@ export const CustomOgImages: QuartzEmitterPlugin<Partial<SocialImageOptions>> = 
         content
           .filter(
             ([_tree, vfile]) =>
-              vfile.data.frontmatter?.socialImage !== undefined &&
+              vfile.data.frontmatter?.socialImage === undefined &&
               vfile.data.filePath !== undefined,
           )
           .map(([_tree, vfile]) => processOgImage(ctx, vfile.data, fonts, fullOptions)),
