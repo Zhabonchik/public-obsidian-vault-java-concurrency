@@ -1,7 +1,14 @@
 import { QuartzEmitterPlugin } from "../types"
 import { i18n } from "../../i18n"
 import { unescapeHTML } from "../../util/escape"
-import { FullSlug, getFileExtension, isAbsoluteURL, joinSegments, QUARTZ } from "../../util/path"
+import {
+  FilePath,
+  FullSlug,
+  getFileExtension,
+  isAbsoluteURL,
+  joinSegments,
+  QUARTZ,
+} from "../../util/path"
 import { ImageOptions, SocialImageOptions, defaultImage, getSatoriFonts } from "../../util/og"
 import sharp from "sharp"
 import satori, { SatoriOptions } from "satori"
@@ -109,17 +116,19 @@ export const CustomOgImages: QuartzEmitterPlugin<Partial<SocialImageOptions>> = 
     getQuartzComponents() {
       return []
     },
-    async *emit(ctx, content, _resources) {
+    async emit(ctx, content, _resources): Promise<FilePath[]> {
       const cfg = ctx.cfg.configuration
       const headerFont = cfg.theme.typography.header
       const bodyFont = cfg.theme.typography.body
       const fonts = await getSatoriFonts(headerFont, bodyFont)
-      Promise.all(
-        content.map(([_tree, vfile]) => {
-          if (vfile.data.frontmatter?.socialImage !== undefined) {
-            processOgImage(ctx, vfile.data, fonts, fullOptions)
-          }
-        }),
+      return Promise.all(
+        content
+          .filter(
+            ([_tree, vfile]) =>
+              vfile.data.frontmatter?.socialImage !== undefined &&
+              vfile.data.filePath !== undefined,
+          )
+          .map(([_tree, vfile]) => processOgImage(ctx, vfile.data, fonts, fullOptions)),
       )
     },
     async *partialEmit(ctx, _content, _resources, changeEvents) {
