@@ -82,7 +82,7 @@ function renderTranscludes(
           console.warn(
             styleText(
               "yellow",
-              `[quartz] Skipping circular transclusion: ${slug} → ${transcludeTarget}`,
+              `Warning: Skipping circular transclusion: ${slug} -> ${transcludeTarget}`,
             ),
           )
           node.children = [
