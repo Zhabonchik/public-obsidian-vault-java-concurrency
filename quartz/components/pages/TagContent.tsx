@@ -1,7 +1,13 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "../types"
 import style from "../styles/listPage.scss"
 import { PageList, SortFn } from "../PageList"
-import { FullSlug, getAllSegmentPrefixes, resolveRelative, simplifySlug } from "../../util/path"
+import {
+  FullSlug,
+  getAllSegmentPrefixes,
+  resolveRelative,
+  simplifySlug,
+  getDisplaySlug,
+} from "../../util/path"
 import { QuartzPluginData } from "../../plugins/vfile"
 import { Root } from "hast"
 import { htmlToJsx } from "../../util/jsx"
@@ -75,7 +81,7 @@ export default ((opts?: Partial<TagContentOptions>) => {
                   : htmlToJsx(contentPage.filePath!, root)
 
               const tagListingPage = `/tags/${tag}` as FullSlug
-              const href = resolveRelative(fileData.slug!, tagListingPage)
+              const href = resolveRelative(getDisplaySlug(fileData), tagListingPage)
 
               return (
                 <div>

@@ -87,12 +87,21 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
               allSlugs.push(...file.data.aliases)
             }
 
+            // Handle permalink: it should be the actual URL where the page is rendered
+            // Keep the original slug for sidebar structure, use permalinkSlug for rendering
             if (data.permalink != null && data.permalink.toString() !== "") {
               data.permalink = data.permalink.toString() as FullSlug
-              const aliases = file.data.aliases ?? []
-              aliases.push(data.permalink)
-              file.data.aliases = aliases
+              const originalSlug = file.data.slug
+
+              // Set the permalinkSlug - this is where the page will actually be rendered
+              file.data.permalinkSlug = data.permalink
               allSlugs.push(data.permalink)
+
+              // Create a redirect from the original file path to the permalink
+              if (originalSlug && originalSlug !== data.permalink) {
+                file.data.aliases = file.data.aliases ?? []
+                file.data.aliases.push(originalSlug)
+              }
             }
 
             const cssclasses = coerceToArray(coalesceAliases(data, ["cssclasses", "cssclass"]))
@@ -135,6 +144,7 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
 declare module "vfile" {
   interface DataMap {
     aliases: FullSlug[]
+    permalinkSlug?: FullSlug
     frontmatter: { [key: string]: unknown } & {
       title: string
     } & Partial<{

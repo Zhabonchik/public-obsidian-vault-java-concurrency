@@ -24,8 +24,10 @@ async function processContent(
   resources: StaticResources,
 ) {
   const slug = fileData.slug!
+  // Use permalinkSlug if set, otherwise use the regular slug
+  const renderSlug = fileData.permalinkSlug ?? slug
   const cfg = ctx.cfg.configuration
-  const externalResources = pageResources(pathToRoot(slug), resources)
+  const externalResources = pageResources(pathToRoot(renderSlug), resources)
   const componentData: QuartzComponentProps = {
     ctx,
     fileData,
@@ -36,11 +38,11 @@ async function processContent(
     allFiles,
   }
 
-  const content = renderPage(cfg, slug, componentData, opts, externalResources)
+  const content = renderPage(cfg, renderSlug, componentData, opts, externalResources)
   return write({
     ctx,
     content,
-    slug,
+    slug: renderSlug,
     ext: ".html",
   })
 }

@@ -49,6 +49,7 @@ async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
     cfg,
     allSlugs: [],
     allFiles: [],
+    slugToPermalink: {},
     incremental: false,
   }
 
@@ -83,6 +84,13 @@ async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
 
   const parsedFiles = await parseMarkdown(ctx, filePaths)
   const filteredContent = filterContent(ctx, parsedFiles)
+
+  // Build slugToPermalink map after parsing
+  for (const [_tree, file] of filteredContent) {
+    if (file.data.permalinkSlug && file.data.slug) {
+      ctx.slugToPermalink[file.data.slug] = file.data.permalinkSlug
+    }
+  }
 
   await emitContent(ctx, filteredContent)
   console.log(
@@ -260,6 +268,14 @@ async function rebuild(changes: ChangeEvent[], clientRefresh: () => void, buildD
       .filter((file) => file.type === "markdown")
       .map((file) => file.content),
   )
+
+  // Rebuild slugToPermalink map
+  ctx.slugToPermalink = {}
+  for (const [_tree, file] of processedFiles) {
+    if (file.data.permalinkSlug && file.data.slug) {
+      ctx.slugToPermalink[file.data.slug] = file.data.permalinkSlug
+    }
+  }
 
   let emittedFiles = 0
   for (const emitter of cfg.plugins.emitters) {

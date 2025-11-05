@@ -11,6 +11,7 @@ import { i18n } from "../../i18n"
 export type ContentIndexMap = Map<FullSlug, ContentDetails>
 export type ContentDetails = {
   slug: FullSlug
+  displaySlug?: FullSlug
   filePath: FilePath
   title: string
   links: SimpleSlug[]
@@ -46,7 +47,9 @@ function generateSiteMap(cfg: GlobalConfiguration, idx: ContentIndexMap): string
     ${content.date && `<lastmod>${content.date.toISOString()}</lastmod>`}
   </url>`
   const urls = Array.from(idx)
-    .map(([slug, content]) => createURLEntry(simplifySlug(slug), content))
+    .map(([_, content]) =>
+      createURLEntry(simplifySlug(content.displaySlug ?? content.slug), content),
+    )
     .join("")
   return `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}</urlset>`
 }
@@ -74,7 +77,9 @@ function generateRSSFeed(cfg: GlobalConfiguration, idx: ContentIndexMap, limit?:
 
       return f1.title.localeCompare(f2.title)
     })
-    .map(([slug, content]) => createURLEntry(simplifySlug(slug), content))
+    .map(([_, content]) =>
+      createURLEntry(simplifySlug(content.displaySlug ?? content.slug), content),
+    )
     .slice(0, limit ?? idx.size)
     .join("")
 
@@ -100,11 +105,14 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
       const cfg = ctx.cfg.configuration
       const linkIndex: ContentIndexMap = new Map()
       for (const [tree, file] of content) {
+        // Always use the original slug for tree structure
         const slug = file.data.slug!
         const date = getDate(ctx.cfg.configuration, file.data) ?? new Date()
         if (opts?.includeEmptyFiles || (file.data.text && file.data.text !== "")) {
           linkIndex.set(slug, {
             slug,
+            // Add displaySlug if permalink is set
+            displaySlug: file.data.permalinkSlug,
             filePath: file.data.relativePath!,
             title: file.data.frontmatter?.title!,
             links: file.data.links ?? [],

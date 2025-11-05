@@ -181,6 +181,7 @@ export async function parseMarkdown(ctx: BuildCtx, fps: FilePath[]): Promise<Pro
       argv: ctx.argv,
       allSlugs: ctx.allSlugs,
       allFiles: ctx.allFiles,
+      slugToPermalink: ctx.slugToPermalink,
       incremental: ctx.incremental,
     }
 

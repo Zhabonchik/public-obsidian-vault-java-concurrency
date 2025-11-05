@@ -1,6 +1,6 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import breadcrumbsStyle from "./styles/breadcrumbs.scss"
-import { FullSlug, SimpleSlug, resolveRelative, simplifySlug } from "../util/path"
+import { FullSlug, SimpleSlug, resolveRelative, simplifySlug, getDisplaySlug } from "../util/path"
 import { classNames } from "../util/lang"
 import { trieFromAllFiles } from "../util/ctx"
 
@@ -59,7 +59,7 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
     }
 
     const crumbs: CrumbData[] = pathNodes.map((node, idx) => {
-      const crumb = formatCrumb(node.displayName, fileData.slug!, simplifySlug(node.slug))
+      const crumb = formatCrumb(node.displayName, getDisplaySlug(fileData), simplifySlug(node.slug))
       if (idx === 0) {
         crumb.displayName = options.rootName
       }

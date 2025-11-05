@@ -8,6 +8,7 @@ import {
   simplifySlug,
   splitAnchor,
   transformLink,
+  resolveRelative,
 } from "../../util/path"
 import path from "path"
 import { visit } from "unist-util-visit"
@@ -113,7 +114,7 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                   // WHATWG equivalent https://nodejs.dev/en/api/v18/url/#urlresolvefrom-to
                   const url = new URL(dest, "https://base.com/" + stripSlashes(curSlug, true))
                   const canonicalDest = url.pathname
-                  let [destCanonical, _destAnchor] = splitAnchor(canonicalDest)
+                  let [destCanonical, destAnchor] = splitAnchor(canonicalDest)
                   if (destCanonical.endsWith("/")) {
                     destCanonical += "index"
                   }
@@ -123,6 +124,14 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                   const simple = simplifySlug(full)
                   outgoing.add(simple)
                   node.properties["data-slug"] = full
+
+                  // If the target file has a permalink, rewrite the href to use it
+                  if (ctx.slugToPermalink[full]) {
+                    const permalinkSlug = ctx.slugToPermalink[full]
+                    const currentSlug = file.data.permalinkSlug ?? file.data.slug!
+                    const newHref = resolveRelative(currentSlug, permalinkSlug) + destAnchor
+                    node.properties.href = newHref
+                  }
                 }
 
                 // rewrite link internals if prettylinks is on

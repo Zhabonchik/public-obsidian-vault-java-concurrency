@@ -27,6 +27,7 @@ export interface BuildCtx {
   cfg: QuartzConfig
   allSlugs: FullSlug[]
   allFiles: FilePath[]
+  slugToPermalink: Record<FullSlug, FullSlug>
   trie?: FileTrieNode<BuildTimeTrieData>
   incremental: boolean
 }

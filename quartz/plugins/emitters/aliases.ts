@@ -6,7 +6,9 @@ import { VFile } from "vfile"
 import path from "path"
 
 async function* processFile(ctx: BuildCtx, file: VFile) {
-  const ogSlug = simplifySlug(file.data.slug!)
+  // Use permalinkSlug if set, otherwise use the regular slug
+  const targetSlug = file.data.permalinkSlug ?? file.data.slug!
+  const ogSlug = simplifySlug(targetSlug)
 
   for (const aliasTarget of file.data.aliases ?? []) {
     const aliasTargetSlug = (

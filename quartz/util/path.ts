@@ -173,6 +173,11 @@ export function resolveRelative(current: FullSlug, target: FullSlug | SimpleSlug
   return res
 }
 
+/** Get the slug to use for linking to a page (uses permalink if available) */
+export function getDisplaySlug(data: { slug?: FullSlug; permalinkSlug?: FullSlug }): FullSlug {
+  return data.permalinkSlug ?? data.slug ?? ("" as FullSlug)
+}
+
 export function splitAnchor(link: string): [string, string] {
   let [fp, anchor] = link.split("#", 2)
   if (fp.endsWith(".pdf")) {

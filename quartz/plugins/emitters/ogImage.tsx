@@ -72,7 +72,7 @@ async function processOgImage(
   fullOptions: SocialImageOptions,
 ) {
   const cfg = ctx.cfg.configuration
-  const slug = fileData.slug!
+  const slug = fileData.permalinkSlug ?? fileData.slug!
   const titleSuffix = cfg.pageTitleSuffix ?? ""
   const title =
     (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title) + titleSuffix
@@ -154,7 +154,7 @@ export const CustomOgImages: QuartzEmitterPlugin<Partial<SocialImageOptions>> = 
             }
 
             const generatedOgImagePath = isRealFile
-              ? `https://${baseUrl}/${pageData.slug!}-og-image.webp`
+              ? `https://${baseUrl}/${pageData.permalinkSlug ?? pageData.slug!}-og-image.webp`
               : undefined
             const defaultOgImagePath = `https://${baseUrl}/static/og-image.png`
             const ogImagePath = userDefinedOgImagePath ?? generatedOgImagePath ?? defaultOgImagePath
