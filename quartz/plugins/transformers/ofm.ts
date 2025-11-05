@@ -229,7 +229,11 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
                 // embed cases
                 if (value.startsWith("!")) {
                   const ext: string = path.extname(fp).toLowerCase()
-                  const url = slugifyFilePath(fp as FilePath)
+                  const url = slugifyFilePath(
+                    fp as FilePath,
+                    undefined,
+                    ctx.cfg.configuration.lowercasePaths,
+                  )
                   if ([".png", ".jpg", ".jpeg", ".gif", ".bmp", ".svg", ".webp"].includes(ext)) {
                     const match = wikilinkImageEmbedRegex.exec(alias ?? "")
                     const alt = match?.groups?.alt ?? ""
@@ -279,7 +283,11 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
 
                 // treat as broken link if slug not in ctx.allSlugs
                 if (opts.disableBrokenWikilinks) {
-                  const slug = slugifyFilePath(fp as FilePath)
+                  const slug = slugifyFilePath(
+                    fp as FilePath,
+                    undefined,
+                    ctx.cfg.configuration.lowercasePaths,
+                  )
                   const exists = ctx.allSlugs && ctx.allSlugs.includes(slug)
                   if (!exists) {
                     return {
@@ -342,7 +350,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
                   return false
                 }
 
-                tag = slugTag(tag)
+                tag = slugTag(tag, ctx.cfg.configuration.lowercasePaths)
                 if (file.data.frontmatter) {
                   const noteTags = file.data.frontmatter.tags ?? []
                   file.data.frontmatter.tags = [...new Set([...noteTags, tag])]

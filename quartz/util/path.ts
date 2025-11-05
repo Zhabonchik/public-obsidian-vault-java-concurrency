@@ -54,8 +54,8 @@ export function getFullSlug(window: Window): FullSlug {
   return res
 }
 
-function sluggify(s: string): string {
-  return s
+function sluggify(s: string, lowercase?: boolean): string {
+  const result = s
     .split("/")
     .map((segment) =>
       segment
@@ -67,9 +67,11 @@ function sluggify(s: string): string {
     )
     .join("/") // always use / as sep
     .replace(/\/$/, "")
+
+  return lowercase ? result.toLowerCase() : result
 }
 
-export function slugifyFilePath(fp: FilePath, excludeExt?: boolean): FullSlug {
+export function slugifyFilePath(fp: FilePath, excludeExt?: boolean, lowercase?: boolean): FullSlug {
   fp = stripSlashes(fp) as FilePath
   let ext = getFileExtension(fp)
   const withoutFileExt = fp.replace(new RegExp(ext + "$"), "")
@@ -77,7 +79,7 @@ export function slugifyFilePath(fp: FilePath, excludeExt?: boolean): FullSlug {
     ext = ""
   }
 
-  let slug = sluggify(withoutFileExt)
+  let slug = sluggify(withoutFileExt, lowercase)
 
   // treat _index as index
   if (endsWith(slug, "_index")) {
@@ -92,16 +94,25 @@ export function simplifySlug(fp: FullSlug): SimpleSlug {
   return (res.length === 0 ? "/" : res) as SimpleSlug
 }
 
-export function transformInternalLink(link: string): RelativeURL {
+export function transformInternalLink(link: string, lowercase?: boolean): RelativeURL {
   let [fplike, anchor] = splitAnchor(decodeURI(link))
 
-  const folderPath = isFolderPath(fplike)
+  // If lowercase is enabled, check for folder path in a case-insensitive way
+  const folderPath = lowercase
+    ? fplike.endsWith("/") ||
+      fplike.toLowerCase().endsWith("/index") ||
+      fplike.toLowerCase().endsWith("/index.md") ||
+      fplike.toLowerCase().endsWith("/index.html") ||
+      fplike.toLowerCase() === "index" ||
+      fplike.toLowerCase() === "index.md" ||
+      fplike.toLowerCase() === "index.html"
+    : isFolderPath(fplike)
   let segments = fplike.split("/").filter((x) => x.length > 0)
   let prefix = segments.filter(isRelativeSegment).join("/")
   let fp = segments.filter((seg) => !isRelativeSegment(seg) && seg !== "").join("/")
 
   // manually add ext here as we want to not strip 'index' if it has an extension
-  const simpleSlug = simplifySlug(slugifyFilePath(fp as FilePath))
+  const simpleSlug = simplifySlug(slugifyFilePath(fp as FilePath, undefined, lowercase))
   const joined = joinSegments(stripSlashes(prefix), stripSlashes(simpleSlug))
   const trail = folderPath ? "/" : ""
   const res = (_addRelativeToStart(joined) + trail + anchor) as RelativeURL
@@ -182,10 +193,10 @@ export function splitAnchor(link: string): [string, string] {
   return [fp, anchor]
 }
 
-export function slugTag(tag: string) {
+export function slugTag(tag: string, lowercase?: boolean) {
   return tag
     .split("/")
-    .map((tagSegment) => sluggify(tagSegment))
+    .map((tagSegment) => sluggify(tagSegment, lowercase))
     .join("/")
 }
 
@@ -224,10 +235,11 @@ export function getAllSegmentPrefixes(tags: string): string[] {
 export interface TransformOptions {
   strategy: "absolute" | "relative" | "shortest"
   allSlugs: FullSlug[]
+  lowercasePaths?: boolean
 }
 
 export function transformLink(src: FullSlug, target: string, opts: TransformOptions): RelativeURL {
-  let targetSlug = transformInternalLink(target)
+  let targetSlug = transformInternalLink(target, opts.lowercasePaths)
 
   if (opts.strategy === "relative") {
     return targetSlug as RelativeURL

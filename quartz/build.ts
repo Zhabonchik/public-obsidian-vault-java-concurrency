@@ -79,7 +79,9 @@ async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
 
   const filePaths = markdownPaths.map((fp) => joinSegments(argv.directory, fp) as FilePath)
   ctx.allFiles = allFiles
-  ctx.allSlugs = allFiles.map((fp) => slugifyFilePath(fp as FilePath))
+  ctx.allSlugs = allFiles.map((fp) =>
+    slugifyFilePath(fp as FilePath, undefined, ctx.cfg.configuration.lowercasePaths),
+  )
 
   const parsedFiles = await parseMarkdown(ctx, filePaths)
   const filteredContent = filterContent(ctx, parsedFiles)
@@ -253,7 +255,9 @@ async function rebuild(changes: ChangeEvent[], clientRefresh: () => void, buildD
 
   // update allFiles and then allSlugs with the consistent view of content map
   ctx.allFiles = Array.from(contentMap.keys())
-  ctx.allSlugs = ctx.allFiles.map((fp) => slugifyFilePath(fp as FilePath))
+  ctx.allSlugs = ctx.allFiles.map((fp) =>
+    slugifyFilePath(fp as FilePath, undefined, ctx.cfg.configuration.lowercasePaths),
+  )
   let processedFiles = filterContent(
     ctx,
     Array.from(contentMap.values())

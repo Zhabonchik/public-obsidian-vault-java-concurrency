@@ -127,6 +127,29 @@ describe("transforms", () => {
     )
   })
 
+  test("slugifyFilePath with lowercase", () => {
+    asserts(
+      [
+        ["content/Index.md", "content/index"],
+        ["content/INDEX.html", "content/index"],
+        ["content/_Index.md", "content/index"],
+        ["/content/Index.md", "content/index"],
+        ["content/Cool.png", "content/cool.png"],
+        ["Index.md", "index"],
+        ["Test.mp4", "test.mp4"],
+        ["Note With Spaces.md", "note-with-spaces"],
+        ["Notes.With.Dots.md", "notes.with.dots"],
+        ["Test/Special Chars?.md", "test/special-chars"],
+        ["Test/Special Chars #3.md", "test/special-chars-3"],
+        ["Cool/What About R&D?.md", "cool/what-about-r-and-d"],
+        ["MixedCase/File.md", "mixedcase/file"],
+      ],
+      (fp: path.FilePath) => path.slugifyFilePath(fp, undefined, true),
+      path.isFilePath,
+      path.isFullSlug,
+    )
+  })
+
   test("transformInternalLink", () => {
     asserts(
       [
@@ -150,6 +173,27 @@ describe("transforms", () => {
         ["content/with spaces#and Anchor!", "./content/with-spaces#and-anchor"],
       ],
       path.transformInternalLink,
+      (_x: string): _x is string => true,
+      path.isRelativeURL,
+    )
+  })
+
+  test("transformInternalLink with lowercase", () => {
+    asserts(
+      [
+        ["Content", "./content"],
+        ["Content/Test.md", "./content/test"],
+        ["Content/Test.pdf", "./content/test.pdf"],
+        ["./Content/Test.md", "./content/test"],
+        ["../Content/Test.md", "../content/test"],
+        ["Tags/", "./tags/"],
+        ["/Tags/", "./tags/"],
+        ["Content/With Spaces", "./content/with-spaces"],
+        ["Content/With Spaces/Index", "./content/with-spaces/"],
+        ["Content/With Spaces#And Anchor!", "./content/with-spaces#and-anchor"],
+        ["MixedCase/File.md", "./mixedcase/file"],
+      ],
+      (link: string) => path.transformInternalLink(link, true),
       (_x: string): _x is string => true,
       path.isRelativeURL,
     )

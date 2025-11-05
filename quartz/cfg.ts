@@ -62,6 +62,8 @@ export interface GlobalConfiguration {
   analytics: Analytics
   /** Glob patterns to not search */
   ignorePatterns: string[]
+  /** Whether to convert all generated paths to lowercase (default: false) */
+  lowercasePaths?: boolean
   /** Whether to use created, modified, or published as the default type of date */
   defaultDateType: ValidDateType
   /** Base URL to use for CNAME files, sitemaps, and RSS feeds that require an absolute URL.
