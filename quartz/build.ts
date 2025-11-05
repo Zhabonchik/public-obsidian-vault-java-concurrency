@@ -261,35 +261,35 @@ async function rebuild(changes: ChangeEvent[], clientRefresh: () => void, buildD
       .map((file) => file.content),
   )
 
-  let emittedFiles = 0
-  for (const emitter of cfg.plugins.emitters) {
-    // Try to use partialEmit if available, otherwise assume the output is static
-    const emitFn = emitter.partialEmit ?? emitter.emit
-    const emitted = await emitFn(ctx, processedFiles, staticResources, changeEvents)
-    if (emitted === null) {
-      continue
-    }
-
-    if (Symbol.asyncIterator in emitted) {
-      // Async generator case
-      for await (const file of emitted) {
-        emittedFiles++
-        if (ctx.argv.verbose) {
-          console.log(`[emit:${emitter.name}] ${file}`)
-        }
+  const emittedFiles = await Promise.all(
+    cfg.plugins.emitters.map(async (emitter) => {
+      const emitFn = emitter.partialEmit ?? emitter.emit
+      const emitted = emitFn(ctx, processedFiles, staticResources, changeEvents)
+      if (emitted === null) {
+        return 0
       }
-    } else {
-      // Array case
-      emittedFiles += emitted.length
-      if (ctx.argv.verbose) {
-        for (const file of emitted) {
-          console.log(`[emit:${emitter.name}] ${file}`)
+      if (Symbol.asyncIterator in emitted) {
+        let emittedFiles = 0
+        // Async generator case
+        for await (const file of emitted) {
+          emittedFiles++
+          if (ctx.argv.verbose) {
+            console.log(`[emit:${emitter.name}] ${file}`)
+          }
         }
+        return emittedFiles
+      } else {
+        // Array case
+        return await Promise.all(
+          (await emitted).map((file) => {
+            console.log(`[emit:${emitter.name}] ${file}`)
+          }),
+        ).then((files) => files.length)
       }
-    }
-  }
-
-  console.log(`Emitted ${emittedFiles} files to \`${argv.output}\` in ${perf.timeSince("rebuild")}`)
+    }),
+  )
+  const sumFiles = emittedFiles.reduce((a, b) => a + b)
+  console.log(`Emitted ${sumFiles} files to \`${argv.output}\` in ${perf.timeSince("rebuild")}`)
   console.log(styleText("green", `Done rebuilding in ${perf.timeSince()}`))
   changes.splice(0, numChangesInBuild)
   clientRefresh()

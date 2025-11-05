@@ -13,14 +13,14 @@ export async function emitContent(ctx: BuildCtx, content: ProcessedContent[]) {
 
   log.start(`Emitting files`)
 
-  let emittedFiles = 0
   const staticResources = getStaticResourcesFromPlugins(ctx)
-  await Promise.all(
+  const emittedFiles = await Promise.all(
     cfg.plugins.emitters.map(async (emitter) => {
       try {
-        const emitted = await emitter.emit(ctx, content, staticResources)
+        const emitted = emitter.emit(ctx, content, staticResources)
         if (Symbol.asyncIterator in emitted) {
           // Async generator case
+          let emittedFiles = 0
           for await (const file of emitted) {
             emittedFiles++
             if (ctx.argv.verbose) {
@@ -29,22 +29,27 @@ export async function emitContent(ctx: BuildCtx, content: ProcessedContent[]) {
               log.updateText(`${emitter.name} -> ${styleText("gray", file)}`)
             }
           }
+          return emittedFiles
         } else {
           // Array case
-          emittedFiles += emitted.length
-          for (const file of emitted) {
-            if (ctx.argv.verbose) {
-              console.log(`[emit:${emitter.name}] ${file}`)
-            } else {
-              log.updateText(`${emitter.name} -> ${styleText("gray", file)}`)
-            }
-          }
+          return (
+            await Promise.all(
+              (await emitted).map((file) => {
+                if (ctx.argv.verbose) {
+                  console.log(`[emit:${emitter.name}] ${file}`)
+                } else {
+                  log.updateText(`${emitter.name} -> ${styleText("gray", file)}`)
+                }
+              }),
+            )
+          ).length
         }
       } catch (err) {
         trace(`Failed to emit from plugin \`${emitter.name}\``, err as Error)
+        return 0
       }
     }),
   )
-
-  log.end(`Emitted ${emittedFiles} files to \`${argv.output}\` in ${perf.timeSince()}`)
+  const sumFiles = emittedFiles.reduce((a, b) => a + b)
+  log.end(`Emitted ${sumFiles} files to \`${argv.output}\` in ${perf.timeSince()}`)
 }
