@@ -7,17 +7,40 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
   const title = cfg?.pageTitle ?? i18n(cfg.locale).propertyDefaults.title
   const baseDir = pathToRoot(fileData.slug!)
   return (
-    <h2 class={classNames(displayClass, "page-title")}>
-      <a href={baseDir}>{title}</a>
-    </h2>
+    <>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@400;600;700&display=swap"
+        rel="stylesheet"
+      />
+      <h2 class={classNames(displayClass, "page-title")}>
+        <a href={baseDir}>{title}</a>
+      </h2>
+    </>
   )
 }
 
 PageTitle.css = `
+/* Default (light mode) */
+:root {
+  --primary-color: black;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: white;
+  }
+}
+
 .page-title {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   margin: 0;
-  font-family: var(--titleFont);
+  color: var(--primary-color);
+}
+
+.page-title a {
+  text-decoration: none;
+  color: inherit;
 }
 `
 
