@@ -391,8 +391,14 @@ h6 {
 // typography improvements
 h1 {
   font-size: 1.75rem;
-  margin-top: 2.25rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 800px) {
+  h1 {
+    margin-top: 0;
+  }
 }
 
 h2 {
