@@ -211,7 +211,7 @@ a {
     }
 
     & .sidebar {
-      gap: 1.2rem;
+      gap: 2rem;
       top: 0;
       box-sizing: border-box;
       padding: $topSpacing 2rem 2rem 2rem;
@@ -232,7 +232,8 @@ a {
         height: unset;
         flex-direction: row;
         padding: 0;
-        padding-top: 2rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
       }
     }
 

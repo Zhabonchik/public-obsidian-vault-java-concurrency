@@ -280,7 +280,7 @@ export function renderPage(
                 </div>
               </div>
               <Content {...componentData} />
-              <hr />
+              {slug !== "index" && <hr />}
               <div class="page-footer">
                 {afterBody.map((BodyComponent) => (
                   <BodyComponent {...componentData} />
@@ -288,7 +288,7 @@ export function renderPage(
               </div>
             </div>
             {RightComponent}
-            <Footer {...componentData} />
+            {slug !== "index" && <Footer {...componentData} />}
           </Body>
         </div>
       </body>

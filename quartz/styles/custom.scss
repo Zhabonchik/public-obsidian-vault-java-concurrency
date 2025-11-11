@@ -1,3 +1,78 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// Center the right sidebar content ONLY on mobile devices
+@media (max-width: 800px) {
+  .right.sidebar {
+    text-align: center;
+    
+    h3 {
+      text-align: center;
+    }
+    
+    ul {
+      list-style: none;
+      padding-left: 0;
+      text-align: center;
+    }
+    
+    li {
+      text-align: center;
+    }
+  }
+}
+
+// Hide right sidebar on tablet view (801px to 1199px)
+@media (min-width: 801px) and (max-width: 1199px) {
+  #quartz-body {
+    .sidebar.right {
+      display: none !important;
+    }
+  }
+  
+  // Also hide if it appears as a direct child
+  .right.sidebar {
+    display: none !important;
+  }
+  
+  // Target any element with grid-area set to grid-sidebar-right
+  [style*="grid-area: grid-sidebar-right"],
+  *[class*="right"] {
+    display: none !important;
+  }
+}
+
+// Keep everything left-aligned on desktop
+@media (min-width: 1200px) {
+  .right.sidebar {
+    text-align: left;
+    display: flex !important;
+    
+    h3 {
+      text-align: left;
+    }
+    
+    ul {
+      text-align: left;
+      list-style: none;
+      padding-left: 0;
+    }
+  }
+}
+
+// Hide the index page (Komeno) from "Latest" on ALL pages
+// Using multiple approaches to ensure it works
+.recent-notes li.recent-li:has(a[href="/"]),
+.recent-notes li.recent-li:has(a[href="index"]),
+.recent-notes li.recent-li:has(a[href="./index"]),
+.recent-notes li.recent-li:has(a[href="../index"]),
+.recent-notes li.recent-li:has(a[href*="index"]),
+// Also try with the recent-ul class
+.recent-ul li:has(a[href="/"]),
+.recent-ul li:has(a[href*="index"]) {
+  display: none !important;
+}
+
+// Fallback: Hide first item in recent notes (if Komeno is always first)
+.recent-notes .recent-ul li.recent-li:first-child {
+  display: none !important;
+}
