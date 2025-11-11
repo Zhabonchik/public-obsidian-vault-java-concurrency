@@ -13,6 +13,49 @@ There are one or more philosophers sitting around a table, with a large bowl of 
 
 ## Organizing data
 
+```mermaid
+flowchart TB
+    A("Dinner")
+    B(("Forks"))
+    C("Supervisor")
+    D{"Stop"}
+    E("Exit Status")
+
+    A --- B
+    A --- C
+    A --- D
+    A --- E
+
+    subgraph Rules
+		R0("Start Time")
+        R1("Philosopher Count")
+        R2("Philosopher Lifespan")
+        R3("Dining Duration")
+        R4("Rest Duration")
+        R5("Minimal Meals Count")
+    end
+
+    A --- Rules
+
+    subgraph Philosopher
+        D0("ID")
+        D1("Thread")
+        D2("Left Fork")
+        D3("Right Fork")
+        D4{"Times Eaten"}
+        D5{"Last Meal Time"}
+    end
+
+    A --- Philosopher
+
+    %% Clarifying relationships
+    Philosopher -->|accesses| B
+```
+description:
+- A rhombus represent **mutex protected variables**
+- A circle represent a **mutex array**
+- In code, the left and right forks are represented as `forks[2]` where `forks[0]` represents the left fork and `forks[1]` the right fork
+
 We will define our main data structure as:
 
 ```c
