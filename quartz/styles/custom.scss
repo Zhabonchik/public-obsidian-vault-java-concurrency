@@ -58,21 +58,3 @@
     }
   }
 }
-
-// Hide the index page (Komeno) from "Latest" on ALL pages
-// Using multiple approaches to ensure it works
-.recent-notes li.recent-li:has(a[href="/"]),
-.recent-notes li.recent-li:has(a[href="index"]),
-.recent-notes li.recent-li:has(a[href="./index"]),
-.recent-notes li.recent-li:has(a[href="../index"]),
-.recent-notes li.recent-li:has(a[href*="index"]),
-// Also try with the recent-ul class
-.recent-ul li:has(a[href="/"]),
-.recent-ul li:has(a[href*="index"]) {
-  display: none !important;
-}
-
-// Fallback: Hide first item in recent notes (if Komeno is always first)
-.recent-notes .recent-ul li.recent-li:first-child {
-  display: none !important;
-}
