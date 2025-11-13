@@ -1,6 +1,7 @@
 import remarkMath from "remark-math"
 import rehypeKatex from "rehype-katex"
 import rehypeMathjax from "rehype-mathjax/svg"
+import rehypeMathML from "@daiji256/rehype-mathml"
 //@ts-ignore
 import rehypeTypst from "@myriaddreamin/rehype-typst"
 import { QuartzTransformerPlugin } from "../types"
@@ -10,15 +11,20 @@ import { Options as MathjaxOptions } from "rehype-mathjax/svg"
 import { Options as TypstOptions } from "@myriaddreamin/rehype-typst"
 
 interface Options {
-  renderEngine: "katex" | "mathjax" | "typst"
+  renderEngine: "katex" | "mathjax" | "typst" | "mathml"
   customMacros: MacroType
   katexOptions: Omit<KatexOptions, "macros" | "output">
   mathJaxOptions: Omit<MathjaxOptions, "macros">
   typstOptions: TypstOptions
+  mathMLOptions: MathMLOptions
 }
 
 interface MacroType {
   [key: string]: string
+}
+
+interface MathMLOptions {
+  macros?: MacroType
 }
 
 export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
@@ -39,6 +45,9 @@ export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
         }
         case "mathjax": {
           return [[rehypeMathjax, { macros, ...(opts?.mathJaxOptions ?? {}) }]]
+        }
+        case "mathml": {
+          return [[rehypeMathML, { macros, ...(opts?.mathMLOptions ?? {}) }]]
         }
         default: {
           return [[rehypeMathjax, { macros, ...(opts?.mathJaxOptions ?? {}) }]]
