@@ -97,16 +97,7 @@ export function simplifySlug(fp: FullSlug): SimpleSlug {
 export function transformInternalLink(link: string, lowercase?: boolean): RelativeURL {
   let [fplike, anchor] = splitAnchor(decodeURI(link))
 
-  // If lowercase is enabled, check for folder path in a case-insensitive way
-  const folderPath = lowercase
-    ? fplike.endsWith("/") ||
-      fplike.toLowerCase().endsWith("/index") ||
-      fplike.toLowerCase().endsWith("/index.md") ||
-      fplike.toLowerCase().endsWith("/index.html") ||
-      fplike.toLowerCase() === "index" ||
-      fplike.toLowerCase() === "index.md" ||
-      fplike.toLowerCase() === "index.html"
-    : isFolderPath(fplike)
+  const folderPath = isFolderPath(fplike)
   let segments = fplike.split("/").filter((x) => x.length > 0)
   let prefix = segments.filter(isRelativeSegment).join("/")
   let fp = segments.filter((seg) => !isRelativeSegment(seg) && seg !== "").join("/")

@@ -11,10 +11,10 @@ const filesToCopy = async (argv: Argv, cfg: QuartzConfig) => {
   return await glob("**", argv.directory, ["**/*.md", ...cfg.configuration.ignorePatterns])
 }
 
-const copyFile = async (argv: Argv, fp: FilePath, cfg: QuartzConfig) => {
+const copyFile = async (argv: Argv, fp: FilePath, lowercasePaths: boolean) => {
   const src = joinSegments(argv.directory, fp) as FilePath
 
-  const name = slugifyFilePath(fp, undefined, cfg.configuration.lowercasePaths)
+  const name = slugifyFilePath(fp, undefined, lowercasePaths)
   const dest = joinSegments(argv.output, name) as FilePath
 
   // ensure dir exists
@@ -31,7 +31,7 @@ export const Assets: QuartzEmitterPlugin = () => {
     async *emit({ argv, cfg }) {
       const fps = await filesToCopy(argv, cfg)
       for (const fp of fps) {
-        yield copyFile(argv, fp, cfg)
+        yield copyFile(argv, fp, cfg.configuration.lowercasePaths)
       }
     },
     async *partialEmit(ctx, _content, _resources, changeEvents) {
@@ -40,7 +40,7 @@ export const Assets: QuartzEmitterPlugin = () => {
         if (ext === ".md") continue
 
         if (changeEvent.type === "add" || changeEvent.type === "change") {
-          yield copyFile(ctx.argv, changeEvent.path, ctx.cfg)
+          yield copyFile(ctx.argv, changeEvent.path, ctx.cfg.configuration.lowercasePaths)
         } else if (changeEvent.type === "delete") {
           const name = slugifyFilePath(
             changeEvent.path,

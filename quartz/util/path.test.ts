@@ -189,7 +189,7 @@ describe("transforms", () => {
         ["Tags/", "./tags/"],
         ["/Tags/", "./tags/"],
         ["Content/With Spaces", "./content/with-spaces"],
-        ["Content/With Spaces/Index", "./content/with-spaces/"],
+        ["Content/With Spaces/index", "./content/with-spaces/"],
         ["Content/With Spaces#And Anchor!", "./content/with-spaces#and-anchor"],
         ["MixedCase/File.md", "./mixedcase/file"],
       ],
