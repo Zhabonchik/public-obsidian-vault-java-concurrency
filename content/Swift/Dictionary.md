@@ -1,4 +1,4 @@
-# Building a Mandarin Dictionary Series — Part 1: SQLite Foundations
+# Building a Mandarin Dictionary
 
 Recently, I had the idea to start building my new app: a Mandarin dictionary specifically for Traditional Mandarin Chinese.
 
@@ -540,4 +540,340 @@ sequenceDiagram
     UI->>UI: SwiftUI auto-refreshes
 ```
 
-In Part 2, I’ll build the first views using SwiftUI.
+## Views
+Let's start with a tab view. A tab view is just an interface that appears at the bottom of most iOS apps, and it helps us to display navigation and action buttons. Here, we will start with just two simple pages: the home screen view and the search view.
+
+```swift
+struct TabViewSearch: View {
+    var body: some View {
+        TabView {
+            Tab("首頁", systemImage: "house") {
+                HomeView()
+            }
+            
+            Tab(role: .search) {
+                SearchView()
+            }
+        }
+    }
+}
+```
+
+> [!important] What is `Tab(role: .search)`?
+> A special tab designed for searching things into your app. Here, the magnifying glass icon is automatically provided.
+
+For the home view, I just implemented a dummy view for the moment:
+
+<img width="968" height="966" alt="Home-screen-v1" src="https://github.com/user-attachments/assets/73161f02-1806-4cf4-80fa-023d1c064e83" />
+
+Let's start building the `SearchView()` for searching by stroke count. Here, we are going to use a pattern of having one main view switching between different states. Let's start by defining some [[@State]] variables:
+
+1. `model` holds the `ViewModel` instance to communicate with the model/data
+2. `searchText` stores what the user types in the search bar
+
+```swift
+struct SearchView: View {
+    @State private var model = DictionaryModel()
+    @State private var searchText = ""
+    
+    var body: some View {
+        // ...
+    }
+}
+```
+
+Inside the body, let's add a `NavigationStack`:
+
+```swift
+var body: some View {
+	NavigationStack {
+		...
+	}
+}
+```
+
+> [!important] Why use NavigationStack?
+> `NavigationStack` gives us the ability to navigate between different screens (as a stack of views) and also gives us the possibility to use the navigation bar at the top.
+
+We also have to add a `Group` here to be able to build a conditional view:
+
+```swift
+Group {
+    if searchText.isEmpty {
+        EmptySearchStateView()
+    } else if model.isLoading {
+        LoadingStateView()
+    } else if let error = model.errorMessage {
+        ErrorStateView(errorMessage: error)
+    } else if model.entries.isEmpty {
+        NoResultsStateView(searchText: searchText)
+    } else {
+        SearchResultsListView(entries: model.entries)
+    }
+}
+```
+
+> [!important] What is a Group?
+> It is a transparent container (like a [[VStack]]) but that does not add any visual styling.
+
+### The search interface state machine
+
+```mermaid
+graph TD
+    A[SearchView] --> B{searchText empty?}
+    B -->|Yes| C[EmptySearchStateView]
+    B -->|No| D{model.isLoading?}
+    D -->|Yes| E[LoadingStateView]
+    D -->|No| F{model.errorMessage exists?}
+    F -->|Yes| G[ErrorStateView]
+    F -->|No| H{model.entries empty?}
+    H -->|Yes| I[NoResultsStateView]
+    H -->|No| J[SearchResultsListView]
+```
+
+### State 1: No search input
+
+<img width="968" height="966" alt="empty" src="https://github.com/user-attachments/assets/13c26027-1f5b-4f2c-be15-91146e2623f8" />
+
+```swift
+if searchText.isEmpty {
+    EmptySearchStateView()
+}
+```
+
+```swift
+struct EmptySearchStateView: View {
+    var body: some View {
+        ContentUnavailableView(
+            "開始搜尋",
+            systemImage: "magnifyingglass",
+            description: Text("輸入筆畫數以搜尋字詞")
+        )
+    }
+}
+```
+
+> [!note] What is ContentUnavailableView()?
+> A built-in view to display empty states. It displays a custom centered icon with a title and a description.
+
+### State 2: Database query in progress
+
+<img width="968" height="966" alt="loading" src="https://github.com/user-attachments/assets/aa28eb73-c9aa-4d9b-a0eb-3d7e8236d516" />
+
+```swift
+else if model.isLoading {
+    LoadingStateView()
+}
+```
+
+```swift
+struct LoadingStateView: View {
+    var body: some View {
+        ProgressView("搜尋中...")
+    }
+}
+```
+
+> [!note] What is ProgressView()?
+> A built-in view for displaying a loading indicator (a spinner)
+### State 3: An error occurred
+
+<img width="968" height="966" alt="error" src="https://github.com/user-attachments/assets/bedcb080-9026-4a65-8b81-ab666166093f" />
+
+```swift
+else if let error = model.errorMessage {
+    ErrorStateView(errorMessage: error)
+}
+```
+
+```swift
+struct ErrorStateView: View {
+    let errorMessage: String
+    
+    var body: some View {
+        ContentUnavailableView {
+            Label("搜尋錯誤", systemImage: "exclamationmark.triangle")
+        } description: {
+            Text(errorMessage)
+        }
+    }
+}
+```
+
+### State 4: Search completed but no results found
+
+<img width="968" height="966" alt="noresults" src="https://github.com/user-attachments/assets/e3efd609-cf7a-4212-bebe-8b470301e0b6" />
+
+```swift
+else if model.entries.isEmpty {
+    NoResultsStateView(searchText: searchText)
+}
+```
+
+```swift
+struct NoResultsStateView: View {
+    let searchText: String
+    
+    var body: some View {
+        ContentUnavailableView(
+            "無搜尋結果",
+            systemImage: "magnifyingglass",
+            description: Text("找不到 \(searchText) 畫的字")
+        )
+    }
+}
+```
+### State 5: Search completed with results
+
+<img width="968" height="966" alt="results" src="https://github.com/user-attachments/assets/5d21a568-620c-431c-b9e6-57cfd623749d" />
+
+```swift
+else {
+    SearchResultsListView(entries: model.entries)
+}
+```
+
+```swift
+struct SearchResultsListView: View {
+    let entries: [Entry]
+    
+    var body: some View {
+        List(entries) { entry in
+            NavigationLink {
+                CharacterDetailView(entry: entry)
+            } label: {
+                CharacterListRow(entry: entry)
+            }
+        }
+    }
+}
+```
+
+Here, the `CharacterListRow` represents each item of the list that appears in the search results:
+
+```swift
+struct CharacterListRow: View {
+    let entry: Entry
+    
+    var body: some View {
+        HStack {
+            Text(entry.title)
+                .font(.title)
+                .fontWeight(.bold)
+            
+            Spacer()
+            
+            VStack(alignment: .trailing) {
+                Text("部首: \(entry.radical)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                Text("\(entry.strokeCount) 畫")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+```
+### The character detail view
+
+<img width="968" height="966" alt="details" src="https://github.com/user-attachments/assets/097460be-af30-45c7-baf5-1adf0f3f8d11" />
+
+Here, the `GroupBox` is used to create a section in the view that visually groups some content.
+
+```swift
+struct CharacterDetailView: View {
+    let entry: Entry
+    
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 24) {
+                Text(entry.title)
+                    .font(.system(size: 120))
+                    .fontWeight(.medium)
+                    .padding()
+                
+                GroupBox {
+                    VStack(spacing: 16) {
+                        InfoRow(label: "部首", value: entry.radical)
+                        Divider()
+                        InfoRow(label: "總筆畫", value: "\(entry.strokeCount)")
+                        Divider()
+                        InfoRow(label: "部首外筆畫", value: "\(entry.nonRadicalStrokeCount)")
+                    }
+                    .padding()
+                }
+                .padding(.horizontal)
+            }
+            .padding()
+        }
+        .navigationTitle("字詞詳情")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+```
+### View Modifiers
+After the group containing the conditional views, we are going to chain some view modifiers.
+
+The first one is the navigation title:
+
+```swift
+.navigationTitle("筆畫搜尋")
+```
+
+Then, we need to add the search bar to the navigation view. To achieve that, we need to add the `searchable` modifier passing the `searchText` with the `$` syntax to create a [[two-way binding]] between the search bar text and the variable marked with [[@State]]:
+
+```swift
+.searchable(text: $searchText, prompt: "輸入筆畫數")
+```
+
+Then, we apply another modifier to limit the keyboard to use the numeric keyboard since we are searching by stroke count in this demo:
+
+```swift
+.keyboardType(.numberPad)
+```
+
+Now, we will apply the [[Reactive Logic|reactive logic]] that connects the UI to the view model:
+
+1. `.onChange(of: searchText)`: watches for changes to `searchText`
+2. `{ _, newValue in }`: is the way of writing parameters to a closure. The first parameter (oldValue) is ignored. The second parameter (newValue) is the updated search text
+3. `Task`: Creates an asynchronous context (needed for `await`)
+4. `if let count = Int(newValue)`: tries to convert the `newValue` (the text the user entered) to an integer and if it is successful and the value (now called `count` after the cast) is greater than zero, the search is triggered by `await model.searchByStrokeCount(count)`
+5. Else, the results are cleared.
+
+```swift
+.onChange(of: searchText) { _, newValue in
+    Task {
+        if let count = Int(newValue), count > 0 {
+            await model.searchByStrokeCount(count)
+        } else if newValue.isEmpty {
+            model.entries = []
+            model.errorMessage = nil
+        }
+    }
+}
+```
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant SearchBar
+    participant searchText @State
+    participant onChange
+    participant DictionaryModel
+    participant View
+
+    User->>SearchBar: Types "5"
+    SearchBar->>searchText @State: Updates value to "5"
+    searchText @State->>onChange: Triggers with newValue="5"
+    onChange->>onChange: Converts to Int(5)
+    onChange->>DictionaryModel: await searchByStrokeCount(5)
+    DictionaryModel->>DictionaryModel: isLoading = true
+    DictionaryModel->>View: SwiftUI detects change
+    View->>View: Shows LoadingStateView
+    DictionaryModel->>DictionaryModel: entries = [results]
+    DictionaryModel->>DictionaryModel: isLoading = false
+    DictionaryModel->>View: SwiftUI detects change
+    View->>View: Shows SearchResultsListView
+```
