@@ -564,7 +564,7 @@ struct TabViewSearch: View {
 
 For the home view, I just implemented a dummy view for the moment:
 
-<img width="968" height="966" alt="Home-screen-v1" src="https://github.com/user-attachments/assets/73161f02-1806-4cf4-80fa-023d1c064e83" />
+<img width="943" height="884" alt="Home" src="https://github.com/user-attachments/assets/ae0109a7-28d8-4248-afaf-cb166a4e4fcb" />
 
 Let's start building the `SearchView()` for searching by stroke count. Here, we are going to use a pattern of having one main view switching between different states. Let's start by defining some [[@State]] variables:
 
@@ -633,7 +633,7 @@ graph TD
 
 ### State 1: No search input
 
-<img width="968" height="966" alt="empty" src="https://github.com/user-attachments/assets/13c26027-1f5b-4f2c-be15-91146e2623f8" />
+<img width="943" height="884" alt="Empty" src="https://github.com/user-attachments/assets/02bdbe03-1257-4c58-b7ad-948533ab9b74" />
 
 ```swift
 if searchText.isEmpty {
@@ -658,7 +658,7 @@ struct EmptySearchStateView: View {
 
 ### State 2: Database query in progress
 
-<img width="968" height="966" alt="loading" src="https://github.com/user-attachments/assets/aa28eb73-c9aa-4d9b-a0eb-3d7e8236d516" />
+<img width="943" height="884" alt="Loading" src="https://github.com/user-attachments/assets/899aa047-c0c1-44c8-a7d6-b25cb75d7de5" />
 
 ```swift
 else if model.isLoading {
@@ -676,9 +676,10 @@ struct LoadingStateView: View {
 
 > [!note] What is ProgressView()?
 > A built-in view for displaying a loading indicator (a spinner)
+
 ### State 3: An error occurred
 
-<img width="968" height="966" alt="error" src="https://github.com/user-attachments/assets/bedcb080-9026-4a65-8b81-ab666166093f" />
+<img width="943" height="884" alt="Error" src="https://github.com/user-attachments/assets/c0e775fa-488c-4bdf-af18-1f03231fda40" />
 
 ```swift
 else if let error = model.errorMessage {
@@ -702,7 +703,7 @@ struct ErrorStateView: View {
 
 ### State 4: Search completed but no results found
 
-<img width="968" height="966" alt="noresults" src="https://github.com/user-attachments/assets/e3efd609-cf7a-4212-bebe-8b470301e0b6" />
+<img width="943" height="884" alt="No results" src="https://github.com/user-attachments/assets/95a9cfa3-cb98-4743-b548-ef27837711e2" />
 
 ```swift
 else if model.entries.isEmpty {
@@ -725,7 +726,7 @@ struct NoResultsStateView: View {
 ```
 ### State 5: Search completed with results
 
-<img width="968" height="966" alt="results" src="https://github.com/user-attachments/assets/5d21a568-620c-431c-b9e6-57cfd623749d" />
+<img width="943" height="884" alt="Results" src="https://github.com/user-attachments/assets/40942f92-1573-4774-800b-9e9f8ff154ba" />
 
 ```swift
 else {
@@ -778,7 +779,7 @@ struct CharacterListRow: View {
 ```
 ### The character detail view
 
-<img width="968" height="966" alt="details" src="https://github.com/user-attachments/assets/097460be-af30-45c7-baf5-1adf0f3f8d11" />
+<img width="943" height="884" alt="Details" src="https://github.com/user-attachments/assets/56e0832e-b703-419a-9a67-4a2a38e81a83" />
 
 Here, the `GroupBox` is used to create a section in the view that visually groups some content.
 
