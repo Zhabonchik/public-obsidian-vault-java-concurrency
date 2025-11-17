@@ -39,10 +39,11 @@ samples = random.sample(items[len(items)//4 : 3*len(items)//4], 3)
 ```
 
 To understand this line, let's suppose our JSON has 100 entries:
+
 1. `len(items) // 4`: [[Floor Division|Floor divides]] 100 (list length) by 4 to get the index 1/4 into the list. $$ \left\lfloor \frac{100}{4} \right\rfloor = \left\lfloor 25 \right\rfloor = 25 $$
 2. `3*len(items)//4`: Multiplies 100 (list length) by 3 and then [[Floor Division|floor divides]] by 4 giving the index 3/4 into the list. $$ \left\lfloor \frac{3 \cdot 100}{4} \right\rfloor = \left\lfloor \frac{300}{4} \right\rfloor = \left\lfloor 75 \right\rfloor = 75 $$
 3. Slice `items[start:end]`: In our case the slice is `items[25:75]` which represents a list ranging elements with indexes 25 through 74. (see: [[Slicing]])
-4. `random.sample(sequence, k)`: Where `k` is the number of elements to get from the `sequence`. In our case, we are getting 3 elements. $$ S = x_{25}, x_{26}, \dots, x_{74} $$ By running this script, we can get three random entries to analyze.
+4. `random.sample(sequence, k)`: Where `k` is the number of elements to get from the `sequence`. In our case, we are getting 3 elements. $$ S = x*{25}, x*{26}, \dots, x\_{74} $$ By running this script, we can get three random entries to analyze.
 
 Now, let's try to imagine how each entry structure is going to look like. I will use the character "行" as an example:
 
@@ -57,11 +58,31 @@ Now, let's try to imagine how each entry structure is going to look like. I will
       "pinyin": "xíng",
       "bopomofo": "ㄒㄧㄥˊ",
       "definitions": [
-        { "type": "動", "def": "走、走路。", "example": ["直行", "寸步難行", "錦衣夜行"], "quote": ["《論語》：「...」", "王維：「...」"] },
+        {
+          "type": "動",
+          "def": "走、走路。",
+          "example": ["直行", "寸步難行", "錦衣夜行"],
+          "quote": ["《論語》：「...」", "王維：「...」"]
+        },
         { "type": "動", "def": "往。", "quote": ["《詩經》：「...」", "杜甫：「...」"] },
-        { "type": "動", "def": "移動、流動。", "example": ["運行"], "quote": ["《易經》：「...」", "杜甫：「...」"] },
-        { "type": "動", "def": "流通。", "example": ["流行", "通行全國"], "quote": ["《左傳》：「...」"] },
-        { "type": "動", "def": "做、從事。", "example": ["行醫", "行善"], "quote": ["《左傳》：「...」"] },
+        {
+          "type": "動",
+          "def": "移動、流動。",
+          "example": ["運行"],
+          "quote": ["《易經》：「...」", "杜甫：「...」"]
+        },
+        {
+          "type": "動",
+          "def": "流通。",
+          "example": ["流行", "通行全國"],
+          "quote": ["《左傳》：「...」"]
+        },
+        {
+          "type": "動",
+          "def": "做、從事。",
+          "example": ["行醫", "行善"],
+          "quote": ["《左傳》：「...」"]
+        },
         { "type": "動", "def": "實施。", "quote": ["《易經》：「...」"] },
         { "type": "動", "def": "經歷。", "quote": ["《聊齋志異》：「...」"] },
         { "type": "動", "def": "可以。", "example": ["行不行？", "行！放手去做吧！"] },
@@ -72,7 +93,12 @@ Now, let's try to imagine how each entry structure is going to look like. I will
         { "type": "名", "def": "姓。漢有行宏。" },
         { "type": "名", "def": "部首之一。" },
         { "type": "形", "def": "能幹、幹練。", "example": ["你真行。", "他在這方面行得很。"] },
-        { "type": "副", "def": "不久、將要。", "example": ["行將就木"], "quote": ["元稹：「...」"] },
+        {
+          "type": "副",
+          "def": "不久、將要。",
+          "example": ["行將就木"],
+          "quote": ["元稹：「...」"]
+        },
         { "type": "連", "def": "且。", "quote": ["《史記》：「...」"] }
       ]
     },
@@ -82,7 +108,12 @@ Now, let's try to imagine how each entry structure is going to look like. I will
       "definitions": [
         { "type": "名", "def": "行列。", "quote": ["《左傳》：「...」", "杜甫：「...」"] },
         { "type": "名", "def": "兄弟姐妹次序。", "example": ["排行老三"] },
-        { "type": "名", "def": "量詞。排成的單位。", "example": ["一行樹"], "quote": ["杜甫：「...」"] },
+        {
+          "type": "名",
+          "def": "量詞。排成的單位。",
+          "example": ["一行樹"],
+          "quote": ["杜甫：「...」"]
+        },
         { "type": "名", "def": "營業機構。", "example": ["銀行", "商行", "分行"] },
         { "type": "名", "def": "職業。", "example": ["各行各業", "行行出狀元"] },
         { "type": "名", "def": "處所，用於人稱後。", "quote": ["周邦彥：「...」"] },
@@ -93,15 +124,18 @@ Now, let's try to imagine how each entry structure is going to look like. I will
       "pinyin": "xìng",
       "bopomofo": "ㄒㄧㄥˋ",
       "definitions": [
-        { "type": "名", "def": "行為舉止。", "example": ["品行", "德行"], "quote": ["《論語》：「...」"] }
+        {
+          "type": "名",
+          "def": "行為舉止。",
+          "example": ["品行", "德行"],
+          "quote": ["《論語》：「...」"]
+        }
       ]
     },
     {
       "pinyin": "hàng",
       "bopomofo": "ㄏㄤˋ",
-      "definitions": [
-        { "def": "參見「行行」、「樹行子」。" }
-      ]
+      "definitions": [{ "def": "參見「行行」、「樹行子」。" }]
     }
   ]
 }
@@ -187,6 +221,7 @@ CREATE TABLE definition (
     FOREIGN KEY (heteronym_id) REFERENCES heteronym(id)
 );
 ```
+
 ## Inserting data into the database
 
 With the schema already defined, we need to put the data from the JSON file into our SQLite tables:
@@ -212,6 +247,7 @@ for entry in items:
 ```
 
 Now, for each entry:
+
 1. `INSERT INTO entry` tells SQLite "I want to add a new row to the table entry".
 2. `(title, radical, stroke_count, non_radical_stroke_count)` specifies which columns we are filling in this row.
 3. `VALUES (?, ?, ?, ?)` are placeholders for the actual values (it will be filled with the tuple we pass)
@@ -235,10 +271,10 @@ Consider this entry:
 
 ```json
 {
-    "title": "行",
-    "radical": "行",
-    "stroke_count": 6,
-    "non_radical_stroke_count": 0
+  "title": "行",
+  "radical": "行",
+  "stroke_count": 6,
+  "non_radical_stroke_count": 0
 }
 ```
 
@@ -274,7 +310,7 @@ Now, for the definitions:
 
 1. As `example` and `quote` are lists, we need to convert them into strings as SQL cannot handle them.
 
- ```json
+```json
 ["直行", "寸步難行"] → '["直行", "寸步難行"]'
 ```
 
@@ -347,6 +383,7 @@ struct Definition: Identifiable {
 > `@Table` is used to map the struct in Swift to the corresponding table in the database. `@Column` is used when the name of a property into a table in Swift and the database column don't match.
 
 ### App.swift
+
 In the app's entry point structure marked with `@main` we can define an initializer and call the `prepareDependencies` function:
 
 1. `prepareDependencies` is a function used to configure global dependencies at the app's entry point.
@@ -363,9 +400,11 @@ prepareDependencies {
 
 > [!note] What is `DatabaseQueue()`?
 > By executing the following line, we are:
+>
 > 1. Creating a database connection to the file at `dbPath`.
 > 2. Creating a [[Serial Dispatch Queue]] to ensure that **all database operations happen one at a time.**
 > 3. It is a throwing function so it must be marked with `try`. It can throw an error in case of corrupted file, not existing file or insufficient permissions.
+>
 > ```swift
 > let db = try DatabaseQueue(path: dbPath)
 > ```
@@ -379,7 +418,7 @@ graph TD
     C --> D[You modify $0.defaultDatabase]
     D --> E[Container saved globally]
     E --> F[Available everywhere via @Dependency]
-    
+
     style C fill:#f9f,stroke:#333,stroke-width:2px
     style D fill:#bbf,stroke:#333,stroke-width:2px
 ```
@@ -391,7 +430,7 @@ To communicate between the UI and the database, we create a `DictionaryModel` cl
 ```swift
 @Observable
 class DictionaryModel {
-	
+
 }
 ```
 
@@ -417,10 +456,11 @@ graph LR
     B --> C[Dependency Container]
     C --> D[@Dependency injects it here]
     D --> E[DictionaryModel uses it]
-    
+
     style C fill:#bbf,stroke:#333,stroke-width:2px
     style D fill:#f9f,stroke:#333,stroke-width:2px
 ```
+
 ### Other Properties
 
 ```swift
@@ -430,6 +470,7 @@ var errorMessage: String?
 ```
 
 Where:
+
 - `entries`: Is an array of search results. When it changes, any SwiftUI view observing it will refresh.
 - `isLoading`: Tracks whether a search is currently in progress. It is used in the UI to show a loading spinner.
 - `errorMessage`: Optional string to hold error messages. It is `nil` when everything is fine.
@@ -492,7 +533,7 @@ graph TD
     C --> D[Raw SQLite Rows]
     D --> E[Map to Entry structs]
     E --> F[Return Array of Entry to entries]
-    
+
     style E fill:#bbf,stroke:#333,stroke-width:2px
     style F fill:#f9f,stroke:#333,stroke-width:2px
 ```
@@ -511,36 +552,37 @@ sequenceDiagram
     participant Model as DictionaryModel
     participant SQLite as SQLiteData
     participant DB as Database File
-    
+
     UI->>Model: searchByStrokeCount(5)
     activate Model
-    
+
     Model->>Model: guard strokeCount > 0
     Model->>Model: isLoading = true
     Note over UI: Shows ProgressView
-    
+
     Model->>SQLite: database.read { db in ... }
     activate SQLite
-    
+
     SQLite->>SQLite: Build query with .where and .order
     SQLite->>DB: Execute SQL: SELECT * FROM entry WHERE stroke_count = 5 ORDER BY title
     activate DB
     DB-->>SQLite: Return rows
     deactivate DB
-    
+
     SQLite->>SQLite: Map rows to [Entry]
     SQLite-->>Model: Return [Entry]
     deactivate SQLite
-    
+
     Model->>Model: entries = [Entry]
     Model->>Model: isLoading = false
     Note over UI: Hides ProgressView<br/>Shows List
-    
+
     deactivate Model
     UI->>UI: SwiftUI auto-refreshes
 ```
 
 ## Views
+
 Let's start with a tab view. A tab view is just an interface that appears at the bottom of most iOS apps, and it helps us to display navigation and action buttons. Here, we will start with just two simple pages: the home screen view and the search view.
 
 ```swift
@@ -550,7 +592,7 @@ struct TabViewSearch: View {
             Tab("首頁", systemImage: "house") {
                 HomeView()
             }
-            
+
             Tab(role: .search) {
                 SearchView()
             }
@@ -564,7 +606,7 @@ struct TabViewSearch: View {
 
 For the home view, I just implemented a dummy view for the moment:
 
-<img width="943" height="884" alt="Home" src="https://github.com/user-attachments/assets/ae0109a7-28d8-4248-afaf-cb166a4e4fcb" />
+![Home](https://github.com/user-attachments/assets/ae0109a7-28d8-4248-afaf-cb166a4e4fcb)
 
 Let's start building the `SearchView()` for searching by stroke count. Here, we are going to use a pattern of having one main view switching between different states. Let's start by defining some [[@State]] variables:
 
@@ -575,7 +617,7 @@ Let's start building the `SearchView()` for searching by stroke count. Here, we 
 struct SearchView: View {
     @State private var model = DictionaryModel()
     @State private var searchText = ""
-    
+
     var body: some View {
         // ...
     }
@@ -633,7 +675,7 @@ graph TD
 
 ### State 1: No search input
 
-<img width="943" height="884" alt="Empty" src="https://github.com/user-attachments/assets/02bdbe03-1257-4c58-b7ad-948533ab9b74" />
+![Empty](https://github.com/user-attachments/assets/02bdbe03-1257-4c58-b7ad-948533ab9b74)
 
 ```swift
 if searchText.isEmpty {
@@ -658,7 +700,7 @@ struct EmptySearchStateView: View {
 
 ### State 2: Database query in progress
 
-<img width="943" height="884" alt="Loading" src="https://github.com/user-attachments/assets/899aa047-c0c1-44c8-a7d6-b25cb75d7de5" />
+![Loading](https://github.com/user-attachments/assets/899aa047-c0c1-44c8-a7d6-b25cb75d7de5)
 
 ```swift
 else if model.isLoading {
@@ -679,7 +721,7 @@ struct LoadingStateView: View {
 
 ### State 3: An error occurred
 
-<img width="943" height="884" alt="Error" src="https://github.com/user-attachments/assets/c0e775fa-488c-4bdf-af18-1f03231fda40" />
+![Error](https://github.com/user-attachments/assets/c0e775fa-488c-4bdf-af18-1f03231fda40)
 
 ```swift
 else if let error = model.errorMessage {
@@ -690,7 +732,7 @@ else if let error = model.errorMessage {
 ```swift
 struct ErrorStateView: View {
     let errorMessage: String
-    
+
     var body: some View {
         ContentUnavailableView {
             Label("搜尋錯誤", systemImage: "exclamationmark.triangle")
@@ -703,7 +745,7 @@ struct ErrorStateView: View {
 
 ### State 4: Search completed but no results found
 
-<img width="943" height="884" alt="No results" src="https://github.com/user-attachments/assets/95a9cfa3-cb98-4743-b548-ef27837711e2" />
+![No results](https://github.com/user-attachments/assets/95a9cfa3-cb98-4743-b548-ef27837711e2)
 
 ```swift
 else if model.entries.isEmpty {
@@ -714,7 +756,7 @@ else if model.entries.isEmpty {
 ```swift
 struct NoResultsStateView: View {
     let searchText: String
-    
+
     var body: some View {
         ContentUnavailableView(
             "無搜尋結果",
@@ -724,9 +766,10 @@ struct NoResultsStateView: View {
     }
 }
 ```
+
 ### State 5: Search completed with results
 
-<img width="943" height="884" alt="Results" src="https://github.com/user-attachments/assets/40942f92-1573-4774-800b-9e9f8ff154ba" />
+![Results](https://github.com/user-attachments/assets/40942f92-1573-4774-800b-9e9f8ff154ba)
 
 ```swift
 else {
@@ -737,7 +780,7 @@ else {
 ```swift
 struct SearchResultsListView: View {
     let entries: [Entry]
-    
+
     var body: some View {
         List(entries) { entry in
             NavigationLink {
@@ -755,15 +798,15 @@ Here, the `CharacterListRow` represents each item of the list that appears in th
 ```swift
 struct CharacterListRow: View {
     let entry: Entry
-    
+
     var body: some View {
         HStack {
             Text(entry.title)
                 .font(.title)
                 .fontWeight(.bold)
-            
+
             Spacer()
-            
+
             VStack(alignment: .trailing) {
                 Text("部首: \(entry.radical)")
                     .font(.caption)
@@ -777,16 +820,17 @@ struct CharacterListRow: View {
     }
 }
 ```
+
 ### The character detail view
 
-<img width="943" height="884" alt="Details" src="https://github.com/user-attachments/assets/56e0832e-b703-419a-9a67-4a2a38e81a83" />
+![Details](https://github.com/user-attachments/assets/56e0832e-b703-419a-9a67-4a2a38e81a83)
 
 Here, the `GroupBox` is used to create a section in the view that visually groups some content.
 
 ```swift
 struct CharacterDetailView: View {
     let entry: Entry
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
@@ -794,7 +838,7 @@ struct CharacterDetailView: View {
                     .font(.system(size: 120))
                     .fontWeight(.medium)
                     .padding()
-                
+
                 GroupBox {
                     VStack(spacing: 16) {
                         InfoRow(label: "部首", value: entry.radical)
@@ -814,7 +858,9 @@ struct CharacterDetailView: View {
     }
 }
 ```
+
 ### View Modifiers
+
 After the group containing the conditional views, we are going to chain some view modifiers.
 
 The first one is the navigation title:
