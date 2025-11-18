@@ -1,3 +1,7 @@
+---
+date: 2025-11-17
+---
+
 # Building a Mandarin Dictionary
 
 Recently, I had the idea to start building my new app: a Mandarin dictionary specifically for Traditional Mandarin Chinese.
