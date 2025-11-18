@@ -421,7 +421,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
         for (let searchResult of searchResults) {
           searchResult.result = searchResult.result.slice(0, numSearchResults)
         }
-        // set search type to basic and remove tag from term for proper highlightning and scroll
+        // set search type to basic and remove tag from term for proper highlighting and scroll
         searchType = "basic"
         currentSearchTerm = query
       } else {
