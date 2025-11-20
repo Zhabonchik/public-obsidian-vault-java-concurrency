@@ -1,6 +1,6 @@
 ---
 title: Introducing Honcho Chat
-date: 11.20/.25
+date: 11.20.25
 tags:
   - demos
   - announcements
