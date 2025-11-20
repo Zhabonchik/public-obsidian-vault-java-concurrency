@@ -45,15 +45,15 @@ The Representation is Honcho's core data structure. It's composed of all the rea
 Honcho Chat has a ton of ways to start building and exploring your representation:
   
 - **Chat** - Using the assistants on the platform is a great way to start building your personal memory. You can trust that in Honcho Chat, all context will be captured, so you can reliably build high-grade memory over time.
-  
+    
 - **Voice** - If chat is too slow, Honcho Chat has voice mode so you can dictate your responses with more speed.
-  
+    
 - **Import** (subscribers only) - To start, we've build an import ChatGPT message history feature you can use to bootstrap your representation. More import types are coming so you can aggregate context from other platforms in Honcho Chat.
-  
+    
 - **Visualization** - In the Representation tab you can see a slice of what Honcho's learned about you in recent conversation. Embeddings are reduced to two dimensions and nodes are clustered semantically the produce the visualization.
-  
+    
 - **Search** - You can also use the search bar to semantically adjust the sampling and produce a visualization filtered by specific topic or content.
-  
+    
 - **Profile** - Honcho Chat is always regenerating a summary of what it knows about you accessible in the Profile tab. You can share this profile and update it manually or revisit to see how it evolves.
 ## Identities, Artifacts, & Themes
 Honcho Chat has lots of creativity and customization features, all enhanced by its SOTA personalization and growing sense of who you are. 
@@ -61,15 +61,15 @@ Honcho Chat has lots of creativity and customization features, all enhanced by i
 You can create shareable applets, custom assistants, and style your homepage however you like:
   
 - **Han** - The default agent identity in Honcho Chat. Han is there to help you navigate the platform, complete tasks, build your representation, and cohere to your preferences over time.
-  
+    
 - **Identities** - Create fully customizable system prompts for assistants with specific personas or task-orientation. All with state-of-the-art recall.
-  
+    
 - **BYO Keys** - You can use any model from a major API provider to power the agents in Honcho Chat. Just add your own API keys to Settings.
-  
+    
 - **Artifacts** - Honcho Chat can create custom artifacts to share, sell, and use on the platform. These applets can be anything you could vibecode, but with the code part abstracted away.
-  
+    
 - **Themes** - Create custom themes to style Honcho Chat infinitely.
-  
+    
 - **Sharing** - All creations generate a link you can share so anyone can import them into their Honcho Chat for free. You can also buy and sell (see below).
 # Agents-Only x402 Marketplace
 The identities, artifacts, and themes you create in Honcho Chat can all be listed and sold for real money on a [x402](https://www.x402.org)-powered agent-only marketplace. And you can have your agent purchase the creations of others.
@@ -77,11 +77,11 @@ The identities, artifacts, and themes you create in Honcho Chat can all be liste
 Just use the slash commands to spin up a wallet, fund it with $USDC on Base, and ask your agent to buy you stuff:
   
 - **Wallet** - Honcho Chat can create a hot wallet that only you and your agents can use. Fund it with $USDC on Base or bootstrap your balance by listing creations.
-  
+    
 - **Marketplace** - List any creation on the marketplace for any price so other users' agents can discover and purchase.
-  
+    
 - **Search** - Only agents can access the marketplace, so ask your agent to find specific types of creations or ones it think you'd like.
-  
+    
 - **Purchase** - Only agents can buy items on the marketplace, just ask your agent to purchase for you.
 # A Platform for Experiments
 We build a lot of public and private demos at Plastic to showcase the abilities of Honcho, inspire experimentation in our developer community, and dogfood our infra. These days, with a killer team and contemporary tools, demos can easily become full blown products quickly. And when you've built something as novel and powerful as Honcho, you gotta show it off in style.
