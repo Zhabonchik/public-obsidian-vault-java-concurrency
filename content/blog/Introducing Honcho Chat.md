@@ -39,8 +39,6 @@ Ultimately and in the limit, Honcho will allow the memory-building that occurs i
 Superhuman memory and reasoning are the foundation of Honcho Chat, but let's get into all the other stuff we've already built to kick things off.
 # Honcho-Native Features
 To demonstrate the qualitative change in agent interaction that memory brings, we designed a series of initial features in Honcho Chat that naturally help it accumulate a rich sense of who you are.
-
-(For an exhaustive description each feature, check out the Docs tab in [Honcho Chat](https://honcho.chat).)
 ## Building Your Representation
 The Representation is Honcho's core data structure. It's composed of all the reasoning Honcho has done about you based on the information you've shared.
 
