@@ -11,7 +11,10 @@ Note that all static assets will then be accessible through its path on your gen
 > [!note]
 > For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
 
-This plugin has no configuration options.
+This plugin accepts the following configuration options:
+
+- `resizeImages`: A subset of the [Sharp resizing options](https://sharp.pixelplumbing.com/api-resize). Defaults to `{ width: 1700, fit: 'inside' }`.
+- `compressImages`: If `true` (default), enable image compression. Disable to copy images as-is without modification.
 
 ## API
 
