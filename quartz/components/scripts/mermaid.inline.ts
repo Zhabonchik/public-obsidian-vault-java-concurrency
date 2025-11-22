@@ -11,7 +11,8 @@ class DiagramPanZoom {
   private currentPan: Position = { x: 0, y: 0 }
   private scale = 1
   private readonly MIN_SCALE = 0.5
-  private readonly MAX_SCALE = 3
+  private readonly MAX_SCALE = 5
+  private lastTouchDistance = 0
 
   cleanups: (() => void)[] = []
 
@@ -31,16 +32,28 @@ class DiagramPanZoom {
     const mouseUpHandler = this.onMouseUp.bind(this)
     const resizeHandler = this.resetTransform.bind(this)
 
+    // Touch events
+    const touchStartHandler = this.onTouchStart.bind(this)
+    const touchMoveHandler = this.onTouchMove.bind(this)
+    const touchEndHandler = this.onTouchEnd.bind(this)
+
     this.container.addEventListener("mousedown", mouseDownHandler)
     document.addEventListener("mousemove", mouseMoveHandler)
     document.addEventListener("mouseup", mouseUpHandler)
     window.addEventListener("resize", resizeHandler)
+
+    this.container.addEventListener("touchstart", touchStartHandler, { passive: false })
+    this.container.addEventListener("touchmove", touchMoveHandler, { passive: false })
+    this.container.addEventListener("touchend", touchEndHandler)
 
     this.cleanups.push(
       () => this.container.removeEventListener("mousedown", mouseDownHandler),
       () => document.removeEventListener("mousemove", mouseMoveHandler),
       () => document.removeEventListener("mouseup", mouseUpHandler),
       () => window.removeEventListener("resize", resizeHandler),
+      () => this.container.removeEventListener("touchstart", touchStartHandler),
+      () => this.container.removeEventListener("touchmove", touchMoveHandler),
+      () => this.container.removeEventListener("touchend", touchEndHandler),
     )
   }
 
@@ -55,8 +68,8 @@ class DiagramPanZoom {
     controls.className = "mermaid-controls"
 
     // Zoom controls
-    const zoomIn = this.createButton("+", () => this.zoom(0.1))
-    const zoomOut = this.createButton("-", () => this.zoom(-0.1))
+    const zoomIn = this.createButton("+", () => this.zoom(0.25))
+    const zoomOut = this.createButton("-", () => this.zoom(-0.25))
     const resetBtn = this.createButton("Reset", () => this.resetTransform())
 
     controls.appendChild(zoomOut)
@@ -99,17 +112,87 @@ class DiagramPanZoom {
     this.container.style.cursor = "grab"
   }
 
-  private zoom(delta: number) {
+  private getTouchDistance(touches: TouchList): number {
+    const touch1 = touches[0]
+    const touch2 = touches[1]
+    const dx = touch1.clientX - touch2.clientX
+    const dy = touch1.clientY - touch2.clientY
+    return Math.sqrt(dx * dx + dy * dy)
+  }
+
+  private onTouchStart(e: TouchEvent) {
+    if (e.touches.length === 1) {
+      // Single touch - start panning
+      this.isDragging = true
+      this.startPan = {
+        x: e.touches[0].clientX - this.currentPan.x,
+        y: e.touches[0].clientY - this.currentPan.y,
+      }
+    } else if (e.touches.length === 2) {
+      // Two touches - start zooming
+      this.isDragging = false
+      this.lastTouchDistance = this.getTouchDistance(e.touches)
+    }
+  }
+
+  private onTouchMove(e: TouchEvent) {
+    if (e.touches.length === 1 && this.isDragging) {
+      // Pan
+      e.preventDefault()
+      this.currentPan = {
+        x: e.touches[0].clientX - this.startPan.x,
+        y: e.touches[0].clientY - this.startPan.y,
+      }
+      this.updateTransform()
+    } else if (e.touches.length === 2) {
+      // Zoom
+      e.preventDefault()
+      const currentDistance = this.getTouchDistance(e.touches)
+      const delta = (currentDistance - this.lastTouchDistance) * 0.02
+
+      const center = {
+        x: (e.touches[0].clientX + e.touches[1].clientX) / 2,
+        y: (e.touches[0].clientY + e.touches[1].clientY) / 2,
+      }
+
+      this.zoom(delta, center)
+      this.lastTouchDistance = currentDistance
+    }
+  }
+
+  private onTouchEnd(e: TouchEvent) {
+    if (e.touches.length === 0) {
+      this.isDragging = false
+    } else if (e.touches.length === 1) {
+      // Switch to panning if one finger remains
+      this.isDragging = true
+      this.startPan = {
+        x: e.touches[0].clientX - this.currentPan.x,
+        y: e.touches[0].clientY - this.currentPan.y,
+      }
+    }
+  }
+
+  private zoom(delta: number, center?: Position) {
     const newScale = Math.min(Math.max(this.scale + delta, this.MIN_SCALE), this.MAX_SCALE)
 
-    // Zoom around center
-    const rect = this.content.getBoundingClientRect()
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
+    // Calculate zoom center relative to container
+    const rect = this.container.getBoundingClientRect()
+    let pX: number
+    let pY: number
 
-    const scaleDiff = newScale - this.scale
-    this.currentPan.x -= centerX * scaleDiff
-    this.currentPan.y -= centerY * scaleDiff
+    if (center) {
+      pX = center.x - rect.left
+      pY = center.y - rect.top
+    } else {
+      // Default to center of container
+      pX = rect.width / 2
+      pY = rect.height / 2
+    }
+
+    const scaleRatio = newScale / this.scale
+    this.currentPan.x = pX - (pX - this.currentPan.x) * scaleRatio
+    this.currentPan.y = pY - (pY - this.currentPan.y) * scaleRatio
 
     this.scale = newScale
     this.updateTransform()
@@ -120,13 +203,32 @@ class DiagramPanZoom {
   }
 
   private resetTransform() {
-    this.scale = 1
-    const svg = this.content.querySelector("svg")!
+    this.content.style.transition = "none" // Disable transition for instant reset
+    this.content.style.transform = "" // Reset transform to get accurate dimensions
+
+    const containerRect = this.container.getBoundingClientRect()
+    const contentRect = this.content.getBoundingClientRect()
+
+    // Calculate scale to fit
+    const widthRatio = containerRect.width / contentRect.width
+    const heightRatio = containerRect.height / contentRect.height
+    const fitScale = Math.min(widthRatio, heightRatio) * 0.9 // 90% fit
+
+    // Clamp scale
+    this.scale = Math.min(Math.max(fitScale, this.MIN_SCALE), this.MAX_SCALE)
+
+    // Center based on new scale
     this.currentPan = {
-      x: svg.getBoundingClientRect().width / 2,
-      y: svg.getBoundingClientRect().height / 2,
+      x: (containerRect.width - contentRect.width * this.scale) / 2,
+      y: (containerRect.height - contentRect.height * this.scale) / 2,
     }
+
     this.updateTransform()
+
+    // Re-enable transition after a frame
+    requestAnimationFrame(() => {
+      this.content.style.transition = ""
+    })
   }
 }
 
