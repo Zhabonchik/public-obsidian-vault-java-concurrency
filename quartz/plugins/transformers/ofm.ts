@@ -128,7 +128,7 @@ export const tableRegex = new RegExp(/^\|([^\n])+\|\n(\|)( ?:?-{3,}:? ?\|)+\n(\|
 // matches any wikilink, only used for escaping wikilinks inside tables
 export const tableWikilinkRegex = new RegExp(/(!?\[\[[^\]]*?\]\]|\[\^[^\]]*?\])/g)
 
-const highlightRegex = new RegExp(/==([^=]+)==/g)
+const highlightRegex = new RegExp(/==/g)
 const commentRegex = new RegExp(/%%[\s\S]*?%%/g)
 // from https://github.com/escwxyz/remark-obsidian-callout/blob/main/src/index.ts
 const calloutRegex = new RegExp(/^\[\!([\w-]+)\|?(.+?)?\]([+-]?)/)
@@ -306,18 +306,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
             ])
           }
 
-          if (opts.highlight) {
-            replacements.push([
-              highlightRegex,
-              (_value: string, ...capture: string[]) => {
-                const [inner] = capture
-                return {
-                  type: "html",
-                  value: `<span class="text-highlight">${inner}</span>`,
-                }
-              },
-            ])
-          }
+          // Highlight logic moved to separate plugin
 
           if (opts.parseArrows) {
             replacements.push([
@@ -392,6 +381,53 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
           mdastFindReplace(tree, replacements)
         }
       })
+
+      if (opts.highlight) {
+        plugins.push(() => {
+          return (tree: Root) => {
+            mdastFindReplace(tree, [
+              [highlightRegex, (_value: string) => ({ type: "highlightMarker" }) as any],
+            ])
+
+            visit(tree, (node) => {
+              if (!("children" in node)) return
+              const children = (node as any).children as any[]
+
+              const markers: number[] = []
+              for (let i = 0; i < children.length; i++) {
+                if (children[i].type === "highlightMarker") {
+                  markers.push(i)
+                }
+              }
+
+              if (markers.length < 2) return
+
+              const pairs: [number, number][] = []
+              for (let i = 0; i < markers.length - 1; i += 2) {
+                pairs.push([markers[i], markers[i + 1]])
+              }
+
+              for (let i = pairs.length - 1; i >= 0; i--) {
+                const [start, end] = pairs[i]
+                const content = children.slice(start + 1, end)
+                const htmlContent = content
+                  .map((n) => {
+                    const hast = toHast(n, { allowDangerousHtml: true })
+                    return toHtml(hast as any, { allowDangerousHtml: true })
+                  })
+                  .join("")
+
+                const newNode = {
+                  type: "html",
+                  value: `<span class="text-highlight">${htmlContent}</span>`,
+                }
+
+                children.splice(start, end - start + 1, newNode)
+              }
+            })
+          }
+        })
+      }
 
       if (opts.enableVideoEmbed) {
         plugins.push(() => {
