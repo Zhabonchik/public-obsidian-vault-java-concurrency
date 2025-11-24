@@ -1,9 +1,13 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { classNames } from "../util/lang"
 // @ts-ignore
-import script from "./scripts/comments.inline"
+import giscusScript from "./scripts/comments.giscus.inline"
+// @ts-ignore
+import hyvorTalkScript from "./scripts/comments.hyvor_talk.inline"
 
-type Options = {
+type Options = GiscusOptions | HyvorTalkOptions
+
+type GiscusOptions = {
   provider: "giscus"
   options: {
     repo: `${string}/${string}`
@@ -21,6 +25,13 @@ type Options = {
   }
 }
 
+type HyvorTalkOptions = {
+  provider: "hyvor_talk"
+  options: {
+    websiteId: string
+  }
+}
+
 function boolToStringBool(b: boolean): string {
   return b ? "1" : "0"
 }
@@ -35,28 +46,36 @@ export default ((opts: Options) => {
       return <></>
     }
 
-    return (
-      <div
-        class={classNames(displayClass, "giscus")}
-        data-repo={opts.options.repo}
-        data-repo-id={opts.options.repoId}
-        data-category={opts.options.category}
-        data-category-id={opts.options.categoryId}
-        data-mapping={opts.options.mapping ?? "url"}
-        data-strict={boolToStringBool(opts.options.strict ?? true)}
-        data-reactions-enabled={boolToStringBool(opts.options.reactionsEnabled ?? true)}
-        data-input-position={opts.options.inputPosition ?? "bottom"}
-        data-light-theme={opts.options.lightTheme ?? "light"}
-        data-dark-theme={opts.options.darkTheme ?? "dark"}
-        data-theme-url={
-          opts.options.themeUrl ?? `https://${cfg.baseUrl ?? "example.com"}/static/giscus`
-        }
-        data-lang={opts.options.lang ?? "en"}
-      ></div>
-    )
+    if (opts.provider === "hyvor_talk") {
+      return <div id="hyvor-talk-container" data-website-id={opts.options.websiteId}></div>
+    } else {
+      return (
+        <div
+          class={classNames(displayClass, "giscus")}
+          data-repo={opts.options.repo}
+          data-repo-id={opts.options.repoId}
+          data-category={opts.options.category}
+          data-category-id={opts.options.categoryId}
+          data-mapping={opts.options.mapping ?? "url"}
+          data-strict={boolToStringBool(opts.options.strict ?? true)}
+          data-reactions-enabled={boolToStringBool(opts.options.reactionsEnabled ?? true)}
+          data-input-position={opts.options.inputPosition ?? "bottom"}
+          data-light-theme={opts.options.lightTheme ?? "light"}
+          data-dark-theme={opts.options.darkTheme ?? "dark"}
+          data-theme-url={
+            opts.options.themeUrl ?? `https://${cfg.baseUrl ?? "example.com"}/static/giscus`
+          }
+          data-lang={opts.options.lang ?? "en"}
+        ></div>
+      )
+    }
   }
 
-  Comments.afterDOMLoaded = script
+  if (opts.provider === "hyvor_talk") {
+    Comments.afterDOMLoaded = hyvorTalkScript
+  } else {
+    Comments.afterDOMLoaded = giscusScript
+  }
 
   return Comments
 }) satisfies QuartzComponentConstructor<Options>
