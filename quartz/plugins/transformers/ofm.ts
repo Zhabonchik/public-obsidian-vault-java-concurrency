@@ -27,6 +27,7 @@ import { toHast } from "mdast-util-to-hast"
 import { toHtml } from "hast-util-to-html"
 import { capitalize } from "../../util/lang"
 import { PluggableList } from "unified"
+import { slug as slugAnchor } from "github-slugger"
 
 export interface Options {
   comments: boolean
@@ -604,7 +605,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
                       if (!Object.keys(file.data.blocks!).includes(block)) {
                         node.properties = {
                           ...node.properties,
-                          id: block,
+                          id: slugAnchor(block),
                         }
                         file.data.blocks![block] = node
                       }
