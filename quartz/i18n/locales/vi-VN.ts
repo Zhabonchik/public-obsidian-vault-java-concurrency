@@ -11,7 +11,7 @@ export default {
       abstract: "Tổng quan",
       info: "Thông tin",
       todo: "Cần phải làm",
-      tip: "Mẹo",
+      tip: "Gợi ý",
       success: "Thành công",
       question: "Câu hỏi",
       warning: "Cảnh báo",
