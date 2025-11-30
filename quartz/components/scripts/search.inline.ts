@@ -17,10 +17,39 @@ type SearchType = "basic" | "tags"
 let searchType: SearchType = "basic"
 let currentSearchTerm: string = ""
 const encoder = (str: string) => {
-  return str
-    .toLowerCase()
-    .split(/\s+/)
-    .filter((token) => token.length > 0)
+  const tokens: string[] = []
+  let buffer = ""
+
+  for (const char of str.toLowerCase()) {
+    const code = char.codePointAt(0)
+    if (code === undefined) continue
+
+    // Check if character is CJK
+    const isCJK =
+      (code >= 0x3040 && code <= 0x309f) || // Hiragana
+      (code >= 0x30a0 && code <= 0x30ff) || // Katakana
+      (code >= 0x4e00 && code <= 0x9fff) || // CJK Unified Ideographs
+      (code >= 0xac00 && code <= 0xd7af) // Hangul Syllables
+
+    if (isCJK) {
+      // Flush non-CJK buffer
+      if (buffer) {
+        tokens.push(...buffer.split(/\s+/).filter((t) => t.length > 0))
+        buffer = ""
+      }
+      // Add CJK character as individual token
+      tokens.push(char)
+    } else {
+      buffer += char
+    }
+  }
+
+  // Flush remaining non-CJK buffer
+  if (buffer) {
+    tokens.push(...buffer.split(/\s+/).filter((t) => t.length > 0))
+  }
+
+  return tokens.filter((token) => token.length > 0)
 }
 
 let index = new FlexSearch.Document<Item>({
