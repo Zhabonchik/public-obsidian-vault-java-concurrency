@@ -16,40 +16,49 @@ interface Item {
 type SearchType = "basic" | "tags"
 let searchType: SearchType = "basic"
 let currentSearchTerm: string = ""
-const encoder = (str: string) => {
+const encoder = (str: string): string[] => {
   const tokens: string[] = []
-  let buffer = ""
+  let bufferStart = -1
+  let bufferEnd = -1
+  const lower = str.toLowerCase()
 
-  for (const char of str.toLowerCase()) {
-    const code = char.codePointAt(0)
-    if (code === undefined) continue
+  let i = 0
+  for (const char of lower) {
+    const code = char.codePointAt(0)!
 
-    // Check if character is CJK
     const isCJK =
-      (code >= 0x3040 && code <= 0x309f) || // Hiragana
-      (code >= 0x30a0 && code <= 0x30ff) || // Katakana
-      (code >= 0x4e00 && code <= 0x9fff) || // CJK Unified Ideographs
-      (code >= 0xac00 && code <= 0xd7af) // Hangul Syllables
+      (code >= 0x3040 && code <= 0x309f) ||
+      (code >= 0x30a0 && code <= 0x30ff) ||
+      (code >= 0x4e00 && code <= 0x9fff) ||
+      (code >= 0xac00 && code <= 0xd7af) ||
+      (code >= 0x20000 && code <= 0x2a6df)
+
+    const isWhitespace = code === 32 || code === 9 || code === 10 || code === 13
 
     if (isCJK) {
-      // Flush non-CJK buffer
-      if (buffer) {
-        tokens.push(...buffer.split(/\s+/).filter((t) => t.length > 0))
-        buffer = ""
+      if (bufferStart !== -1) {
+        tokens.push(lower.slice(bufferStart, bufferEnd))
+        bufferStart = -1
       }
-      // Add CJK character as individual token
       tokens.push(char)
+    } else if (isWhitespace) {
+      if (bufferStart !== -1) {
+        tokens.push(lower.slice(bufferStart, bufferEnd))
+        bufferStart = -1
+      }
     } else {
-      buffer += char
+      if (bufferStart === -1) bufferStart = i
+      bufferEnd = i + char.length
     }
+
+    i += char.length
   }
 
-  // Flush remaining non-CJK buffer
-  if (buffer) {
-    tokens.push(...buffer.split(/\s+/).filter((t) => t.length > 0))
+  if (bufferStart !== -1) {
+    tokens.push(lower.slice(bufferStart))
   }
 
-  return tokens.filter((token) => token.length > 0)
+  return tokens
 }
 
 let index = new FlexSearch.Document<Item>({
