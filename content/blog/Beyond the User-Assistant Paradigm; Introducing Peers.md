@@ -124,7 +124,7 @@ with users and one another, and it still suffered from the fundamental problem
 of only supporting single-player experiences.
 
 After launching [[YouSim;-Explore-The-Multiverse-of-Identity|YouSim]], and the
-explosion of [[YouSim Launches Identity Simulation on X|agents on Twitter]] it
+explosion of [[ARCHIVED; YouSim Launches Identity Simulation on X|agents on Twitter]] it
 became very clear that Honcho should not be limited to modeling human
 psychology, but rather could map the identity of any entity, human or AI. We
 were suffering from the human-assistant model and built a solution around that.

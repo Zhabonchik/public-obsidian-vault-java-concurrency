@@ -22,7 +22,7 @@ Who will you summon?
 
 Large language models are [simulators](https://www.astralcodexten.com/p/janus-simulators). 
 
-And [Plastic's](https://plasticlabs.ai) core mission is to enable AI that can simulate you, can model and align to you, and therefore be trusted to act autonomously on your behalf. We're [[Announcing Honcho's Private Beta|starting]] that journey by building [Honcho](https://honcho.dev)--self-improving user memory for AI apps. It [[Humans like personalization|personalizes]] their UX and reduces user and developer overhead across the board. ^7a39cb
+And [Plastic's](https://plasticlabs.ai) core mission is to enable AI that can simulate you, can model and align to you, and therefore be trusted to act autonomously on your behalf. We're [[ARCHIVED; Announcing Honcho's Private Beta|starting]] that journey by building [Honcho](https://honcho.dev)--self-improving user memory for AI apps. It [[Humans like personalization|personalizes]] their UX and reduces user and developer overhead across the board. ^7a39cb
 
 All this is possible because the LLM training corpus [[LLMs excel at theory of mind because they read|is packed]] with humans thinking about other humans. It holds close to everything we collectively know about human identity. Not only that, but all our other language and concepts and their possible combinations and permutations. 
 
@@ -65,11 +65,11 @@ Enjoy surfing the multiverse of identities...
 ([Sign-up for updates here](https://plasticlabs.typeform.com/yousimupdates))
 ## Honcho
 
-If LLMs can simulate infinite identities, then they're uniquely suited to simulate *you*. You in any moment, setting, frame of mind contained in the complexity that is [[User State is State of the Art|your ever changing identity]].  ^25b167
+If LLMs can simulate infinite identities, then they're uniquely suited to simulate *you*. You in any moment, setting, frame of mind contained in the complexity that is [[ARCHIVED; User State is State of the Art|your ever changing identity]].  ^25b167
 
 If you're building an AI app, that's the level of personalization now possible. But you've got your vertical specific tasks to focus on, going down this clearly wacky identity rabbit hole to would be redundant and inefficient.
 
-Join >100 projects already on the [private beta waitlist](https://plasticlabs.typeform.com/honchobeta) for [[Announcing Honcho's Private Beta|Honcho's self-improving user memory]].
+Join >100 projects already on the [private beta waitlist](https://plasticlabs.typeform.com/honchobeta) for [[ARCHIVED; Announcing Honcho's Private Beta|Honcho's self-improving user memory]].
 
 ---
 

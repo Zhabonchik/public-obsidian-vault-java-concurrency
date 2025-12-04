@@ -25,11 +25,11 @@ Today we seem to be in a much different memetic geography--fraught with [epistem
 
 ### (Neuro)Skeuomorphism
 
-Thinking LLM-natively has always been a struggle. All our collective [[Memories for All#^0e869d|priors about software]] tell us to [[Honcho; User Context Management for LLM Apps#^dfae31|prompt deterministically]], [[Machine learning is fixated on task performance|perfect tasks]], [[Loose theory of mind imputations are superior to verbatim response predictions|predict exactly]], make it safe, or mire any interesting findings in semantic debate. But in the process we beat the ghost out of the shell.
+Thinking LLM-natively has always been a struggle. All our collective [[ARCHIVED; Memories for All#^0e869d|priors about software]] tell us to [[ARCHIVED; Honcho; User Context Management for LLM Apps#^dfae31|prompt deterministically]], [[Machine learning is fixated on task performance|perfect tasks]], [[Loose theory of mind imputations are superior to verbatim response predictions|predict exactly]], make it safe, or mire any interesting findings in semantic debate. But in the process we beat the ghost out of the shell.
 
-Rather than assume the [[Open Sourcing Tutor-GPT#^3498b7|capability overhang]] exhausted (or view it as a failure mode or forget it exists), [Plastic's](https://plasticlabs.ai) belief is we haven't even scratched the surface. Further, we're convinced this is the veil behind which huddle the truly novel applications.
+Rather than assume the [[ARCHIVED; Open Sourcing Tutor-GPT#^3498b7|capability overhang]] exhausted (or view it as a failure mode or forget it exists), [Plastic's](https://plasticlabs.ai) belief is we haven't even scratched the surface. Further, we're convinced this is the veil behind which huddle the truly novel applications.
 
-Core here is the assertion that what's happening in language model training and inference is more [[User State is State of the Art#^a93afc|like processes described in cognitive science]] than traditional computer science. More, they're [multidimensional and interobjective](https://en.wikipedia.org/wiki/Timothy_Morton#Hyperobjects) in ways that are hard to grok.
+Core here is the assertion that what's happening in language model training and inference is more [[ARCHIVED; User State is State of the Art#^a93afc|like processes described in cognitive science]] than traditional computer science. More, they're [multidimensional and interobjective](https://en.wikipedia.org/wiki/Timothy_Morton#Hyperobjects) in ways that are hard to grok.
 
 ### Respect = Trust = Agency
 
@@ -37,7 +37,7 @@ The solution is embrace and not handicap [[Loose theory of mind imputations are 
 
 First admit that though poorly understood, LLMs have [[LLMs excel at theory of mind because they read|impressive]] cognitive [[LLM Metacognition is inference about inference|abilities]]. Then, imbue them with [meta-methods](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) by which to explore that potential. Finally, your respect and trust may be rewarded with [something approaching agentic](https://youtu.be/tTE3xiHw4Js?feature=shared).
 
-Plastic's specific project in this direction is [Honcho](https://honcho.dev), a framework that [[User State is State of the Art#^5394b6|trusts the LLM to model user identity]] so that you can trust your apps to extend your agency.
+Plastic's specific project in this direction is [Honcho](https://honcho.dev), a framework that [[ARCHIVED; User State is State of the Art#^5394b6|trusts the LLM to model user identity]] so that you can trust your apps to extend your agency.
 
 <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">honcho exists to maximize the dissipation of your agency</p>&mdash; Courtland Leer (@courtlandleer) <a href="https://twitter.com/courtlandleer/status/1759324580664000617?ref_src=twsrc%5Etfw">February 18, 2024</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>

@@ -1,5 +1,5 @@
 ---
-title: Open-Sourcing Tutor-GPT
+title: "ARCHIVED: Open-Sourcing Tutor-GPT"
 date: 06.02.2023
 tags:
   - blog
@@ -8,20 +8,29 @@ tags:
   - pedagogy
   - ml
 ---
+> [!custom]  WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
+> This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
+> 
+> This post concerns Bloom, our [Honcho](https://honcho.dev)-powered AI-tutor. We've suspended Bloom for now to focus exclusively on Honcho. 
+> 
+> Plastic started as an EdTech company, with Bloom as its main product. In building a popular, first of its kind, personalized AI tutor, we realized three things (1) all agents will soon need continuous learning systems to understand their users, (2) this an extremely hard problem that every developer shouldn't have to redundantly solve, & (3) we were uniquely positioned to solve it. 
+> 
+> So we pivoted to Honcho, keeping Bloom around for a while as a demo.
+> 
+> We wrote the following at the very beginning of that transition. It details the benefits of early efforts at model *reasoning* to enhance personalization, architecture that would later inspire Honcho, & the massive space overhung LLM capabilities we were researching--all quite a bit ahead of its time.
+> 
+> Enjoy.
+
 ![[assets/human_machine_learning.jpeg]]
-
-## TL;DR
-
+# TL;DR
 Today we’re [open-sourcing](https://github.com/plastic-labs/tutor-gpt) Bloom, our digital [Aristotelian](https://erikhoel.substack.com/p/why-we-stopped-making-einsteins) learning companion.
 
 What makes [Bloom](https://bloombot.ai/) compelling is its ability to _reason pedagogically_ about the learner. That is, it uses dialogue to posit the most educationally-optimal tutoring behavior. Eliciting this from the [capability overhang](https://jack-clark.net/2023/03/21/import-ai-321-open-source-gpt3-giving-away-democracy-to-agi-companies-gpt-4-is-a-political-artifact/) involves multiple chains of [metaprompting](https://arxiv.org/pdf/2102.07350.pdf,) enabling Bloom to construct a nascent, academic [theory of mind](https://arxiv.org/pdf/2304.11490.pdf) for each student. ^3498b7
 
-We’re not seeing this in the explosion of ‘chat-over-content’ tools, most of which fail to capitalize on the enormous latent abilities of LLMs. Even the impressive out-of-the-box capabilities of contemporary models don’t achieve the necessary user intimacy. Infrastructure for that doesn’t exist yet 👀.
+We’re now seeing this in the explosion of ‘chat-over-content’ tools, most of which fail to capitalize on the enormous latent abilities of LLMs. Even the impressive out-of-the-box capabilities of contemporary models don’t achieve the necessary user intimacy. Infrastructure for that doesn’t exist yet 👀.
 
 Our mission is to facilitate personal, [agentic](https://arxiv.org/pdf/2304.03442.pdf) AI for all. So to that end, we’re (1) releasing Bloom’s architecture into the wild and (2) embarking on a journey to supercharge the kind of empowering generative agents we want to see in the world.
-
-## Neo-Aristotelian Tutoring
-
+# Neo-Aristotelian Tutoring
 Right now, Bloom is a reading comprehension and writing workshop tutor. You can chat with it in [Discord](https://discord.gg/bloombotai). After supplying it a passage, Bloom can coach you toward understanding or revising a piece of text. It does this by treating the user as an equal, prompting and challenging socratically.
 
 We started with reading and writing in natural language because (1) native language acumen is the symbolic system through which all other fluencies are learned, (2) critical dialogue is the ideal vehicle by which to do this, and (3) that's what LLMs are best at right now.
@@ -35,10 +44,8 @@ Current compute suggests we can do high-grade 1:1 for two orders of magnitude ch
 It's clear generative AI stands a good chance of democratizing this kind of access and attention, but what's less clear are the specifics. It's tough to be an effective teacher that students actually want to learn from. Harder still to let the student guide the experience, yet maintain an elevated discourse.
 
 So how do we create successful learning agents that students will eagerly use without coercion? We think this ability lies latent in foundation models, but the key is eliciting it.
-
-## Eliciting Pedagogical Reasoning
+# Eliciting Pedagogical Reasoning
 ^x527dc
-
 The machine learning community has long sought to uncover the full range of tasks that large language models can be prompted to accomplish on general pre-training alone (the capability overhang). We believe we have discovered one such task: pedagogical reasoning. ^05bfd8
 
 Bloom was built and prompted to elicit this specific type of teaching behavior. (The kind laborious for new teachers, but that adept ones learn to do unconsciously.) After each input it revises a user’s real-time academic needs, considers all the information at its disposal, and suggests to itself a framework for constructing the ideal response. ^285105
@@ -73,9 +80,7 @@ Notice how Bloom reasons it should indulge the topic, validate the student, and 
 Aside from these edgier cases, Bloom shines helping students understand difficult passages (from syntactic to conceptual levels) and giving writing feedback (especially competent at thesis construction). [Take it for a spin](https://discord.gg/udtxycbh).
 
 Ultimately, we hope [open-sourcing Bloom](https://github.com/plastic-labs/tutor-gpt#readme) will allow anyone to run with these elicitations and prompt to expand utility and support multiple domains. We’ll be doing work here too.
-
-## Bloom & Agentic AI
-
+# Bloom & Agentic AI
 This constitutes the beginning of an approach far superior to just slapping a chatbot UI over a content library that's probably already in the foundation model's pre-training.
 
 After all, if it were just about content delivery, MOOCs would've solved education. We need more than that to reliably grow rare minds. And we're already seeing Bloom excel at promoting synthesis and creative interpretation within its narrow utility.

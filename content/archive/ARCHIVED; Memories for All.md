@@ -1,5 +1,5 @@
 ---
-title: Memories for All
+title: "ARCHIVED: Memories for All"
 date: 02.15.24
 tags:
   - blog
@@ -49,7 +49,7 @@ Right now, the vast majority of software UX is a 1-to-many experience. What you 
 
 AI apps can deal *generatively* with each user on an individual basis, that is, an experience can be produced ad hoc for every user upon every interaction. From 1:many to 1:1 without prohibitive sacrifices in efficiency. But we're still underestimating the full scope of possibility here.
 
-As it stands today the space is mostly focused on the (albeit generative) [[Machine learning is fixated on task performance|1:many tasks LLMs can perform]]. The apps remain more or less stateless with regard to the user. To reach 1:1 nirvana, we need more [[Honcho; User Context Management for LLM Apps|user-centric agent design]]. We need frameworks, mechanisms, services, models dedicated to deep coherence with user identity.
+As it stands today the space is mostly focused on the (albeit generative) [[Machine learning is fixated on task performance|1:many tasks LLMs can perform]]. The apps remain more or less stateless with regard to the user. To reach 1:1 nirvana, we need more [[ARCHIVED; Honcho; User Context Management for LLM Apps|user-centric agent design]]. We need frameworks, mechanisms, services, models dedicated to deep coherence with user identity.
 
 Every agent interaction can be generated just in time for every person, informed by relevant personal context more substantive than human-to-human sessions. User context will enable disposable agents on the fly across verticals for lower marginal cost than 1:many software paradigms.
 
@@ -103,7 +103,7 @@ Check out our [LangChain implementation](https://docs.honcho.dev/how-to/personal
 
 Where things get powerful is in the aggregate. What resolves is a highly insightful picture of who your users are and what they need--a key context reservoir to improve the qualitative and quantitative experience. 
 
-N.b. you can certainly direct the model with as much verbosity as you like, but we've found during extensive experimentation that [[Theory of Mind Is All You Need|the more you trust the model]] the better and more useful the results.
+N.b. you can certainly direct the model with as much verbosity as you like, but we've found during extensive experimentation that [[ARCHIVED; Theory of Mind Is All You Need|the more you trust the model]] the better and more useful the results.
 
 This isn't surprising when you consider how much content about what people are thinking is contained in a model's pretraining. It's led to some really exciting [emergent abilities](https://arxiv.org/abs/2302.02083).
 

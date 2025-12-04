@@ -27,7 +27,7 @@ The more we're missing that, the more we're typically in a principal-agent probl
 
 But, right now, most AI applications are just toys and demos:
 
-![[Honcho; User Context Management for LLM Apps#^18066b]]
+![[ARCHIVED; Honcho; User Context Management for LLM Apps#^18066b]]
 
 It's also why everyone is obsessed with evals and benchmarks that have scant practical utility in terms of improving UX for the end user. If we had more examples of good products, ones people loved, killer apps, no one would care about leaderboards anymore.
 

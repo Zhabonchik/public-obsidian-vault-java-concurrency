@@ -19,7 +19,7 @@ For months before, Plastic had been deep into the weeds around harvesting, retri
 
 As you interface with the entire constellation of AI applications, you shouldn't have to redundantly provide context and oversight for every interaction. You need a single source of truth that can do this for you. You need a Local Honcho.
 
-But as we've discovered, LLMs are remarkable at theory of mind tasks, and thus at reasoning about user need. So unlike in the book, this administration can be offloaded to an AI. And your [[Honcho; User Context Management for LLM Apps|Honcho]] can orchestrate the relevant context and identities on your behalf, whatever the operation.
+But as we've discovered, LLMs are remarkable at theory of mind tasks, and thus at reasoning about user need. So unlike in the book, this administration can be offloaded to an AI. And your [[ARCHIVED; Honcho; User Context Management for LLM Apps|Honcho]] can orchestrate the relevant context and identities on your behalf, whatever the operation.
 
 [^1]: "American English, from [Japanese](https://en.wikipedia.org/wiki/Japanese_language)_[班長](https://en.wiktionary.org/wiki/%E7%8F%AD%E9%95%B7#Japanese)_ (hanchō, “squad leader”)...probably entered English during World War II: many apocryphal stories describe American soldiers hearing Japanese prisoners-of-war refer to their lieutenants as _[hanchō](https://en.wiktionary.org/wiki/hanch%C5%8D#Japanese)_" ([Wiktionary](https://en.wiktionary.org/wiki/honcho))
 

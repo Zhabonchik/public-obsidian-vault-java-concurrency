@@ -1,5 +1,5 @@
 ---
-title: YouSim Launches Identity Simulation on X
+title: "ARCHIVED: YouSim Launches Identity Simulation on X"
 date: 11.08.2024
 tags:
   - yousim
@@ -17,7 +17,7 @@ GM, simulants.
 
 In response to popular demand, today we're imbuing the [@YouSimDotAI](https://x.com/YouSimDotAI) Twitter account with the ability to simulate identities natively on X.
 
-Keep reading for max context, or [[YouSim Launches Identity Simulation on X#^393e71|jump ahead to learn how to get started]].
+Keep reading for max context, or [[ARCHIVED; YouSim Launches Identity Simulation on X#^393e71|jump ahead to learn how to get started]].
 
 ## Caught in the Memetic Hurricane
 
@@ -25,7 +25,7 @@ The [full story](https://x.com/courtlandleer/status/1849592301472919986) deserve
 
 An anonymous actor launched a pump.fun token inspired by a demo called [YouSim](https://yousim.ai) we created a few months ago[^1]. [[YouSim; Explore The Multiverse of Identity|YouSim is a CLI interface game]] that lets you simulate any identity you can dream up--real or fictional, local or xeno, entity or artifact. 
 
-We originally launched YouSim as a conceptual/narrative demo for our core product [Honcho](https://honcho.dev). Honcho [[A Simple Honcho Primer|helps AI applications improve UX]] by building representations of user identity they can leverage to create better products and experiences. 
+We originally launched YouSim as a conceptual/narrative demo for our core product [Honcho](https://honcho.dev). Honcho [[ARCHIVED; A Simple Honcho Primer|helps AI applications improve UX]] by building representations of user identity they can leverage to create better products and experiences. 
 
 The mission is to become the identity layer for the rapidly approaching agentic world.
 

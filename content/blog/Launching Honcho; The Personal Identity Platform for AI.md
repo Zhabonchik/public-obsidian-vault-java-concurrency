@@ -37,7 +37,7 @@ It's the most powerful personal identity and social cognition solution for AI ap
 
 Honcho is a cloud-based API that enables more personalized and contextually aware user experiences. It simplifies the process of maintaining context across conversations and interactions, allowing developers to create more responsive and customized agents without managing complex infrastructure.
 
-Honcho combines flexible memory, [[Theory of Mind Is All You Need|theory of mind]] inference, self-improving user representations, and a [[Introducing Honcho's Dialectic API|dialectic API]] to get your application the context it needs about each user for every inference.
+Honcho combines flexible memory, [[ARCHIVED; Theory of Mind Is All You Need|theory of mind]] inference, self-improving user representations, and a [[ARCHIVED; Introducing Honcho's Dialectic API|dialectic API]] to get your application the context it needs about each user for every inference.
 
 All this happens ambiently, with no additional overhead to your users--no surveys, no hard coded questions, no BYO data requirements needed to get started. Honcho learns about each of your users in the background as they interact with your application.
 

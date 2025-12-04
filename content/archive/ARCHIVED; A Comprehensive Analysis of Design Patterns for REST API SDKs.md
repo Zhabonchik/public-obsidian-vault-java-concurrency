@@ -1,27 +1,27 @@
 ---
-title: "Comprehensive Analysis of Design Patterns for REST API SDKs"
+title: "ARCHIVED: A Comprehensive Analysis of Design Patterns for REST API SDKs"
 date: 05.09.2024
-tags: ["blog", "dev"]
-author: "Vineeth Voruganti"
+tags:
+  - blog
+  - dev
+author: Vineeth Voruganti
 ---
+> [!custom]  WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
+> This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
+> 
+> This post contains Vineeth's (Plastic Co-founder/CTO) notes on the early design of Honcho's SDKs. For the most up to date SDK reference, check out the [Honcho Docs](https://docs.honcho.dev).
+> 
+> Enjoy.
 
-This post is adapted from [vineeth.io](https://vineeth.io/posts/sdk-development)
-and written by [Vineeth Voruganti](https://github.com/VVoruganti)
-
-## TL;DR
-
+*This post is adapted from [vineeth.io](https://vineeth.io/posts/sdk-development)*
+# TL;DR
 After several months of managing the SDKs for Honcho manually, we decided to
 take a look at the options available for automatically generating SDKs.
 
 From our research we picked a platform and have made brand new SDKs for Honcho
 that use idiomatic code, are well documented, and let us support more languages.
-
----
-
-For the past few months I have been working on managing the
-[Honcho](https://honcho.dev) project and its associated SDKs. We've been taking
-the approach of developing the SDK manually as we are focused on trying to find
-the best developer UX and maximize developer delight.
+# Introduction
+For the past few months I have been working on managing the [Honcho](https://honcho.dev) project and its associated SDKs. We've been taking the approach of developing the SDK manually as we are focused on trying to find the best developer UX and maximize developer delight.
 
 This has led to a rather arduous effort that has required a large amount of
 refactoring as we are making new additions to the project, and the capabilities
@@ -30,20 +30,15 @@ of the platform rapidly expand.
 While these efforts have been going on a new player in the SDK generation space
 dropped on [hacker news](https://news.ycombinator.com/item?id=40146505).
 
-When I first started working on **Honcho** I did a cursory look at a number of SDK
+When I first started working on Honcho I did a cursory look at a number of SDK
 generators, but wasn't impressed with the results I saw. However, a lot of that
 was speculative and Honcho was not nearly as mature as it is now.
 
 So spurred by the positive comments in the thread above I've decided to do a
 more detailed look into the space and, also try to develop a better understanding
 of what approaches are generally favorable in creating API client libraries.
-
-## Background
-
-For a full understanding of Honcho I recommend the great [[A Simple Honcho
-Primer|Simple Honcho
-Primer]] post, but I'll
-try to summarize the important details here.
+# Background
+For a full understanding of Honcho I recommend the great [[ARCHIVED; A Simple Honcho Primer|Simple Honcho Primer]] post, but I'll try to summarize the important details here.
 
 Honcho is a personalization platform for LLM applications. It is infrastructure
 that developers can use for storing data related to their applications, deriving
@@ -82,9 +77,7 @@ session = user.create_session()
 
 There is an Async version of the SDK with an `AsyncHoncho` class that uses
 objects such as `AsyncSession` and `AsyncUser`.
-
-## Guiding Questions
-
+# Guiding Questions
 Before evaluating the below platforms I wanted to investigate a few questions I
 had about how to design SDKs and how they are generally maintained in other
 organizations. I've also included some questions I want to think about when
@@ -107,8 +100,7 @@ Platform Specific Questions
 3. How easy was it to use the tool?
 4. What approach does the tool take? Object-oriented or singleton?
 5. How does it handle async vs sync interfaces?
-
-## Research
+# Research
 
 > First I took a look at sources and posts onlines that talk in general about
 > developing SDKs. This isn't an exhaustive look at every link I looked at, but
@@ -305,9 +297,7 @@ Most people seem to be saying a full OOP method is overkill, but there are
 people advocating for having a controller class with methods that take data
 objects as inputs. Essentially advocating for the singleton approach with data
 only objects.
-
-### Analysis
-
+## Analysis
 Many of the generic concerns of SDK design do not have to do with the UX of the
 SDK for the end developer, rather background processes that an SDK handle. This
 includes:
@@ -339,8 +329,7 @@ but the object-oriented approach may not be a readable, and it could be unclear
 what methods are doing in complex codebases. Even GPT-4 couldn't decide between
 the two.
 
-![Asking GPT-4 about Singleton vs Object-Oriented
-Approaches](/assets/sdk-gpt-4.png)
+![Asking GPT-4 about Singleton vs Object-Oriented Approaches](/assets/sdk-gpt-4.png)
 
 Again and again, the best way to approach SDK development is to just do whatever
 is easier, and create tons of documentation that will help developers navigate
@@ -348,9 +337,7 @@ your [API Ladder](https://blog.sbensu.com/posts/apis-as-ladders/). Someone will
 get confused regardless of what you do, so the key is to make sure the SDK makes
 sense (even if it's not the most efficient or clean) and remove hurdles for
 users to navigate errors and mistakes.
-
-## SDK Generation Platforms
-
+# SDK Generation Platforms
 With a sense of the best standards for SDK design and additional features that
 should be supported in the SDK I want to look at a few different options to
 determine what is the best solution to go with.
@@ -364,9 +351,7 @@ Below is a list of the different platforms I wanted to review
 
 I was using the OpenAPI Spec for Honcho that was housed at
 https://demo.honcho.dev/openapi.json.
-
-### Stainless
-
+## Stainless
 Since the hacker news thread for the release of stainless is what spurred this
 research I decided to try them out first.
 
@@ -381,8 +366,7 @@ of the interface. There was also built-in capabilities for retries, pagination,
 and auth.
 
 There's also capability for adding custom code such as utility functions.
-
-### Speakeasy
+## Speakeasy
 
 Speakeasy required me to do everything locally through their `brew` package. It
 did not immediately accept the OpenAPI Spec and required me to make some tweaks.
@@ -397,9 +381,7 @@ The generated SDK didn't feel as strong as the stainless one. There didn't seem
 to support `async` methods, it did not use `pydantic` and used the built-in
 Python `@dataclass`. The methods had really unwieldy names, and looked like it
 would need a lot of tweaking to get it more production ready.
-
-### Liblab
-
+## Liblab
 Also had me do the generation from the cli using their npm package. It was
 pretty straightforward to login and give it an API spec. Liblab seems to require
 a lot tweaking to get better results. It gave me several warnings asking me to
@@ -414,8 +396,7 @@ which seems to be the industry standard for codegen tools. The method names
 were also unwieldy. It also didn't make use of pydantic and instead implemented
 its own `BaseModel` class. It was built on the `requests` model and doesn't seem
 to support `async` methods.
-
-### OpenAPI Generator
+## OpenAPI Generator
 
 This is the only one on the list that is not expressly backed by a company
 whose main goal is SDK generation. It is however a very popular project with
@@ -435,9 +416,7 @@ Once again, the sdk use the `singleton` approach.
 
 I also did not see any indication of functionality for retry logic,
 authentication, or pagination.
-
-### Conclusion
-
+## Conclusion
 Overall, Stainless had the results that I liked the most. With almost no work
 from me, it produced a high quality SDK that designed things in a sensible way
 with many built-in features such as retries, pagination, and auth.
@@ -459,9 +438,7 @@ What I'm looking for right now is the platform or tool that can reduce my work
 the most and let me focus on other things and stainless achieved that. The
 results are not perfect, but it doesn't look like it'll need more than some
 slight tweaking and testing to get to a state I want.
-
-## Results
-
+# Results
 After reaching the conclusion in the previous section, I took some time to fully
 implement Stainless to make SDKs for Honcho and am proud to announce the release
 of a new Python SDK, and the launch of a brand-new NodeJS SDK.

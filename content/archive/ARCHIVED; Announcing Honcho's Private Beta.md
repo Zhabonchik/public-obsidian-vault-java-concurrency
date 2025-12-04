@@ -1,5 +1,5 @@
 ---
-title: Announcing Honcho's Private Beta
+title: "ARCHIVED: Announcing Honcho's Private Beta"
 date: 04.01.24
 tags:
   - announcements
@@ -12,7 +12,7 @@ tags:
 
 Today we're announcing the launch of [Honcho's](https://honcho.dev) private beta. [Sign-up for the waitlist here](https://plasticlabs.typeform.com/honchobeta).
 
-This is a hosted version of our agent personalization platform. It integrates user data storage and theory of mind inference accessible via [[Introducing Honcho's Dialectic API|our Dialectic API]]. You can now inject per-user social cognition anywhere in your AI app's architecture.
+This is a hosted version of our agent personalization platform. It integrates user data storage and theory of mind inference accessible via [[ARCHIVED; Introducing Honcho's Dialectic API|our Dialectic API]]. You can now inject per-user social cognition anywhere in your AI app's architecture.
 
 ## The Problem
 
@@ -24,7 +24,7 @@ Setting up a per-user storage framework to manage identities at scale *and* know
 
 It's a lot. And trust us, the rabbit hole goes way deeper than that. We obsess over it.
 
-So it's understandable that most projects haven't begun to tackle it. Hell, most haven't even hit this failure mode yet. [[Theory of Mind Is All You Need|We have]]. 
+So it's understandable that most projects haven't begun to tackle it. Hell, most haven't even hit this failure mode yet. [[ARCHIVED; Theory of Mind Is All You Need|We have]]. 
 
 At once, the problem of personalization in AI apps offers both one of the greatest paradigm shifting opportunities and one of the largest challenges. We're solving it so you don't have to.
 
@@ -63,11 +63,11 @@ Honcho is always updating user identity, so it's ready when you need it.
 ##### Dialectic API
 ^ee4516
 
-Our [[Introducing Honcho's Dialectic API|Dialectic API]] is how your app-side LLM interfaces with the Honcho-side agent sitting on top of each user identity. This is done in natural language. It's an AI-native endpoint for direct LLM-to-LLM communication.
+Our [[ARCHIVED; Introducing Honcho's Dialectic API|Dialectic API]] is how your app-side LLM interfaces with the Honcho-side agent sitting on top of each user identity. This is done in natural language. It's an AI-native endpoint for direct LLM-to-LLM communication.
 
 It allows you to inject personal context and social cognition directly into your app's cognitive architecture wherever you need it, sync or async. Agent-to-agent chat over each user.
 
-[[Introducing Honcho's Dialectic API#^57acc3|Here's an extended list of possible ways to use it]].
+[[ARCHIVED; Introducing Honcho's Dialectic API#^57acc3|Here's an extended list of possible ways to use it]].
 
 #### User-Specific Monitoring (coming soon...)
 ^x2dd3b
@@ -80,7 +80,7 @@ Soon, Honcho will support a suite of tools to get the most out of our personaliz
   
 - **Evaluation & Benchmarking** - the state of theory of mind research is highly compelling, but [[Achieving SOTA on OpenToM with DSPy#^0b4f2e|we need practical, app & user specific evals]]  
   
-- **Training Set Curation** - building datasets with personal context [[Introducing Honcho's Dialectic API#^f19646|allows more robust, domain-specific training]], we're building tools for anyone to easily construct then train on
+- **Training Set Curation** - building datasets with personal context [[ARCHIVED; Introducing Honcho's Dialectic API#^f19646|allows more robust, domain-specific training]], we're building tools for anyone to easily construct then train on
 
 ### The Future of Honcho
 

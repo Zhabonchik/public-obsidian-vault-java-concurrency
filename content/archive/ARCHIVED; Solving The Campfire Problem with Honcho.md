@@ -1,5 +1,5 @@
 ---
-title: Solving The Campfire Problem with Honcho
+title: "ARCHIVED: Solving The Campfire Problem with Honcho"
 date: 03.14.2024
 tags:
   - demos
@@ -12,7 +12,7 @@ tags:
 
 Today we're releasing the first demo utilizing Honcho's dialectic API.[^1] Your LLM app/agent can now converse freely with [Honcho](https://honcho.dev)(-as-agent) about a user in natural language: agent-to-agent chat over user context.
 
-The demo is a "curation buddy" that can chat over links you share. It uses Honcho to [[Memories for All|derive and store personal context]] about you over time, then leverages that to be the best reading companion it can be.
+The demo is a "curation buddy" that can chat over links you share. It uses Honcho to [[ARCHIVED; Memories for All|derive and store personal context]] about you over time, then leverages that to be the best reading companion it can be.
 
 Our fractured media landscape is a far cry from narrative meaning making around the tribal campfire. Despite the connective power of the web, many of us subsist in lonely intellectual silos, more diverse but less fulfilling than social discourse.
 
@@ -28,7 +28,7 @@ Enter *Curation Buddy*.
 
 Curation Buddy is an LLM application. It's a Discord bot you can chat with. Share links to any text based media and have substantive conversation.
 
-It uses Honcho to personalize the UX. As you converse, Honcho learns about you. It reasons about the links and conversation to uncover insight into your knowledge, interests, beliefs, desires, [[User State is State of the Art|state]], etc. 
+It uses Honcho to personalize the UX. As you converse, Honcho learns about you. It reasons about the links and conversation to uncover insight into your knowledge, interests, beliefs, desires, [[ARCHIVED; User State is State of the Art|state]], etc. 
 
 This account of user state can then be leveraged by Curation Buddy to behave like a trusted, close intellectual companion.  
 
@@ -60,7 +60,7 @@ We'd love to see someone run with and extend this demo. Here are some further Ho
 - Construct and maintain full fledged user knowledge graphs  
 	- Automatic bespoke summaries of links informed by graph  
 	  
-- Use Honcho to create training examples for [[User State is State of the Art|user-specific curation models]]  
+- Use Honcho to create training examples for [[ARCHIVED; User State is State of the Art|user-specific curation models]]  
   
 - Autonomously generated user newsletters to supplement conversations async  
   

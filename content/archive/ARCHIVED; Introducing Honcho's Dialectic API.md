@@ -1,5 +1,5 @@
 ---
-title: Introducing Honcho's Dialectic API
+title: "ARCHIVED: Introducing Honcho's Dialectic API"
 date: 03.26.24
 tags:
   - dev
@@ -16,11 +16,11 @@ Agents need ways to interface dynamically and autonomously, free from the rigidn
 
 ## What's a Dialectic API?
 
-[Honcho](https://honcho.dev) is our platform for personalizing agents to users. Currently, it includes [[Honcho; User Context Management for LLM Apps#^a9d0f8|session storage]], BYO context storage, passive [[Loose theory of mind imputations are superior to verbatim response predictions|theory of mind]] user modeling, and *now* an agent deeply coupled to all of that rich user context. That agent can be called via our Dialectic API to surface user data for use with any cognitive architecture.
+[Honcho](https://honcho.dev) is our platform for personalizing agents to users. Currently, it includes [[ARCHIVED; Honcho; User Context Management for LLM Apps#^a9d0f8|session storage]], BYO context storage, passive [[Loose theory of mind imputations are superior to verbatim response predictions|theory of mind]] user modeling, and *now* an agent deeply coupled to all of that rich user context. That agent can be called via our Dialectic API to surface user data for use with any cognitive architecture.
 
 ### How It Works
 
-In designing an LLM pipeline and an application's cognitive architecture, you'll need to decide where and how to inject personal user context so the task is [[Machine learning is fixated on task performance|not simply completed in a general way]], but in the most appropriate way for [[User State is State of the Art|each specific user]].
+In designing an LLM pipeline and an application's cognitive architecture, you'll need to decide where and how to inject personal user context so the task is [[Machine learning is fixated on task performance|not simply completed in a general way]], but in the most appropriate way for [[ARCHIVED; User State is State of the Art|each specific user]].
 
 That's when your agent asks Honcho for what it needs in natural language. This query can take many forms. Some possibilities:  
 
@@ -70,7 +70,7 @@ Extra context improves user response generation, the more specific, the better. 
 
 ##### Leverage Natural Language Plasticity
 
-Each user has a [[User State is State of the Art#^5bc20b|rich and complex personal identity]].  Access to higher-fidelity representations of that identity can be combined with the task completion context of you app in each moment to generate the most optimal tokens for each user-agent interaction. I.e. ones that are felt by the user to be [[Humans like personalization|more personalized and satisfactory]]--enhancing the real and perceived time to value ratio of your app.
+Each user has a [[ARCHIVED; User State is State of the Art#^5bc20b|rich and complex personal identity]].  Access to higher-fidelity representations of that identity can be combined with the task completion context of you app in each moment to generate the most optimal tokens for each user-agent interaction. I.e. ones that are felt by the user to be [[Humans like personalization|more personalized and satisfactory]]--enhancing the real and perceived time to value ratio of your app.
 
 But that complexity is hard to capture and needlessly constrained with typical API design. In order to express the nuance of personal context, we need the high variance, dynamic nature of natural language.
 
