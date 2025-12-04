@@ -36,7 +36,7 @@ That's when your agent asks Honcho for what it needs in natural language. This q
 - A static fact about user identity
 - A piece of user data to use in improving your app's overall vertical or user-specific service  
 
-Key to note here is the ability to hard code the most useful type of Honcho query for your app's use case *or*--better yet--to [[Extrusion 02.24|trust your agent]] to reason autonomously about what it needs based upon the current session (or any other criteria) and feed that to Honcho. Or run a hybrid approach. This can be done synchronously with an inference/session or async as needed.
+Key to note here is the ability to hard code the most useful type of Honcho query for your app's use case *or*--better yet--to [[On intellectual respect|trust your agent]] to reason autonomously about what it needs based upon the current session (or any other criteria) and feed that to Honcho. Or run a hybrid approach. This can be done synchronously with an inference/session or async as needed.
 
 In this way, Honcho becomes an self-improving oracle to the identity of each and every one of your app's users. Any agent can chat with a representation of a user (as Honcho) on the backend.
 

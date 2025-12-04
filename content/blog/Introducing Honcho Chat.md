@@ -6,6 +6,7 @@ tags:
   - announcements
   - dev
   - honcho
+  - "#chat"
 author: Ben McCormick & Courtland Leer
 subtitle: A Chat App with SOTA Memory
 ---

@@ -1,13 +1,11 @@
 ---
-title: Extrusion 02.24
+title: On Intellectual Respect
 date: 02.29.24
 tags:
-  - extrusions
   - philosophy
   - ml
+  - notes
 ---
-> [!custom] *Extrusions is a periodic shortform synthesis of what we've been chewing on recently at Plastic Labs--you can [subscribe here](https://plasticlabs.typeform.com/extrusions)*
-
 ## On Intellectual Respect
 
 <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">face the hyperobject</p>&mdash; Courtland Leer (@courtlandleer) <a href="https://twitter.com/courtlandleer/status/1747075542954684507?ref_src=twsrc%5Etfw">January 16, 2024</a></blockquote>

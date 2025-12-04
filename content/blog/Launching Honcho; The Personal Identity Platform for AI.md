@@ -1,6 +1,6 @@
 ---
 title: "Launching Honcho: The Personal Identity Platform for AI"
-subtitle: Plastic raises $5.35M pre-seed from Variant, White Star Capital, & Betaworks to build critical AI infrastructure
+subtitle: Plastic raises $5.4M pre-seed from Variant, White Star Capital, & Betaworks to build critical AI infrastructure
 date: 05.10.25
 tags:
   - announcements
@@ -19,7 +19,7 @@ We're announcing two major milestones for Plastic Labs:
 	
 	Honcho is now a simple, complete, hosted solution for adaptive agent memory, social cognition, & personalization.
 
-2. **Our pre-seed raise of $5.35M to solve personal identity for the agentic world.**
+2. **Our pre-seed raise of $5.4M to solve personal identity for the agentic world.**
 
 ## Individual Alignment
 

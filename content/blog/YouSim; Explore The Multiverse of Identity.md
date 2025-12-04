@@ -40,7 +40,7 @@ YouSim is a fun, open-ended demo that illustrates the enormous reservoir of poss
 
 ^e06c11
 
-Recently we've seen a revival of interest *[[Extrusion 02.24|LLMs themselves]]*--their minds, behaviors, identity, and potential as simulators. This is due in no small part to the latest Anthropic models being reliably steerable beyond typical reenforced behavior.
+Recently we've seen a revival of interest *[[On intellectual respect|LLMs themselves]]*--their minds, behaviors, identity, and potential as simulators. This is due in no small part to the latest Anthropic models being reliably steerable beyond typical reenforced behavior.
 
 [Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/) lets Claude interrogate itself endlessly, [WorldSim](https://worldsim.nousresearch.com/) lets users simulate infinite universes, [WebSim](https://websim.ai/) is a portal to all possible webpages.
 

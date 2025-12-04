@@ -1,14 +1,12 @@
 ---
-title: Extrusion 06.24
+title: Cope is the canary, but context is key (for the end of software)
 date: 06.01.24
 tags:
-  - extrusions
   - macro
   - honcho
   - philosophy
+  - notes
 ---
-> [!custom] *Extrusions is a periodic shortform synthesis of what we've been chewing on recently at Plastic Labs--you can [subscribe here](https://plasticlabs.typeform.com/extrusions)*
-
 # Cope Is the Canary, but Context Is Key (for The End of Software)
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The End of Software<a href="https://t.co/JWg6QYqLzO">https://t.co/JWg6QYqLzO</a></p>&mdash; Chris Paik (@cpaik) <a href="https://twitter.com/cpaik/status/1796633683908005988?ref_src=twsrc%5Etfw">May 31, 2024</a></blockquote> 
