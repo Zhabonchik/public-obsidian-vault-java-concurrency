@@ -14,7 +14,7 @@ Our focus is developing [Honcho](https://honcho.dev/), an AI-native memory solu
 The foundational layer of intelligence being built is just the beginning. Latent among the scores of specialized secondary and tertiary layers yet to be realized exists one for personal identity. 
 
 We're building it.
-# Guide
+## Guide
 We post a few different types of content here:
   
 - [[blog | Blog]] -- Deep dives into the cogsci, development, & ML underpinning our projects
@@ -24,7 +24,7 @@ We post a few different types of content here:
 - [[careers | Careers]] -- Open positions at Plastic
 
 [*Subscribe to Updates*](https://plasticlabs.typeform.com/mailing)  
-# Projects
+## Projects
 If you find the content here compelling, explore our active projects:
 #### Products
 - [Honcho](https://honcho.dev) -- AI-native memory & reasoning infra for apps & agents ( #honcho)
