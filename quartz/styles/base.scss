@@ -44,9 +44,14 @@ ul,
 .typst-doc * {
   color: var(--darkgray);
   fill: var(--darkgray);
-  stroke: var(--darkgray);
   overflow-wrap: break-word;
   text-wrap: pretty;
+}
+
+path.typst-shape {
+  // override
+  stroke: var(--darkgray);
+  fill: var(--lightgray);
 }
 
 .math {
