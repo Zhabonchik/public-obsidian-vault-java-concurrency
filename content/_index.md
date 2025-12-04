@@ -20,7 +20,7 @@ We post a few different types of content here:
 - [[blog | Blog]] -- Deep dives into the cogsci, development, & ML underpinning our projects
 - [[research | Research]] -- Preprint or blog-style research we've made public
 - [[notes| Notes]] -- Short-form working notes on Plastic theses
-- [[archive| Archive]] -- Legacy content about depreciated projects and features
+- [[archive| Archive]] -- Legacy content about out-of-date or depreciated projects & features
 - [[careers | Careers]] -- Open positions at Plastic
 
 [*Subscribe to Updates*](https://plasticlabs.typeform.com/mailing)  
