@@ -5,6 +5,10 @@ tags:
   - blog
   - honcho
 ---
+> [!custom]  WELCOME TO THE PLASTIC ARCHIVE WIP
+> This post has been archived because it's legacy content that 
+>
+
 ![[bot reading primer.png]]
 
 > [!NOTE] Welcome to our quick, "explain it like I'm 5" guide to [Honcho](https://honcho.dev)!

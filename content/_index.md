@@ -26,12 +26,12 @@ We post a few different types of content here:
 [*Subscribe to Updates*](https://plasticlabs.typeform.com/mailing)  
 # Projects
 If you find the content here compelling, explore our active projects:
-## Products
+#### Products
 - [Honcho](https://honcho.dev) -- AI-native memory & reasoning infra for apps & agents ( #honcho)
 - [Neuromancer](https://plasticlabs.ai/neuromancer) -- Reasoning models for memory & personal identity ( #neuromancer)
-## Demos
+#### Demos
 - [Honcho Chat](https://honcho.chat) -- Honcho-powered AI-assistant platform with SOTA memory ( #chat)
 - [Penny for Your Thoughts](https://www.pennyforyourthoughts.ai/) -- Honcho/x402-powered personal expertise market ( #penny)
 - [YouSim](https://yousim.ai) -- Honcho-powered identity simulator  ( #yousim)
-## Community
+#### Community
 - [Xeno Grant](https://x.com/xenograntai) -- Direct-to-agent grants program ( #grants)
