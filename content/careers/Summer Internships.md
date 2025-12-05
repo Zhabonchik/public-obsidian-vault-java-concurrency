@@ -6,6 +6,9 @@ tags:
   - dev
   - research
   - announcements
+  - ml
+author: Plastic Labs
+description: Join Plastic Labs for a summer internship in NYC--work on real AI products across full stack, machine learning, & platform engineering roles with immediate impact.
 ---
 > NYC, IRL
 # About the Role

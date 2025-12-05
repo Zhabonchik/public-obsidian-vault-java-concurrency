@@ -4,6 +4,8 @@ date: 08.24.24
 tags:
   - positions
   - announcements
+author: Plastic Labs
+description: Careers at Plastic Labs--an engineering-driven AI lab building Honcho, the personal identity layer for AI, seeking high-agency autodidacts in NYC.
 ---
 Plastic is an engineering-driven AI lab building at the intersection of machine learning and cognitive science.
 
