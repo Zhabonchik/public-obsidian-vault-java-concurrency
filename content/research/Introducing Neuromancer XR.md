@@ -1,29 +1,24 @@
 ---
 title: Introducing Neuromancer XR
-author: Dani Balcells
+subtitle: Our Reasoning Model for State-Of-The-Art Memory
 date: 08.18.2025
 tags:
   - research
   - ml
   - "#neuromancer"
-subtitle: Our Reasoning Model for State-Of-The-Art Memory
+author: Dani Balcells
+description: Meet Neuromancer XR--our custom reasoning model that achieves state-of-the-art memory by extracting & scaffolding logical conclusions from conversations.
 ---
-
 ![[opengraph_neuromancer.png]]
-
-## TL;DR
-_Memory is a foundational pillar of social cognition. As a key component of [Honcho](https://honcho.dev), we approach it as a combined reasoning and retrieval problem. In this post, we introduce Neuromancer XR, the first in a series of custom reasoning models that works by extracting and scaffolding atomic conclusions from user messages across two strictly defined levels of logical certainty: explicit and deductive. It's the result of fine-tuning Qwen3-8B on a manually curated dataset mapping conversation turns to atomic conclusions. Using Neuromancer XR as the reasoning engine behind our core product Honcho leads to 86.9% accuracy on the [LoCoMo](https://snap-research.github.io/locomo/) benchmark, compared to 69.6% using the base Qwen3-8B model, and 80.0% when using Claude 4 Sonnet as baseline, to achieve state of the art results. The next model in the series, Neuromancer MR will extract and scaffold observations at two further levels along the spectrum of certainty: inductive and abductive. This will allow us to front-load most of the inference needed to improve LLMs' social cognition skills, powering AI-native products that truly understand any peer in a system, be it a user or an agent._ 
-
----
-
+# TL;DR
+*Memory is a foundational pillar of social cognition. As a key component of [Honcho](https://honcho.dev), we approach it as a combined reasoning and retrieval problem. In this post, we introduce Neuromancer XR, the first in a series of custom reasoning models that works by extracting and scaffolding atomic conclusions from user messages across two strictly defined levels of logical certainty: explicit and deductive. It's the result of fine-tuning Qwen3-8B on a manually curated dataset mapping conversation turns to atomic conclusions. Using Neuromancer XR as the reasoning engine behind our core product Honcho leads to 86.9% accuracy on the [LoCoMo](https://snap-research.github.io/locomo/) benchmark, compared to 69.6% using the base Qwen3-8B model, and 80.0% when using Claude 4 Sonnet as baseline, to achieve state of the art results. The next model in the series, Neuromancer MR will extract and scaffold observations at two further levels along the spectrum of certainty: inductive and abductive. This will allow us to front-load most of the inference needed to improve LLMs' social cognition skills, powering AI-native products that truly understand any peer in a system, be it a user or an agent.*
+# Table Stakes
 At Plastic, we want to enable builders to create AI applications and agents with exceptional social intelligence: tools that are able to understand who you are and what you mean, whether it's an AI tutor that adapts to your learning style or a multi-agent system that anticipates your needs. These applications all require something fundamental that's only recently begun to draw attention: memory.
 
 Most approaches treat memory as an end product or top-level [[Memory as Reasoning#Memory is ~~Storage~~ Prediction|feature]], enabling information to persist across chatbot sessions, but we consider it the foundation of something much bigger: the ability for LLMs to build mental models of their users and one another and draw from those representations in real time. This capability is essential for personalization, engagement, and retention. Not to mention multi-agent systems, individual alignment, and the trust required for agentic behavior. It's the difference between an AI that merely responds to queries and one that genuinely understands and adapts to the person it's talking to; the difference between out-of-the-box experiences and ones cohered to a user’s personal identity
 
-To do anything approaching the social cognition required,  Honcho must be state-of-the-art in memory: able  to recall observations about users across conversations with superhuman fidelity. Today, we're sharing our approach and early results from training a specialized model that treats [[Memory as Reasoning|memory as a reasoning task]] rather than simple static storage.
-
+To do anything approaching the social cognition required, Honcho must be state-of-the-art in memory: able to recall observations about users across conversations with superhuman fidelity. Today, we're sharing our approach and early results from training a specialized model that treats [[Memory as Reasoning|memory as a reasoning task]] rather than simple static storage.
 # Memory as Reasoning
-
 Reasoning models continue to surge in capability and popularity. And with them, our approach to memory. Why not design it as a reasoning task concerned with deliberating over the optimal context to synthesize and remember? We turned to formal logic  to develop four methods of reasoning, along a spectrum of certainty, toward conclusions to derive from conversational data:
 
 - **Explicit**: Information directly stated by a participant. 
@@ -91,15 +86,12 @@ Reasoning models continue to surge in capability and popularity. And with them, 
 > > > - Erin probably has a growth mindset (transformed health concern into athletic goal, combines activities like reading while running)
 
 Having clear definitions for these four types of reasoning and their corresponding levels of certainty also allows us to establish how different kinds of observations relate to one another. Specifically, we require observations to scaffold only on top of observations with higher certainty: an abduction (e.g. "Erin values her health proactively") can use a deduction (e.g. "Erin exercises regularly") or induction (e.g. "Erin prioritizes healthy eating during weekdays") as one of its premises, but not the other way around. That is, one can speculate given a certain conclusion, but one cannot attempt to conclude something logically from prediction. Implied in this is that the model must show its work. A conclusion must include its premises, its evidence and support.
-
 # Neuromancer XR: Training a Logical Reasoning Specialist for Memory
-
 To implement this vision, we need  a model that can reliably extract and categorize conclusions from conversations. Our initial focus for the memory task, given its focus on factual recall, is on the first two certainty levels: explicit and deductive knowledge--that is, conclusions we know to be true given what users (or agents) state in their messages.
 
 We generated a proprietary dataset of approximately 10,000 manually curated instances of conclusion  derivation, creating memory-reasoning traces from conversational data. Each instance shows how to process a conversation turn and derive the relevant conclusions at appropriate certainty levels. We then fine-tuned Qwen3-8B on these traces.
 
 The resulting model is Neuromancer XR (for eXplicit Reasoning), a model specialized in deriving explicit and deductive conclusions from conversational data. It is currently in production powering the latest release of [Honcho](https://www.honcho.dev).
-
 ## Integration with Honcho
 ![[neuromancer_honcho_diagram.png]]
 *Figure 1. Diagram of the Honcho workflow.*
@@ -146,27 +138,21 @@ This can lead to poor embedding quality, making retrieval more difficult, or add
 
 
 We further speculate that deciding what information to extract for memory purposes from a conversation turn is something that small models are definitely capable of, as it's mostly a matter of identifying and correctly rephrasing information that's already present in the text and making small logical deductions based on it. This contrasts however, with the more complex tasks needed for AI-native memory and social cognition, hardly limited to abilities like inferring user intent or theory of mind, which require generating substantial amounts of information not present in the text itself.
-
 # Directions for future work
 We're training a model for the  remaining two levels of logical certainty outlined above in our framework: inductive and abductive. The next model in the Neuromancer series, Neuromancer MR (for meta-reasoning), will be in charge of this. 
 
 This model will reason about reasoning, focusing on the predictive side of the certainty spectrum. It will allow us to derive likely explanations and probable hypotheses for broad patterns of user or agent behavior at the moment of ingestion, bolstering the density and utility of peer representations. We’re developing internal evaluations for this task, as none currently exist for this frontier of synthetic social cognition.
 ## Front-loading social reasoning inference
-
 One of the advantages of this memory framework is that it allows us to front-load a lot of the meta-cognitive inference that's required to improve LLMs' social intelligence and theory of mind capabilities. In our [[blog/content/research/Violation of Expectation via Metacognitive Prompting Reduces Theory of Mind Prediction Error in Large Language Models|prior research]], as early as 2023, we show that allowing LLMs to reason over conversational data in a chain-of-thought style would allow them to develop high-fidelity models of users' mental states. 
 
 Most other LLM frameworks store atomic, low-level "facts" about users and include them as context at generation time. This, in theory, and with enough carefully prompted inference-time compute, would allow a good enough model to develop abstract theories about the user's mental state as it tries to answer a query about the user. However, it would have to happen implicitly in the model's thought process, which in turn means that the theories about the user's mental state are ephemeral, opaque and unpredictable. Approaches such as this therefore are inconsistent and inefficient, and would further struggle to meet the challenges of true social cognition.
 
 Our approach, on the other hand, shifts most of the load of reasoning about the peer from generation time to the earlier stages of the process, when messages are processed and ingested. By the time observations are retrieved for generation, low-level messages have already been distilled and scaffolded into a hierarchical, certainty-labeled, and easy to navigate tree containing a high-fidelity user representation.
-
-
 ## Beyond recall: toward social intelligence
-
 Evaluations and benchmarks are essential tools on our path to develop better frameworks for the development of AI-native tools. However, they don't tell the whole story: no evaluation is perfect, and hill-climbing can easily mislead us into optimizing for higher scores rather than the true north star: the overall quality of our product. For us, that means treating memory not as a hill to die on, but as table-stakes in our pursuit of social cognition that can truly transform the way AI-native tools understand us. Although success at this broader goal is much harder to quantify in conventional benchmarks, given the complex and under-specified nature of social cognition, we will continue to implement the evaluations that we find the most helpful for our agile development process.
 
 In that spirit, we have our sights set on the remaining two levels of certainty we introduced at the beginning of this blog post: inductive and abductive. In our manual, preliminary testing, including all four levels of reasoning resulted in incredibly rich user representations being extracted from even the simplest interactions. What lies ahead of us is the exciting task of harnessing these representations and delivering them via Honcho in the fastest, most flexible and most agentic way.
-
-## Some Notes on Model Naming
+# Some Notes on Model Naming
 >Personality is my medium.
 
 &nbsp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; -*Neuromancer* (Gibson, 1984)
@@ -178,8 +164,6 @@ The character Neuromancer is an AI tasked with transmuting personal identity fro
 In many ways, this is analogous to Plastic's mission to create representations of personal identity of such high-fidelity that they asymptotically approach the full complexity of the original person. But more specifically, our Neuromancer models are tasked with reasoning about user (or agent) data to create and scaffold the atomic conclusions from which we build those representations.
 
 So not only does the name fit, but it also honors and strives toward the incredible ambition of Gibson's vision still yet to be realized 40 years later. 
-
-
 # Appendix A: LLM-as-judge design and prompt
 In our evaluation of the three models we tested, we used the standard GPT 4o-mini as an LLM-as-judge, using the prompt below, in order to label responses as correct or incorrect. This is a choice from several factors, which we outline below.
 

@@ -1,8 +1,12 @@
 ---
 title: Honcho name lore
 date: 01.26.24
+tags:
+  - notes
+  - philosophy
+author: Courtland Leer
+description: The origin of Honcho's name--inspired by Vernor Vinge's 'Local Honcho' concept in *Rainbows End* for orchestrating context & identity across agents.
 ---
-
 Earlier this year [Courtland](https://x.com/courtlandleer) was reading _Rainbows End_, [Vernor Vinge's](https://en.wikipedia.org/wiki/Vernor_Vinge) [seminal augmented reality novel](<https://en.wikipedia.org/wiki/Rainbows_End_(novel)>), when he came across the term "Local Honcho[^1]":
 
 > We simply put our own agent nearby, in a well-planned position with essentially zero latencies. What the Americans call a Local Honcho.

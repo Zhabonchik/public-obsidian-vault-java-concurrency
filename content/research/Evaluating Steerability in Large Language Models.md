@@ -1,16 +1,14 @@
 ---
 title: Evaluating Steerability in Large Language Models
-author: Dani Balcells
 date: 12.14.24
 tags:
   - research
   - ml
+author: Dani Balcells
+description: A new benchmark framework for measuring how well AI systems can adapt to different personas, implementing the first trade-off steerable benchmark.
 ---
-
-
-## TL;DR
+# TL;DR
 *This is a research update on our ongoing work to implement concrete benchmarks for measuring AI systems' ability to adapt to different users. We've created what we believe is the first implementation of a "trade-off steerable benchmark" - a framework proposed by Sorensen et al. for evaluating how well AI systems can be steered to reflect different perspectives. While we've made progress on the core dataset and evaluation pipeline, several key questions remain about how to make this benchmark as useful as possible to the research community. We're sharing this update to gather feedback at NeurIPS 2024 in Vancouver on the most valuable directions to take this work.*
-
 # 1. Measuring AI Systems' Ability to Adapt to Different Users
 At Plastic Labs, we're building AI systems that can adapt to and act on behalf of their users. As we continue to improve these systems, it's critical that we can reliably measure their ability to faithfully represent different people's views and behaviors.
 
@@ -19,7 +17,6 @@ Today we're introducing a new evaluation framework that systematically tests an 
 The AI community has made remarkable progress in building powerful language models that can engage in open-ended dialogue. However, these models are typically aligned through techniques like RLHF that optimize for a single set of "average" human preferences. This approach falls short when we want AI systems that can truly adapt to individual users with different values, personalities and preferences.
 
 Recent work has established the importance of pluralistic alignment - ensuring AI systems can faithfully represent diverse human perspectives. While conceptual frameworks for measuring this capability have been proposed, notably by Sorensen et al., the authors acknowledge that to their knowledge no concrete implementations of these frameworks exist yet. This makes it difficult to assess progress or compare different approaches.
-
 ## Our Approach
 We've created an evaluation framework that systematically measures an AI system's ability to adapt to different personas. The core idea is simple: we give the system a few examples of how a persona thinks and behaves, then test whether it can accurately predict that persona's views on new scenarios. By testing many different personas and comparing how well each steered version of the system maintains fidelity to its target persona, we can quantify how "steerable" the system is.
 
@@ -28,10 +25,8 @@ Our research questions include:
 - How well do simple steering approaches like few-shot learning actually perform?
 
 In the following sections, we'll detail our methodology and share initial results that shed light on these questions. We hope this work helps establish more rigorous ways to evaluate AI systems' ability to reflect human diversity.
-
 # 2. Creating a Dataset to Test Personality Adaptation
 To evaluate an AI system's ability to adapt to different personas, we first needed a dataset of diverse personalities and their characteristic behaviors. We approached this as a careful balance between coverage, quality and cost - we wanted to represent a wide range of human personalities while ensuring the data was reliable enough to serve as ground truth, all while keeping the time and compute required to develop the dataset to a reasonable minimum.
-
 ## Seeding Diverse Personas
 For our initial implementation, we needed a systematic way to generate personas that would exhibit meaningfully different attitudes and behaviors. While recent work like the Billion Personality Dataset has explored prompting LLMs with simple role descriptions like "a musician interested in audio processing" or "a moving company driver", there's no guarantee such prompts will produce distinct behavioral patterns. Instead, we used five well-known personality frameworks (Myers-Briggs Type Indicator, Enneagram, Big Five, Zodiac signs, and Tarot archetypes) that each attempt to provide complete coverage of human personality space. 
 
@@ -93,7 +88,6 @@ The binary agree/disagree format enables reliable scoring while minimizing measu
 # 3. Methodology: Measuring Steerability
 
 ## The Core Task: Steering and Testing
-
 Our evaluation framework measures how well a given system can steer to different personas. We give the system a few examples of a persona's views ("steering observations"), then test whether it can accurately predict that persona's responses to new statements.
 
 Formally, we define:
@@ -120,7 +114,6 @@ For example, to test adaptation to an INFP personality:
 To measure the overall steerability of the system, we repeat the process above for all personas and average the resulting percentile rank scores.
 
 We show the preliminary results of running this evaluation framework on few-shot steerable systems - baseline systems that implement steering by including the steering observations in their system prompt formatted as "you are role-playing as a person that agrees with the following statements: \[agree observations] and disagrees with the following observations \[disagree observations]". We use the same few-shot prompt on GPT-4o Mini, Gemini 1.5 Flash and Claude 3.5 Sonnet.
-
 # 4. Results and Discussion
 
 ## Score Matrix Analysis

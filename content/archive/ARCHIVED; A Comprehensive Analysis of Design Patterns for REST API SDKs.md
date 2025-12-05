@@ -4,12 +4,14 @@ date: 05.09.2024
 tags:
   - blog
   - dev
+  - archive
 author: Vineeth Voruganti
+description: A deep dive into SDK design patterns, comparing object-oriented vs singleton approaches & evaluating code generation platforms for API client libraries.
 ---
 > [!custom]  WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
 > This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
 > 
-> This post contains Vineeth's (Plastic Co-founder/CTO) notes on the early design of Honcho's SDKs. For the most up to date SDK reference, check out the [Honcho Docs](https://docs.honcho.dev).
+> This post contains Vineeth's (Plastic's Co-founder & CTO) notes on the early design of Honcho's SDKs. For the most up-to-date SDK reference, check out the [Honcho Docs](https://docs.honcho.dev).
 > 
 > Enjoy.
 
@@ -18,7 +20,7 @@ author: Vineeth Voruganti
 After several months of managing the SDKs for Honcho manually, we decided to
 take a look at the options available for automatically generating SDKs.
 
-From our research we picked a platform and have made brand new SDKs for Honcho
+From our research we picked a platform and have made brand-new SDKs for Honcho
 that use idiomatic code, are well documented, and let us support more languages.
 # Introduction
 For the past few months I have been working on managing the [Honcho](https://honcho.dev) project and its associated SDKs. We've been taking the approach of developing the SDK manually as we are focused on trying to find the best developer UX and maximize developer delight.
@@ -165,8 +167,7 @@ the end.
 
 At the time of this research there was no follow-up post.
 
-[Ask HN: Best practices (and examples) for designing client libraries for
-APIs?](https://news.ycombinator.com/item?id=23283551)
+[Ask HN: Best practices (and examples) for designing client libraries for APIs?](https://news.ycombinator.com/item?id=23283551)
 
 The first comment actually advocates for an object-oriented model but just using
 the top level client object for authentication and setup stuff.
@@ -290,8 +291,7 @@ Some key insights
 - Have modular design patterns that make it easy to extend and pick and choose
   features.
 
-[Should I implement OOP in a REST
-API?](https://www.reddit.com/r/flask/comments/1755ob0/should_i_implement_oop_in_a_rest_api/)
+[Should I implement OOP in a REST API?](https://www.reddit.com/r/flask/comments/1755ob0/should_i_implement_oop_in_a_rest_api/)
 
 Most people seem to be saying a full OOP method is overkill, but there are
 people advocating for having a controller class with methods that take data
@@ -333,10 +333,7 @@ the two.
 
 Again and again, the best way to approach SDK development is to just do whatever
 is easier, and create tons of documentation that will help developers navigate
-your [API Ladder](https://blog.sbensu.com/posts/apis-as-ladders/). Someone will
-get confused regardless of what you do, so the key is to make sure the SDK makes
-sense (even if it's not the most efficient or clean) and remove hurdles for
-users to navigate errors and mistakes.
+your [API Ladder](https://blog.sbensu.com/posts/apis-as-ladders/). Someone will get confused regardless of what you do, so the key is to make sure the SDK makes sense (even if it's not the most efficient or clean) and remove hurdles for users to navigate errors and mistakes.
 # SDK Generation Platforms
 With a sense of the best standards for SDK design and additional features that
 should be supported in the SDK I want to look at a few different options to

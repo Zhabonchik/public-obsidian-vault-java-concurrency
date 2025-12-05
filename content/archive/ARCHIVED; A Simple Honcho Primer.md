@@ -4,6 +4,9 @@ date: 04.16.24
 tags:
   - blog
   - honcho
+  - archive
+author: Courtland Leer
+description: A beginner-friendly guide to Honcho, the AI personalization platform that helps LLM applications get to know users via storage, insights, & retrieval.
 ---
 > [!custom]  WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
 > This post has been archived because it's legacy content that 
@@ -13,10 +16,8 @@ tags:
 
 > [!NOTE] Welcome to our quick, "explain it like I'm 5" guide to [Honcho](https://honcho.dev)!
 > We'll keep it simple, covering [[ARCHIVED; A Simple Honcho Primer#^ef795f|what Honcho is]], [[ARCHIVED; A Simple Honcho Primer#^x125da|why we built it]], [[ARCHIVED; A Simple Honcho Primer#^cd2d3c|how to use it]], and [[ARCHIVED; A Simple Honcho Primer#^ca46d7|where the product is going]]. But throughout, we'll link to places you can dive deeper.
-
-## What Is Honcho?
+# What Is Honcho?
 ^ef795f
-
 Honcho is a personalization platform for large language model (LLM) applications built by [Plastic Labs](https://plasticlabs.ai).  
 
 It's software infrastructure that lets AI apps "get to know" their users, resulting in delightful experiences and optimized time to value.
@@ -36,10 +37,8 @@ If you've heard of [Retrieval Augmented Generation](https://en.wikipedia.org/wik
 Behind the scenes, Honcho learns about users as people--[[ARCHIVED; User State is State of the Art|richly modeling identity]]. It seeks to understand their beliefs, hopes, dreams, history, interests, and preferences. 
 
 It then acts as [[ARCHIVED; Introducing Honcho's Dialectic API|an oracle to each user]], allowing apps to ask for any personal context they need to improve UX and giving them access to a social cognition layer.
-
-## Why We Built Honcho
+# Why We Built Honcho
 ^x125da
-
 Plastic Labs was founded as an edtech company. The original mission was to build an AI tutor that [[ARCHIVED; Open Sourcing Tutor-GPT#^x527dc|could reason like]] the best human instructors. We quickly found the key limitation was data not on the subject matter, but on the student. To overcome it, the tutor needed [[ARCHIVED; Theory of Mind Is All You Need|a way to]] get to know *each* of its students deeply.
 
 Honcho was born by running up against this challenge, building technology to solve it, and realizing all AI applications are going to need the same solutions. The promise of *generative* AI isn't one-size-fits-all products, but bespoke experiences in each moment for each user. The same limitation emerges--how well do you know your user?
@@ -57,11 +56,9 @@ But it's not intuitive for a few reasons:
 
 Still, when interacting with an AI app, there's a sense that it *should* be getting to know us. In fact, we're often surprised when we realize it's not learning about us over time. And probably annoyed at having to start over.
 
-Think about personalization here as more like the experience of close human companionship or white glove services than the attention hacking mechanisms of TikTok. There's [[ARCHIVED; Announcing Honcho's Private Beta#^xb6ef1|enormous potenial]] for more positive-sum use of user data and for aligning AI applications more closely with user needs and preferences[^2]. 
-
-## How to Use Honcho
+Think about personalization here as more like the experience of close human companionship or white-glove services than the attention-hacking mechanisms of TikTok. There's [[ARCHIVED; Announcing Honcho's Private Beta#^xb6ef1|enormous potential]] for more positive-sum use of user data and for aligning AI applications more closely with user needs and preferences[^2]. 
+# How to Use Honcho
 ^cd2d3c
-
 Honcho is first and foremost a **storage** framework. Think of it like an open source version of the OpenAI Assistants API. User `sessions` store both user and AI generated `messages` as well as any intermediate inferences you might want to store as `metamessages`: 
 
 ```python
@@ -87,10 +84,8 @@ session.chat("What are the user's interests?")
 ```
 
 There are a [[ARCHIVED; Introducing Honcho's Dialectic API#How It Works|ton of ways]] to use Honcho, this primer only scratches the surface[^3]. 
-
-## What's Next for Honcho?
+# What's Next for Honcho?
 ^ca46d7
-
 Beyond improving our internal AI models so they can get to know users as richly as possible, we see three natural extensions in [[ARCHIVED; Announcing Honcho's Private Beta#^eb15f3|Honcho's future]]:
 
 1. [[ARCHIVED; Announcing Honcho's Private Beta#^x2dd3b|Monitoring & Evaluation]] - developer tools to understand & assess the impact of personalization + machine learning tools to build personalized datasets
@@ -98,9 +93,7 @@ Beyond improving our internal AI models so they can get to know users as richly 
 3. [[ARCHIVED; Announcing Honcho's Private Beta#^ebf071|Honcho Application Ecosystem]] - a network of apps contributing to & sharing Honcho data, user-owned & stored in confidential environments  
 
 And in just a few weeks, we'll be launching a demo platform where anyone can interact with (& eventually build) Honcho powered apps.
-
-## Join the Beta
-
+# Join the Beta
 [Sign-up for the private beta](https://plasticlabs.typeform.com/honchobeta) and start building personalized experiences.
 
 [Join Discord](https://discord.gg/plasticlabs), introduce yourself, and tell us what you're working on.

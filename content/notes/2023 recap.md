@@ -3,10 +3,11 @@ title: 2023 recap
 date: 01.30.24
 tags:
   - notes
+author: Courtland Leer
+description: A retrospective of Plastic Labs' transition from EdTech to AI infrastructure research in 2023.
 ---
-## 2023 Recap
-
-Last year was wild. We started as an edtech company and ended as anything but. There's a deep dive on some of the conceptual lore in last week's "[[ARCHIVED; Honcho; User Context Management for LLM Apps#^09f185|Honcho: User Context Management for LLM Apps]]:"
+# 2023 Recap
+Last year was wild. We started as an EdTech company and ended as anything but. There's a deep dive on some of the conceptual lore in last week's "[[ARCHIVED; Honcho; User Context Management for LLM Apps#^09f185|Honcho: User Context Management for LLM Apps]]:"
 
 >[Plastic Labs](https://plasticlabs.ai) was conceived as a research group exploring the intersection of education and emerging technology...with the advent of ChatGPT...we shifted our focus to large language models...we set out to build a non-skeuomorphic, AI-native tutor that put users first...our [[ARCHIVED; Open Sourcing Tutor-GPT|experimental tutor]], Bloom, [[ARCHIVED; Theory of Mind Is All You Need|was remarkably effective]]--for thousands of users during the 9 months we hosted it for free...
 
@@ -21,9 +22,7 @@ We spent camp in a research cycle, then [published a pre-print](https://arxiv.or
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PbuzqCdY0hg?si=OSujtqg44AK3y_W-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Then it was back to building.
-
-## Keep in Touch
-
+# Keep in Touch
 Thanks for reading.
 
 You can find us on [X/Twitter](https://twitter.com/plastic_labs), but we'd really like to see you in our [Discord](https://discord.gg/plasticlabs) 🫡.

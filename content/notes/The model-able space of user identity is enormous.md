@@ -1,10 +1,12 @@
 ---
-title: There's an enormous space of user identity to model
+title: The model-able space of user identity is enormous
 date: 05.11.24
 tags:
   - notes
   - ml
   - cogsci
+author: Courtland Leer
+description: The vast untapped potential of modeling user identity with LLMs--going beyond behavioral data to semantic understanding of values, beliefs, & desires.
 ---
 While large language models are exceptional at [imputing a startling](https://arxiv.org/pdf/2310.07298v1) amount from very little user data--an efficiency putting AdTech to shame--the limit here is [[ARCHIVED; User State is State of the Art|vaster than most imagine]].
 

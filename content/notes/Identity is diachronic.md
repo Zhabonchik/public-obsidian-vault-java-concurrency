@@ -1,10 +1,14 @@
 ---
 title: Identity is diachronic
+date: 09.18.25
 tags:
   - philosophy
   - honcho
   - ml
-date: 09.18.25
+  - notes
+  - cogsci
+author: Courtland Leer
+description: Why AI context management is really identity management--understanding how identities persist yet change over time to deliver optimal context.
 ---
 The quality of any single AI system output is in large part determined by the context available to it at inference time. While some context is static and reusable, AI systems aspiring to be truly generative, 1-to-1, and dynamic, must also manage large sets of changing context.
 

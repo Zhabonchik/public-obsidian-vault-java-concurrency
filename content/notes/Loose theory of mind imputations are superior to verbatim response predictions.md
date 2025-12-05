@@ -1,13 +1,18 @@
 ---
 title: Loose theory of mind imputations are superior to verbatim response predictions
 date: 02.20.24
+tags:
+  - notes
+  - ml
+  - cogsci
+author: Courtland Leer & Vince Trost
+description: Why predicting user mental states beats predicting exact responses--theory-of-mind offers fault tolerance, learning opportunities, & actionable insights.
 ---
-
 When we [[ARCHIVED; Theory of Mind Is All You Need|first started experimenting]] with user context, we naturally wanted to test whether our LLM apps were learning useful things about users. And also naturally, we did so by making predictions about them.
 
 Since we were operating in a conversational chat paradigm, our first instinct was to try and predict what the user would say next. Two things were immediately apparent: (1) this was really hard, & (2) response predictions weren't very useful.
 
-We saw some remarkable exceptions, but _reliable_ verbatim prediction requires a level of context about the user that simply isn't available right now. We're not sure if it will require context gathering wearables, BMIs, or the network of context sharing apps we're building with [[ARCHIVED; Honcho; User Context Management for LLM Apps|Honcho]], but we're not there yet.
+We saw some remarkable exceptions, but *reliable* verbatim prediction requires a level of context about the user that simply isn't available right now. We're not sure if it will require context-gathering wearables, BMIs, or the network of context sharing apps we're building with [[ARCHIVED; Honcho; User Context Management for LLM Apps|Honcho]], but we're not there yet.
 
 Being good at what any person in general might plausibly say is literally what LLMs do. But being perfect at what one individual will say in a singular specific setting is a whole different story. Even lifelong human partners might only experience this a few times a week.
 

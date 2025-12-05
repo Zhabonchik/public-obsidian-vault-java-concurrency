@@ -7,13 +7,16 @@ tags:
   - announcements
   - pedagogy
   - ml
+  - archive
+author: Courtland Leer & Vince Trost
+description: Open-sourcing Bloom, our AI learning companion that uses metacognitive prompting to elicit pedagogical reasoning & theory-of-mind from LLMs.
 ---
 > [!custom]  WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
 > This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
 > 
 > This post concerns Bloom, our [Honcho](https://honcho.dev)-powered AI-tutor. We've suspended Bloom for now to focus exclusively on Honcho. 
 > 
-> Plastic started as an EdTech company, with Bloom as its main product. In building a popular, first of its kind, personalized AI tutor, we realized three things (1) all agents will soon need continuous learning systems to understand their users, (2) this an extremely hard problem that every developer shouldn't have to redundantly solve, & (3) we were uniquely positioned to solve it. 
+> Plastic started as an EdTech company, with Bloom as its main product. In building a popular, first-of-its-kind personalized AI tutor, we realized three things (1) all agents will soon need continuous learning systems to understand their users, (2) this an extremely hard problem that every developer shouldn't have to redundantly solve, & (3) we were uniquely positioned to solve it. 
 > 
 > So we pivoted to Honcho, keeping Bloom around for a while as a demo.
 > 
@@ -25,7 +28,7 @@ tags:
 # TL;DR
 Today we’re [open-sourcing](https://github.com/plastic-labs/tutor-gpt) Bloom, our digital [Aristotelian](https://erikhoel.substack.com/p/why-we-stopped-making-einsteins) learning companion.
 
-What makes [Bloom](https://bloombot.ai/) compelling is its ability to _reason pedagogically_ about the learner. That is, it uses dialogue to posit the most educationally-optimal tutoring behavior. Eliciting this from the [capability overhang](https://jack-clark.net/2023/03/21/import-ai-321-open-source-gpt3-giving-away-democracy-to-agi-companies-gpt-4-is-a-political-artifact/) involves multiple chains of [metaprompting](https://arxiv.org/pdf/2102.07350.pdf,) enabling Bloom to construct a nascent, academic [theory of mind](https://arxiv.org/pdf/2304.11490.pdf) for each student. ^3498b7
+What makes [Bloom](https://bloombot.ai/) compelling is its ability to *reason pedagogically* about the learner. That is, it uses dialogue to posit the most educationally-optimal tutoring behavior. Eliciting this from the [capability overhang](https://jack-clark.net/2023/03/21/import-ai-321-open-source-gpt3-giving-away-democracy-to-agi-companies-gpt-4-is-a-political-artifact/) involves multiple chains of [metaprompting](https://arxiv.org/pdf/2102.07350.pdf,) enabling Bloom to construct a nascent, academic [theory of mind](https://arxiv.org/pdf/2304.11490.pdf) for each student. ^3498b7
 
 We’re now seeing this in the explosion of ‘chat-over-content’ tools, most of which fail to capitalize on the enormous latent abilities of LLMs. Even the impressive out-of-the-box capabilities of contemporary models don’t achieve the necessary user intimacy. Infrastructure for that doesn’t exist yet 👀.
 

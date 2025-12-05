@@ -1,8 +1,13 @@
 ---
 title: Human-AI chat paradigm hamstrings the space of possibility
 date: 02.21.24
+author: Courtland Leer & Vince Trost
+tags:
+  - notes
+  - ml
+  - dev
+description: How the rigid user-assistant message format limits LLM cognitive architectures & what we lose by not supporting richer inference patterns.
 ---
-
 The human-AI chat paradigm assumes only two participants in a given interaction. While this is sufficient for conversations directly with un-augmented foundation models, it creates many obstacles when designing more sophisticated cognitive architectures. When you train/fine-tune a language model, you begin to reinforce token distributions that are appropriate to come in between the special tokens denoting human vs AI messages.
 
 Here's a limited list of things _besides_ a direct response we routinely want to generate:

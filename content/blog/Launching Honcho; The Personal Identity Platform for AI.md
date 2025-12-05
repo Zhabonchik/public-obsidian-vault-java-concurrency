@@ -8,29 +8,26 @@ tags:
   - fundraising
   - dev
   - philosophy
+author: Courtland Leer
+description: Plastic Labs announces $5.4M pre-seed funding & launches Honcho as the personal identity platform for individually-aligned AI agents & applications.
 ---
-## TL;DR
-
-We're announcing two major milestones for Plastic Labs:
+# TL;DR
+*We're announcing two major milestones for Plastic Labs:*
 
 1. **Honcho as a hosted platform.** 
 
-	We're granting early access to power personal context management for AI agents & applications starting today!
+	*We're granting early access to power personal context management for AI agents & applications starting today!*
 	
-	Honcho is now a simple, complete, hosted solution for adaptive agent memory, social cognition, & personalization.
+	*Honcho is now a simple, complete, hosted solution for adaptive agent memory, social cognition, & personalization.*
 
 2. **Our pre-seed raise of $5.4M to solve personal identity for the agentic world.**
-
-## Individual Alignment
-
+# Individual Alignment
 Most AI products focus on being palatable to the average user. This neglects the potential for personalization their generative nature affords. It limits the scope of personally useful behaviors and results in poor UX, high churn, and handicapped abilities.
 
 AI systems need mechanisms to understand each of us on an individual level. They need methods for cohering to our psychology and personality. They need social cognition to eliminate cold starts and build long-term relationships.
 
 They need Honcho.
-
-## Honcho Platform Early Access
-
+# Honcho Platform Early Access
 Today we're launching early access to the hosted [Honcho](https://honcho.dev) platform.
 
 It's the most powerful personal identity and social cognition solution for AI apps and agents.
@@ -56,11 +53,8 @@ If you want to deliver best-in-class personalization, memory, time-to-value, tru
 We're giving early access to teams & developers today.
 
 [Get started now](https://honcho.dev).
-
-## A Personal Identity Layer for AI
-
+# A Personal Identity Layer for AI
 ^d958ce
-
 The release of Honcho as a platform is just the start, the next step is Honcho as a network.
 
 An engine for social cognition and deeply grokking personal identity is a game changing tool for AI apps, but owning your personal Honcho representation and taking it with you to every agent in your growing stack is world changing.
@@ -76,10 +70,8 @@ We believe this will unlock profoundly new kinds of AI products and experiences.
 This vision stands in clear opposition to legacy approaches to user data, but in the latent agentic economy, has clear advantages. For users, using Honcho will mean that their personal data is at once more secure *and* enables remarkably better services. And for business, provides a positive-sum alternative to web2's history of feudal data governance, allowing them to punch above their weight relative to massive walled gardens.
 
 Honcho will be critical AI infrastructure--enabling individual agency to scale and radical innovation from open-source to startup to enterprise, from vibe coders to fully autonomous systems.
-
-## Our Pre-Seed Round
-
-The final announcement today is Plastic's $5.35M pre-seed round, led by [Variant](https://variant.fund/), [White Star Capital](https://whitestarcapital.com/), and [Betaworks](https://www.betaworks.com/).
+# Our Pre-Seed Round
+The final announcement today is Plastic's $5.4M pre-seed round, led by [Variant](https://variant.fund/), [White Star Capital](https://whitestarcapital.com/), and [Betaworks](https://www.betaworks.com/).
 
 The round also includes participation from [Mozilla Ventures](https://mozilla.vc/), [Seed Club Ventures](https://www.seedclub.xyz/getfunded/ventures), [Greycroft](https://www.greycroft.com/), and [Differential Ventures](https://www.differential.vc/), along with angels like [Scott Moore](https://x.com/notscottmoore), [NiMA Asghari](https://x.com/ywayisaway), and [Thomas Howell](https://x.com/seethomasowl).
 
@@ -88,9 +80,7 @@ It's a group of deeply aligned investors who share our vision of a more personal
 Funds will be deployed directly toward the talent, growth, and compute required to realize the full vision of Honcho.
 
 We're just getting started.
-
-## Plastic's Mission
-
+# Plastic's Mission
 Plastic's mission is to radically decentralize alignment. Your AI should be an extension of you. You should dictate how it's aligned. And you should own the data used to do it.
 
 Most LLM applications are still optimizing for homogenization, if not outright determinism. They're trained or prompted to behave according to a set of standards and values that you don't have participation in. 

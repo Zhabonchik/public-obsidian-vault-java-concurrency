@@ -9,6 +9,7 @@ tags:
   - "#chat"
 author: Ben McCormick & Courtland Leer
 subtitle: A Chat App with SOTA Memory
+description: Meet Honcho Chat--a personalized AI assistant with state-of-the-art memory, custom identities, artifacts, themes, & an x402-powered marketplace.
 ---
 ![[honcho_chat_x402.png]]
 # TL;DR

@@ -7,28 +7,28 @@ tags:
   - announcements
   - philosophy
   - ml
+  - archive
+author: Courtland Leer
+description: An open-source reimplementation of OpenAI's memory features using Honcho, enabling any AI app to derive & store personal context about users.
 ---
-## TL;DR
-
-Personalization is the next frontier. OpenAI gets it:
+# TL;DR
+*Personalization is the next frontier. OpenAI gets it:*
 
 <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">We’re testing ChatGPT&#39;s ability to remember things you discuss to make future chats more helpful. <br><br>This feature is being rolled out to a small portion of Free and Plus users, and it&#39;s easy to turn on or off. <a href="https://t.co/1Tv355oa7V">https://t.co/1Tv355oa7V</a> <a href="https://t.co/BsFinBSTbs">pic.twitter.com/BsFinBSTbs</a></p>&mdash; OpenAI (@OpenAI) <a href="https://twitter.com/OpenAI/status/1757469997742666052?ref_src=twsrc%5Etfw">February 13, 2024</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
 
-Super exciting.
+*Super exciting.*
 
-But what about the rest of us?
+*But what about the rest of us?*
 
-Welp, we built an open source reimplementation of OpenAI's 'memory' features using [Honcho](https://honcho.dev) to effortlessly organize sessions on a per-user basis 
+*Welp, we built an open source reimplementation of OpenAI's 'memory' features using [Honcho](https://honcho.dev) to effortlessly organize sessions on a per-user basis .*
 
-You can derive facts about users, store them, and retrieve for later use. And we're shipping a demo of this implemented with the useful abstractions LangChain provides.
+*You can derive facts about users, store them, and retrieve for later use. And we're shipping a demo of this implemented with the useful abstractions LangChain provides.*
 
-The user context rabbithole goes deep, this is still just the start.
+*The user context rabbithole goes deep, this is still just the start.*
 
-If you're building with or adjacent to Honcho, [join our Discord](https://discord.gg/plasticlabs), we'd love to help 🫡.
-
-## OpenAI Memories
-
+*If you're building with or adjacent to Honcho, [join our Discord](https://discord.gg/plasticlabs), we'd love to help 🫡.*
+# OpenAI Memories
 This week [OpenAI announced](https://openai.com/blog/memory-and-new-controls-for-chatgpt) they're testing memory in ChatGPT. Specifically this means learning about individual users in order to improve their experiences.
 
 It's a limited initial rollout, closed under the hood, and rudimentary, but appears to include functionality for deriving facts about users from conversation history and storing those to augment later generation.
@@ -38,9 +38,7 @@ There are features for users to view derived facts (memories), prune them, or tu
 They're betting, we believe correctly, that the real potential here is a wealth of agents whose behavior is in *high-fidelity with user identity*.
 
 We're pumped to see experiments like this taking place. But what if you're a developer that doesn't want to subscribe to this kind of platform dependency and all its attendant externalities? What if you're a user who wants independent or open source apps with a more mature version of these UX benefits?
-
-## Context is Critical
-
+# Context is Critical
 At [Plastic Labs](https://plasticlabs.ai) our mission is to enable rich user memory in and across every application. Only then will we really understand just how augmentative and transformative these agents can be. We've been laser focused on this problem.
 
 ![[laser_eyes_user_soapbox.png]]
@@ -54,11 +52,8 @@ As it stands today the space is mostly focused on the (albeit generative) [[Mach
 Every agent interaction can be generated just in time for every person, informed by relevant personal context more substantive than human-to-human sessions. User context will enable disposable agents on the fly across verticals for lower marginal cost than 1:many software paradigms.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/tTE3xiHw4Js?si=uzUzcSHFfZdjFduX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
-
 (*Here's our co-founder [Vince](https://twitter.com/vintrotweets) talking more about some of those possibilities*)
-
-## "Open vs Closed"
-
+# "Open" vs "Closed"
 We subscribe heavily to the spirt of arguments Harrison Chase made in ["OpenAI's Bet on Cognitive Architecture"](https://blog.langchain.dev/openais-bet-on-a-cognitive-architecture/) just a few months ago: 
 
 > There’s a great quote from Jeff Bezos that says to [only do what makes your beer taste better](https://blog.weaverse.io/make-your-beer-taste-better?ref=blog.langchain.dev). This refers to early industrial revolution, when breweries were also making their own electricity. A breweries ability to make good beer doesn’t really depend on how differentiated their electricity was - so those that outsourced electricity generation and focused more on brewing jumped to an advantage.
@@ -82,9 +77,7 @@ Shouldn't we be able to experiment with all this without platform lock-in, allow
 Developers will want control over personalization for their application without all the redundant overhead. Users will want a say in how they're being reasoned about and why.
 
 This is our vision for Honcho.
-
-## Intellectual Respect
-
+# Intellectual Respect
 <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">llms are remarkable empaths<br><br>if you’d read that much fiction, you would be too</p>&mdash; Courtland Leer (@courtlandleer) <a href="https://twitter.com/courtlandleer/status/1753480140850626759?ref_src=twsrc%5Etfw">February 2, 2024</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
 
@@ -108,9 +101,7 @@ N.b. you can certainly direct the model with as much verbosity as you like, but 
 This isn't surprising when you consider how much content about what people are thinking is contained in a model's pretraining. It's led to some really exciting [emergent abilities](https://arxiv.org/abs/2302.02083).
 
 Give the model some trust and respect, and you'll be rewarded.
-
-## Let's Build
-
+# Let's Build
 If you're experimenting with personalization, building with [Honcho](https://github.com/plastic-labs/honcho), or just interested in these ideas, [join our Discord](https://discord.gg/plasticlabs), and let's jam on what we can build together.
 
 A healthy open ecosystem will include lots of projects trying lots of new ways to synthesize and leverage user context.  We're here to support them all 🥽.

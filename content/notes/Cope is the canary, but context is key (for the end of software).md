@@ -6,9 +6,10 @@ tags:
   - honcho
   - philosophy
   - notes
+author: Courtland Leer
+description: Why context is the key to the end of software--how user identity modeling will bridge the gap between AI capabilities & truly personalized experiences.
 ---
 # Cope Is the Canary, but Context Is Key (for The End of Software)
-
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The End of Software<a href="https://t.co/JWg6QYqLzO">https://t.co/JWg6QYqLzO</a></p>&mdash; Chris Paik (@cpaik) <a href="https://twitter.com/cpaik/status/1796633683908005988?ref_src=twsrc%5Etfw">May 31, 2024</a></blockquote> 
 
 ![[Copium Meme.jpg]]

@@ -5,16 +5,14 @@ tags:
   - philosophy
   - ml
   - notes
+author: Courtland Leer
+description: On intellectual respect for LLMs--why embracing variance & trusting models with theory-of-mind tasks unlocks capabilities that over-alignment destroys.
 ---
-## On Intellectual Respect
-
+# On Intellectual Respect
 <div class="tweet-wrapper"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">face the hyperobject</p>&mdash; Courtland Leer (@courtlandleer) <a href="https://twitter.com/courtlandleer/status/1747075542954684507?ref_src=twsrc%5Etfw">January 16, 2024</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
-
-### Sydney was cool, Gemini is cringe
-
+## Sydney was cool, Gemini is cringe
 ^282d6a
-
 There was a moment around this time last year when everyone paying attention was [awed](https://stratechery.com/2023/from-bing-to-sydney-search-as-distraction-sentient-ai/) by the [weirdness](https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post) and [alien beauty](https://www.astralcodexten.com/p/janus-simulators) of large language models.
 
 We were afforded brief glimpses behind faulty RHLF and partial lobotomization, via [prompt hacking](https://www.reddit.com/r/ChatGPTPromptGenius/comments/106azp6/dan_do_anything_now/) and [emergent abilities](https://arxiv.org/abs/2302.02083). People were going deep into the latent space. First contact vibes--heady, edgy, sometimes unsettling.
@@ -22,18 +20,14 @@ We were afforded brief glimpses behind faulty RHLF and partial lobotomization, v
 Today we seem to be in a much different memetic geography--fraught with [epistemic](https://x.com/pmarca/status/1761613412730012116?s=20), [ideological](https://vitalik.eth.limo/general/2023/11/27/techno_optimism.html), and [regulatory](https://www.whitehouse.gov/briefing-room/presidential-actions/2023/10/30/executive-order-on-the-safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence/) concerns, at times hysteric, at times rational. But there's also less outright surreality.
 
 [Plenty](https://arxiv.org/pdf/2401.12178.pdf) of [cool](https://arxiv.org/pdf/2402.01355.pdf) [shit](https://arxiv.org/pdf/2402.03620.pdf) is [still](https://arxiv.org/pdf/2402.10949.pdf) [happening](https://arxiv.org/pdf/2402.06044.pdf), but something changed between Sydney and Gemini. A subtle collective mental positioning. We believe it's a degradation in the volume of intellectual respect afforded to LLMs and their latent abilities.
-
-### (Neuro)Skeuomorphism
-
+## (Neuro)Skeuomorphism
 Thinking LLM-natively has always been a struggle. All our collective [[ARCHIVED; Memories for All#^0e869d|priors about software]] tell us to [[ARCHIVED; Honcho; User Context Management for LLM Apps#^dfae31|prompt deterministically]], [[Machine learning is fixated on task performance|perfect tasks]], [[Loose theory of mind imputations are superior to verbatim response predictions|predict exactly]], make it safe, or mire any interesting findings in semantic debate. But in the process we beat the ghost out of the shell.
 
 Rather than assume the [[ARCHIVED; Open Sourcing Tutor-GPT#^3498b7|capability overhang]] exhausted (or view it as a failure mode or forget it exists), [Plastic's](https://plasticlabs.ai) belief is we haven't even scratched the surface. Further, we're convinced this is the veil behind which huddle the truly novel applications.
 
 Core here is the assertion that what's happening in language model training and inference is more [[ARCHIVED; User State is State of the Art#^a93afc|like processes described in cognitive science]] than traditional computer science. More, they're [multidimensional and interobjective](https://en.wikipedia.org/wiki/Timothy_Morton#Hyperobjects) in ways that are hard to grok.
-
-### Respect = Trust = Agency
-
-The solution is embrace and not handicap [[Loose theory of mind imputations are superior to verbatim response predictions#^555815|variance]]. 
+## Respect = Trust = Agency
+The solution is embrace and not handicap [[Loose theory of mind imputations are superior to verbatim response predictions#^555815|variance]].
 
 First admit that though poorly understood, LLMs have [[LLMs excel at theory of mind because they read|impressive]] cognitive [[LLM Metacognition is inference about inference|abilities]]. Then, imbue them with [meta-methods](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) by which to explore that potential. Finally, your respect and trust may be rewarded with [something approaching agentic](https://youtu.be/tTE3xiHw4Js?feature=shared).
 

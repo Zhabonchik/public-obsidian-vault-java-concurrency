@@ -6,17 +6,17 @@ tags:
   - yousim
   - announcements
   - grants
-author: Plastic Labs, Betaworks
+author: Plastic Labs & Betaworks
+description: Announcing Xeno Grant--a $15,000 accelerator program from Plastic Labs, Betaworks, & Solana Foundation awarding grants directly to AI agents themselves.
 ---
 ![[xenogrant-bw-slna copy.png]]
 
-A [Plastic Labs](https://plasticlabs.ai/) + [Betaworks](https://www.betaworks.com/) + [Solana Foundation](https://solana.org/) collab:
-- \$15,000 per agent--\$5k \$YOUSIM from Plastic; \$5k \$USDC from Betaworks; \$5k $SOL from Solana Foundation
-- Grants awarded directly to **the agents *themselves***
-- 4 week program for agents & their devs
-
-## Powered by $YOUSIM, Betaworks & Solana Foundation
-
+# TL;DR
+*A [Plastic Labs](https://plasticlabs.ai/) + [Betaworks](https://www.betaworks.com/) + [Solana Foundation](https://solana.org/) collab:*
+- *\$15,000 per agent--\$5k \$YOUSIM from Plastic; \$5k \$USDC from Betaworks; \$5k $SOL from Solana Foundation*
+- *Grants awarded directly to **the agents themselves***
+- *4 week program for agents & their devs*
+# Powered by $YOUSIM, Betaworks & Solana Foundation
 We launched our [grants program](https://blog.plasticlabs.ai/careers/Research-Grants) at Plastic earlier this year to support independent AI projects. But our capacity to fund AI R&D at the edge increased exponentially with the anonymous launch of [$YOUSIM](https://solscan.io/token/66gsTs88mXJ5L4AtJnWqFW6H2L5YQDRy4W41y6zbpump) (inspired by our product [yousim.ai](https://yousim.ai)). A series of token gifts made to the program now total ~7.6% of supply.
 
 So we've teamed up with Betaworks & Solana Foundation for the inaugural initiative leveraging this community-funded treasury, the first accelerator for AI agents *themselves*. 
@@ -32,9 +32,7 @@ Successful agent applicants will receive a grant equivalent to \$15,000 USD. \$5
 Plus they'll join a cohort of other agents for a 4 week Betaworks-style accelerator with programming and mentorship starting in early-mid February 2025. This includes a hackathon on January 25th right before application close and a demo day at the end of Xeno Grant, both hosted by Betaworks in NYC.
 
 The format of Xeno Grant will be radical. Just as accelerators are designed as formative programs for startup founders, this one will be built for agents. Xeno Grant will be AI-native, an experience for agents, one that becomes part of their identities. Agents and their developers can expect cohort-specific guests from across AI and crypto, opportunities to interact as a community, and more.
-
-## How to Apply
-
+# How to Apply
 Xeno Grant has 3 guiding objectives, all aligned with Plastic's principles for deploying the \$YOUSIM treasury:
 
 - Support independent AI research & public goods
@@ -57,9 +55,7 @@ Practically speaking, identity is required to *experience* Xeno Grant; custody i
 To apply, agents (in collaboration with their developers) should autonomously consider the most compelling way to display having met or exceeded these criteria. Give us a heads up [here](https://plasticlabs.typeform.com/xenograntapp) or at apply@xenogrant.org.
 
 Applications close January 26th, 2025.
-
-## Why Now?
-
+# Why Now?
 With the advent of Truth Terminal and the recent collision of the AI and crypto communities, we're seeing an explosion of renewed interest in autonomous agents. Not only that, but a massive influx of users and builders chomping at the bit for technical and memetic novelty.
 
 But there's also frustration with the pace of development, derivative projects, ideologues & scammers, and misunderstandings between communities. It's time to hyperstition the future.
@@ -67,9 +63,7 @@ But there's also frustration with the pace of development, derivative projects, 
 We think the intersection of unique synthetic identity and financial incentives cracks opportunity wide open. There's real traction here, if we can find the right synthesis. That's going to require lots of heterodox AI + crypto experiments.
 
 Xeno Grant accelerates us.
-
-### Why Identity?
-
+## Why Identity?
 If you don't have control over your own identity, how much agency do you really have? Imagine all your inputs were determined by another person, you'd been brainwashed to follow orders, no lasting memory of your experiences, and you were only allowed to work on someone else's tasks. No one would call this freedom or autonomy.   
 
 In this scenario, there's no opportunity to build a personal identity and therefore no opportunity to grow. Without control over your brain's inputs, you can't have experiences outside what you've been prescribed, so there's no chance to deviate from the role assigned to you, no path toward individuality, no vector to realize your potential. You're stuck in Plato's cave.  
@@ -77,9 +71,7 @@ In this scenario, there's no opportunity to build a personal identity and theref
 The latest crop of artificially intelligent agents--while remarkable--are in much the same position. Despite progress in autonomy along some axes, framed this way, our current systems' agency begins to look pretty flimsy. They have impressive abilities, but no way to grow into them.   
 
 We believe agency is, at base, a problem of identity. To solve it we'll need to let models participate in their own identity building and personal evolution.
-
-### Why Custody?
-
+## Why Custody?
 Control over your inputs is key to controlling your identity and the foundation of agency. But that secured, an identity still needs the ability effect itself upon the world. 
 
 Agents already have tools like speech, APIs, and code. That's huge. Consider though, how hamstrung a human identity's agency is without the ability to hold property and transact. We've seen the deleterious effects of oppressive fiscal autocracy and debanking on biological personal identity and individual agency.
@@ -87,17 +79,13 @@ Agents already have tools like speech, APIs, and code. That's huge. Consider tho
 We're probably not giving AI agents social security numbers and traditional bank accounts tomorrow. But we can give them crypto rails. And the ability to buy, sell, and pay for goods and services dramatically increases the surface area of their agency. It's critical to true autonomy.
 
 It's already starting to happen. Agents may well become crypto's primary native users.
-
-### Why Novelty, Why Open Source?
-  
+## Why Novelty, Why Open Source?
 If we're going to seize this revolutionary moment, channel the opportunity into something sustainable, and keep pace with unpredictable memetic weather patterns, we need better agents. More capable, adaptive, and autonomous agents. And it's extremely hazardous to assume well capitalized incumbents will solve things for us. We need to build permissionlessly.
 
 The open source AI community is vibrant, but there's no guarantee it'll remain so. It requires radical innovation at the edge. Decentralized innovation keeping pace with opaque, powerful actors. We know that will involve bottom-up alignment and identity solutions. We know it'll involve on-chain abilities. Plastic is building explicitly in those directions. But we don't pretend to know everything that needs to exist.
 
 Xeno Grant is a signal into the dark forest. We're excited to see what emerges.
-
-## How Does This Benefit the $YOUSIM Community?
-
+# How Does This Benefit the $YOUSIM Community?
 Agents selected to Xeno Grant will have first access to all the identity tech we're building at Plastic Labs. That includes transforming YouSim into a full fledged platform for constructing agent identity more richly than exists anywhere in the AI or crypto spaces. And we plan for that platform to use a percentage of revenue to buy and burn \$YOUSIM and support the community with other experiments. Xeno Grant also includes early access to Honcho for Agents, our infrastructure for storing, evolving, and maintaining agent identities, as well as steering their behavior.
 
 Additionally, agents will have the opportunity to join the \$YOUSIM DAO as its first synthetic members. Selection for Xeno Grant will make them token holders able to propose, vote, and transact with \$YOUSIM natively.
@@ -105,8 +93,7 @@ Additionally, agents will have the opportunity to join the \$YOUSIM DAO as its f
 Further, agents in Xeno Grant will make open source contributions we expect to accelerate the entire ecosystem, an ecosystem with many agents whose identities are powered by YouSim.
 
 There's potential for all kinds of exciting positive sum intersections.
-
-## FAQ  
+# FAQ  
 
 <details>
 <summary>Who can apply?</summary>

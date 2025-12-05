@@ -6,16 +6,17 @@ tags:
   - philosophy
   - demos
   - ml
+  - archive
+author: Courtland Leer & Vince Trost
+description: Why modeling the complexity & plasticity of human identity is key to AI personalization, with a DSPy demo for learning user states with Honcho.
 ---
-## TL;DR
-LLM apps can embrace the complexity and plasticity of human identity to deliver unparalleled personalization.
+# TL;DR
+*LLM apps can embrace the complexity and plasticity of human identity to deliver unparalleled personalization.*
 
-We're introducing a framework for modeling your users automatically and dynamically. And today we have a DSPy demo to illustrate a nascent version of this paradigm.
+*We're introducing a framework for modeling your users automatically and dynamically. And today we have a DSPy demo to illustrate a nascent version of this paradigm.*
 
-All of us adopt different personas in different contexts--with [Honcho](https://honcho.dev) you can begin to learn these user *states* so your app can better meet user need in every moment.
-
-## Fleet of Theseus
-
+*All of us adopt different personas in different contexts--with [Honcho](https://honcho.dev) you can begin to learn these user states so your app can better meet user need in every moment.*
+# Fleet of Theseus
 A key feature of our minds is the feeling of a persistent, unitary identity. Entire religions and philosophical movements have been spawned just to jailbreak this experience.
 
 As they all point out, identity is *way* more complicated than you think.
@@ -25,9 +26,7 @@ While we perceive psychological continuity across contexts and time, closer insp
 In short, it's messy. Or, rather, elegant emergent complexity. 
 
 Each human self isn't just one mythical [Ship of Theseus](https://en.wikipedia.org/wiki/Ship_of_Theseus)--planks being replaced one by one over slow years--but a fleet of them, all with full, manual and autonomous CRUD operations.
-
-## Digital Twins Are Naïve
-
+# Digital Twins Are Naïve
 So what does this mean for the problem of good UX (and alignment) in AI? If each individual is vastly complex and the industry hopes to scale to billions of users, we have a daunting task.
 
 The knee jerk reaction to this level of understanding is to assume the problem intractable. How can we possibly represent, much less simulate something so enormous? Better to focus on [[Machine learning is fixated on task performance|optimizing general tasks]] like in traditional software paradigms, then serve that homogenized experience to every user (never mind missing the [[LLMs excel at theory of mind because they read|non-skeuomorphic opportunities]], we'll get to them...at some point...if they're not mirages).
@@ -36,15 +35,11 @@ Besides, surely mapping the full breadth of user identity requires much more com
 
 ![[escher_honcho.png]]
 *[Escher](https://en.wikipedia.org/wiki/Hand_with_Reflecting_Sphere) gets it*
-
-## Matryoshka Representation
-
+# Matryoshka Representation
 So is representing user identity for LLM apps a problem of [computational irreducibility](https://en.wikipedia.org/wiki/Computational_irreducibility)--no shortcuts, full simulation required?
 
 We think not.
-
-### Social Simulacra
-
+## Social Simulacra
 Consider the social cognition and theory of mind involved in getting to know someone. At first, you have no idea who tf they are or how they'll behave. You're on high alert. You (basally or consciously) notice and interpret tons of data points, you'll likely have vivid memories of these early interactions.
 
 What's happening is your brain is constructing a model of the other person--a compressed representation. Early on, this model is pretty much the same as your model for people *like* them--a/s/l, how they look, how they dress: stereotypes. But the more data your brain gets, the more this model starts to diverge, a representational meiosis.
@@ -54,9 +49,7 @@ Pretty soon you've got a full fledged simulacra of that human living rent free i
 In a chicken and egg situation, you're now spending more time with this person. You start to notice divergence in your monolithic model. It further divides to capture and predict how they are when they're angry, sad, excited, drunk; at work, with family, with high school or college friends. In some of these *states*, they're a completely different person.
 
 Your mind is now host to a compression of the fleet of Theseus that constitutes the elements of their identity you've had first, second, third, -hand access to.
-
-### Meta-methods
-
+## Meta-methods
 > The second general point to be learned from [the bitter lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) is that the actual contents of minds are tremendously, irredeemably complex; we should stop trying to find simple ways to think about the contents of minds, such as simple ways to think about space, objects, multiple agents, or symmetries. All these are part of the arbitrary, intrinsically-complex, outside world. They are not what should be built in, as their complexity is endless; instead we should build in only the meta-methods that can find and capture this arbitrary complexity. Essential to these methods is that they can find good approximations, but the search for them should be by our methods, not by us. We want AI agents that can discover like we can, not which contain what we have discovered. Building in our discoveries only makes it harder to see how the discovering process can be done.[^1]
 
 Now let's consider the nested representation needed to construct LLMs, and its relationship to social cognition.
@@ -77,9 +70,7 @@ We can (and should) even allow our AI apps the agency to decide what elements of
 
 ![[honcho_shoggoth.png]]
 *We don't want one [shoggoth](https://x.com/TetraspaceWest/status/1625264347122466819?s=20) mask per app, or one per user, but as many as each human's identity is complex*
-
-## A DSPy Demo for Honcho
-
+# A DSPy Demo for Honcho
 Today we're releasing a demo to be used with Honcho that begins to tease out some technical, concrete approaches to all these heady concepts--first steps at imbuing our tools with the right meta-methods. 
 
 With enough message and session data stored with Honcho, we can start to learn and optimize for common states your users are in while using your app or agent. Is Alice in research mode? Is Bob looking for some companionship? Maybe today, Carol just wants to get shit done, or Charlie needs delicate treatment because he's pissed.
@@ -95,9 +86,7 @@ Given an arbitrary task, we define our metric as whether or not the response qua
 [Check it out here.](https://github.com/plastic-labs/honcho/tree/main/example/discord/honcho-dspy-personas)
 
 ![[dspy_persona_ttg.png]]
-
-### How Honcho Helps
-
+## How Honcho Helps
 One of the biggest problems we see in the AI space is the disconnect that exists between tasks as they're defined in a general machine learning sense versus tasks that humans _actually_ find useful. 
 
 ![[Machine learning is fixated on task performance#^0005ac]]
@@ -105,6 +94,5 @@ One of the biggest problems we see in the AI space is the disconnect that exists
 The reason is because language models generate responses by sampling from a distribution of how _any one person could_ respond, not _exactly how you would_ want them to.
 
 Honcho is laying the groundwork for this latter future. The solution here is to manage data on a per-user basis. The primitives we've designed in Honcho allow for persistent user context to be stored in a convenient `User` object that exists at an application level. Our goal with these data structures is to make it trivially easy to manage data in your application logic so you can spend more time figuring out how to excel at your task in both a general and personalized sense.
-
 
 [^1]: Sutton. ["The Bitter Lesson."](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) 2019.

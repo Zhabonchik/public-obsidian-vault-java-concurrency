@@ -1,8 +1,12 @@
 ---
 title: Humans like personalization
 date: 03.26.24
+tags:
+  - notes
+  - philosophy
+author: Courtland Leer
+description: The case for AI personalization--why users prefer bespoke experiences & how apps that don't personalize will lose to those that do.
 ---
-
 To us: it's obvious. But we get asked this a lot:
 
 > Why do I need to personalize my AI application?
