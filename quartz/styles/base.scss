@@ -41,18 +41,17 @@ ul,
 .katex,
 .math,
 .typst-doc,
-.typst-doc * {
+g[class~="typst-text"] {
   color: var(--darkgray);
   fill: var(--darkgray);
   overflow-wrap: break-word;
   text-wrap: pretty;
 }
 
-path.typst-shape {
-  // override
+path[class~="typst-shape"] {
   stroke: var(--darkgray);
-  fill: var(--lightgray);
 }
+
 
 .math {
   &.math-display {
