@@ -147,6 +147,28 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                   node.properties.loading = "lazy"
                 }
 
+                // Check if this is an img tag with width specification in alt text
+                if (node.tagName === "img" && typeof node.properties.alt === "string") {
+                  const altText = node.properties.alt as string
+
+                  // Check for Obsidian syntax: "alt text|300"
+                  const obsidianMatch = altText.match(/^(.+?)\|(\d+)$/)
+                  if (obsidianMatch) {
+                    const realAltText = obsidianMatch[1].trim()
+                    const width = obsidianMatch[2]
+                    node.properties.style = `width: ${width}px;`
+                    node.properties.alt = realAltText
+                  } else {
+                    // Check for numbers: "![300](image.jpg)"
+                    const numberMatch = altText.match(/^(\d+)$/)
+                    if (numberMatch) {
+                      const width = numberMatch[1]
+                      node.properties.style = `width: ${width}px;`
+                      node.properties.alt = "" // or should we keep the alt text the number?
+                    }
+                  }
+                }
+
                 if (!isAbsoluteUrl(node.properties.src, { httpOnly: false })) {
                   let dest = node.properties.src as RelativeURL
                   dest = node.properties.src = transformLink(
