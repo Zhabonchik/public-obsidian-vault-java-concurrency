@@ -6,15 +6,16 @@ tags:
   - dev
   - research
   - announcements
+  - ml
+author: Plastic Labs
+description: Join Plastic Labs for a summer internship in NYC--work on real AI products across full stack, machine learning, & platform engineering roles with immediate impact.
 ---
 > NYC, IRL
 # About the Role
-
 Plastic Labs is looking for talented young technologists aligned with our mission to join us for the summer. We want to curate an intellectually diverse cohort of interns to accelerate the team across full stack, machine learning, and platform engineering roles. 
 
 You'll get to work on real AI products with customers eager to use them. Impact is not only guaranteed, but mission critical. If you've been bored by school and are excited by the idea of working in-person in the fastest-paced city in America, hit us up.
 # About You
-
 - High cultural alignment with Plastic Labs' ethos
 - Availability to work IRL in NYC for the summer
 - Impulse for rapid learning & trying new tech at the edge

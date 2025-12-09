@@ -1,8 +1,14 @@
 ---
 title: LLMs excel at theory of mind because they read
 date: 02.20.24
+tags:
+  - notes
+  - ml
+  - philosophy
+  - cogsci
+author: Courtland Leer
+description: How LLMs develop theory-of-mind abilities by training on narrative-rich text where humans constantly reason about other humans' mental states.
 ---
-
 Large language models are [simulators](https://generative.ink/posts/simulators/). In predicting the next likely token, they are simulating how an abstracted “_any person”_ might continue the generation. The basis for this simulation is the aggregate compression of a massive corpus of human generated natural language from the internet. So, predicting humans is _literally_ their core function.
 
 In that corpus is our literature, our philosophy, our social media, our hard and social science--the knowledge graph of humanity, both in terms of discrete facts and messy human interaction. That last bit is important. The latent space of an LLM's pretraining is in large part a _narrative_ space. Narration chock full of humans reasoning about other humans--predicting what they will do next, what they might be thinking, how they might be feeling.

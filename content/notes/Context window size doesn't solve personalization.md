@@ -4,6 +4,8 @@ date: 05.11.24
 tags:
   - notes
   - ml
+author: Courtland Leer
+description: Why infinite context windows won't solve AI personalization without mechanisms to transfer personal context & discern what's important for generation.
 ---
 There are two reasons that ever increasing and even functionally infinite context windows won't by default solve personalization for AI apps/agents:
 
