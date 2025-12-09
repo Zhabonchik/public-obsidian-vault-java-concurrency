@@ -1,6 +1,6 @@
 ---
 title: "YouSim: Explore the Multiverse of Identity"
-date: 06.17.2024
+date: 06.17.24
 tags:
   - demos
   - honcho

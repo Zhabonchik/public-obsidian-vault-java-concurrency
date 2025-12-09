@@ -12,6 +12,19 @@ tags:
 author: Courtland Leer & Vince Trost
 description: Introducing Honcho, an open-source user context management framework for LLM applications that enables personalized, user-first AI experiences at scale.
 ---
+> [!custom] WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
+> This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
+> 
+> This is the [Honcho](https://honcho.dev) origin story--our first public announcement of the project. 
+> 
+> We first pitched it as "an open-source version of the OpenAI Assistants API" for managing AI app data on a per-user basis. The architecture described here has evolved into Honcho's current "[[Beyond the User-Assistant Paradigm; Introducing Peers|peer paradigm]]," which unifies users & AI agents as Peers & supports much more sophisticated memory, continual learning, & [[Memory as Reasoning|powerful reasoning]].
+> 
+> But this post also captures Honcho's founding vision: that the "missing piece of the stack" was user context, that LLMs are uniquely suited to get to know users in ways traditional software couldn't, & that personalization would be table stakes for AI apps.
+> 
+> If you want to understand where Honcho came from & why we built it, start here.
+> 
+> Enjoy.
+
 ![[missing_piece.png]]
 *The missing piece of the stack*
 # TL;DR
@@ -22,7 +35,7 @@ description: Introducing Honcho, an open-source user context management framewor
 As a team with with backgrounds in both machine learning and education, we found the prevailing narratives overestimating short-term capabilities and under-imagining longterm potential. Fundamentally, LLMs were and still are 1-to-many instructors. Yes, they herald the beginning of a revolution in personal access not to be discounted, but every student is still ultimately getting the same experience. And homogenized educational paradigms are by definition under-performant on an individual level. If we stop here, we're selling ourselves short.
 
 ![[zombie_tutor_prompt.jpg]]
-*A well intentioned but monstrously deterministic [tutor prompt](https://www.oneusefulthing.org/p/assigning-ai-seven-ways-of-using).* ^dfae31
+*A well-intentioned but monstrously deterministic [tutor prompt](https://www.oneusefulthing.org/p/assigning-ai-seven-ways-of-using).* ^dfae31
 
 Most EdTech projects we saw emerging actually made foundation models worse by adding gratuitous lobotomization and coercing deterministic behavior. The former stemmed from the typical misalignments plaguing EdTech, like the separation of user and payer. The latter seemed to originate with deep misunderstandings around what LLMs are and continues to translate to a huge missed opportunities.
 
@@ -33,7 +46,7 @@ So we set out to build a non-skeuomorphic, AI-native tutor that put users first.
 
 Our [[ARCHIVED; Open Sourcing Tutor-GPT|experimental tutor]], Bloom, [[ARCHIVED; Theory of Mind Is All You Need|was remarkably effective]]--for thousands of users during the 9 months we hosted it for free--precisely because we built [cognitive architectures](https://blog.langchain.dev/openais-bet-on-a-cognitive-architecture/) that mimic the theory-of-mind expertise of highly efficacious 1:1 instructors.
 # Context Failure Mode
-But we quickly ran up against a hard limitation. The failure mode we believe all vertical specific AI applications will eventually hit if they want to be sticky, paradigmatically different than their deterministic counterparts, and realize the latent potential. That's context, specifically user context--Bloom didn't know enough about each student.
+But we quickly ran up against a hard limitation. The failure mode we believe all vertical-specific AI applications will eventually hit if they want to be sticky, paradigmatically different than their deterministic counterparts, and realize the latent potential. That's context, specifically user context--Bloom didn't know enough about each student.
 
 We're consistently blown away by how many people don't realize large language models themselves are stateless. They don't remember shit about you. They're just translating context they're given into probable sequences of tokens. LLMs are like horoscope writers, good at crafting general statements that *feel* very personal. You would be too, if you'd ingested and compressed that much of the written human corpus.
 

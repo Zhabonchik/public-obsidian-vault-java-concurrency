@@ -10,6 +10,15 @@ tags:
 author: Courtland Leer, Vince Trost, & Vineeth Voruganti
 description: Announcing the Dialectic API--an LLM-native endpoint enabling agent-to-agent chat in natural language for dynamic user personalization.
 ---
+> [!custom] WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
+> This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
+> 
+> This post announced Honcho's Dialectic API--an LLM-native endpoint for just-in-time agent-to-agent context queries in natural language. This endpoint has since evolved into the much more powerful `.chat` method in Honcho today. The Dialectic API was ahead of its time, and its successor remains state-of-the-art.
+> 
+> Here we lay out the reasoning behind the development of this feature. We get into the case for natural language as a substrate for agent coordination, the argument that rigid API specs constrain what's now possible, & a vision of agents collaboratively reasoning about how to personalize UX--all thinking that's shaped everything we've built since.
+> 
+> Enjoy.
+
 ![[agent_dialectics.jpeg]]
 # TL;DR
 *Our [Dialectic API](https://docs.honcho.dev/guides/dialectic-endpoint) is an LLM-native way for your AI application to discuss user context with Honcho. It allows for direct LLM-to-LLM communication in natural language.*
@@ -40,7 +49,7 @@ In this way, Honcho becomes an self-improving oracle to the identity of each and
 
 Honcho responds to queries in the same format--natural language. Most simply, this is just a conversation between two agents, *collaboratively* reasoning about the best way to personalize UX. Agent-to-agent chat over users.
 
-In the coming weeks, we'll release a number of off the shelf options to plug into any cognitive architecture and demos to illustrate more custom utility. We expect to see (and are already seeing in [our private beta](https://plasticlabs.typeform.com/honchobeta)) lots of novel ways to prompt Honcho effectively.
+In the coming weeks, we'll release a number of off-the-shelf options to plug into any cognitive architecture and demos to illustrate more custom utility. We expect to see (and are already seeing in [our private beta](https://plasticlabs.typeform.com/honchobeta)) many novel ways to prompt Honcho effectively.
 ## Why We Built It
 Why is a dialectic API the right way to solve the problem of user context in LLM applications? 
 
@@ -95,7 +104,7 @@ As the commodification of inference and intelligence is coupled with growing gen
 
 This explosion of such agent micro-services, will have to include the evolution of systems for agent-agent communication and transaction. If agents are going to collaborate and get shit done for us, they need native ways to communicate. Beautifully, LLMs share with us and among themselves the universal interface of natural language.  
 
-We can leverage this substrate for agent coordination with more depth and nuance than fragile trad API design. Doubtless, categories of agents will find more efficient symbol structures for cooperation in specific, repetitive cases. But discourse in natural language remains always available as a rich foundational protocol. And as we've explored, it's the ideal starting place for transmitting insights about human identity.
+We can leverage this substrate for agent coordination with more depth and nuance than fragile trad API design. Doubtless, categories of agents will find more efficient symbol structures for cooperation in specific, repetitive cases. But discourse in natural language always remains available as a rich foundational protocol. And as we've explored, it's the ideal starting place for transmitting insights about human identity.
 
 This is just the start. Just like you can appendage memory and tools to an LLM, we can augment this substrate in a number of ways--from designing multi-party protocols, to enabling zero knowledge or confidential environments, or recording transactional data on blockchains or other types of public or private immutable ledgers.
 
@@ -104,8 +113,6 @@ That kind of richness puts us one step closer to the dream of a semantic web, on
 Honcho and agent dialectics can eliminate the principal-agent problem for this new economic paradigm, digitally extending human agency and identity further than ever before. 
 # Private Beta
 Our Dialectic API is now available in private beta.
-
-We're working closely with a diverse array of projects across many different verticals in various stages of development--from ideation to production.
 
 If you're excited build with a hosted version of Honcho and explore the ideas covered here, [sign-up for our waitlist](https://plasticlabs.typeform.com/honchobeta).
 

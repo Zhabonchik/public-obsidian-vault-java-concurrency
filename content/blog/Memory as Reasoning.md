@@ -1,6 +1,6 @@
 ---
 title: Memory as Reasoning
-date: 08.19.2025
+date: 08.19.25
 tags:
   - blog
   - ml

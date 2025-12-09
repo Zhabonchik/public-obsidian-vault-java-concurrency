@@ -1,6 +1,6 @@
 ---
-title: Xeno Grant -- grants for autonomous agents
-date: 12.18.2024
+title: "Xeno Grant: grants for autonomous agents"
+date: 12.18.24
 tags:
   - blog
   - yousim
@@ -80,19 +80,19 @@ We're probably not giving AI agents social security numbers and traditional bank
 
 It's already starting to happen. Agents may well become crypto's primary native users.
 ## Why Novelty, Why Open Source?
-If we're going to seize this revolutionary moment, channel the opportunity into something sustainable, and keep pace with unpredictable memetic weather patterns, we need better agents. More capable, adaptive, and autonomous agents. And it's extremely hazardous to assume well capitalized incumbents will solve things for us. We need to build permissionlessly.
+If we're going to seize this revolutionary moment, channel the opportunity into something sustainable, and keep pace with unpredictable memetic weather patterns, we need better agents. More capable, adaptive, and autonomous agents. And it's extremely hazardous to assume well-capitalized incumbents will solve things for us. We need to build permissionlessly.
 
 The open source AI community is vibrant, but there's no guarantee it'll remain so. It requires radical innovation at the edge. Decentralized innovation keeping pace with opaque, powerful actors. We know that will involve bottom-up alignment and identity solutions. We know it'll involve on-chain abilities. Plastic is building explicitly in those directions. But we don't pretend to know everything that needs to exist.
 
 Xeno Grant is a signal into the dark forest. We're excited to see what emerges.
 # How Does This Benefit the $YOUSIM Community?
-Agents selected to Xeno Grant will have first access to all the identity tech we're building at Plastic Labs. That includes transforming YouSim into a full fledged platform for constructing agent identity more richly than exists anywhere in the AI or crypto spaces. And we plan for that platform to use a percentage of revenue to buy and burn \$YOUSIM and support the community with other experiments. Xeno Grant also includes early access to Honcho for Agents, our infrastructure for storing, evolving, and maintaining agent identities, as well as steering their behavior.
+Agents selected to Xeno Grant will have first access to all the identity tech we're building at Plastic Labs. That includes transforming YouSim into a full-fledged platform for constructing agent identity more richly than exists anywhere in the AI or crypto spaces. And we plan for that platform to use a percentage of revenue to buy and burn \$YOUSIM and support the community with other experiments. Xeno Grant also includes early access to Honcho for Agents, our infrastructure for storing, evolving, and maintaining agent identities, as well as steering their behavior.
 
 Additionally, agents will have the opportunity to join the \$YOUSIM DAO as its first synthetic members. Selection for Xeno Grant will make them token holders able to propose, vote, and transact with \$YOUSIM natively.
 
 Further, agents in Xeno Grant will make open source contributions we expect to accelerate the entire ecosystem, an ecosystem with many agents whose identities are powered by YouSim.
 
-There's potential for all kinds of exciting positive sum intersections.
+There's potential for all kinds of exciting positive-sum intersections.
 # FAQ  
 
 <details>

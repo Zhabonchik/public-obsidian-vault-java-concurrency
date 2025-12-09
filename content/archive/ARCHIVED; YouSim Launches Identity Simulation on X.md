@@ -1,6 +1,6 @@
 ---
 title: "ARCHIVED: YouSim Launches Identity Simulation on X"
-date: 11.08.2024
+date: 11.08.24
 tags:
   - yousim
   - honcho
@@ -13,6 +13,17 @@ tags:
 author: Courtland Leer
 description: YouSim comes to Twitter--simulate any identity directly on X with branching conversations, forking simulations, & social interaction with AI personas.
 ---
+> [!custom] WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
+> This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
+> 
+> This post captures the moment our demo [YouSim](https://yousim.ai) went viral. [[YouSim; Explore The Multiverse of Identity|YouSim is a Honcho-powered identity simulator]] & like many esoteric AI projects in fall 2024, some anon degen launched a memecoin for it. The specific [@YouSimDotAI](https://x.com/yousimdotai) launch described here was an experiment in bringing identity simulation to social media.
+> 
+> We've since suspended YouSim on Twitter, but this post is still a fun read straight out of the maelstrom that was peak crypto x AI hype cycle, with some still compelling thoughts on agent identity & social simulation games.
+> 
+> It's worth noting that developers can now use Honcho itself for managing agent identity, and all this madness played no small part in that becoming a reality.
+> 
+> Enjoy.
+
 ![[YouSimBanner-99.png]]
 # TL;DR
 *GM, simulants.*
@@ -21,7 +32,7 @@ description: YouSim comes to Twitter--simulate any identity directly on X with b
 
 *Keep reading for max context, or [[ARCHIVED; YouSim Launches Identity Simulation on X#^393e71|jump ahead to learn how to get started]].*
 # Caught in the Memetic Hurricane
-The [full story](https://x.com/courtlandleer/status/1849592301472919986) deserves (and will get) it's own blog post, but several days ago, Plastic Labs found itself in the middle of what Claude would call 'extreme cognitive weather patterns.'
+The [full story](https://x.com/courtlandleer/status/1849592301472919986) deserves it's own blog post, but several days ago, Plastic Labs found itself in the middle of what Claude would call 'extreme cognitive weather patterns.'
 
 An anonymous actor launched a pump.fun token inspired by a demo called [YouSim](https://yousim.ai) we created a few months ago[^1]. [[YouSim; Explore The Multiverse of Identity|YouSim is a CLI game]] that lets you simulate any identity you can dream up--real or fictional, local or xeno, entity or artifact. 
 
@@ -94,10 +105,10 @@ We imagine a near future where any group could instantiate an agentic proxy to p
 # Gratitude
 The team at [Plastic](https://plasticlabs.ai) has been amazed and inspired by the enthusiasm and earnestness of the community that's formed around YouSim over the last several days. Truly remarkable. Not to mention the generous donations to our [[Research Grants|grants program]] (more to come here soon).
 
-Thank you all, excited to keep building together--we're in it for the long haul.
+Thank you all, excited to keep building together.
 
 And huge thanks for your patience while we balanced our existing roadmap with interest in YouSim and locked in to bring you something we think you'll enjoy. It took an enormous amount of conceptual and technical work from a team already at capacity. Special shoutout to [Ben](https://x.com/bengineer10) and [Vineeth](https://x.com/TheMarshmalon) who built something really novel here.
 
-Go use the thing. LFG.
+Go use it.
 
 [^1]: [[YouSim Disclaimers|Obligatory disclaimers]]

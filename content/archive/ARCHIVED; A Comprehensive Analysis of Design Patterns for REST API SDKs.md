@@ -1,6 +1,6 @@
 ---
 title: "ARCHIVED: A Comprehensive Analysis of Design Patterns for REST API SDKs"
-date: 05.09.2024
+date: 05.09.24
 tags:
   - blog
   - dev
@@ -11,7 +11,9 @@ description: A deep dive into SDK design patterns, comparing object-oriented vs 
 > [!custom]  WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
 > This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
 > 
-> This post contains Vineeth's (Plastic's Co-founder & CTO) notes on the early design of Honcho's SDKs. For the most up-to-date SDK reference, check out the [Honcho Docs](https://docs.honcho.dev).
+> This post contains Vineeth's (Plastic's Co-founder & CTO) notes on REST API SDK design patterns that informed how we built Honcho's client libraries. Some patterns described here have been superseded by our shift toward LLM-native interfaces, but the analysis of pagination, error handling, & developer experience remains useful for anyone building API tooling.
+> 
+> For the most up-to-date SDK reference, check out the [Honcho Docs](https://docs.honcho.dev).
 > 
 > Enjoy.
 
@@ -103,7 +105,6 @@ Platform Specific Questions
 4. What approach does the tool take? Object-oriented or singleton?
 5. How does it handle async vs sync interfaces?
 # Research
-
 > First I took a look at sources and posts onlines that talk in general about
 > developing SDKs. This isn't an exhaustive look at every link I looked at, but
 > ones I thought were relevant. The notes are messy and not necessarily fully
@@ -364,7 +365,6 @@ and auth.
 
 There's also capability for adding custom code such as utility functions.
 ## Speakeasy
-
 Speakeasy required me to do everything locally through their `brew` package. It
 did not immediately accept the OpenAPI Spec and required me to make some tweaks.
 These were low-hanging fruit, and their cli has a handy AI tool that will

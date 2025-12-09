@@ -1,6 +1,6 @@
 ---
 title: "ARCHIVED: User State is State of the Art"
-date: 02.23.2024
+date: 02.23.24
 tags:
   - blog
   - philosophy
@@ -10,6 +10,14 @@ tags:
 author: Courtland Leer & Vince Trost
 description: Why modeling the complexity & plasticity of human identity is key to AI personalization, with a DSPy demo for learning user states with Honcho.
 ---
+> [!custom]  WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
+> This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
+> 
+> This post explores early experiments modeling user state with DSPy & [Honcho](https://honcho.dev). The specific demo & technical approach described here have been superseded by Honcho's current architecture, which now uses a unified [[Beyond the User-Assistant Paradigm; Introducing Peers|"peer" paradigm]] & far more [[Memory as Reasoning|sophisticated reasoning]].
+>
+> But the philosophical positioning in this post more relevant than ever. Human identity is messy, plastic, & context-dependent. We still argue that AI systems should embrace this complexity rather than flatten it, continually learning evolving representations of personal identity.
+> 
+> Enjoy.
 # TL;DR
 *LLM apps can embrace the complexity and plasticity of human identity to deliver unparalleled personalization.*
 
@@ -21,7 +29,7 @@ A key feature of our minds is the feeling of a persistent, unitary identity. Ent
 
 As they all point out, identity is *way* more complicated than you think.
 
-While we perceive psychological continuity across contexts and time, closer inspection reveals a network of branching and diachronic identities. We adopt varied personas and play different characters in diverse settings, and we refine, optimize, and evolve that quiver of selves throughout our lives. ^5bc20b
+While we perceive psychological continuity across contexts and time, closer inspection reveals a network of branching and [[Identity is diachronic|diachronic identities]]. We adopt varied personas and play different characters in diverse settings, and we refine, optimize, and evolve that quiver of selves throughout our lives. ^5bc20b
 
 In short, it's messy. Or, rather, elegant emergent complexity. 
 

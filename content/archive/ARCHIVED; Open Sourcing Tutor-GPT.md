@@ -1,6 +1,6 @@
 ---
 title: "ARCHIVED: Open-Sourcing Tutor-GPT"
-date: 06.02.2023
+date: 06.02.23
 tags:
   - blog
   - bloom
@@ -14,7 +14,7 @@ description: Open-sourcing Bloom, our AI learning companion that uses metacognit
 > [!custom]  WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
 > This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
 > 
-> This post concerns Bloom, our [Honcho](https://honcho.dev)-powered AI-tutor. We've suspended Bloom for now to focus exclusively on Honcho. 
+> This post concerns Bloom, our [Honcho](https://honcho.dev)-powered AI-tutor. We've suspended Bloom to focus exclusively on Honcho. 
 > 
 > Plastic started as an EdTech company, with Bloom as its main product. In building a popular, first-of-its-kind personalized AI tutor, we realized three things (1) all agents will soon need continuous learning systems to understand their users, (2) this an extremely hard problem that every developer shouldn't have to redundantly solve, & (3) we were uniquely positioned to solve it. 
 > 

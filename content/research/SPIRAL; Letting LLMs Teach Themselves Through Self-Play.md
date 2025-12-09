@@ -1,6 +1,6 @@
 ---
 title: "SPIRAL: Letting LLMs Teach Themselves Through Self-Play"
-date: 08.15.24
+date: 08.15.25
 tags:
   - research
   - ml

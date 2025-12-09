@@ -1,6 +1,6 @@
 ---
 title: "ARCHIVED: Solving The Campfire Problem with Honcho"
-date: 03.14.2024
+date: 03.14.24
 tags:
   - demos
   - philosophy
@@ -10,6 +10,15 @@ tags:
 author: Courtland Leer & Vince Trost
 description: How Honcho's dialectic API powers a 'curation buddy' demo that learns about you over time to become a personalized intellectual companion.
 ---
+> [!custom] WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
+> This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
+> 
+> This post introduced our "Curation Buddy" demo--a Discord bot that used [[ARCHIVED; Introducing Honcho's Dialectic API|Honcho's Dialectic API]] (now just the `.chat` method) to become a personalized reading companion. The technical implementation details (specific API calls, architecture diagrams) reflect an earlier version of Honcho that's since evolved substantially.
+> 
+> But the philosophical reflection on the atomization of media consumption leaving many in lonely intellectual silos & few shared narratives remains an open problem. We argued that AI companions--powered by rich user context & infra like Honcho--could help rebuild those campfires.
+> 
+> Enjoy.
+
 ![[agent_campfire.webp]]
 # TL;DR
 *Today we're releasing the first demo utilizing Honcho's dialectic API.[^1] Your LLM app/agent can now converse freely with [Honcho](https://honcho.dev)(-as-agent) about a user in natural language: agent-to-agent chat over user context.*
@@ -24,7 +33,7 @@ It's a constant problem, you're dying to talk to someone about this mind-blowing
 
 Enter *Curation Buddy*.
 ## Overview
-Curation Buddy is an LLM application. It's a Discord bot you can chat with. Share links to any text based media and have substantive conversation.
+Curation Buddy is an LLM application. It's a Discord bot you can chat with. Share links to any text-based media and have substantive conversation.
 
 It uses Honcho to personalize the UX. As you converse, Honcho learns about you. It reasons about the links and conversation to uncover insight into your knowledge, interests, beliefs, desires, [[ARCHIVED; User State is State of the Art|state]], etc. 
 
@@ -94,7 +103,7 @@ Generative AI poses more cause for concern. Zero-marginal cost info *generation*
 
 ![[Media-Filled Cityscape Scene.webp]]
 
-There's a solution hidden in the latest irritant. It's not just media I can generate on demand, but soon *agents*.  Agents that can get to know me, agents that can curate for me, agents that can be my intellectual companion. 
+There's a solution hidden in the latest irritant. It's not just media I can generate on demand, but soon *agents*. Agents that can get to know me, agents that can curate for me, agents that can be my intellectual companion. 
 
 Now your sense-making silo can be populated with good synthetic neighbors able to help you understand the world, build narratives, make meaning. 
 

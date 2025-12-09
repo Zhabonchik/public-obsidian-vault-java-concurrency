@@ -1,7 +1,7 @@
 ---
 title: Introducing Neuromancer XR
 subtitle: Our Reasoning Model for State-Of-The-Art Memory
-date: 08.18.2025
+date: 08.18.25
 tags:
   - research
   - ml

@@ -1,6 +1,6 @@
 ---
 title: "Beyond the User-Assistant Paradigm: Introducing Peers"
-date: 08.18.2025
+date: 08.18.25
 tags:
   - blog
   - dev

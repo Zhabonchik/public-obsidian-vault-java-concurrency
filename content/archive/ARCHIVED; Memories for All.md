@@ -11,6 +11,14 @@ tags:
 author: Courtland Leer
 description: An open-source reimplementation of OpenAI's memory features using Honcho, enabling any AI app to derive & store personal context about users.
 ---
+> [!custom] WELCOME TO THE PLASTIC [[archive|ARCHIVE]]
+> This blog post has been archived because it's legacy content that's out-of-date or deprecated. We keep this content around so those interested can dig into the evolution of our projects & thinking.
+> 
+> This post was our response to OpenAI announcing "memory" in ChatGPT--we built an open-source reimplementation using [Honcho](https://honcho.dev) to show anyone could add superior user memory to their apps. The specific LangChain patterns & code examples here are far outdated; Honcho is much more powerful & the architecture has matured significantly (dig in to that [here](https://docs.honcho.dev), [[Beyond the User-Assistant Paradigm; Introducing Peers|here]], & [[Memory as Reasoning|here]]).
+> 
+> A key prediction discussed here turned out to be remarkable prescient: walled gardens will seek to lock user context inside their ecosystems, leaving independent developers & privacy-conscious users out in the cold. And we argued for generative personalization--letting LLMs autonomously decide what matters about users rather than rigidly prescribing it--another Plastic thesis that's winning out.
+> 
+> Enjoy.
 # TL;DR
 *Personalization is the next frontier. OpenAI gets it:*
 
@@ -88,7 +96,6 @@ There's a ton we plan to unpack and implement there, but the key insight we're h
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PbuzqCdY0hg?si=9Ylj3XfY5TF_Jrr3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
 
 (*If you want to go deeper into the research, [this webinar we did with LangChain](https://www.youtube.com/watch?v=PbuzqCdY0hg&list=PLuFHBYNxPuzrkVP88FxYH1k7ZL5s7WTC8) is a great place to start, as is [the "Violation of Expectations" chain they implemented](https://js.langchain.com/docs/use_cases/agent_simulations/violation_of_expectations_chain)*)
-
 
 This release allows you to experiment with several ideas. We feed messages into an inference asking the model to derive facts about the user, we store those insights for later use, then we ask the model to retrieve this context to augment some later generation.
 
