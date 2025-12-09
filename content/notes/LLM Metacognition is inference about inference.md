@@ -1,8 +1,12 @@
 ---
 title: LLM Metacognition is inference about inference
 date: 03.26.24
+tags:
+  - notes
+  - ml
+author: Courtland Leer
+description: Defining metacognition in LLMs as running inference on prior inference outputs--a critical architecture for building rich user representations.
 ---
-
 For wetware, metacognition is typically defined as ‘thinking about thinking’ or often a catch-all for any ‘higher-level’ cognition.
 
 (In some more specific domains, it's an introspective process, focused on thinking about exclusively _your own_ thinking or a suite of personal learning strategies...all valid within their purview, but too constrained for our purposes.)
