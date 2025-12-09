@@ -1,13 +1,40 @@
-import { FullSlug, resolveRelative } from "../util/path"
+import { FullSlug, isFolderPath, resolveRelative } from "../util/path"
 import { QuartzPluginData } from "../plugins/vfile"
 import { Date, getDate } from "./Date"
 import { QuartzComponent, QuartzComponentProps } from "./types"
 import { GlobalConfiguration } from "../cfg"
 
-export function byDateAndAlphabetical(
-  cfg: GlobalConfiguration,
-): (f1: QuartzPluginData, f2: QuartzPluginData) => number {
+export type SortFn = (f1: QuartzPluginData, f2: QuartzPluginData) => number
+
+export function byDateAndAlphabetical(cfg: GlobalConfiguration): SortFn {
   return (f1, f2) => {
+    // Sort by date/alphabetical
+    if (f1.dates && f2.dates) {
+      // sort descending
+      return getDate(cfg, f2)!.getTime() - getDate(cfg, f1)!.getTime()
+    } else if (f1.dates && !f2.dates) {
+      // prioritize files with dates
+      return -1
+    } else if (!f1.dates && f2.dates) {
+      return 1
+    }
+
+    // otherwise, sort lexographically by title
+    const f1Title = f1.frontmatter?.title.toLowerCase() ?? ""
+    const f2Title = f2.frontmatter?.title.toLowerCase() ?? ""
+    return f1Title.localeCompare(f2Title)
+  }
+}
+
+export function byDateAndAlphabeticalFolderFirst(cfg: GlobalConfiguration): SortFn {
+  return (f1, f2) => {
+    // Sort folders first
+    const f1IsFolder = isFolderPath(f1.slug ?? "")
+    const f2IsFolder = isFolderPath(f2.slug ?? "")
+    if (f1IsFolder && !f2IsFolder) return -1
+    if (!f1IsFolder && f2IsFolder) return 1
+
+    // If both are folders or both are files, sort by date/alphabetical
     if (f1.dates && f2.dates) {
       // sort descending
       return getDate(cfg, f2)!.getTime() - getDate(cfg, f1)!.getTime()
@@ -27,10 +54,12 @@ export function byDateAndAlphabetical(
 
 type Props = {
   limit?: number
+  sort?: SortFn
 } & QuartzComponentProps
 
-export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit }: Props) => {
-  let list = allFiles.sort(byDateAndAlphabetical(cfg))
+export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
+  const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
+  let list = allFiles.sort(sorter)
   if (limit) {
     list = list.slice(0, limit)
   }
@@ -40,23 +69,33 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit }: Pr
       {list.map((page) => {
         const title = page.frontmatter?.title
         const tags = page.frontmatter?.tags ?? []
-        const tagsStr = JSON.stringify(tags)
-        const href = resolveRelative(fileData.slug!, page.slug!)
 
         return (
-          <li class="section-li" data-tags={tagsStr}>
-            <a href={href} class="section-link">
-              <div class="section">
-                {page.dates && (
-                  <p class="meta">
-                    <Date date={getDate(cfg, page)!} locale={cfg.locale} />
-                  </p>
-                )}
-                <div class="desc">
-                  <h3>{title}</h3>
-                </div>
+          <li class="section-li">
+            <div class="section">
+              <p class="meta">
+                {page.dates && <Date date={getDate(cfg, page)!} locale={cfg.locale} />}
+              </p>
+              <div class="desc">
+                <h3>
+                  <a href={resolveRelative(fileData.slug!, page.slug!)} class="internal">
+                    {title}
+                  </a>
+                </h3>
               </div>
-            </a>
+              <ul class="tags">
+                {tags.map((tag) => (
+                  <li>
+                    <a
+                      class="internal tag-link"
+                      href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
+                    >
+                      {tag}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </li>
         )
       })}
@@ -66,6 +105,10 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit }: Pr
 
 PageList.css = `
 .section h3 {
+  margin: 0;
+}
+
+.section > .tags {
   margin: 0;
 }
 `
