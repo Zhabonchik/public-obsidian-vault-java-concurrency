@@ -5,7 +5,8 @@ const svgCheck =
 
 async function copyPageMarkdown(slug: string): Promise<boolean> {
   try {
-    const llmsUrl = `/${slug}/llms.txt`
+    // Use full blog content for home page, individual page content otherwise
+    const llmsUrl = slug === "index" ? `/llms-full.txt` : `/${slug}/llms.txt`
     const response = await fetch(llmsUrl)
     if (!response.ok) {
       console.error("Failed to fetch markdown:", response.statusText)
@@ -21,7 +22,9 @@ async function copyPageMarkdown(slug: string): Promise<boolean> {
 }
 
 function getLlmsUrl(slug: string): string {
-  return `${window.location.origin}/${slug}/llms.txt`
+  // Use full blog content for home page, individual page content otherwise
+  const path = slug === "index" ? `/llms-full.txt` : `/${slug}/llms.txt`
+  return `${window.location.origin}${path}`
 }
 
 document.addEventListener("nav", () => {
@@ -72,12 +75,15 @@ document.addEventListener("nav", () => {
       e.stopPropagation()
       const success = await copyPageMarkdown(slug)
       if (success && textSpan && iconSpan) {
+        const isHomePage = slug === "index"
+        const originalText = isHomePage ? "Copy all blog content" : "Copy page"
+
         textSpan.textContent = "Copied!"
         iconSpan.outerHTML = svgCheck
         dropdown!.classList.remove("show")
 
         setTimeout(() => {
-          textSpan.textContent = "Copy page"
+          textSpan.textContent = originalText
           const newIcon = mainButton!.querySelector("svg:first-child")
           if (newIcon) {
             newIcon.outerHTML = svgCopy

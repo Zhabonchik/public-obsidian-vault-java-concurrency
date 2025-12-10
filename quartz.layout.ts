@@ -27,10 +27,7 @@ export const defaultContentPageLayout: PageLayout = {
       components: [
         { Component: Component.ArticleTitle(), grow: true, align: "start" },
         {
-          Component: Component.ConditionalRender({
-            component: Component.CopyPageMarkdown(),
-            condition: (page) => page.fileData.slug !== "index",
-          }),
+          Component: Component.CopyPageMarkdown(),
           align: "start",
         },
       ],
