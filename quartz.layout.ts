@@ -23,7 +23,18 @@ export const defaultContentPageLayout: PageLayout = {
       component: Component.Breadcrumbs(),
       condition: (page) => page.fileData.slug !== "index",
     }),
-    Component.ArticleTitle(),
+    Component.Flex({
+      components: [
+        { Component: Component.ArticleTitle(), grow: true, align: "start" },
+        {
+          Component: Component.ConditionalRender({
+            component: Component.CopyPageMarkdown(),
+            condition: (page) => page.fileData.slug !== "index",
+          }),
+          align: "start",
+        },
+      ],
+    }),
     Component.ArticleSubtitle(),
     Component.ContentMeta(),
     Component.TagList(),
