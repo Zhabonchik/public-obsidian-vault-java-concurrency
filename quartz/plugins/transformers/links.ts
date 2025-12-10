@@ -22,7 +22,10 @@ interface Options {
   openLinksInNewTab: boolean
   lazyLoad: boolean
   externalLinkIcon: boolean
+  /** Show favicon for external links (fetched from local cache or Google during build). Defaults to false. */
   showLinkFavicon: boolean
+  /** Fetch and cache external link favicons during build time. Defaults to false. */
+  cacheLinkFavicons: boolean
 }
 
 const defaultOptions: Options = {
@@ -32,6 +35,24 @@ const defaultOptions: Options = {
   lazyLoad: false,
   externalLinkIcon: true,
   showLinkFavicon: false,
+  cacheLinkFavicons: false,
+}
+
+const _faviconCache: Map<string, string | "ERROR"> = new Map()
+
+/**
+ * Get cached favicon URL for a domain, or return the Google Favicon API URL.
+ * Results are cached to ensure each unique domain is only fetched once per build.
+ */
+function getFaviconUrl(domain: string): string | null {
+  if (_faviconCache.has(domain)) {
+    const cached = _faviconCache.get(domain)
+    return cached === "ERROR" ? null : cached!
+  }
+
+  const faviconUrl = `https://s2.googleusercontent.com/s2/favicons?domain_url=${domain}`
+  _faviconCache.set(domain, faviconUrl)
+  return faviconUrl
 }
 
 export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
@@ -41,7 +62,7 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
     htmlPlugins(ctx) {
       return [
         () => {
-          return (tree: Root, file) => {
+          return (tree: Root, file: any) => {
             const curSlug = simplifySlug(file.data.slug!)
             const outgoing: Set<SimpleSlug> = new Set()
 
@@ -88,17 +109,21 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                 if (isExternal && opts.showLinkFavicon) {
                   const domain = new URL(node.properties.href).hostname
                   if (domain) {
-                    node.children.unshift({
-                      type: "element",
-                      tagName: "img",
-                      properties: {
-                        src: `https://s2.googleusercontent.com/s2/favicons?domain_url=${domain}`,
-                        alt: "",
-                        style:
-                          "width: 1em; height: auto; margin-left: 4px; margin-right: 4px; vertical-align: middle;",
-                      },
-                      children: [],
-                    })
+                    const faviconUrl = getFaviconUrl(domain)
+                    if (faviconUrl) {
+                      node.children.unshift({
+                        type: "element",
+                        tagName: "img",
+                        properties: {
+                          src: faviconUrl,
+                          alt: "",
+                          loading: "lazy",
+                          style:
+                            "width: 1em; height: auto; margin-left: 4px; margin-right: 4px; vertical-align: middle;",
+                        },
+                        children: [],
+                      })
+                    }
                   }
                 }
 

@@ -20,6 +20,10 @@ This plugin accepts the following configuration options:
 - `lazyLoad`: If `true`, adds lazy loading to resource elements (`img`, `video`, etc.) to improve page load performance. Defaults to `false`.
 - `externalLinkIcon`: Adds an icon next to external links when `true` (default) to visually distinguishing them from internal links.
 - `showLinkFavicon`: If `true`, displays the favicon of external websites before each external link, making it easier to visually identify the source of the link. Defaults to `false`.
+  - **Note:** This feature is **disabled by default**. Favicons are fetched from Google's favicon service.
+  - **Caching:** Favicons are cached in memory during the build process. Each unique domain is fetched only once, even if there are multiple links to that domain. This prevents excessive API calls and rate limiting issues.
+- `cacheLinkFavicons`: If `true`, preemptively fetches and caches external link favicons during the build process. This ensures favicons are available immediately on page load without additional runtime requests. Defaults to `false`.
+  - **Use case:** Enable this option if you want to avoid any runtime favicon requests and ensure all favicons are cached during build time.
 
 > [!warning]
 > Removing this plugin is _not_ recommended and will likely break the page.
