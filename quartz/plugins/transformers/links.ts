@@ -40,10 +40,6 @@ const defaultOptions: Options = {
 
 const _faviconCache: Map<string, string | "ERROR"> = new Map()
 
-/**
- * Get cached favicon URL for a domain, or return the Google Favicon API URL.
- * Results are cached to ensure each unique domain is only fetched once per build.
- */
 function getFaviconUrl(domain: string): string | null {
   if (_faviconCache.has(domain)) {
     const cached = _faviconCache.get(domain)
@@ -65,6 +61,7 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
           return (tree: Root, file: any) => {
             const curSlug = simplifySlug(file.data.slug!)
             const outgoing: Set<SimpleSlug> = new Set()
+            const externalDomains: Set<string> = new Set()
 
             const transformOptions: TransformOptions = {
               strategy: opts.markdownLinkResolution,
@@ -109,7 +106,14 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                 if (isExternal && opts.showLinkFavicon) {
                   const domain = new URL(node.properties.href).hostname
                   if (domain) {
-                    const faviconUrl = getFaviconUrl(domain)
+                    // Track this domain for favicon caching if enabled
+                    externalDomains.add(domain)
+
+                    // Determine favicon URL based on caching option
+                    const faviconUrl = opts.cacheLinkFavicons
+                      ? `/static/externalFavicons/${domain}.ico` // Use locally cached favicon
+                      : getFaviconUrl(domain) // Use Google Favicon API
+
                     if (faviconUrl) {
                       node.children.unshift({
                         type: "element",
@@ -204,6 +208,7 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
             })
 
             file.data.links = [...outgoing]
+            file.data.externalDomains = [...externalDomains]
           }
         },
       ]
@@ -214,5 +219,6 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
 declare module "vfile" {
   interface DataMap {
     links: SimpleSlug[]
+    externalDomains: string[]
   }
 }
