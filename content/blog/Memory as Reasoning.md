@@ -12,7 +12,7 @@ description: Why AI memory should be treated as a dynamic reasoning task rather 
 *Memory in agentic systems has historically focused on static storage, but we propose treating it as a dynamic reasoning task. Humans evolved to leverage prediction & surprisal-based reasoning systems to deal with resource constraints. LLMs and agents, however, don’t have these limitations, so we make the argument for logical reasoning as a trainable task to produce memory models that exceed human performance on several axes. Scaffolding reasoning traces using this approach allows us to get more out of user and agent data and form more useful representations of personal identity. This piece is a more exhaustive treatment of our [recent talk](https://x.com/vintrotweets/status/1950945331178336468) below.*
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/uCeRCJ6zot4?si=KViHYtiZTG_ALv4X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-# Memory is ~~Storage~~ Prediction
+# Memory is ~~Storage~~ Prediction  
 Most of the discourse around memory in agentic systems focuses on storage. That's probably because historically in deterministic software systems, we think about data as composed of discrete information that needs to be preserved with as much fidelity as possible for verbatim retrieval to achieve predictable outcomes.
 
 Common storage solutions include, but are not limited to, the following:
