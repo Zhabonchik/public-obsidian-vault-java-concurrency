@@ -124,12 +124,25 @@ button.desktop-explorer {
       color: var(--dark);
       opacity: 0.75;
       pointer-events: all;
+      transition: color 0.15s ease, opacity 0.15s ease;
+
+      &:hover {
+        opacity: 1;
+        color: var(--tertiary);
+      }
 
       &.active {
         opacity: 1;
         color: var(--tertiary);
       }
     }
+  }
+
+  // Add bullet points to file items (articles) inside folders
+  .folder-outer > ul > li:not(:has(.folder-container)) > a::before {
+    content: "•";
+    margin-right: 6px;
+    color: var(--gray);
   }
 
   .folder-outer {

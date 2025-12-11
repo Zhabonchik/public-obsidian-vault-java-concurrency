@@ -51,32 +51,24 @@ export const defaultContentPageLayout: PageLayout = {
     }),
     Component.Explorer({
       sortFn: (a, b) => {
-        // Sort folders first, then files by date (newest first)
+        const folderOrder = ["blog", "notes", "research", "careers", "archive"]
+
         if (a.isFolder && b.isFolder) {
-          // Both folders: alphabetical
-          return a.displayName.localeCompare(b.displayName, undefined, {
-            numeric: true,
-            sensitivity: "base",
-          })
+          const aIndex = folderOrder.indexOf(a.displayName.toLowerCase())
+          const bIndex = folderOrder.indexOf(b.displayName.toLowerCase())
+          if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex
+          if (aIndex !== -1) return -1
+          if (bIndex !== -1) return 1
+          return a.displayName.localeCompare(b.displayName)
         }
 
-        if (a.isFolder) return -1  // Folders before files
-        if (b.isFolder) return 1   // Folders before files
+        if (a.isFolder) return -1
+        if (b.isFolder) return 1
 
-        // Both files: sort by date descending (newest first)
-        // Note: dates come from JSON as strings, need to convert to Date objects
+        // Files: sort by date (newest first)
         const aDate = a.data?.date ? new Date(a.data.date).getTime() : 0
         const bDate = b.data?.date ? new Date(b.data.date).getTime() : 0
-
-        if (aDate !== bDate) {
-          return bDate - aDate  // Descending order (newest first)
-        }
-
-        // Same date or no dates: alphabetical fallback
-        return a.displayName.localeCompare(b.displayName, undefined, {
-          numeric: true,
-          sensitivity: "base",
-        })
+        return bDate - aDate || a.displayName.localeCompare(b.displayName)
       },
     }),
   ],
@@ -121,32 +113,24 @@ export const defaultListPageLayout: PageLayout = {
     }),
     Component.Explorer({
       sortFn: (a, b) => {
-        // Sort folders first, then files by date (newest first)
+        const folderOrder = ["blog", "notes", "research", "careers", "archive"]
+
         if (a.isFolder && b.isFolder) {
-          // Both folders: alphabetical
-          return a.displayName.localeCompare(b.displayName, undefined, {
-            numeric: true,
-            sensitivity: "base",
-          })
+          const aIndex = folderOrder.indexOf(a.displayName.toLowerCase())
+          const bIndex = folderOrder.indexOf(b.displayName.toLowerCase())
+          if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex
+          if (aIndex !== -1) return -1
+          if (bIndex !== -1) return 1
+          return a.displayName.localeCompare(b.displayName)
         }
 
-        if (a.isFolder) return -1  // Folders before files
-        if (b.isFolder) return 1   // Folders before files
+        if (a.isFolder) return -1
+        if (b.isFolder) return 1
 
-        // Both files: sort by date descending (newest first)
-        // Note: dates come from JSON as strings, need to convert to Date objects
+        // Files: sort by date (newest first)
         const aDate = a.data?.date ? new Date(a.data.date).getTime() : 0
         const bDate = b.data?.date ? new Date(b.data.date).getTime() : 0
-
-        if (aDate !== bDate) {
-          return bDate - aDate  // Descending order (newest first)
-        }
-
-        // Same date or no dates: alphabetical fallback
-        return a.displayName.localeCompare(b.displayName, undefined, {
-          numeric: true,
-          sensitivity: "base",
-        })
+        return bDate - aDate || a.displayName.localeCompare(b.displayName)
       },
     }),
   ],
