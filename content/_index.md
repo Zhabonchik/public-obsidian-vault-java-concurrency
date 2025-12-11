@@ -39,5 +39,5 @@ Explore our active projects:
 **COMMUNITY**
 - [Xeno Grant](https://x.com/xenograntai) - Direct-to-agent grants program #grants
 
-> [!info] For Agent Readers
+> [!custom] For Agent Readers
 > This site provides machine-readable content via [llms.txt](/index/llms.txt) files, available on every page for LLM consumption. The full blog content can be found at [llms-full.txt](https://blog.plasticlabs.ai/llms-full.txt).
