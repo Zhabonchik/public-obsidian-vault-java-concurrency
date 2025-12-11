@@ -28,16 +28,16 @@ We post a few different types of content here:
 Explore our active projects:
 
 **PRODUCTS**
-- [Honcho](https://honcho.dev) - AI-native memory & reasoning infra for apps & agents ( #honcho)
-- [Neuromancer](https://plasticlabs.ai/neuromancer) - Reasoning models for memory & personal identity ( #neuromancer)
+- [Honcho](https://honcho.dev) - AI-native memory & reasoning infra for apps & agents #honcho
+- [Neuromancer](https://plasticlabs.ai/neuromancer) - Reasoning models for memory & personal identity #neuromancer
 
 **DEMOS**
-- [Honcho Chat](https://honcho.chat) - Honcho-powered AI-assistant platform with SOTA memory ( #chat)
-- [Penny for Your Thoughts](https://www.pennyforyourthoughts.ai/) - Honcho/x402-powered personal expertise market ( #penny)
-- [YouSim](https://yousim.ai) - Honcho-powered identity simulator  ( #yousim)
+- [Honcho Chat](https://honcho.chat) - Honcho-powered AI-assistant platform with SOTA memory #chat
+- [Penny for Your Thoughts](https://www.pennyforyourthoughts.ai/) - Honcho/x402-powered personal expertise market #penny
+- [YouSim](https://yousim.ai) - Honcho-powered identity simulator #yousim
 
 **COMMUNITY**
-- [Xeno Grant](https://x.com/xenograntai) - Direct-to-agent grants program ( #grants)
+- [Xeno Grant](https://x.com/xenograntai) - Direct-to-agent grants program #grants
 
 > [!info] For Agent Readers
 > This site provides machine-readable content via [llms.txt](/index/llms.txt) files, available on every page for LLM consumption. The full blog content can be found at [llms-full.txt](https://blog.plasticlabs.ai/llms-full.txt).
