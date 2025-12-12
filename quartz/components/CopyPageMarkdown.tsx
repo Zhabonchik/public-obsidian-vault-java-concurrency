@@ -116,7 +116,7 @@ const CopyPageMarkdown: QuartzComponent = ({ fileData, displayClass }: QuartzCom
             <path d="M59.16 50.47H31.98V56.31H59.16V50.47Z"></path>
           </svg>
           <div class="dropdown-item-content">
-            <span class="dropdown-item-title">{isHomePage ? "Ask Honcho about this blog" : "Ask Honcho about this page"} <span class="external-arrow">↗</span></span>
+            <span class="dropdown-item-title">{isHomePage ? "Ask Honcho Chat about this blog" : "Ask Honcho Chat about this page"} <span class="external-arrow">↗</span></span>
           </div>
         </a>
         <a

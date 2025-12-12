@@ -40,7 +40,7 @@
   position: absolute;
   top: calc(100% + 4px);
   right: 0;
-  width: 280px;
+  width: max-content;
   background: var(--light);
   border: 1px solid var(--lightgray);
   border-radius: 8px;

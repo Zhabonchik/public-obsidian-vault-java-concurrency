@@ -9,10 +9,9 @@ async function copyToClipboard(text: string): Promise<boolean> {
     return true
   } catch {
     // Fallback for mobile browsers
-    const textarea = Object.assign(document.createElement("textarea"), {
-      value: text,
-      style: "position:fixed;left:-9999px",
-    })
+    const textarea = document.createElement("textarea")
+    textarea.value = text
+    textarea.style.cssText = "position:fixed;left:-9999px;top:0"
     document.body.appendChild(textarea)
     textarea.select()
     const ok = document.execCommand("copy")
@@ -59,7 +58,7 @@ document.addEventListener("nav", () => {
     // Set the correct hrefs for Honcho, ChatGPT and Claude links
     if (honchoLink) {
       const prompt = `Read this page and answer questions about it: ${llmsUrl}`
-      honchoLink.href = `https://honcho.chat/?q=${encodeURIComponent(prompt)}`
+      honchoLink.href = `https://honcho.chat/?hints=search&q=${encodeURIComponent(prompt)}`
     }
     if (chatgptLink) {
       const prompt = `Read this page and answer questions about it: ${llmsUrl}`
