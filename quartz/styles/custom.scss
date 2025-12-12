@@ -94,6 +94,16 @@ body {
   font-size: 0.86rem;
 }
 
+@media (max-width: 800px) {
+  .sidebar.left {
+    flex-direction: column;
+  }
+
+  .explorer .explorer-content {
+    padding-top: 5rem;
+  }
+}
+
 input[type="search"] {
   background-color: var(--searchBackground);
 }
