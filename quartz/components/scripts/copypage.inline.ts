@@ -3,20 +3,31 @@ const svgCopy =
 const svgCheck =
   '<svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"><path fill-rule="evenodd" fill="rgb(63, 185, 80)" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>'
 
+async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text)
+    return true
+  } catch {
+    // Fallback for mobile browsers
+    const textarea = Object.assign(document.createElement("textarea"), {
+      value: text,
+      style: "position:fixed;left:-9999px",
+    })
+    document.body.appendChild(textarea)
+    textarea.select()
+    const ok = document.execCommand("copy")
+    document.body.removeChild(textarea)
+    return ok
+  }
+}
+
 async function copyPageMarkdown(slug: string): Promise<boolean> {
   try {
-    // Use full blog content for home page, individual page content otherwise
     const llmsUrl = slug === "index" ? `/llms-full.txt` : `/${slug}/llms.txt`
     const response = await fetch(llmsUrl)
-    if (!response.ok) {
-      console.error("Failed to fetch markdown:", response.statusText)
-      return false
-    }
-    const markdown = await response.text()
-    await navigator.clipboard.writeText(markdown)
-    return true
-  } catch (error) {
-    console.error("Failed to copy page markdown:", error)
+    if (!response.ok) return false
+    return copyToClipboard(await response.text())
+  } catch {
     return false
   }
 }
@@ -110,5 +121,6 @@ document.addEventListener("nav", () => {
     })
   })
 })
+
 
 
