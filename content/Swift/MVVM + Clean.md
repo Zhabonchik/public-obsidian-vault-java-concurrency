@@ -33,10 +33,6 @@ graph TB
     BL -->|can call| DATA
     DATA -.->|cannot call| BL
     BL -.->|cannot call| UI
-    
-    style UI fill:#e1f5ff
-    style BL fill:#fff4e1
-    style DATA fill:#ffe1e1
 ```
 
 ## Data Access Layer
@@ -120,13 +116,6 @@ graph TD
     DB -.->|does NOT know about| UseCase
     UseCase -.->|does NOT know about| ViewModel
     ViewModel -.->|does NOT know about| View
-    
-    style View fill:#e1f5ff
-    style ViewModel fill:#e1f5ff
-    style UseCase fill:#fff4e1
-    style Model fill:#fff4e1
-    style API fill:#ffe1e1
-    style DB fill:#ffe1e1
 ```
 
 # Example
@@ -153,13 +142,6 @@ graph TB
     UC --> Model
     UC --> Protocol
     Protocol --> Impl
-    
-    style View fill:#e1f5ff
-    style VM fill:#e1f5ff
-    style UC fill:#fff4e1
-    style Model fill:#fff4e1
-    style Protocol fill:#ffe1e1
-    style Impl fill:#ffe1e1
 ```
 
 ## Data Access Layer: The Repository
@@ -218,12 +200,6 @@ graph LR
     Protocol -.->|implemented by| Net
     Protocol -.->|implemented by| Mock
     Protocol -.->|implemented by| DB
-    
-    style UC fill:#fff4e1
-    style Protocol fill:#ffe1e1
-    style Net fill:#ffe1e1
-    style Mock fill:#ffe1e1
-    style DB fill:#ffe1e1
 ```
 
 ## Business Logic Layer: Models and Use Cases
