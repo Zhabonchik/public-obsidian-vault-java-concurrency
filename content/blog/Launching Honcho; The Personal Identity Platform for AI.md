@@ -18,35 +18,35 @@ description: Plastic Labs announces $5.4M pre-seed funding & launches Honcho as 
 
 	*We're granting early access to power personal context management for AI agents & applications starting today!*
 	
-	*Honcho is now a simple, complete, hosted solution for adaptive agent memory, social cognition, & personalization.*
+	*Honcho is now a simple, complete, hosted solution for adaptive agent memory, reasoning, & personalization.*
 
 2. **Our pre-seed raise of $5.4M to solve personal identity for the agentic world.**
 # Individual Alignment
 Most AI products focus on being palatable to the average user. This neglects the potential for personalization their generative nature affords. It limits the scope of personally useful behaviors and results in poor UX, high churn, and handicapped abilities.
 
-AI systems need mechanisms to understand each of us on an individual level. They need methods for cohering to our psychology and personality. They need social cognition to eliminate cold starts and build long-term relationships.
+AI systems need mechanisms to understand each of us on an individual level. They need methods for cohering to our psychology and personality. They need continual learning to eliminate cold starts and build long-term relationships.
 
 They need Honcho.
 # Honcho Platform Early Access
 Today we're launching early access to the hosted [Honcho](https://honcho.dev) platform.
 
-It's the most powerful personal identity and social cognition solution for AI apps and agents.
+It's the most powerful continual learning memory solution for AI apps and agents.
 
 Honcho is a cloud-based API that enables more personalized and contextually aware user experiences. It simplifies the process of maintaining context across conversations and interactions, allowing developers to create more responsive and customized agents without managing complex infrastructure.
 
-Honcho combines flexible memory, [[ARCHIVED; Theory of Mind Is All You Need|theory of mind]] inference, self-improving user representations, and a [[ARCHIVED; Introducing Honcho's Dialectic API|dialectic API]] to get your application the context it needs about each user for every inference.
+Honcho combines [[Memory as Reasoning|reasoning]], self-improving [[Beyond the User-Assistant Paradigm; Introducing Peers|peer]] representations, and both custom and opinionated retrieval methods to get your application the context it needs about each user for every inference.
 
 All this happens ambiently, with no additional overhead to your users--no surveys, no hard coded questions, no BYO data requirements needed to get started. Honcho learns about each of your users in the background as they interact with your application.
 
 When your agent needs information about a user, it simply asks and Honcho responds with the right personal context--in natural language--which can be injected into any part of your architecture.
 
-Context from Honcho is far richer than simply retrieving over session data or cramming it into the context window because Honcho is always running theory of mind inference over that organic data. It's expert at deriving everything there is to infer about a user from their inputs.
+Context from Honcho is far richer than simply retrieving over session data or cramming it into the context window because Honcho is always reasoning over that organic data. It's expert at reasoning toward everything there is to conclude about a user from their inputs.
 
 The result is a living, thinking reservoir of synthetic data about each user. Honcho gets to the bottom of up-to-date user preferences, history, psychology, personality, values, beliefs, and desires. It maps personal identity. This creates a self-improving representation of each user that transcends the raw data in information density and furnishes much more robust and useful context to your app when it needs it.
 
 To put it simply, this creates magical experiences for users that they don't even know to expect from AI applications. Honcho-powered agents retain state, adapt over time, build relationships, and evolve with their users.
 
-That's why Honcho needed to be built. It's memory infrastructure that goes way deeper than anything else on offer. Theory of mind and identity mapping are tasks to optimize for, requiring serious machine learning, expertise in the cognitive sciences, and AI-native solutions.
+That's why Honcho needed to be built. It's memory infrastructure that goes way deeper than anything else on offer. Continual learning and identity mapping are tasks to optimize for, requiring serious machine learning, expertise in the cognitive sciences, and AI-native solutions.
 
 If you want to deliver best-in-class personalization, memory, time-to-value, trust, and unlock truly novel experiences to your users, we want to work with you. 
 
@@ -57,7 +57,7 @@ We're giving early access to teams & developers today.
 ^d958ce
 The release of Honcho as a platform is just the start, the next step is Honcho as a network.
 
-An engine for social cognition and deeply grokking personal identity is a game changing tool for AI apps, but owning your personal Honcho representation and taking it with you to every agent in your growing stack is world changing.
+An engine for deeply grokking personal identity is a game changing tool for AI apps, but owning your personal Honcho representation and taking it with you to every agent in your growing stack is world changing.
 
 It's what's required to truly realize Plastic's mission to decentralize alignment--to give every human access to personally aligned, scalable intelligence.
 
@@ -97,7 +97,7 @@ Instead of imposing opaque alignment schemes, we should be subverting the proble
 
 If you want work [IRL in NYC](https://www.therefineryatdomino.com/) on the most impactful and important work in artificial intelligence, we're hiring for four more roles immediately:
 
-- [[Founding ML Engineer]] - Shape the future of AI at Plastic, tackle challenges across the ML stack, train cutting edge theory of mind models
+- [[Founding ML Engineer]] - Shape the future of AI at Plastic, tackle challenges across the ML stack, train cutting edge reasoning models
 
 - [[Platform Engineer]] - Build & scale Honcho's infrastructure, define performance & security for the future of AI personalization
 

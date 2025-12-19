@@ -1,21 +1,20 @@
 ---
 title: Benchmarking Honcho
+subtitle: Honcho Achieves SOTA Scores on Benchmarks–So What?
 date: 12.19.25
 tags:
   - announcements
   - dev
   - honcho
-  - benchmarks
   - evals
-  - state-of-the-art
 author: Ben McCormick & Courtland Leer
-subtitle: Honcho Achieves SOTA Scores on Benchmarks–So What?
-description: Discussing the latest Honcho Benchmark results and what they mean for state of the art agent memory+reasoning.
+description: Honcho achieves state-of-the-art performance and pareto dominance across the LongMem, LoCoMo, and BEAM memory benchmarks.
 ---
+# TL;DR
+*Honcho achieves state-of-the-art performance across the LongMem, LoCoMo, and BEAM memory benchmarks. 90.4% on LongMem S (92.6% with Gemini 3 Pro), 89.9% on LoCoMo ([beating our previous score of 86.9%](https://blog.plasticlabs.ai/research/Introducing-Neuromancer-XR)), and top scores across all BEAM tests. We do so while maintaining competitive token efficiency. 
 
-**TL;DR: Honcho achieves state-of-the-art performance across the LongMem, LoCoMo, and BEAM memory benchmarks. 90.4% on LongMem S (92.6% with Gemini 3 Pro), 89.9% on LoCoMo ([beating our previous score of 86.9%](https://blog.plasticlabs.ai/research/Introducing-Neuromancer-XR)), and top scores across all BEAM tests. We do so while maintaining competitive token efficiency. But recall tested in benchmarks which fit within a context window is no longer particularly meaningful. Beyond simple recall, Honcho reasons over memory and empowers frontier models to reason across more tokens than their context windows support. Go to [evals.honcho.dev](https://evals.honcho.dev) for charts and comparisons.**
-
-## 1. A primer on Honcho's architecture
+But recall tested in benchmarks which fit within a context window is no longer particularly meaningful. Beyond simple recall, Honcho reasons over memory and empowers frontier models to reason across more tokens than their context windows support. Go to [evals.honcho.dev](https://evals.honcho.dev) for charts and comparisons.*
+# 1. A primer on Honcho's architecture
 
 Read [Honcho's documentation](https://docs.honcho.dev) for a full understanding of how Honcho works, but a brief overview is important for understanding our benchmarking methodology and how Honcho achieves state-of-the-art results:
 
@@ -30,15 +29,11 @@ Read [Honcho's documentation](https://docs.honcho.dev) for a full understanding 
 For the sake of reproducibility, all benchmark results published here were generated using **gemini-2.5-flash-lite** as the ingestion model and **claude-haiku-4-5** as the chat endpoint model. In practice, Honcho uses a variety of models for these roles as well as within the dreaming processes.
 
 We also tune Honcho for various use cases. For example, the message batch size when ingesting messages and the amount of tokens spent on dreaming both have an effect on performance. Notes on the configuration for each benchmark are included, and the [full configuration for each run is included in the data](https://github.com/plastic-labs/honcho-benchmarks).
-
-
-## 2. Memory Benchmarks
+# 2. Memory Benchmarks
 
 We currently use 3 different benchmarks to evaluate Honcho: [LongMem](https://arxiv.org/abs/2410.10813), [LoCoMo](https://arxiv.org/abs/2402.17753), and [BEAM](https://arxiv.org/abs/2510.27246).
-
-### **LongMem**
-
-**LongMem S is a data set containing 500 "needle in a haystack" questions, each with about 550 messages distributed over 50 sessions, totaling ~115,000 tokens of context per question.**
+## LongMem
+LongMem S is a data set containing 500 "needle in a haystack" questions, each with about 550 messages distributed over 50 sessions, totaling ~115,000 tokens of context per question.
 
 After ingesting this context, a single query is made and judged. The correct answer hinges on information divulged in one or a handful of messages: these are the "needles." Everything else is "hay." The questions come in six flavors:
 
@@ -73,16 +68,11 @@ Full results:
 | Multi-Session | 113 | 133 | 85.0% |
 
 Configuration: 16,384 tokens per message batch, dreaming OFF. [Full data](https://github.com/plastic-labs/honcho-benchmarks/tree/main/a1d689b).
-
-#### LongMem M is the big brother to S. Each question has roughly 500 sessions, equivalent to over 1M tokens.
-
+### LongMem M is the big brother to S. Each question has roughly 500 sessions, equivalent to over 1M tokens.
 We asked Honcho 98 questions from LongMem M, and scored 88.8% using the same configuration that we used for S. That's a less than 2% dropoff when injecting about a million extra tokens of "hay" into the source material: real evidence that Honcho is effectively expanding the ability of a model to reason over tokens beyond context window limits.
 
 But just adding extra noise to a conversation history isn't really getting at what we think of when we use the word "memory." Eliminating irrelevant data mostly comes down to optimizing RAG strategy and designing good search tools for an agent. True memory involves processing everything, even the "irrelevant" data, and using it to form a mental model of the author. The retrieval questions in LongMem don't get more nuanced with more data, and Honcho can easily eliminate noise to find the answer while doing much more behind the scenes.
-
-
-#### A note on model selection
-
+### A note on model selection
 LongMem has been fashionable over the past year as a benchmark for anyone releasing an agent memory system. It's important to remember that when the benchmark was first released, GPT-4o scored 60.6% on LongMem S without augmentation. It was a clear demonstration that token-space memory augmentation had a place even in the scale of 100,000 tokens or less, even before questions of cost-efficiency.
 
 After over a year, this is no longer the case. Gemini 3 Pro can run LongMem S, easily fitting the per-question ~115k tokens into its context window, and score **92.0%**. By itself. This score is higher than any published LongMem score by a memory framework project, including two that *actually used* Gemini 3 Pro as their response-generating model for the eval. Their systems are *degrading* the latent capability of the model[^6]. Honcho with Gemini 3 Pro scores 92.6%. We're not impressed by that marginal improvement, though it's good to know we're not actively impeding the model. All these results reveal is that from here on out, memory frameworks cannot merely announce scores on low-token-count tests. There are two ways to prove a memory framework is useful:
@@ -92,10 +82,7 @@ After over a year, this is no longer the case. Gemini 3 Pro can run LongMem S, e
 2. Demonstrate *cost efficiency*: calculate the cost of ingesting a certain number of tokens with a top-tier model to produce a correct answer, then get the same answer by spending less money on input tokens using a memory tool.
 
 Honcho passes both of these tests. Running LongMem S directly with Gemini 3 Pro costs about \$115 for input tokens alone (the relevant part for retrieval–output tokens don't really change). Honcho with the same model had a mean token efficiency of 16% -- bringing ingestion cost down to \$18.40. Adding the cost of running Honcho's ingestion system with Gemini 2.5 flash-lite, a model quite effective for the task, brings total cost up to \$47.15 -- a **60% cost reduction**. The Honcho managed service *does not charge for ingestion* -- we operate our own fine-tuned models for the task. For more discussion of cost efficiency, see section 3.
-
-
-### **LoCoMo**
-
+## LoCoMo
 We stated regarding LongMem that it "does not test a memory system's ability to recall across truly large quantities of data": this is even more the case for LoCoMo. It takes a similar format to LongMem, but instead of 115,000 tokens per question, it provides a meager 16,000 tokens on average of context. Then, each of these 16k token conversations has a battery of 100 or more questions applied to them.
 
 Given that models routinely offer a context window of 200,000 or more tokens nowadays, a 16,000 token conversation really isn't useful at all for evaluating a memory framework.
@@ -110,10 +97,7 @@ Even still, Honcho ekes out better performance on the test than a model acting a
 | Temporal | 74 | 96 | 77.1% |
 
 Configuration: 128 tokens per message batch (1-5 messages per batch, in practice), dreaming ON. [Full data](https://github.com/plastic-labs/honcho-benchmarks/tree/main/a1d689b).
-
-
-### **BEAM**
-
+## BEAM
 At this point, you might be asking yourself: can *any* so-called memory benchmarks really test a memory framework?
 
 [BEAM](https://arxiv.org/abs/2510.27246), "BEyond A Million" Tokens, is your answer.
@@ -139,7 +123,6 @@ Notably, there's no dropoff in recall performance until 10 million tokens (thoug
 
 ---------
 
-
 Some patterns emerge across all benchmarks. Questions that simply require recall of an entity's preference or a biographical fact about them are easy: Honcho pretty much aces these, and baseline tests fare well too. Across single-session-user and single-session-assistant questions in LongMem, for example, we pass 95%. We score 0.95–nearly perfect–on BEAM 500K's preference-following section.
 
 Questions that ask about temporal reasoning are trickier: 88.7% in LongMem, 77% in LoCoMo, 0.49 in BEAM 500K. Frustratingly, these are some of the most common types of questions that a user comes across when subjectively evaluating an agent's memory. While Honcho significantly improves an LLM's ability to deal with questions about time, this is a genuine weak point of all models available today. It's part of what leads many users to continually underestimate the intellect of various models. Many models, when asked, will refuse to believe the current date if told, instead insisting that their training cutoff defines the current moment. We will continue to research this flaw and apply best-in-class solutions.
@@ -147,9 +130,7 @@ Questions that ask about temporal reasoning are trickier: 88.7% in LongMem, 77% 
 No benchmark is perfect. Across all three, we've noticed a scattering of questions that are either outright incorrect or trigger high variance in models. These are especially prevalent in temporal reasoning questions: if a user has a discussion with an assistant in 2025 about having first met their spouse in 2018, and having been together for five years, there's meaningful ambiguity about how long the user knew their spouse before dating. Ambiguity arises both in measurements of time (when in 2018 did they meet?) and semantics (did they start *dating* when they first met, and have been *married* for five years, or did they meet and then actually start dating two years later?). Each benchmark has dozens of questions with ambiguous answers, with at least a couple outright wrong answers. These are the perils of synthetic data.
 
 We also find that the best answer for a benchmark does not always align with the best answer for an interactive tool. Like a multiple-choice test, benchmarks reward confidently guessing and moving on if the answer is unclear. In the real world, we would prefer Honcho to interact with the user or agent and prompt them to clarify what they meant, and we've stuck to this behavior even in the configurations of Honcho that we run benchmarks on.
-
-
-## 3. Benchmarking cost efficiency
+# 3. Benchmarking cost efficiency
 
 Honcho demonstrates excellent cost efficiency and can be used to significantly reduce the cost of using expensive LLMs in production applications.
 
