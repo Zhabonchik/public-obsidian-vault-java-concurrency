@@ -149,7 +149,7 @@ easily be ported over to the `Peer` paradigm by simply creating a `Peer` for the
 agent, and then different `Peers` for each human user.
 
 We can push the Peer Paradigm even further with several 2nd-order features.
-## Local & Global Representations
+## Scoped Representations
 By default, Honcho will create representations of `Peers` for every `Message` they
 send, giving it the source of truth on the behavior of that entity. However,
 there are situations where a developer would only want a `Peer` to have access to
@@ -160,8 +160,7 @@ would want to create its own model of every other player to try and guess their
 next move. Take another example of the game _Diplomacy_, which involves players
 having private conversations along with group ones. It wouldn’t make sense for a
 `Peer` “Alice” to be able to chat with a representation of another `Peer` “Bob” that
-knew about all of “Alice’s” secret conversations. Enabling local representations
-is as easy as changing a configuration value.
+knew about all of “Alice’s” secret conversations. Enabling perspective-based representations is as easy as changing a configuration value.
 
 ```python
 from honcho import Honcho
@@ -190,7 +189,7 @@ charlie.chat("Can I trust that Alice won't attack me", target=alice)
 ```
 
 Honcho can now serve the dual purposes of containing the source of truth on a
-`Peer`'s identity and imbuing a `Peer` with social cognition, all without
+`Peer`'s identity and imbuing a `Peer` with continual learning, all without
 duplicating data between different `Apps` or `Workspaces`.
 ## Get_Context
 We make mapping the Peer Paradigm back to the User-Assistant paradigm trivial
@@ -225,8 +224,7 @@ anthropic_messages = context.to_anthropic(assistant=alice)
 
 ```
 
-Developers no longer need to meticulously curate their context windows. Honcho will automatically summarize the conversation and provide
-the most salient information to let conversations continue endlessly.
+Developers no longer need to meticulously curate their context windows. Honcho will automatically summarize the conversation and provide the most salient information to let conversations continue endlessly.
 # What's Now Possible
 The Peer Paradigm provides the essential primitives—persistent identity and direct communication—that make it possible to build truly sophisticated multi-agent systems:
 
