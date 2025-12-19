@@ -10,7 +10,7 @@ tags:
   - state-of-the-art
 author: Ben McCormick & Courtland Leer
 subtitle: Honcho Achieves SOTA Scores on Benchmarks–So What?
-description: Meet Honcho Chat--a personalized AI assistant with state-of-the-art memory, custom identities, artifacts, themes, & an x402-powered marketplace.
+description: Discussing the latest Honcho Benchmark results and what they mean for state of the art agent memory+reasoning.
 ---
 
 **TL;DR: Honcho achieves state-of-the-art performance across the LongMem, LoCoMo, and BEAM memory benchmarks. 90.4% on LongMem S (92.6% with Gemini 3 Pro), 89.9% on LoCoMo ([beating our previous score of 86.9%](https://blog.plasticlabs.ai/research/Introducing-Neuromancer-XR)), and top scores across all BEAM tests. We do so while maintaining competitive token efficiency. But recall tested in benchmarks which fit within a context window is no longer particularly meaningful. Beyond simple recall, Honcho reasons over memory and empowers frontier models to reason across more tokens than their context windows support. Go to [evals.honcho.dev](https://evals.honcho.dev) for charts and comparisons.**
@@ -38,7 +38,7 @@ We currently use 3 different benchmarks to evaluate Honcho: [LongMem](https://ar
 
 ### **LongMem**
 
-**LongMem S is a data set containing 500 "needle in a haystack" questions, each with about 550 messages distributed over 50 sessions, totalling ~115,000 tokens of context per question.**
+**LongMem S is a data set containing 500 "needle in a haystack" questions, each with about 550 messages distributed over 50 sessions, totaling ~115,000 tokens of context per question.**
 
 After ingesting this context, a single query is made and judged. The correct answer hinges on information divulged in one or a handful of messages: these are the "needles." Everything else is "hay." The questions come in six flavors:
 
@@ -96,7 +96,7 @@ Honcho passes both of these tests. Running LongMem S directly with Gemini 3 Pro 
 
 ### **LoCoMo**
 
-We stated regarding LongMem that it "does not test a memory system's ability to recall across truly large quantities of data": this is even more the case for LoCoMo. It takes a similar format to LongMem, but instead of 115,000 tokens per question, it provides a meager 16,000 tokens on average of context. Then, each of these 16k token conversations have a battery of 100 or more questions applied to them.
+We stated regarding LongMem that it "does not test a memory system's ability to recall across truly large quantities of data": this is even more the case for LoCoMo. It takes a similar format to LongMem, but instead of 115,000 tokens per question, it provides a meager 16,000 tokens on average of context. Then, each of these 16k token conversations has a battery of 100 or more questions applied to them.
 
 Given that models routinely offer a context window of 200,000 or more tokens nowadays, a 16,000 token conversation really isn't useful at all for evaluating a memory framework.
 
@@ -124,7 +124,7 @@ BEAM's judge is thoroughly defined, including a rubric, tool calls, and detailed
 
 BEAM scoring is different from LongMem and LoCoMo: rather than setting a pass/fail criterion and scoring the overall test by pass rate, BEAM's judge grades each question individually, and the overall test grade is the average of these scores. The LLM judge is instructed to, and naturally leans towards, grading in a step-function pattern: each question's rubric makes it relatively easy to "pass" with a 0.5, and quite difficult to "ace" the question and score 1.0. A score of 0.5 would count as a "pass" in both the LongMem and LoCoMo judge systems. This property gives BEAM scores a much higher ceiling of excellence, and testing Honcho with BEAM has given insight into how we can improve our system beyond just "perfect recall."
 
-Honcho produces state-of-the-art scores according to the judgement framework proposed by the paper. On the smallest test, BEAM 100K, we observe a baseline score of **0.53** from Claude Haiku 4.5, and a Honcho score of **0.63**. Since Haiku only has a context window of 200,000 tokens, the baseline scores stop there. But Honcho continues:
+Honcho produces state-of-the-art scores according to the judgment framework proposed by the paper. On the smallest test, BEAM 100K, we observe a baseline score of **0.53** from Claude Haiku 4.5, and a Honcho score of **0.63**. Since Haiku only has a context window of 200,000 tokens, the baseline scores stop there. But Honcho continues:
 
 | BEAM | Top Score in Paper | Honcho Score  | Dreaming | Batching
 |---|---|---|---|---|
@@ -176,6 +176,11 @@ Over the course of just a few days, a user chatting regularly with an AI assista
 A matchmaking system with thousands of users wants to use Claude Opus 4.5 to create high-quality "date me" docs for each user who has volunteered their email inbox as source material to extract their lifestyle and preference data. Rather than having Opus churn through 10M+ tokens per inbox, costing \$50+ per user, use Honcho to ingest the data and perform a dozen targeted chat queries: using the same configuration as the BEAM 10M benchmark run above, this would cost about \$6.
 
 
+## Conclusion
+
+We're glad to hit state-of-the-art numbers—they validate that our architecture works—but scores on LongMem or LoCoMo are not the final goal. And it turns out that these benchmarks are starting to lead people astray from what agent memory really means. Other memory systems, focused only on recall, are beginning to *underperform* baseline with the latest models on small-context tests. The good news, for us and for agent builders, is that we're only interested in recall as a step towards true theory-of-mind simulation. Getting agents to correctly model users and other agents is far more of a roadblock to production-ready agents than simple recall. The goal is to build systems that form perfect representations of identity through [logical reasoning over social information](https://blog.plasticlabs.ai/blog/Memory-as-Reasoning), not systems that can regurgitate facts from a conversation history. We're looking for answers to questions like: What does this person *want*? What do they *think about*? What would *surprise* them? Benchmarks don't test for that.
+
+BEAM 10M proves Honcho can reason over token counts that exceed any model's context window. That unlocks use cases that were previously impossible: agents with years of continuous memory, products that actually know their users, AI that improves its model of you faster than you update your model of yourself. We'll keep publishing benchmark results as we improve, but we'd rather you judge Honcho by what it enables you to build. Try the [managed service](https://honcho.dev), dig into the [open source](https://github.com/plastic-labs/honcho), and let us know what works and what doesn't.
 
 
 [^1]: A theme throughout these benchmarks is the use of an LLM judge. All scores *must* be considered with variance in mind: not only is the model answering the question non-deterministic, so too is the judge model (yes, the judge prompt is run at temperature 0, but no, this does not equal determinism, plus, minute differences in the wording the answer being judged can trigger large changes even at temperature 0). These non-deterministic data sources combine to form fairly high variance.
