@@ -11,9 +11,9 @@ author: Ben McCormick & Courtland Leer
 description: Honcho achieves state-of-the-art performance and pareto dominance across the LongMem, LoCoMo, and BEAM memory benchmarks.
 ---
 # TL;DR
-*Honcho achieves state-of-the-art performance across the LongMem, LoCoMo, and BEAM memory benchmarks. 90.4% on LongMem S (92.6% with Gemini 3 Pro), 89.9% on LoCoMo ([beating our previous score of 86.9%](https://blog.plasticlabs.ai/research/Introducing-Neuromancer-XR)), and top scores across all BEAM tests. We do so while maintaining competitive token efficiency. 
+*Honcho achieves state-of-the-art performance across the LongMem, LoCoMo, and BEAM memory benchmarks. 90.4% on LongMem S (92.6% with Gemini 3 Pro), 89.9% on LoCoMo ([beating our previous score of 86.9%](https://blog.plasticlabs.ai/research/Introducing-Neuromancer-XR)), and top scores across all BEAM tests. We do so while maintaining competitive token efficiency.* 
 
-But recall tested in benchmarks which fit within a context window is no longer particularly meaningful. Beyond simple recall, Honcho reasons over memory and empowers frontier models to reason across more tokens than their context windows support. Go to [evals.honcho.dev](https://evals.honcho.dev) for charts and comparisons.*
+*But recall tested in benchmarks which fit within a context window is no longer particularly meaningful. Beyond simple recall, Honcho reasons over memory and empowers frontier models to reason across more tokens than their context windows support. Go to [evals.honcho.dev](https://evals.honcho.dev) for charts and comparisons.*
 # 1. A primer on Honcho's architecture
 
 Read [Honcho's documentation](https://docs.honcho.dev) for a full understanding of how Honcho works, but a brief overview is important for understanding our benchmarking methodology and how Honcho achieves state-of-the-art results:
@@ -157,7 +157,7 @@ Over the course of just a few days, a user chatting regularly with an AI assista
 A matchmaking system with thousands of users wants to use Claude Opus 4.5 to create high-quality "date me" docs for each user who has volunteered their email inbox as source material to extract their lifestyle and preference data. Rather than having Opus churn through 10M+ tokens per inbox, costing \$50+ per user, use Honcho to ingest the data and perform a dozen targeted chat queries: using the same configuration as the BEAM 10M benchmark run above, this would cost about \$6.
 
 
-## Conclusion
+# Conclusion
 
 We're glad to hit state-of-the-art numbers—they validate that our architecture works—but scores on LongMem or LoCoMo are not the final goal. And it turns out that these benchmarks are starting to lead people astray from what agent memory really means. Other memory systems, focused only on recall, are beginning to *underperform* baseline with the latest models on small-context tests. The good news, for us and for agent builders, is that we're only interested in recall as a step towards true theory-of-mind simulation. Getting agents to correctly model users and other agents is far more of a roadblock to production-ready agents than simple recall. The goal is to build systems that form perfect representations of identity through [logical reasoning over social information](https://blog.plasticlabs.ai/blog/Memory-as-Reasoning), not systems that can regurgitate facts from a conversation history. We're looking for answers to questions like: What does this person *want*? What do they *think about*? What would *surprise* them? Benchmarks don't test for that.
 
