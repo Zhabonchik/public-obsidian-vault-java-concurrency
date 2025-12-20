@@ -14,9 +14,9 @@ description: Honcho achieves state-of-the-art performance & pareto dominance acr
 # TL;DR
 *Honcho achieves state-of-the-art performance across the LongMem, LoCoMo, and BEAM memory benchmarks--**90.4%** on LongMem S (**92.6%** with Gemini 3 Pro), **89.9%** on LoCoMo ([beating our previous score of **86.9%**](https://blog.plasticlabs.ai/research/Introducing-Neuromancer-XR)), and top scores across all BEAM tests. We do so while maintaining SOTA token efficiency.* 
 
-*But testing recall on benchmark data that fits in frontier context windows is no longer particularly meaningful. Beyond simple recall, Honcho reasons over memory and empowers frontier models to reason across more tokens than their context windows support.
+*But testing recall on benchmark data that fits in frontier context windows is no longer particularly meaningful. Beyond simple recall, Honcho reasons over memory and empowers frontier models to reason across more tokens than their context windows support.*
 
-Check out [evals.honcho.dev](https://evals.honcho.dev) for charts and comparisons.*
+*Check out [evals.honcho.dev](https://evals.honcho.dev) for charts and comparisons.*
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/_QnXgzaXEDU?si=AA2CWP0KFjdJl6p-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
