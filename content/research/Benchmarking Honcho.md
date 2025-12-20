@@ -131,8 +131,6 @@ Honcho produces state-of-the-art scores according to the judgment framework prop
 [Full data](https://github.com/plastic-labs/honcho-benchmarks/tree/main/a1d689b).
 
 Notably, there's no drop-off in recall performance until 10 million tokens (though it likely begins after a few million).
-
----------
 ## Reflection
 Some patterns emerge across all benchmarks. Questions that simply require recall of an entity's preference or a biographical fact about them are easy: Honcho pretty much aces these, and baseline tests fare well too. Across single-session-user and single-session-assistant questions in LongMem, for example, we pass **95%**. We score **0.95**--nearly perfect--on BEAM 500K's preference-following section.
 
@@ -141,7 +139,7 @@ Questions that ask about temporal reasoning are trickier: **88.7%** in LongMem, 
 No benchmark is perfect. Across all three, we've noticed a scattering of questions that are either outright incorrect or trigger high variance in models. These are especially prevalent in temporal reasoning questions: if a user has a discussion with an assistant in 2025, about having first met their spouse in 2018, and having been together for five years, there's meaningful ambiguity about how long the user knew their spouse before dating. Ambiguity arises both in measurements of time (when in 2018 did they meet?) and semantics (did they start *dating* when they first met, and have been *married* for five years, or did they meet and then actually start dating two years later?). Each benchmark has dozens of questions with ambiguous answers, with at least a couple outright wrong answers. These are the perils of synthetic data.
 
 We also find that the best answer for a benchmark does not always align with the best answer for an interactive tool. Like a multiple-choice test, benchmarks reward confidently guessing and moving on if the answer is unclear. In the real world, we'd prefer Honcho to interact with the user or agent and prompt them to clarify what they meant, and we've stuck to this behavior even in the configurations of Honcho that we run benchmarks on.
-# 3. Benchmarking cost efficiency
+# 3. Benchmarking Cost Efficiency
 Honcho demonstrates excellent cost efficiency and can be used to significantly reduce the cost of using expensive LLMs in production applications.
 
 The cost savings from using Honcho scale with 2 primary factors: (1) the amount of content ingested and (2) the number of queries made against the content. With a sufficient amount of data (about 100,000 tokens), savings occur after just a single question. Conversely, if only reasoning over a few thousand tokens, Honcho never confers cost savings and most use cases with such minimal context needs would be better served by just populating the context window directly.
