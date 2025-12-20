@@ -20,6 +20,7 @@ Check out [evals.honcho.dev](https://evals.honcho.dev) for charts and comparison
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/_QnXgzaXEDU?si=AA2CWP0KFjdJl6p-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ([Announcement on Twitter](https://x.com/honchodotdev/status/2002090546521911703?s=20))
+
 # 1. A Primer on Honcho's Architecture
 Read [Honcho's documentation](https://docs.honcho.dev) for a full understanding of how Honcho works, but a brief overview is important for understanding our benchmarking methodology and how Honcho achieves state-of-the-art results:
 
