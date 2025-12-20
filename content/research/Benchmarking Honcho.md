@@ -49,13 +49,13 @@ After ingesting this context, a single query is made and judged. The correct ans
 - temporal-reasoning
 - knowledge-update
 
-Answers are canonically judged using GPT-4o with a prompt defined in the LongMem paper[^1]. The prompt varies based on the question type.
+Answers are canonically judged using GPT-4o with a prompt defined in the LongMem paper.[^1] The prompt varies based on the question type.
 
 Notably, LongMem does not test a memory system's ability to recall across truly large quantities of data: each question's message history fits comfortably within the context window of most modern LLMs. LongMem was originally designed, and still serves, to highlight an important phenomenon in LLM context windows: just because some information is within the context window does not mean a model can productively recall it.
 
 Running LongMem with Claude Haiku 4.5 *without* any augmentation--merely dropping the full conversation preceding a question into the context window, then asking the question--yields a score of **62.6%**. Rather than comparing this to a theoretical score of **100%**, though, this score should be compared to the same model run against *LongMem Oracle*: The same questions as the 'S' data set, but with only the one-to-three sessions containing the needle(s). Claude Haiku 4.5 scores **89.2%**. So, adding 115,000 tokens of 'hay' leads to a **26.6%** drop-off in performance. This behavior is fairly consistent across models, with smaller models generally displaying even larger drop-off and the highest-tier of frontier models holding up slightly better.
 
-Another key fact about LongMem revealed by the Oracle variant is that there's a component of reasoning, not just recall. Failures on Oracle questions mean that the model simply isn't smart enough to generate the correct answer[^2]. We can therefore treat the Oracle score for a given model as a (very) rough indicator of the ceiling at which that model can operate within a memory framework.
+Another key fact about LongMem revealed by the Oracle variant is that there's a component of reasoning, not just recall. Failures on Oracle questions mean that the model simply isn't smart enough to generate the correct answer.[^2] We can therefore treat the Oracle score for a given model as a (very) rough indicator of the ceiling at which that model can operate within a memory framework.
 
 With Claude Haiku 4.5 as the chat endpoint model, Honcho scores **90.4%** on LongMem S and **91.8%** on LongMem Oracle. Almost no drop-off in recall. In fact, Honcho empowers the model running inside to perform better with fewer tokens: the chat endpoint uses a median **5%**, mean **11%** of the question's context to answer correctly **90.4%** of the time--that's better than the same model on the minimized data set containing only the answers!
 
@@ -82,7 +82,7 @@ But just adding extra noise to a conversation history isn't really getting at wh
 ### A Note on Model Selection
 LongMem has been fashionable over the past year as a benchmark for anyone releasing an agent memory system. It's important to remember that when the benchmark was first released, GPT-4o scored **60.6%** on LongMem S without augmentation. It was a clear demonstration that token-space memory augmentation had a place even in the scale of 100,000 tokens or less, even before questions of cost-efficiency.
 
-After over a year, this is no longer the case. Gemini 3 Pro can run LongMem S, easily fitting the per-question ~115K tokens into its context window, and score **92.0%**. By itself. This score is higher than any published LongMem score by a memory framework project, including two that *actually used* Gemini 3 Pro as their response-generating model for the eval. Their systems are *degrading* the latent capability of the model[^6]. 
+After over a year, this is no longer the case. Gemini 3 Pro can run LongMem S, easily fitting the per-question ~115K tokens into its context window, and score **92.0%**. By itself. This score is higher than any published LongMem score by a memory framework project, including two that *actually used* Gemini 3 Pro as their response-generating model for the eval. Their systems are *degrading* the latent capability of the model.[^6] 
 
 Honcho with Gemini 3 Pro scores **92.6%**. We're not impressed by that marginal improvement, though it's good to know we're not actively impeding the model. All these results reveal is that from here on out, memory frameworks cannot merely announce scores on low-token-count tests. There are two ways to prove a memory framework is useful:
 
@@ -98,7 +98,7 @@ We assert that LongMem doesn't "test a memory system's ability to recall across 
 
 Given that contemporary models routinely offer a context window of 200,000 tokens or more, a 16,000 token conversation really isn't useful at all in evaluating a memory framework.
 
-Even still, Honcho achieves better performance on the test than a model acting alone. We score **89.9%** on the full LoCoMo benchmark. Haiku alone scores **83.9%**[^3]. For reference, that means Honcho answers about 100 questions that the model acting alone cannot. Improvement is spread fairly evenly across all question categories, which makes sense given the small context size (the model isn't really experiencing 'forgetfulness' due to context overload) and our dreaming methodology that reasons over the data in the background before any questions are asked.
+Even still, Honcho achieves better performance on the test than a model acting alone. We score **89.9%** on the full LoCoMo benchmark. Haiku alone scores **83.9%**.[^3] For reference, that means Honcho answers about 100 questions that the model acting alone cannot. Improvement is spread fairly evenly across all question categories, which makes sense given the small context size (the model isn't really experiencing 'forgetfulness' due to context overload) and our dreaming methodology that reasons over the data in the background before any questions are asked.
 
 | Category | Passed | Total | Success Rate |
 |----------|--------|-------|--------------|
