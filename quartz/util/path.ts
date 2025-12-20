@@ -241,7 +241,7 @@ export function transformLink(src: FullSlug, target: string, opts: TransformOpti
       const matchingFileNames = opts.allSlugs.filter((slug) => {
         const parts = slug.split("/")
         const fileName = parts.at(-1)
-        return targetCanonical === fileName
+        return targetCanonical.normalize() === fileName.normalize()
       })
 
       // only match, just use it
