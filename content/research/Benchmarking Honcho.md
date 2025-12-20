@@ -159,17 +159,17 @@ Empirically we observe that below about 50,000 tokens, Honcho's efficiency can a
 Notably, these calculations scale with more expensive models. Haiku token input is fairly cheap at **\$1** per million tokens. A more expensive model means Honcho confers savings even faster.
 
 ## Example Scenarios
-**#1:**
+### #1
 Over the course of just a few days, a user chatting regularly with an AI assistant can produce 250,000+ tokens of message history. Sharing this history with a powerful research model like GPT-5-Pro would cost **\$3.75** for a single question. Using Honcho, both ingesting this context and querying it once would cost only **~\$0.15**. If an expensive model is necessary to complete a task, it would be foolish not to expose Honcho's chat endpoint to it as a tool, allowing the expensive model to provide its superior reasoning across only the relevant context. Repeated queries across a long message history with Honcho will rapidly save *hundreds of dollars for a single user*.
 
-**#2:**
+### #2
 A matchmaking system with thousands of users wants to use Claude Opus 4.5 to create high-quality "date me" docs for each user who has volunteered their email inbox as source material to extract their lifestyle and preference data. Rather than having Opus churn through 10M+ tokens per inbox, costing **\$50+** per user, use Honcho to ingest the data and perform a dozen targeted chat queries: using the same configuration as the BEAM 10M benchmark run above, this would cost about **\$6**.
 # Conclusion
 We're glad to hit state-of-the-art numbers--they validate that our architecture works--but scores on LongMem or LoCoMo are not the final goal. And it turns out that these benchmarks are starting to lead people astray from what agent memory really means. 
 
-Other memory systems, focused only on recall, are beginning to *underperform* baseline with the latest models on small-context tests. The good news, for us and for agent builders, is that we're only interested in recall as a step towards true stateful simulation and identity modeling. Getting agents to correctly model users and other agents is far more of a roadblock to production-ready agents than simple recall. 
+Other memory systems, focused only on recall, are beginning to *underperform* baseline with the latest models on small-context tests. The good news, for us and for agent builders, is that we're only interested in recall as a step towards true stateful simulation, powered by identity modeling, powered by continual learning. Getting agents to correctly model users and other agents (and eventually experiences, tasks, etc) is far more of a roadblock to production-ready agents than simple recall. 
 
-The goal is to build systems that form perfect representations of identity via [logical reasoning over social information](https://blog.plasticlabs.ai/blog/Memory-as-Reasoning), not systems that can regurgitate facts from conversation history. We're looking for answers to questions like: What does this person *want*? What do they *think about*? What would *surprise* them? Who *are* they? Benchmarks don't test for that.
+The goal is to build systems that form perfect representations of identity[^7] via [logical reasoning over social information](https://blog.plasticlabs.ai/blog/Memory-as-Reasoning), not systems that can regurgitate facts from conversation history. We're looking for answers to questions like: What does this person *want*? What do they *think about*? What would *surprise* them? Who *are* they? Benchmarks don't test for that.
 
 BEAM 10M proves Honcho can reason over token counts that exceed any model's context window. That unlocks use cases that were previously impossible: agents with *years* of continuous memory, products that *actually* know their users, AI that improves its model of you *faster* than you update your model of yourself. We'll keep publishing benchmark results as we improve, but we'd rather you judge Honcho by what it enables you to build. Try the [managed service](https://honcho.dev), dig into the [open source](https://github.com/plastic-labs/honcho), and let us know what works and what doesn't.
 
@@ -185,3 +185,5 @@ BEAM 10M proves Honcho can reason over token counts that exceed any model's cont
 [^5]: Dreams are background tasks, managed by agents, that serve several purposes within Honcho: they prune excess information, consolidate duplicated information, [create deductions](Memory-as-Reasoning#scaffolding-logic) and further reasoning, and much more.
 
 [^6]: [Hindsight claims a score of **91.4%** on LongMem S](https://arxiv.org/abs/2512.12818), but that score is achieved using Gemini 3 Pro, which scores **92%** when run directly against the same test. The full code to reproduce this finding with Gemini 3 Pro can be found [here](https://gist.github.com/dr-frmr/0a4cd33a2341dc4b4ea725bbf39f8e46)--just set MODEL_BEING_TESTED and bring your own API keys.
+
+[^7]: Really a Honcho peer can be any entity (human, agent, NPC, group, brand, task, experience, concept) that remains [[Identity is diachronic|the same yet changes]] from time t to t+1,...
