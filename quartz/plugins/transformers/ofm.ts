@@ -306,7 +306,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
             ])
           }
 
-          // Highlight logic moved to separate plugin
+          // Highlight logic is handled separately below (lines 385-430) to support nested markdown
 
           if (opts.parseArrows) {
             replacements.push([
