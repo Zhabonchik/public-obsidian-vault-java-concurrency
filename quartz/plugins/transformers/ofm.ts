@@ -7,6 +7,7 @@ import {
   DefinitionContent,
   Paragraph,
   Code,
+  Parent,
 } from "mdast"
 import { Element, Literal, Root as HtmlRoot } from "hast"
 import { ReplaceFunction, findAndReplace as mdastFindReplace } from "mdast-util-find-and-replace"
@@ -99,6 +100,19 @@ const arrowMapping: Record<string, string> = {
   "<--": "&lArr;",
   "<=": "&lArr;",
   "<==": "&lArr;",
+}
+// Marker node used for highlighting
+interface HighlightMarker {
+  type: "highlightMarker"
+}
+
+function isHighlightMarker(node: unknown): node is HighlightMarker {
+  return (
+    typeof node === "object" &&
+    node !== null &&
+    "type" in node &&
+    (node as { type: unknown }).type === "highlightMarker"
+  )
 }
 
 function canonicalizeCallout(calloutName: string): keyof typeof calloutMapping {
@@ -391,11 +405,13 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
 
             visit(tree, (node) => {
               if (!("children" in node)) return
-              const children = (node as any).children as any[]
+              const parent = node as Parent
+              const children = parent.children
+              if (children.length === 0) return
 
               const markers: number[] = []
               for (let i = 0; i < children.length; i++) {
-                if (children[i].type === "highlightMarker") {
+                if (isHighlightMarker(children[i])) {
                   markers.push(i)
                 }
               }
@@ -413,11 +429,11 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
                 const htmlContent = content
                   .map((n) => {
                     const hast = toHast(n, { allowDangerousHtml: true })
-                    return toHtml(hast as any, { allowDangerousHtml: true })
+                    return hast ? toHtml(hast, { allowDangerousHtml: true }) : ""
                   })
                   .join("")
 
-                const newNode = {
+                const newNode: Html = {
                   type: "html",
                   value: `<span class="text-highlight">${htmlContent}</span>`,
                 }
