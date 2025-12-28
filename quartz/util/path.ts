@@ -238,10 +238,12 @@ export function transformLink(src: FullSlug, target: string, opts: TransformOpti
 
     if (opts.strategy === "shortest") {
       // if the file name is unique, then it's just the filename
+      const normalizedTarget = targetCanonical.normalize("NFC")  
       const matchingFileNames = opts.allSlugs.filter((slug) => {
         const parts = slug.split("/")
         const fileName = parts.at(-1)
-        return targetCanonical.normalize() === fileName.normalize()
+        if (!fileName) return false
+        return normalizedTarget === fileName.normalize("NFC")
       })
 
       // only match, just use it
