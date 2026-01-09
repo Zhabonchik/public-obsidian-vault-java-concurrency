@@ -183,15 +183,15 @@ export default ((userOpts?: Partial<Options>) => {
     )
   }
 
-  const additionalCSS = opts.components?.map(c => c.Component.css) || []
-  const additionalAfterDOM = opts.components?.map(c => c.Component.afterDOMLoaded) || []
-  const additionalBeforeDOM = opts.components?.map(c => c.Component.beforeDOMLoaded) || []
+  const additionalCSS = opts.components?.map((c) => c.Component.css) || []
+  const additionalAfterDOM = opts.components?.map((c) => c.Component.afterDOMLoaded) || []
+  const additionalBeforeDOM = opts.components?.map((c) => c.Component.beforeDOMLoaded) || []
 
   Explorer.css = concatenateResources(style, ...additionalCSS)
   Explorer.afterDOMLoaded = concatenateResources(
-    script, 
+    script,
     overflowListAfterDOMLoaded,
-    ...additionalAfterDOM
+    ...additionalAfterDOM,
   )
   Explorer.beforeDOMLoaded = concatenateResources(...additionalBeforeDOM)
 
