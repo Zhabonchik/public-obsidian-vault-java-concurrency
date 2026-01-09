@@ -20,6 +20,10 @@ export interface Options {
   filterFn: (node: FileTrieNode) => boolean
   mapFn: (node: FileTrieNode) => void
   order: OrderEntries[]
+  components?: {
+    Component: QuartzComponent
+    position: "before" | "after"
+  }[]
 }
 
 const defaultOptions: Options = {
@@ -48,6 +52,7 @@ const defaultOptions: Options = {
   },
   filterFn: (node) => node.slugSegment !== "tags",
   order: ["filter", "map", "sort"],
+  components: [],
 }
 
 export type FolderState = {
@@ -60,8 +65,15 @@ export default ((userOpts?: Partial<Options>) => {
   const opts: Options = { ...defaultOptions, ...userOpts }
   const { OverflowList, overflowListAfterDOMLoaded } = OverflowListFactory()
 
-  const Explorer: QuartzComponent = ({ cfg, displayClass }: QuartzComponentProps) => {
+  const Explorer: QuartzComponent = ({ cfg, displayClass, ...props }: QuartzComponentProps) => {
     const id = `explorer-${numExplorers++}`
+
+    const beforeComponents = (opts.components || []).filter(
+      (c) => c.position === "before" || !c.position,
+    )
+    const afterCOmpoentns = (opts.components || []).filter(
+      (c) => c.position === "after" || !c.position,
+    )
 
     return (
       <div
@@ -120,7 +132,19 @@ export default ((userOpts?: Partial<Options>) => {
           </svg>
         </button>
         <div id={id} class="explorer-content" aria-expanded={false} role="group">
+          {beforeComponents.map((comp, idx) => (
+            <div key={`before-${idx}`}>
+              <comp.Component {...props} cfg={cfg} />
+            </div>
+          ))}
+
           <OverflowList class="explorer-ul" />
+
+          {afterCOmpoentns.map((comp, idx) => (
+            <div key={`after-${idx}`}>
+              <comp.Component {...props} cfg={cfg} />
+            </div>
+          ))}
         </div>
         <template id="template-file">
           <li>
@@ -159,7 +183,17 @@ export default ((userOpts?: Partial<Options>) => {
     )
   }
 
-  Explorer.css = style
-  Explorer.afterDOMLoaded = concatenateResources(script, overflowListAfterDOMLoaded)
+  const additionalCSS = opts.components?.map(c => c.Component.css) || []
+  const additionalAfterDOM = opts.components?.map(c => c.Component.afterDOMLoaded) || []
+  const additionalBeforeDOM = opts.components?.map(c => c.Component.beforeDOMLoaded) || []
+
+  Explorer.css = concatenateResources(style, ...additionalCSS)
+  Explorer.afterDOMLoaded = concatenateResources(
+    script, 
+    overflowListAfterDOMLoaded,
+    ...additionalAfterDOM
+  )
+  Explorer.beforeDOMLoaded = concatenateResources(...additionalBeforeDOM)
+
   return Explorer
 }) satisfies QuartzComponentConstructor

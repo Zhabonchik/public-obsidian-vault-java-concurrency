@@ -38,7 +38,19 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      folderDefaultState: "collapsed",
+      components: [
+        {
+          Component: Component.RecentNotes(),
+          position: "before",
+        },
+        {
+          Component: Component.ContentMeta(),
+          position: "after",
+        }
+      ]
+    }),
   ],
   right: [
     Component.Graph(),
