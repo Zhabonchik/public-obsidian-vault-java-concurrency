@@ -71,7 +71,7 @@ export default ((userOpts?: Partial<Options>) => {
     const beforeComponents = (opts.components || []).filter(
       (c) => c.position === "before" || !c.position,
     )
-    const afterCOmpoentns = (opts.components || []).filter(
+    const afterComponents = (opts.components || []).filter(
       (c) => c.position === "after" || !c.position,
     )
 
