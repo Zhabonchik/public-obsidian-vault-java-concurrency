@@ -68,12 +68,8 @@ export default ((userOpts?: Partial<Options>) => {
   const Explorer: QuartzComponent = ({ cfg, displayClass, ...props }: QuartzComponentProps) => {
     const id = `explorer-${numExplorers++}`
 
-    const beforeComponents = (opts.components || []).filter(
-      (c) => c.position === "before" || !c.position,
-    )
-    const afterComponents = (opts.components || []).filter(
-      (c) => c.position === "after" || !c.position,
-    )
+    const beforeComponents = (opts.components || []).filter((c) => c.position === "before")
+    const afterComponents = (opts.components || []).filter((c) => c.position === "after")
 
     return (
       <div
@@ -132,19 +128,27 @@ export default ((userOpts?: Partial<Options>) => {
           </svg>
         </button>
         <div id={id} class="explorer-content" aria-expanded={false} role="group">
-          {beforeComponents.map((comp, idx) => (
-            <div key={`before-${idx}`}>
-              <comp.Component {...props} cfg={cfg} />
-            </div>
-          ))}
+          {beforeComponents.map((comp, idx) => {
+            const componentName = comp.Component.displayName || `component-${idx}`
+            const key = `before-${componentName}-${idx}`
+            return (
+              <div key={key}>
+                <comp.Component {...props} cfg={cfg} />
+              </div>
+            )
+          })}
 
           <OverflowList class="explorer-ul" />
 
-          {afterCOmpoentns.map((comp, idx) => (
-            <div key={`after-${idx}`}>
-              <comp.Component {...props} cfg={cfg} />
-            </div>
-          ))}
+          {afterComponents.map((comp, idx) => {
+            const componentName = comp.Component.displayName || `component-${idx}`
+            const key = `before-${componentName}-${idx}`
+            return (
+              <div key={key}>
+                <comp.Component {...props} cfg={cfg} />
+              </div>
+            )
+          })}
         </div>
         <template id="template-file">
           <li>
