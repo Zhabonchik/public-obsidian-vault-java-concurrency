@@ -87,6 +87,7 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     showTags,
     focusOnHover,
     enableRadial,
+    defaultZoom,
   } = JSON.parse(graph.dataset["cfg"]!) as D3Config
 
   const data: Map<SimpleSlug, ContentDetails> = new Map(
@@ -497,30 +498,41 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   }
 
   if (enableZoom) {
-    select<HTMLCanvasElement, NodeData>(app.canvas).call(
-      zoom<HTMLCanvasElement, NodeData>()
-        .extent([
-          [0, 0],
-          [width, height],
-        ])
-        .scaleExtent([0.25, 4])
-        .on("zoom", ({ transform }) => {
-          currentTransform = transform
-          stage.scale.set(transform.k, transform.k)
-          stage.position.set(transform.x, transform.y)
+    const zoomBehavior = zoom<HTMLCanvasElement, NodeData>()
+      .extent([
+        [0, 0],
+        [width, height],
+      ])
+      .scaleExtent([0.25, 4])
+      .on("zoom", ({ transform }) => {
+        currentTransform = transform
+        stage.scale.set(transform.k, transform.k)
+        stage.position.set(transform.x, transform.y)
 
-          // zoom adjusts opacity of labels too
-          const scale = transform.k * opacityScale
-          let scaleOpacity = Math.max((scale - 1) / 3.75, 0)
-          const activeNodes = nodeRenderData.filter((n) => n.active).flatMap((n) => n.label)
+        // zoom adjusts opacity of labels too
+        const scale = transform.k * opacityScale
+        let scaleOpacity = Math.max((scale - 1) / 3.75, 0)
+        const activeNodes = nodeRenderData.filter((n) => n.active).flatMap((n) => n.label)
 
-          for (const label of labelsContainer.children) {
-            if (!activeNodes.includes(label)) {
-              label.alpha = scaleOpacity
-            }
+        for (const label of labelsContainer.children) {
+          if (!activeNodes.includes(label)) {
+            label.alpha = scaleOpacity
           }
-        }),
-    )
+        }
+      })
+
+    const canvas = select<HTMLCanvasElement, NodeData>(app.canvas)
+    canvas.call(zoomBehavior)
+
+    // Apply default zoom (defaults to 1 if not provided)
+    const zoomLevel = defaultZoom ?? 1
+    if (zoomLevel !== 1) {
+      const defaultTransform = zoomIdentity
+        .translate(width / 2, height / 2)
+        .scale(zoomLevel)
+        .translate(-width / 2, -height / 2)
+      canvas.call(zoomBehavior.transform, defaultTransform)
+    }
   }
 
   let stopAnimation = false
