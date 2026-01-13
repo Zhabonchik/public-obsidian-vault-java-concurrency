@@ -1,52 +1,23 @@
 ---
 title: 靜觀微語 Still Whispers
-description: 林永章 Lin Yung-Chang | Nick | 陶工生活隨筆。
+description: 這裡是「靜觀微語」的雜記空間。不一定是完整的作品，更多是拉坯間隙的碎念、工具的磨合，以及對生活的細微觀察。
 ---
 ---
-# 林永章 
-### Lin Yung-Chang (Nick)
 
-![林永章](lin-yung-chang-pottery.webp)
-
-指尖與泥土的對話，位元與日常的紀錄。
-
----
-
-### Pottery & Notes
-- **陶藝作品**：探索形狀、釉藥與火的實驗。
-- **技術隨筆**：關於 Obsidian、Quartz 與數位實踐。
-- **生活記事**：貓、燒窯，以及一些瑣碎。
+<div style="margin-top: 2rem; position: relative;">
+  <img src="lin-yung-chang-wood-firing.webp" alt="陶工林永章於工作室投柴火，紀錄柴燒實驗的靜觀瞬間" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+  <p style="text-align: right; font-style: italic; opacity: 0.5; font-size: 0.8rem; margin-top: 0.5rem;">
+    「在泥土與火之間，尋找最安靜的對話。」
+  </p>
+</div>
 
 ---
 
-## 經歷 | Experience
+### 📂 近期紀錄
+> [!NOTE] 導覽
+> 你可以在左側選單依日期查看，或從下方標籤尋找感興趣的主題。
 
-### 獲獎與個展
-- **2024** | 第九屆臺灣國際金壺獎 - 入選
-- **2021** | 《靜觀，無語》林永章陶藝個展
-- **2020** | 南投縣玉山美術獎 - 入選
-- **2017** | 林永章陶藝個展 - 國立臺灣工藝研究發展中心
-
-### 近期展覽
-- **2025** | 位來・2025 臺灣工藝展
-- **2025** | 方圓美術館 - 臺灣茶器聯展
-- **2025** | 南投縣陶藝學會聯展 - 《大地的呢喃》
-- **2024 ~ 2025** | 秋山堂《剛剛好》陶藝聯展
-
-<details>
-<summary>View More / 歷年經歷</summary>
-
-- **2023** | 臺南縣知事官邸 - 【陶人風】職人聯展
-- **2023** | 方圓美術館 - 臺灣茶器聯展
-- **2022** | 方圓美術館 - 臺灣茶器聯展
-- **2022 ~ 2023** | 秋山堂《不會太寂寞》陶藝聯展
-- **2018** | 「無。有。器」陶人風系列聯展
-- **2017** | 《當代君子學》君子悠然 — 陶人風聯展
-- **2016** | 南投茶具、茶倉、創意美器聯展
-- **2015** | 陶瓷研究會成果發表 — 《閒砌、異彩》
-- **2014** | 陶瓷人才培訓計畫研習
-
-</details>
-
----
-*Last updated from Obsidian.*
+<p style="margin-top: 3rem; text-align: center; opacity: 0.8;">
+  **林永章 (Yung-Chang Lin)**<br>
+  [ 了解我的陶藝資歷與創作故事 → ](/about)
+</p>
