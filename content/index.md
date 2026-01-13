@@ -19,5 +19,5 @@ description: 這裡是「靜觀微語」的雜記空間。不一定是完整的�
 
 <p style="margin-top: 3rem; text-align: center; opacity: 0.8;">
   **林永章 (Yung-Chang Lin)**<br>
-  [ 了解我的陶藝資歷與創作故事 → ](/about)
+  <a href="./about">了解我的陶藝資歷與創作故事 →</a>
 </p>
