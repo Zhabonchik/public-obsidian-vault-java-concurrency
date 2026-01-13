@@ -64,6 +64,10 @@ export default (() => {
 
         {!usesCustomOgImage && (
           <>
+            <link rel="icon" href={iconPath} />
+        <meta name="google-site-verification" content="google4ed559fdc0fea887" />
+        <meta name="description" content={description} />
+        <meta name="generator" content="Quartz" />
             <meta property="og:image" content={ogImageDefaultPath} />
             <meta property="og:image:url" content={ogImageDefaultPath} />
             <meta name="twitter:image" content={ogImageDefaultPath} />
