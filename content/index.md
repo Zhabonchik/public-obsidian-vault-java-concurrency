@@ -1,12 +1,8 @@
 ---
-title: 林永章 Lin Yung-Chang | 陶藝創作與數位花園
-description: 這是林永章的官方個人站。收錄陶藝作品、技術隨筆與生活紀錄。
+title: 林永章 Lin Yung-Chang | 陶工
+description: 陶藝生活隨筆。
 ---
 ---
-title: 林永章 Lin Yung-Chang
-description: 陶藝創作與生活隨筆。
----
-
 # 林永章 
 ### Lin Yung-Chang (Nick)
 
