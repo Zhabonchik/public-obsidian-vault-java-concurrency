@@ -1,6 +1,6 @@
 ---
-title: 林永章 Lin Yung-Chang | 陶工
-description: 陶藝生活隨筆。
+title: 靜觀微語 Still Whispers
+description: 林永章 Lin Yung-Chang | Nick | 陶工生活隨筆。
 ---
 ---
 # 林永章 
