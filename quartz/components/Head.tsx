@@ -65,7 +65,7 @@ export default (() => {
         {!usesCustomOgImage && (
           <>
             <link rel="icon" href={iconPath} />
-        <meta name="google-site-verification" content="google4ed559fdc0fea887" />
+        <meta name="google-site-verification" content="HyE1QTcufGYoDxMk5SY7zlUK2NSYoBquwAmbqVb-gQQ" />
         <meta name="description" content={description} />
         <meta name="generator" content="Quartz" />
             <meta property="og:image" content={ogImageDefaultPath} />
