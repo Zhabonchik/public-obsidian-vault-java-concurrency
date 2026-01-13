@@ -40,6 +40,9 @@ export default (() => {
         <meta charSet="utf-8" />
         <meta name="google-site-verification" content="HyE1QTcufGYoDxMk5SY7zlUK2NSYoBquwAmbqVb-gQQ" />
         
+        {/* GoatCounter 流量統計 */}
+        <script data-goatcounter="https://vcdvcd.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+        
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
           <>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
