@@ -3,8 +3,8 @@ title: 靜觀微語 Still Whispers
 description: 這裡是「靜觀微語」的雜記空間。紀錄拉坯間隙的碎念、工具的磨合，以及對陶藝科學的細微觀察。
 ---
 
-<div style="margin-top: 2rem; position: relative;">
-  <img src="lin-yung-chang-wood-firing.webp" alt="陶工林永章於工作室投柴火，紀錄柴燒實驗的靜觀瞬間" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+![[lin-yung-chang/content/assets/index/lin-yung-chang-wood-firing.webp|448x448]]<div style="margin-top: 2rem; position: relative;">
+  <img src="lin-yung-chang-wood-firing" alt="陶工林永章投柴火，紀錄柴燒實驗的靜觀瞬間" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
   <p style="text-align: right; font-style: italic; opacity: 0.5; font-size: 0.8rem; margin-top: 0.5rem;">
     「在泥土與火之間，尋找最安靜的對話。」
   </p>
