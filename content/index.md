@@ -10,9 +10,9 @@ title: Still Whispers
 
 ### Multi column
 
-- [[書籍紀錄|📚 書籍紀錄]]
-- [[隨筆紀錄|✍️ 隨筆紀錄]]
-- [[about|👤 關於我]]
+- [[lin-yung-chang/content/Library/index|📚 書籍紀錄]]
+- [[lin-yung-chang/content/notes/index|✍️ 隨筆紀錄]]
+- [[00-about|👤 關於我]]
 
 ### 📚 核心典藏
 
@@ -37,4 +37,4 @@ title: Still Whispers
 
 ### 林永章 (Yung-Chang Lin)
 
-了解我的陶藝資歷與創作故事 → [[about]]
+了解我的陶藝資歷與創作故事 → [[00-about|👤 關於我]]
