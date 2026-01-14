@@ -39,11 +39,17 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Search(),
     Component.Darkmode(),
     Component.Explorer({
-      title: "🏺 全站導覽",
-      sortFn: explorerSortFn, // 👈 這裡套用死規矩
-      useSavedState: true,    // 👈 這會記住你上次展開還是收合
-    }),
-  ],
+  title: "🏺 全站導覽",
+  sortFn: explorerSortFn,
+  mapFn: (node) => {
+    // 只要是檔案（不是資料夾），標題前面就自動加上一個優雅的點點
+    if (node.depth > 0 && !node.children.length) {
+      if (node.displayName && !node.displayName.startsWith("・")) {
+        node.displayName = "・" + node.displayName
+      }
+    }
+  },
+}),
   right: [
     Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
