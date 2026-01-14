@@ -1,7 +1,9 @@
-// 1. 先定義最強的排序邏輯 (放在檔案上方)
+import { PageLayout, SharedLayout } from "./quartz/components/PageLayout"
+import * as Component from "./quartz/components"
+
+// 排序邏輯
 const customSortFn = (a, b) => {
-  // 這裡的名稱一定要跟你在 Obsidian 看到的「資料夾名稱」一模一樣
-  const nameOrder = ["關於我", "書籍紀錄", "隨筆紀錄", "網站設置LOG", "tags"]
+  const nameOrder = ["about", "書籍紀錄", "隨筆紀錄", "tags"]
   const i = nameOrder.indexOf(a.name)
   const j = nameOrder.indexOf(b.name)
   if (i !== -1 && j !== -1) return i - j
@@ -10,27 +12,56 @@ const customSortFn = (a, b) => {
   return (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name, "zh-Hant")
 }
 
-// 2. 下面是你的版面配置
-export const layout: PageLayout = {
-  left: [
-    Explorer({
-      title: "🏺 全站導覽", // 這裡可以加你要的 Emoji
-      sortFn: customSortFn,  // 套用上面那個邏輯
-    }),
-  ],
-  center: [
-    Content(),
-  ],
-  right: [
-    Graph(),
-    RecentNotes({ title: "最近筆記", limit: 5 }),
-    TagList(),
-  ],
-  // 3. 在頁尾加一個傳送門
-  footer: Footer({
+// 修復重點：sharedPageComponents 必須包含 beforeBody: []
+export const sharedPageComponents: SharedLayout = {
+  head: Component.Head(),
+  header: [],
+  beforeBody: [], // ← 就是這裡！必須是陣列，不能漏掉
+  afterBody: [],
+  footer: Component.Footer({
     links: {
       "GitHub": "https://github.com/vcdvcd214/lin-yung-chang",
-      "⚙️ 建構日誌": "/網站設置LOG", 
+      "⚙️ 建構日誌": "/隨筆紀錄/網站設置LOG",
     },
   }),
+}
+
+export const defaultContentPageLayout: PageLayout = {
+  left: [
+    Component.PageTitle(),
+    Component.MobileOnly(Component.Spacer()),
+    Component.Search(),
+    Component.Darkmode(),
+    Component.Explorer({
+      title: "🏺 全站導覽",
+      sortFn: customSortFn,
+    }),
+  ],
+  right: [
+    Component.Graph(),
+    Component.DesktopOnly(Component.TableOfContents()),
+    Component.Backlinks(),
+  ],
+  center: [
+    Component.Breadcrumbs(),
+    Component.Content(),
+  ],
+}
+
+export const defaultListPageLayout: PageLayout = {
+  left: [
+    Component.PageTitle(),
+    Component.MobileOnly(Component.Spacer()),
+    Component.Search(),
+    Component.Darkmode(),
+    Component.Explorer({
+      title: "🏺 全站導覽",
+      sortFn: customSortFn,
+    }),
+  ],
+  right: [],
+  center: [
+    Component.Breadcrumbs(),
+    Component.Content(),
+  ],
 }
