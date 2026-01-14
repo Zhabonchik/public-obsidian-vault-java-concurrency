@@ -130,13 +130,13 @@ button.desktop-explorer {
         color: var(--tertiary);
       }
     }
+  }
 
-    /* 給文件項目（沒有資料夾結構的 li）前面加「・」*/
-    & li:not(:has(> .folder-container)) > a::before {
-      content: "・ ";
-      margin-right: 0.25rem;
-      color: var(--dark);
-    }
+  /* 只在深層檔案項目（不是一級）前面加「・」*/
+  & ul ul li:not(:has(> .folder-container)) > a::before {
+    content: "・ ";
+    margin-right: 0.25rem;
+    color: var(--dark);
   }
 
   .folder-outer {
