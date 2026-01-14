@@ -65,6 +65,7 @@ export const sharedPageComponents: SharedLayout = {
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/vcdvcd214/lin-yung-chang",
+      "⚙️ 建構日誌": "網站設置LOG", // ✅ 已補上建構日誌連結
       "📧 聯絡我": "mailto:vcdvcd@gmail.com",
     },
   }),
@@ -85,6 +86,23 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Backlinks(),
   ],
   center: [Component.Breadcrumbs(), Component.Content()],
+
+  // 👇 Giscus 評論系統放在這裡
+  afterBody: [
+    Component.Comments({
+      provider: 'giscus',
+      options: {
+        repo: 'vcdvcd214/lin-yung-chang',
+        repoId: 'R_kgDOQ47Q9g',          // ✅ 你的 Repo ID
+        category: 'General',             // ✅ 你的 Category
+        categoryId: 'DIC_kwDOQ47Q9s4C06UD', // ✅ 你的 Category ID
+        mapping: 'pathname',
+        strict: false,
+        reactionsEnabled: true,
+        inputPosition: 'bottom',
+      }
+    }),
+  ],
 }
 
 // 5. 列表頁面版型
