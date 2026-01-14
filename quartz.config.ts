@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "林永章 | Lin Yung-Chang | Nick",
+    pageTitle: "靜觀微語",
     pageTitleSuffix: "",
     enableSPA: false,
     enablePopovers: true,
