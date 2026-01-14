@@ -12,29 +12,30 @@ const explorerSortFn = (a, b) => {
   return (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name, "zh-Hant")
 }
 
-// 2. 定義統一的 Explorer 邏輯 (解決點點與 Emoji 躁感)
+// 2. 定義統一的 Explorer 邏輯
 const commonExplorer = Component.Explorer({
   title: "🏺 全站導覽",
   sortFn: explorerSortFn,
   folderClickBehavior: "link",
   mapFn: (node) => {
+    // 處理特殊 Emoji 統一
     if (node.name === "about" || node.displayName?.toLowerCase() === "about") {
       node.displayName = "👤 關於我"
     } else if (node.name === "網站設置LOG" || node.displayName?.includes("LOG")) {
       node.displayName = "⚙️ 網站設置 LOG"
     }
     
-    // 只要是檔案，前面強制加點點
-    if (node.file && node.displayName && !node.displayName.startsWith("・")) {
-      const isSpecial = node.displayName.includes("👤") || node.displayName.includes("⚙️")
-      if (!isSpecial) {
+    // 【暴力加點點】
+    // 如果沒有 children (代表是檔案) 且標題還沒加過點點
+    if ((!node.children || node.children.length === 0) && node.displayName) {
+      const hasEmoji = node.displayName.includes("👤") || node.displayName.includes("⚙️")
+      if (!hasEmoji && !node.displayName.startsWith("・")) {
         node.displayName = "・" + node.displayName
       }
     }
   },
 })
 
-// 3. 匯出共用組件
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
@@ -43,12 +44,11 @@ export const sharedPageComponents: SharedLayout = {
   footer: Component.Footer({
     links: {
       "GitHub": "https://github.com/vcdvcd214/lin-yung-chang",
-      "⚙️ 建構日誌": "網站設置LOG", 
+      "⚙️ 建構日誌": "./網站設置LOG", // 🚀 改用相對路徑試試，避免 SPA 路由迷路
     },
   }),
 }
 
-// 4. 匯出內容頁佈局 (一定要有 export)
 export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
@@ -68,7 +68,6 @@ export const defaultContentPageLayout: PageLayout = {
   ],
 }
 
-// 5. 匯出列表頁佈局 (一定要有 export)
 export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
