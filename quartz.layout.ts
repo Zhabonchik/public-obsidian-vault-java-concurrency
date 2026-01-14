@@ -1,7 +1,7 @@
 import { PageLayout, SharedLayout } from "./quartz/components/PageLayout"
 import * as Component from "./quartz/components"
 
-// 排序邏輯：About > 書籍紀錄 > 隨筆紀錄 > 標籤
+// 排序邏輯
 const customSortFn = (a, b) => {
   const nameOrder = ["about", "書籍紀錄", "隨筆紀錄", "tags"]
   const i = nameOrder.indexOf(a.name)
@@ -12,10 +12,11 @@ const customSortFn = (a, b) => {
   return (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name, "zh-Hant")
 }
 
-// 這是 Action 剛才說找不到的關鍵部分
+// 修復重點：sharedPageComponents 必須包含 beforeBody: []
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
+  beforeBody: [], // ← 就是這裡！必須是陣列，不能漏掉
   afterBody: [],
   footer: Component.Footer({
     links: {
@@ -25,7 +26,6 @@ export const sharedPageComponents: SharedLayout = {
   }),
 }
 
-// 內容頁配置
 export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
@@ -48,7 +48,6 @@ export const defaultContentPageLayout: PageLayout = {
   ],
 }
 
-// 列表頁配置 (資料夾頁面)
 export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
