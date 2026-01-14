@@ -1,9 +1,9 @@
-import { PageLayout, SharedLayout } from "./quartz/cfg"
+import { PageLayout, SharedLayout } from "./quartz/components/PageLayout"
 import * as Component from "./quartz/components"
 
-// 自訂排序邏輯
+// 排序邏輯：About > 書籍紀錄 > 隨筆紀錄 > 標籤
 const customSortFn = (a, b) => {
-  const nameOrder = ["關於我", "書籍紀錄", "隨筆紀錄", "網站設置LOG", "tags"]
+  const nameOrder = ["about", "書籍紀錄", "隨筆紀錄", "tags"]
   const i = nameOrder.indexOf(a.name)
   const j = nameOrder.indexOf(b.name)
   if (i !== -1 && j !== -1) return i - j
@@ -12,7 +12,7 @@ const customSortFn = (a, b) => {
   return (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name, "zh-Hant")
 }
 
-// 所有頁面共用的元件
+// 這是 Action 剛才說找不到的關鍵部分
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
@@ -20,49 +20,49 @@ export const sharedPageComponents: SharedLayout = {
   footer: Component.Footer({
     links: {
       "GitHub": "https://github.com/vcdvcd214/lin-yung-chang",
-      "⚙️ 建構日誌": "/網站設置LOG",
+      "⚙️ 建構日誌": "/隨筆紀錄/網站設置LOG",
     },
   }),
 }
 
-// 單一內容頁面版面
+// 內容頁配置
 export const defaultContentPageLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
-  ],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer({
+    Component.Explorer({
       title: "🏺 全站導覽",
       sortFn: customSortFn,
-    })),
+    }),
   ],
   right: [
     Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
-    Component.RecentNotes({ title: "最近筆記", limit: 5 }),
+  ],
+  center: [
+    Component.Breadcrumbs(),
+    Component.Content(),
   ],
 }
 
-// 列表頁面版面(標籤/資料夾頁面)
+// 列表頁配置 (資料夾頁面)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer({
+    Component.Explorer({
       title: "🏺 全站導覽",
       sortFn: customSortFn,
-    })),
+    }),
   ],
   right: [],
+  center: [
+    Component.Breadcrumbs(),
+    Component.Content(),
+  ],
 }
