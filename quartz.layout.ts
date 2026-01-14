@@ -1,7 +1,7 @@
 import { PageLayout, SharedLayout } from "./quartz/components/PageLayout"
 import * as Component from "./quartz/components"
 
-// 1. 定義排序邏輯（左側導覽順序）
+// 1. 定義排序邏輯
 const explorerSortFn = (a, b) => {
   const nameOrder = ["about", "書籍紀錄", "隨筆紀錄", "網站設置LOG", "tags"]
   const i = nameOrder.indexOf(a.name)
@@ -11,50 +11,52 @@ const explorerSortFn = (a, b) => {
   if (i !== -1) return -1
   if (j !== -1) return 1
 
-  // 其餘用中文顯示名稱排序
   return (a.displayName ?? a.name).localeCompare(
     b.displayName ?? b.name,
     "zh-Hant",
   )
 }
 
-// 2. 統一的 Explorer 設定
+// 2. 定義統一的 Explorer 邏輯
 const commonExplorer = Component.Explorer({
   title: "🏺 全站導覽",
-  sortFn: explorerSortFn,
   folderClickBehavior: "link",
+  sortFn: explorerSortFn,
   mapFn: (node) => {
-    // 建立一個新節點物件，避免直接改原始資料
-    const newNode = { ...node }
-
-    // 特殊命名統一處理
-    if (newNode.name === "about" || newNode.displayName?.toLowerCase() === "about") {
-      newNode.displayName = "👤 關於我"
-    } else if (
-      newNode.name === "網站設置LOG" ||
-      newNode.displayName?.includes("LOG")
-    ) {
-      newNode.displayName = "⚙️ 網站設置 LOG"
+    // 處理特殊資料夾/檔案名稱加 Emoji
+    // 透過 name (檔名/資料夾名) 或 displayName (標題) 來對應
+    
+    // 1. 關於我
+    if (node.name === "about" || node.displayName?.toLowerCase() === "about") {
+      node.displayName = "👤 關於我"
+    } 
+    // 2. 網站設置 LOG
+    else if (node.name === "網站設置LOG" || node.displayName?.includes("網站設置LOG")) {
+      node.displayName = "⚙️ 網站設置 LOG"
+    }
+    // 3. 隨筆紀錄 (新增)
+    else if (node.name === "隨筆紀錄" || node.displayName === "隨筆紀錄") {
+      node.displayName = "✍️ 隨筆紀錄"
+    }
+    // 4. 書籍紀錄 (順手幫你加上，看起來比較整齊，如果不喜歡可刪除這段)
+    else if (node.name === "書籍紀錄" || node.displayName === "書籍紀錄") {
+      node.displayName = "📚 書籍紀錄"
     }
 
-    // 是否為「檔案節點」（沒有 children）
-    const isLeaf = !newNode.children || newNode.children.length === 0
-
-    // 自動在一般檔案前面加「・」
-    if (isLeaf && newNode.displayName) {
-      const hasEmoji =
-        newNode.displayName.includes("👤") ||
-        newNode.displayName.includes("⚙️")
-      if (!hasEmoji && !newNode.displayName.startsWith("・")) {
-        newNode.displayName = "・" + newNode.displayName
+    // 【檔案節點加點點邏輯】
+    // node.file 存在代表它是具體的檔案頁面（非資料夾）
+    if (node.file) {
+      // 檢查是否已經有 emoji（包含上面剛加的，或是標題自帶的）
+      const hasEmoji = /\p{Emoji}/u.test(node.displayName ?? "")
+      
+      // 如果沒有 Emoji 且沒有點點，才加上「・」
+      if (!hasEmoji && !node.displayName.startsWith("・")) {
+        node.displayName = "・" + node.displayName
       }
     }
-
-    return newNode
   },
 })
 
-// 3. 共用元件：head / footer
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
@@ -63,16 +65,12 @@ export const sharedPageComponents: SharedLayout = {
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/vcdvcd214/lin-yung-chang",
-      // ⬇ 這一行請用你實際「網站設置 LOG」頁面在瀏覽器看到的路徑
       "⚙️ 建構日誌":
         "https://vcdvcd214.github.io/lin-yung-chang/notes/網站設置LOG/",
-      // 或者用站內絕對路徑版本：
-      // "⚙️ 建構日誌": "/lin-yung-chang/notes/網站設置LOG/",
     },
   }),
 }
 
-// 4. 一般內容頁版型
 export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
@@ -89,7 +87,6 @@ export const defaultContentPageLayout: PageLayout = {
   center: [Component.Breadcrumbs(), Component.Content()],
 }
 
-// 5. 列表頁版型（例如 tag / 索引）
 export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
