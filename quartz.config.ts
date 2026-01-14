@@ -13,7 +13,7 @@ const config: QuartzConfig = {
     enableSPA: false,
     enablePopovers: true,
     analytics: {
-  provider: "umami",
+  provider: "null",
   websiteId: "d6f39378-93d1-416e-94f5-2f29b2474f4a",
   host: "https://cloud.umami.is", // 拿掉後面的 /script.js
 },
