@@ -10,8 +10,8 @@ title: Still Whispers
 
 ### Multi column
 
-- [[lin-yung-chang/content/Library/index|📚 書籍紀錄]]
-- [[lin-yung-chang/content/notes/index|✍️ 隨筆紀錄]]
+- [[Library|📚 書籍紀錄]]
+- [[notes|✋️ 隨筆紀錄]]
 - [[00-about|👤 關於我]]
 
 ### 📚 核心典藏
