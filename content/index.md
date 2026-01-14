@@ -1,9 +1,10 @@
 ---
 title: 林永章 | Lin Yung-Chang | Nick
+description: 林永章官方網站！Official Site !紀錄泥土、火與時間的對話。整理台灣陶藝前輩資訊與個人柴燒創作。
 ---
 
 ---
-# 🏺 靜觀微語 Still Whispers
+# 🏺 Still Whispers
 
 > [!quote] 職人自白
 > **不愛說話，但細心觀察。**
