@@ -1,6 +1,8 @@
-// 1. 先定義最強的排序邏輯 (放在檔案上方)
+import { PageLayout, SharedLayout } from "./quartz/cfg"
+import * as Component from "./quartz/components"
+
+// 自訂排序邏輯
 const customSortFn = (a, b) => {
-  // 這裡的名稱一定要跟你在 Obsidian 看到的「資料夾名稱」一模一樣
   const nameOrder = ["關於我", "書籍紀錄", "隨筆紀錄", "網站設置LOG", "tags"]
   const i = nameOrder.indexOf(a.name)
   const j = nameOrder.indexOf(b.name)
@@ -10,27 +12,57 @@ const customSortFn = (a, b) => {
   return (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name, "zh-Hant")
 }
 
-// 2. 下面是你的版面配置
-export const layout: PageLayout = {
-  left: [
-    Explorer({
-      title: "🏺 全站導覽", // 這裡可以加你要的 Emoji
-      sortFn: customSortFn,  // 套用上面那個邏輯
-    }),
-  ],
-  center: [
-    Content(),
-  ],
-  right: [
-    Graph(),
-    RecentNotes({ title: "最近筆記", limit: 5 }),
-    TagList(),
-  ],
-  // 3. 在頁尾加一個傳送門
-  footer: Footer({
+// 所有頁面共用的元件
+export const sharedPageComponents: SharedLayout = {
+  head: Component.Head(),
+  header: [],
+  afterBody: [],
+  footer: Component.Footer({
     links: {
       "GitHub": "https://github.com/vcdvcd214/lin-yung-chang",
-      "⚙️ 建構日誌": "/網站設置LOG", 
+      "⚙️ 建構日誌": "/網站設置LOG",
     },
   }),
+}
+
+// 單一內容頁面版面
+export const defaultContentPageLayout: PageLayout = {
+  beforeBody: [
+    Component.Breadcrumbs(),
+    Component.ArticleTitle(),
+    Component.ContentMeta(),
+    Component.TagList(),
+  ],
+  left: [
+    Component.PageTitle(),
+    Component.MobileOnly(Component.Spacer()),
+    Component.Search(),
+    Component.Darkmode(),
+    Component.DesktopOnly(Component.Explorer({
+      title: "🏺 全站導覽",
+      sortFn: customSortFn,
+    })),
+  ],
+  right: [
+    Component.Graph(),
+    Component.DesktopOnly(Component.TableOfContents()),
+    Component.Backlinks(),
+    Component.RecentNotes({ title: "最近筆記", limit: 5 }),
+  ],
+}
+
+// 列表頁面版面(標籤/資料夾頁面)
+export const defaultListPageLayout: PageLayout = {
+  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  left: [
+    Component.PageTitle(),
+    Component.MobileOnly(Component.Spacer()),
+    Component.Search(),
+    Component.Darkmode(),
+    Component.DesktopOnly(Component.Explorer({
+      title: "🏺 全站導覽",
+      sortFn: customSortFn,
+    })),
+  ],
+  right: [],
 }
