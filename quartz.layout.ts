@@ -52,11 +52,22 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    // 這裡幫您優化了 Explorer 設定
     Component.Explorer({
-      title: "全站導覽", // 您可以隨時改這裡的標題
-      folderClickBehavior: "link", // 點擊資料夾可以直接進入該資料夾的 index
+      title: "全站導覽",
+      folderClickBehavior: "link",
       useSavedState: true,
+      // 這是你最需要的排序邏輯
+      sortFn: (a, b) => {
+        const nameOrder = ["Library", "隨筆", "tags"]
+        if (nameOrder.includes(a.name) || nameOrder.includes(b.name)) {
+          const i = nameOrder.indexOf(a.name)
+          const j = nameOrder.indexOf(b.name)
+          if (i === -1) return 1
+          if (j === -1) return -1
+          return i - j
+        }
+        return a.displayName.localeCompare(b.displayName)
+      },
     }),
   ],
   right: [
@@ -66,27 +77,4 @@ export const defaultContentPageLayout: PageLayout = {
   ],
 }
 
-// components for pages that display lists of pages  (e.g. tags or folders)
-export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
-  left: [
-    Component.PageTitle(),
-    Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { Component: Component.Darkmode() },
-      ],
-    }),
-    // 列表頁同樣套用優化後的 Explorer
-    Component.Explorer({
-      title: "全站導覽",
-      folderClickBehavior: "link",
-      useSavedState: true,
-    }),
-  ],
-  right: [],
-}
+// components for pages that display lists of
