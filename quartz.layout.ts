@@ -6,20 +6,20 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
-  Component.Comments({
-    provider: 'giscus',
-        options: {
-          repo: 'vcdvcd214/lin-yung-chang',
-          repoId: 'R_kgDOQ47Q9g',
-          category: 'Announcements',
-          categoryId: 'DIC_kwDOQ47Q9s4C06UC',
-          mapping: 'pathname',
-          strict: false, // 這是你剛才選的「data-strict="0"」
-          reactionsEnabled: true,
-          inputPosition: 'bottom',
-    }
-  }),
-],
+    Component.Comments({
+      provider: 'giscus',
+      options: {
+        repo: 'vcdvcd214/lin-yung-chang',
+        repoId: 'R_kgDOQ47Q9g',
+        category: 'Announcements',
+        categoryId: 'DIC_kwDOQ47Q9s4C06UC',
+        mapping: 'pathname',
+        strict: false,
+        reactionsEnabled: true,
+        inputPosition: 'bottom',
+      }
+    }),
+  ],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/jackyzha0/quartz",
@@ -52,7 +52,12 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer({ title: "notes | 隨筆" }),
+    // 這裡幫您優化了 Explorer 設定
+    Component.Explorer({
+      title: "全站導覽", // 您可以隨時改這裡的標題
+      folderClickBehavior: "link", // 點擊資料夾可以直接進入該資料夾的 index
+      useSavedState: true,
+    }),
   ],
   right: [
     Component.Graph(),
@@ -76,7 +81,12 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer({ title: "notes | 隨筆" }),
+    // 列表頁同樣套用優化後的 Explorer
+    Component.Explorer({
+      title: "全站導覽",
+      folderClickBehavior: "link",
+      useSavedState: true,
+    }),
   ],
   right: [],
 }
