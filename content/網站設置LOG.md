@@ -7,6 +7,16 @@ title: "⚙️ 網站設置 LOG"
 
 ---
 
+> [!abstract]- 📅 2026-01-15 | 開發環境在地化與工具鏈升級
+> - **💻 本機開發環境搭建 (Local Development)**
+>     - **VS Code 導入**：正式捨棄純網頁編輯，改採 Visual Studio Code 作為核心編輯器，大幅提升對 `quartz.layout.ts` 等結構檔案的管控力。
+>     - **插件部署**：安裝 `Prettier - Code formatter` 並開啟 `Format On Save`，確保代碼縮排與語法嚴謹，避免 GitHub Actions 因低級錯誤報錯。
+> - **🛠️ 環境偵錯 (Progressing)**
+>     - **Node.js 部署**：安裝 Node.js LTS 版本，準備啟動 Quartz 引擎。
+>     - **Server 嘗試**：研究使用 `npx quartz build --serve` 啟動本地預覽伺服器。
+>     - **目前瓶頸**：本地 Server 尚未成功開通，正處理 `npm i` 依賴安裝與環境路徑校準。
+> - **📈 運作策略調整**：
+>     - 實施「提早收工」與「止損策略」，針對深夜 GitHub Actions 的不穩定報錯不再盲目推播，轉為本機研究模式。
 > [!abstract]- 📅 2026-01-14 | 系統重構、數據追蹤與核心入庫
 > - **📊 流量統計雙重佈署 (GoatCounter)**
 >     - **Header 追蹤**：植入於 `SharedLayout` 之 `head` 區塊，確保腳本優先加載，精準捕捉所有來源流量。
