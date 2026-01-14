@@ -25,7 +25,7 @@ export default ((opts?: Options) => {
           <p style={{ margin: "0.2rem 0" }}>• 數位窯火穩定燒製中 (GoatCounter 觀測中)</p>
           <p style={{ margin: "0.2rem 0" }}>• Google SEO 驗證通過｜Giscus 交流區啟動</p>
           
-          {/* 隱藏的計數器圖片，會默默統計每一位訪客 */}
+          {/* 隱藏的計數器圖片 (Fallback)：當訪客關閉 JS 時，這個圖片依然能紀錄 */}
           <img 
             src="https://vcdvcd.goatcounter.com/count?p=/footer-auto" 
             style={{ display: "none" }} 
@@ -41,6 +41,12 @@ export default ((opts?: Options) => {
             </li>
           ))}
         </ul>
+
+        {/* 👇 雙重火力區：GoatCounter JS + Umami JS */}
+        {/* 放在這裡最安全，不會影響上方版面，且能捕捉完整數據 */}
+        <script data-goatcounter="https://vcdvcd.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="d6f39378-93d1-416e-94f5-2f29b2474f4a"></script>
+
       </footer>
     )
   }
