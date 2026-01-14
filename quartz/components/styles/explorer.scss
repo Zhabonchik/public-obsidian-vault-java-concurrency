@@ -132,13 +132,6 @@ button.desktop-explorer {
     }
   }
 
-  /* 只在深層檔案項目（不是一級）前面加「・」*/
-  & ul ul li:not(:has(> .folder-container)) > a::before {
-    content: "・ ";
-    margin-right: 0.25rem;
-    color: var(--dark);
-  }
-
   .folder-outer {
     visibility: collapse;
     display: grid;
