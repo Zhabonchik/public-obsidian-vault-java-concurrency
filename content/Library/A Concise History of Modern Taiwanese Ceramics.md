@@ -36,8 +36,8 @@ cover: "A Concise History of Modern Taiwanese Ceramics-cover.webp"
 ### 🖼️ 實體影像 (Gallery)
 > [!gallery]
 > ![[A Concise History of Modern Taiwanese Ceramics-cover.webp|300]]
-> ![[A Concise History of Modern Taiwanese Ceramics-cover-copyright.heic|300]]
-> ![[A Concise History of Modern Taiwanese Ceramics-cover-toc.heic|300]]
+> ![[A Concise History of Modern Taiwanese Ceramics-cover-copyright.webp|300]]
+> ![[A Concise History of Modern Taiwanese Ceramics-cover-toc.webp|300]]
 
 ---
 
