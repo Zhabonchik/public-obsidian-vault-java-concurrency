@@ -17,7 +17,6 @@ isbn: "9789860125115"
 price: "NT$ 420"
 cover: "A Concise History of Modern Taiwanese Ceramics-cover.webp"
 ---
-
 # A Concise History of Modern Taiwanese Ceramics (台灣現代陶藝簡史)
 
 > [!multi-column]
