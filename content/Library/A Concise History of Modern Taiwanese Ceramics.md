@@ -10,12 +10,13 @@ proofreader:
 categories:
   - "[[books.base]]"
 status: want to read
-rating: 
+rating:
 published: 2007-12-01
-publisher: "Taipei County Yingge Ceramics Museum"
+publisher: Taipei County Yingge Ceramics Museum
 isbn: "9789860125115"
-price: "NT$ 420"
-cover: "A Concise History of Modern Taiwanese Ceramics-cover.webp"
+price: NT$ 420
+cover: A Concise History of Modern Taiwanese Ceramics-cover.webp
+ai_tools: Gemini
 ---
 # A Concise History of Modern Taiwanese Ceramics (台灣現代陶藝簡史)
 
