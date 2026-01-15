@@ -4,14 +4,17 @@ tags:
   - 陶藝經典
   - 台灣陶藝史
 author:
-  - "[[台北縣立鶯歌陶瓷博物館出版社編輯部]]"
-  - "[[謝東山]]"
+  - "[[謝東山 (Hsieh Tung-shan)]]"
+proofreader:
+  - "[[邱煥堂]]"
 categories:
   - "[[books.base]]"
 status: want to read
 rating: 
 published: 2007-12-01
+publisher: "Taipei County Yingge Ceramics Museum"
 isbn: "9789860125115"
+price: "NT$ 420"
 cover: "A Concise History of Modern Taiwanese Ceramics-cover.webp"
 ---
 
@@ -19,30 +22,42 @@ cover: "A Concise History of Modern Taiwanese Ceramics-cover.webp"
 
 > [!multi-column]
 > > [!abstract] 典藏資訊
-> > - **主編/作者**：[[台北縣立鶯歌陶瓷博物館出版社編輯部]]、[[謝東山]]
-> > - **出版日期**：2007-12-01
-> > - **ISBN**：9789860125115
-> > - **關鍵字**：現代陶藝、歷史脈絡、藝術評論
+> > - **作者**：[[謝東山 (Hsieh Tung-shan)]]
+> > - **審校**：[[邱煥堂]] (Chiu Huan-tang)
+> > - **出版**：台北縣立鶯歌陶瓷博物館
+> > - **語言**：英文 (English)
+> > - **關鍵字**：現代陶藝、歷史脈絡、鶯歌陶博館
 > > - **典藏狀態**：想讀 🟡
 >
 > > [!quote] 內容簡介
-> > 謝東山教授在評論上的專業，能從藝術建構中為臺灣現代陶藝理出清楚的脈絡。歷史工作的整理必須以經驗事實為基礎，從中探尋其中的意義，包含它的目的、價值和發展模式等。雖然每一段歷史的意義都將隨著史的發展、現實生活的需要及時代和個人價值觀的變化而變化，但在當下撰寫的歷史，即能從當前的立場給予判斷，它的客觀性與價值是值得肯定的，更是這本書最重要的價值。
+> > 本書由藝術史學者謝東山撰寫，並由台灣現代陶藝之父 [[邱煥堂]] 擔任審校。書中梳理了從實用陶瓷 (Ceramic) 轉向陶藝 (Ceramic Art) 的歷史進程，探討了 1960-70 年代的啟蒙、80 年代的百花齊放，以及 90 年代後的學院與美術館體制建立。這是向國際介紹台灣陶藝發展最重要的文本之一。
 
 ---
 
 ### 🖼️ 實體影像 (Gallery)
 > [!gallery]
-> ![[A Concise History of Modern Taiwanese Ceramics-cover.webp|350]]
-> ![[A Concise History of Modern Taiwanese Ceramics-cover-copyright.webp|350]]
+> ![[A Concise History of Modern Taiwanese Ceramics-cover.webp|300]]
+> ![[A Concise History of Modern Taiwanese Ceramics-cover-copyright.heic|300]]
+> ![[A Concise History of Modern Taiwanese Ceramics-cover-toc.heic|300]]
 
 ---
 
 ### 📖 目錄 (Table of Contents)
-> [!book]- 點擊展開：原始目次影像
-> ![[A Concise History of Modern Taiwanese Ceramics-cover-toc.webp]]
+> [!book]- 點擊展開：章節細目
+> **1. The Meaning of "Ceramic Art" in Taiwan** (p.10)
+> **2. From Taoci to Taoyi: From Ceramic to Ceramic Art** (p.14)
+>    - 2.1 The Pottery Industry in Taiwan
+>    - 2.2 Introduction and Pioneering in the 1960s and 1970s
+> **3. The Formation of the Ceramic Art Network** (p.40)
+>    - 3.1 Crystallization of Creative Energy during the 1980s
+>    - 3.2 Expression in the 1990s
+> **4. Looking Back on the Development of Modern Ceramics in Taiwan** (p.98)
+>    - 4.1 School Education Replacing Private Ceramics Studios
+>    - 4.2 The Establishment of the Taipei County Yingge Ceramics Museum
+> **5. Conclusion** (p.114)
 
 ---
 
 ### 📝 實作筆記與連結
-- **技術對照**：此書可與 [[陶藝講座-邱煥堂]] 對照，邱煥堂老師是早期推動者，而謝東山教授則是以藝術史學者的角度進行總整理。
-- **閱讀重點**：關注書中對於「實用陶瓷」轉向「表現陶瓷」的歷史節點分析。
+- **關鍵關聯**：本書的 Proofreader (審校) 正是 [[陶藝講座-邱煥堂]] 的作者。這代表書中的歷史觀點經過了這位「台灣現代陶藝推手」的認證，兩本書的觀點具有高度的一致性與延續性。
+- **閱讀重點**：特別關注 Chapter 3 提到的 "Crystallization of Creative Energy during the 1980s"，這段時期奠定了台灣陶藝工作室的獨立面貌。
