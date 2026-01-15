@@ -1,5 +1,6 @@
 ---
-title: "⚙️ 網站設置 LOG"
+title: ⚙️ 網站設置 LOG
+description: Still Whispers 網站優化與待辦清單
 ---
 ---
 ## 🪵 建立宗旨
