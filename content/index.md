@@ -38,4 +38,4 @@ description: 林永章官方網站！Official Site !紀錄泥土、火與時間�
 > 若有任何資訊錯誤或涉及您的權益，歡迎透過 GitHub Issues 或電子郵件 `vcdvcd@gmail.com` 告知，將立即處理。
 
 ---
-**⚙️ 網站建構進度**：[[網站設置LOG|查看建構日誌]]
+**⚙️ 網站建構進度**：[[site-log|查看建構日誌]]
