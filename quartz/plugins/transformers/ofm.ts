@@ -167,7 +167,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
           `(${codeblockRegex.source})|${commentRegex.source}`,
           "g"
         )
-        src = src.replace(codeblockOrCommentRegex, (match, codeblock) => codeblock ?? "")
+        src = src.replace(codeblockOrCommentRegex, (_match, codeblock) => codeblock ?? "")
       }
 
       // pre-transform blockquotes
