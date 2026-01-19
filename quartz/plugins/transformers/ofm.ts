@@ -165,7 +165,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
         const codeblockRegex = /```[\s\S]*?```|`[^`\n]+`/
         const codeblockOrCommentRegex = new RegExp(
           `(${codeblockRegex.source})|${commentRegex.source}`,
-          "g"
+          "g",
         )
         src = src.replace(codeblockOrCommentRegex, (_match, codeblock) => codeblock ?? "")
       }
