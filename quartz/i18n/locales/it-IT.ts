@@ -61,7 +61,7 @@ export default {
       readingTime: ({ minutes }) => (minutes === 1 ? "1 minuto" : `${minutes} minuti`),
     },
     breadcrumbs: {
-      rootName: "Home"
+      rootName: "Home",
     },
   },
   pages: {

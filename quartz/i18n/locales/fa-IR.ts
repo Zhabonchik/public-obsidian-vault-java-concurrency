@@ -61,7 +61,7 @@ export default {
       readingTime: ({ minutes }) => `زمان تقریبی مطالعه: ${minutes} دقیقه`,
     },
     breadcrumbs: {
-      rootName: "Home"
+      rootName: "Home",
     },
   },
   pages: {

@@ -66,7 +66,7 @@ export default {
             : `${minutes} دقائق للقراءة`,
     },
     breadcrumbs: {
-      rootName: "Home"
+      rootName: "Home",
     },
   },
   pages: {

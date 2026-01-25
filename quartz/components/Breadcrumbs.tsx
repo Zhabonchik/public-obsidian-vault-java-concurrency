@@ -63,7 +63,10 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
     const crumbs: CrumbData[] = pathNodes.map((node, idx) => {
       const crumb = formatCrumb(node.displayName, fileData.slug!, simplifySlug(node.slug))
       if (idx === 0) {
-        crumb.displayName = options.rootName !== "" ? options.rootName : i18n(cfg.locale).components.breadcrumbs.rootName;
+        crumb.displayName =
+          options.rootName !== ""
+            ? options.rootName
+            : i18n(cfg.locale).components.breadcrumbs.rootName
       }
 
       // For last node (current page), set empty path

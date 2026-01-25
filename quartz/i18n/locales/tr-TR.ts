@@ -60,7 +60,7 @@ export default {
       readingTime: ({ minutes }) => `${minutes} dakika okuma süresi`,
     },
     breadcrumbs: {
-      rootName: "Home"
+      rootName: "Home",
     },
   },
   pages: {

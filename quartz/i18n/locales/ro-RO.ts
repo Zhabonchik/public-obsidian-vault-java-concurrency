@@ -61,7 +61,7 @@ export default {
         minutes == 1 ? `lectură de 1 minut` : `lectură de ${minutes} minute`,
     },
     breadcrumbs: {
-      rootName: "Home"
+      rootName: "Home",
     },
   },
   pages: {

@@ -60,7 +60,7 @@ export default {
       readingTime: ({ minutes }) => `${minutes} perces olvasás`,
     },
     breadcrumbs: {
-      rootName: "Otthon"
+      rootName: "Otthon",
     },
   },
   pages: {
