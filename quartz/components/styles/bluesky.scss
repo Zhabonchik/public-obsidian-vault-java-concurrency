@@ -1,77 +1,77 @@
 .bluesky-comments-container {
-    margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--lightgray);
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--lightgray);
 
-    h2 {
-        margin-bottom: 1rem;
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  .bluesky-meta {
+    margin-bottom: 1.5rem;
+    color: var(--gray);
+    font-size: 0.9rem;
+
+    a {
+      color: var(--secondary);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
+  }
 
-    .bluesky-meta {
-        margin-bottom: 1.5rem;
-        color: var(--gray);
+  .comment {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--lightgray);
+
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+
+      .handle {
+        font-weight: bold;
+        color: var(--dark);
         font-size: 0.9rem;
+      }
 
-        a {
-            color: var(--secondary);
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
+      .time {
+        color: var(--gray);
+        font-size: 0.8rem;
+      }
     }
 
-    .comment {
-        margin-top: 1rem;
-        padding-left: 1rem;
-        border-left: 2px solid var(--lightgray);
+    .comment-body {
+      font-size: 0.95rem;
+      color: var(--darkgray);
+      white-space: pre-wrap;
 
-        .comment-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
+      a {
+        color: var(--secondary);
+        text-decoration: none;
 
-            img {
-                width: 24px;
-                height: 24px;
-                border-radius: 50%;
-            }
-
-            .handle {
-                font-weight: bold;
-                color: var(--dark);
-                font-size: 0.9rem;
-            }
-
-            .time {
-                color: var(--gray);
-                font-size: 0.8rem;
-            }
+        &:hover {
+          text-decoration: underline;
         }
-
-        .comment-body {
-            font-size: 0.95rem;
-            color: var(--darkgray);
-            white-space: pre-wrap;
-
-            a {
-                color: var(--secondary);
-                text-decoration: none;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-
-        .comment-actions {
-            margin-top: 0.25rem;
-            font-size: 0.8rem;
-            color: var(--gray);
-            display: flex;
-            gap: 1rem;
-        }
+      }
     }
+
+    .comment-actions {
+      margin-top: 0.25rem;
+      font-size: 0.8rem;
+      color: var(--gray);
+      display: flex;
+      gap: 1rem;
+    }
+  }
 }
