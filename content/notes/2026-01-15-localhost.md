@@ -7,7 +7,7 @@ tags:
   - 職人生活
 ---
 ---
-# localhost:8080 與強制空冷 
+# localhost:8080 與強制空冷
 
 ![[lin-yung-chang/content/notes/assets/2026-01-15-localhost/file-20260125224800173.webp]]
 *（圖說：正在跟時間賽跑的泥土，乾燥與潮濕的色差肉眼可見。）*
