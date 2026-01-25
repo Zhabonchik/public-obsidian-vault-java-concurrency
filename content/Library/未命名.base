@@ -1,3 +1,10 @@
+filters:
+  and:
+    - file.folder == "lin-yung-chang/public/Library"
 views:
   - type: table
     name: 表格
+  - type: table
+    name: 视图
+  - type: table
+    name: 视图 2
