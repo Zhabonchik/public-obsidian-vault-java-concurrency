@@ -60,6 +60,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} דקות קריאה`,
     },
+    breadcrumbs: {
+      rootName: "Home"
+    },
   },
   pages: {
     rss: {

@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min de lecture`,
     },
+    breadcrumbs: {
+      rootName: "Home"
+    },
   },
   pages: {
     rss: {

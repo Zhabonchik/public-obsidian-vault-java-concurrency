@@ -65,6 +65,9 @@ export default {
             ? `دقيقتان للقراءة`
             : `${minutes} دقائق للقراءة`,
     },
+    breadcrumbs: {
+      rootName: "Home"
+    },
   },
   pages: {
     rss: {

@@ -60,6 +60,9 @@ export default {
       readingTime: ({ minutes }) =>
         minutes === 1 ? "1 minuut leestijd" : `${minutes} minuten leestijd`,
     },
+    breadcrumbs: {
+      rootName: "Home"
+    },
   },
   pages: {
     rss: {
