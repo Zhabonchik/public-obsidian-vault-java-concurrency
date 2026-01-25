@@ -8,7 +8,7 @@ Quartz also has the ability to hook into various providers to enable readers to 
 
 ![[giscus-example.png]]
 
-As of today, only [Giscus](https://giscus.app/) is supported out of the box but PRs to support other providers are welcome!
+As of today, [Giscus](https://giscus.app/) and [Bluesky](https://bsky.app/) are supported out of the box, and PRs to support other providers are welcome!
 
 ## Providers
 
@@ -51,6 +51,31 @@ afterBody: [
   }),
 ],
 ```
+
+### Bluesky
+
+Bluesky comments allow you to pull a conversation from a [Bluesky](https://bsky.app) post directly into your Quartz pages.
+
+#### Setup
+
+1. Add `Component.BlueskyComments()` to the `afterBody` field of `sharedPageComponents` in `quartz.layout.ts`:
+
+```ts title="quartz.layout.ts"
+afterBody: [
+  Component.BlueskyComments(),
+],
+```
+
+1. On any page where you want comments to appear, add the `blueskyUrl` field to your frontmatter pointing to the Bluesky post:
+
+```markdown
+---
+title: My Cool Post
+blueskyUrl: https://bsky.app/profile/jacky.zys.xyz/post/3lf...
+---
+```
+
+The component will automatically resolve the thread and render the replies recursively.
 
 ### Customization
 
@@ -125,7 +150,7 @@ afterBody: [
 
 Quartz can conditionally display the comment box based on a field `comments` in the frontmatter. By default, all pages will display comments, to disable it for a specific page, set `comments` to `false`.
 
-```
+```markdown
 ---
 title: Comments disabled here!
 comments: false
