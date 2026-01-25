@@ -23,7 +23,6 @@ tags:
 今天的菜色是炸醬麵。  
 馬上就用來吃一餐。
 
-[[assets/2026-01-25-bowl-for-myself/2026-01-25-bowl-for-myself.webp|為自己做的碗]]
-![[assets/2026-01-25-bowl-for-myself/2026-01-25-bowl-for-myself.webp|500x500]]
+![[assets/2026-01-25-bowl-for-myself/2026-01-25-bowl-for-myself.webp]]
 ---
 **今日好運：** 發票中獎 500 元。
