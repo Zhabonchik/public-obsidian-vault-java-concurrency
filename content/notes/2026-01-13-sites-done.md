@@ -25,8 +25,9 @@ tags:
 「今天不只是架站，而是把拉坯機旁的安靜，搬進了網路空間。名字減少了，意境反而出來了。不說話，讓作品自己呼吸。」
 
 
-[[lin-yung-chang/content/notes/assets/2026-01-13-sites-done/c2a6ef3f3101aaaa803378ea274019fe_MD5.webp|Open: 2026-01-13-sites-done-1769360465257.webp]]
-![[lin-yung-chang/content/notes/assets/2026-01-13-sites-done/c2a6ef3f3101aaaa803378ea274019fe_MD5.webp|433x577]]
+
+![[assets/2026-01-13-sites-done/2026-01-13-sites-done-MBAm1.webp]]
+
 *23:45亮燈時刻：這是我的數位窯爐，正在穩定的燒製中。*
 
 ---
