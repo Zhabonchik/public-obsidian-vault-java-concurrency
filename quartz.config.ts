@@ -18,7 +18,7 @@ const config: QuartzConfig = {
   host: "https://cloud.umami.is", // 拿掉後面的 /script.js
 },
     locale: "en-US",
-    baseUrl: "vcdvcd214.github.io/lin-yung-chang",
+    baseUrl: "vcdvcd.com",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
