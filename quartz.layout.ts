@@ -65,7 +65,7 @@ export const sharedPageComponents: SharedLayout = {
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/vcdvcd214/lin-yung-chang",
-      "⚙️ 建構日誌": "網站設置LOG", // ✅ 已補上建構日誌連結
+      "⚙️ 建構日誌": "site-log", // ✅ 已補上建構日誌連結
       "📧 聯絡我": "mailto:vcdvcd@gmail.com",
     },
   }),
