@@ -15,7 +15,7 @@ title: 📚 書籍紀錄
 > [!multi-column]
 > > [!abstract] 歷史與理論
 > > 包含台灣現代陶藝啟蒙、歷史脈絡與大師論述。
-> > - [[陶藝講座-邱煥堂]]
+> > - [[陶藝講座]]
 > > - [[A Concise History of Modern Taiwanese Ceramics|台灣現代陶藝簡史]]
 >
 > > [!fire] 柴燒與實踐
