@@ -7,6 +7,15 @@ description: Still Whispers 網站優化與待辦清單
 紀錄「靜觀微語」數位圖書館的建置過程、技術參數與結構更動。
 
 ---
+> [!abstract]- 📅 2026-01-28 | 網域正名：從 GitHub 子路徑邁向獨立 ID
+> - **🌐 網域遷移 (Domain正名化)**
+>     - **縮短路徑**：正式從 GitHub 預設長網址 `https://vcdvcd214.github.io/lin-yung-chang` 遷移至獨立網域 **`vcdvcd.com`**。
+>     - **品牌提升**：大幅縮減網址長度，強化「vcdvcd」個人 ID 的辨識度，減少第三方平台（GitHub）的視覺干擾。
+>     - **解析生效**：完成 Cloudflare DNS 轉向與 SSL 安全憑證佈署。
+> - **📚 圖書館建設**
+>     - **圖書入庫**：新增《陶藝釉藥學》專業筆記，導入摺疊式（抽屜）實體影像紀錄。
+> - **🛠️ 編輯流優化**
+>     - **一鍵複製**：導入 `Codeblock Customizer` 插件，優化代碼塊管理。
 
 > [!abstract]- 📅 2026-01-15 | 側邊欄秩序、路徑修復與在地化
 > - **🧩 側邊欄視覺革命 (UI Refinement)**
