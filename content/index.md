@@ -5,9 +5,9 @@ description: 紀錄泥土、火與時間的對話。深耕陶藝防裂技法、�
 
 # 🏺 Still Whispers
 
-> [!quote] 陶工自白
-> **不愛說話，但細心觀察。**
-> 在泥土與火之間，尋找最安靜的對話。
+> [!quote] 
+> **不多言，多觀察。**
+> 在泥與火之間，專心守候一場最安靜的對話。
 
 ---
 
@@ -23,7 +23,7 @@ description: 紀錄泥土、火與時間的對話。深耕陶藝防裂技法、�
 ### 🆕 最新動態 (Recent Updates)
 
 > [!abstract] **🛠️ Equipment 設備更新**
-> - **[[notes/Equipment/Vacuum-Pug-Mill-2HP|Vacuum Pug Mill (2HP)]]**：完成中油 R100 真空油更換技術考據，並同步更新「硅肺」歷史警示筆記。
+> - **[[notes/Equipment/Vacuum-Pug-Mill-2HP|練土機]]**：完成中油 R100 真空油更換技術考據，並同步更新「硅肺」歷史警示筆記。
 
 > [!abstract] **📚 Library 典藏更新**
 > - **[[Library/陶藝防裂技法|陶藝防裂技法]]**：補完英文副標 *THE CAUSES OF CERAMIC FAULTS* 與「硅肺」警示。
