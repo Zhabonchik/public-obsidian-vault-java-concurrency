@@ -7,7 +7,8 @@ tags:
 purchase_date: 107-12-19
 vendor: 振發機械有限公司
 status: active
-description: "陶藝職人必看：2HP真空練土機(Vacuum Pug Mill)詳細保養教學。收錄中油R100/R68真空油更換考據、操作SOP與SUS304不銹鋼規格，並深入探討陶藝文獻中「硅肺」與「矽肺」的歷史警示。包含振發機械現場教學影片與實機圖鑑。"
+description: 陶藝職人必看：2HP真空練土機(Vacuum Pug Mill)詳細保養教學。收錄中油R100/R68真空油更換考據、操作SOP與SUS304不銹鋼規格，並深入探討陶藝文獻中「硅肺」與「矽肺」的歷史警示。包含振發機械現場教學影片與實機圖鑑。
+title: ・2HP真空練土機與油品
 ---
 
 # 🚜 Janefar Vacuum Pug Mill (2HP / 接觸土部分 SUS304 不銹鋼)
