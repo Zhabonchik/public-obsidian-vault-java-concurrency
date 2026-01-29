@@ -15,7 +15,7 @@ price: "￥880"
 isbn: "B01535IR2E"
 ---
 
-# Casa BRUTUS 2015年 10月號：ルーシー・リーと私の好きな器
+# Casa BRUTUS 2015年 10月號：ルーシー・リーと私の好きな器 Vol.187
 
 > [!multi-column]
 > > [!abstract] 典藏資訊
