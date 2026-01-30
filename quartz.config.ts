@@ -30,29 +30,30 @@ const config: QuartzConfig = {
         code: "IBM Plex Mono",
       },
       colors: {
-        lightMode: {
-          light: "#faf8f8",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
-        },
-        darkMode: {
-          light: "#161618",
-          lightgray: "#393639",
-          gray: "#646464",
-          darkgray: "#d4d4d4",
-          dark: "#ebebec",
-          secondary: "#7b97aa",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#b3aa0288",
-        },
-      },
+  lightMode: {
+    light: "#f8f7f4",           // 暖米白
+    lightgray: "#e8e6e1",       // 淺灰米
+    gray: "#9d9b97",            // 中灰
+    darkgray: "#5c5a57",        // 深灰棕
+    dark: "#2d2c29",            // 深棕黑
+    secondary: "#C2956E",       // 陶土色 ✨
+    tertiary: "#8B8680",        // 柴燒灰 ✨
+    highlight: "rgba(194, 149, 110, 0.15)",  // 陶土色半透明
+    textHighlight: "#C2956E44", // 陶土色高亮
+  },
+  darkMode: {
+    light: "#1e1e1e",           // 不要全黑
+    lightgray: "#2a2a2a",
+    gray: "#6e6e6e",
+    darkgray: "#c9c9c9",
+    dark: "#ebebec",
+    secondary: "#C2956E",       // 陶土色 ✨
+    tertiary: "#9DAA8C",        // 青瓷綠 ✨
+    highlight: "rgba(194, 149, 110, 0.15)",
+    textHighlight: "#C2956E44",
+  },
+},
+
     },
   },
   plugins: {
