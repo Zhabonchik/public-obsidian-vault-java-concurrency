@@ -7,6 +7,23 @@ description: Still Whispers 網站優化與待辦清單
 紀錄「靜觀微語」數位圖書館的建置過程、技術參數與結構更動。
 
 ---
+> [!abstract]- 📅 2026-01-30 | 效能全彈發射：Cloudflare 深度優化與連線提速
+> - **🚀 傳輸效能革命 (Performance Tuning)**
+>     - **載入順序重構**：啟用 **Rocket Loader™**。將 JavaScript 異步化處理，優先釋放主線程以解決 PageSpeed 報告中 5.1s LCP 的延遲問題。
+>     - **資源優先級預判**：聯動開啟 **Smart Hints** 與 **Early Hints**。由伺服器主動預告瀏覽器下載 `index.css` 與關鍵字體，大幅縮短白屏等待時間。
+>     - **字體在地化**：啟用 **Cloudflare Fonts**。將 Google Fonts 資源轉向至 `vcdvcd.com` 自有網域，消除第三方 DNS 查詢延遲並修正佈局位移 (CLS)。
+> - **⚡️ 體感速度優化 (UX Acceleration)**
+>     - **瞬移跳轉實作**：啟用 **Speed Brain**。利用瀏覽器 Speculative Rules 預判技術，在點擊前提前預載內容，強化筆記間跳轉的流暢感。
+>     - **零延遲連線**：開啟 **0-RTT Connection Resumption**。優化 TLS 握手程序，讓回訪者（常駐讀者）獲得近乎瞬時的加密連線體驗。
+> - **📦 資源輕量化實作 (Payload Reduction)**
+>     - **三要素自動縮小**：開啟 **Auto Minify (HTML/CSS/JS)**，從底層移除冗餘代碼空間。
+>     - **現代壓縮協議**：確認 **Brotli** 配置，確保數據以最高壓縮比率進行傳輸。
+> - **🛡️ 安全防禦佈署 (Security Hardening)**
+>     - **自動化威脅阻擋**：啟用 **Bot Fight Mode**。過濾惡意爬蟲，保護原創實驗數據不被無差別抓取。
+> - **🧠 決策與權衡 (Logic & Decision)**
+>     - **拒絕過度監控**：評估後關閉 **Real User Monitoring (RUM)**。秉持「減法優化」，避免不必要的第三方腳本再次拖慢效能。
+>     - **防禦邊界確立**：判定 Page Shield 與 Leaked Credentials 不符靜態架構需求，決定「不開啟」以維持系統純粹性。
+
 > [!abstract]- 📅 2026-01-28 | 網域正名、設備維護系統建置與首頁重構
 > - **🌐 網域遷移 (Domain 正名化)：邁向獨立 ID**
 >     - **縮短路徑**：正式從 GitHub 預設長網址 `https://vcdvcd214.github.io/lin-yung-chang` 遷移至獨立網域 **`vcdvcd.com`**。這不僅是技術上的轉向，更是視覺上的減法，消除了第三方平台的冗長路徑。
