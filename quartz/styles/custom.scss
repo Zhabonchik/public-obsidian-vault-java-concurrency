@@ -195,3 +195,25 @@ pre code {
   blockquote { padding: 1.5rem; font-size: 1rem; }
   table th, table td { padding: 0.8rem 0.6rem; }
 }
+/* ============================================
+   Callout 資訊框優化（深色模式）
+   ============================================ */
+
+.callout {
+  background: rgba(194, 149, 110, 0.08) !important; /* 淡淡的陶土色背景 */
+  border-left: 4px solid #C2956E !important; /* 陶土色邊框 */
+  color: var(--darkgray) !important; /* 文字用預設的深灰 */
+  padding: 1.5rem !important;
+  border-radius: 8px !important;
+}
+
+.callout-title {
+  color: #C2956E !important; /* 標題用陶土色 */
+  font-weight: 600 !important;
+}
+
+/* 深色模式特別處理 */
+.dark-mode .callout {
+  background: rgba(194, 149, 110, 0.12) !important; /* 深色模式稍微亮一點 */
+  color: var(--dark) !important;
+}
