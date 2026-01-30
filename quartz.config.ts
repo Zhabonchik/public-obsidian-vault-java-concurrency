@@ -22,39 +22,30 @@ const config: QuartzConfig = {
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
-      fontOrigin: "googleFonts",
-      cdnCaching: true,
-      typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
-        code: "IBM Plex Mono",
-      },
-      colors: {
-        lightMode: {
-          light: "#faf8f8",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
-        },
-        darkMode: {
-          light: "#161618",
-          lightgray: "#393639",
-          gray: "#646464",
-          darkgray: "#d4d4d4",
-          dark: "#ebebec",
-          secondary: "#7b97aa",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#b3aa0288",
-        },
-      },
+  colors: {
+    lightMode: {
+      light: "#f8f7f4",        // 背景改成暖米白
+      lightgray: "#e8e6e1",
+      gray: "#9d9b97",
+      darkgray: "#5c5a57",
+      dark: "#2d2c29",
+      secondary: "#C2956E",     // 主色改成陶土色
+      tertiary: "#8B8680",      // 輔色改成柴燒灰
+      highlight: "rgba(194, 149, 110, 0.15)",  // 高亮改成陶土色半透明
+    },
+    darkMode: {
+      light: "#1e1e1e",         // 保持深色但不要全黑
+      lightgray: "#2a2a2a",
+      gray: "#6e6e6e",
+      darkgray: "#c9c9c9",
+      dark: "#ebebec",
+      secondary: "#C2956E",     // 主色一樣是陶土色
+      tertiary: "#9DAA8C",      // 輔色改成青瓷綠
+      highlight: "rgba(194, 149, 110, 0.15)",
     },
   },
+}
+
   plugins: {
     transformers: [
       Plugin.FrontMatter(),
