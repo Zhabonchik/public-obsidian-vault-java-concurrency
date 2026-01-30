@@ -196,24 +196,26 @@ pre code {
   table th, table td { padding: 0.8rem 0.6rem; }
 }
 /* ============================================
-   Callout 資訊框優化（深色模式）
+   Callout 內容文字顏色優化（深色模式）
    ============================================ */
 
-.callout {
-  background: rgba(194, 149, 110, 0.08) !important; /* 淡淡的陶土色背景 */
-  border-left: 4px solid #C2956E !important; /* 陶土色邊框 */
-  color: var(--darkgray) !important; /* 文字用預設的深灰 */
-  padding: 1.5rem !important;
-  border-radius: 8px !important;
+/* 深色模式下的 callout 標題要更亮 */
+.dark-mode .callout-title {
+  color: #C2956E !important; /* 陶土色更明顯 */
 }
 
-.callout-title {
-  color: #C2956E !important; /* 標題用陶土色 */
-  font-weight: 600 !important;
+/* 深色模式下的 callout 內容文字要更清楚 */
+.dark-mode .callout-content,
+.dark-mode .callout p,
+.dark-mode .callout li,
+.dark-mode .callout ul,
+.dark-mode .callout ol {
+  color: #ebebec !important; /* 接近白色，清楚好讀 */
 }
 
-/* 深色模式特別處理 */
-.dark-mode .callout {
-  background: rgba(194, 149, 110, 0.12) !important; /* 深色模式稍微亮一點 */
-  color: var(--dark) !important;
+/* 淺色模式的 callout 內容保持深色 */
+.callout-content,
+.callout p,
+.callout li {
+  color: #2d2c29 !important; /* 深棕色 */
 }
