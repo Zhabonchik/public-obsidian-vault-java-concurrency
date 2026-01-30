@@ -1,3 +1,197 @@
 @use "./base.scss";
 
 // put your custom CSS here!
+/* ============================================
+   靜觀微語 - 陶藝職人風格優化
+   ============================================ */
+
+/* --- 1. 整體色調與呼吸感 --- */
+body {
+  line-height: 1.8; /* 行距加大，更好閱讀 */
+}
+
+.page {
+  max-width: 900px; /* 內容區不要太寬，更聚焦 */
+  margin: 0 auto;
+}
+
+/* --- 2. 標題層級優化 --- */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 2rem;
+  margin-top: 3rem;
+  color: #2d2c29; /* 深棕色，更有土質感 */
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #C2956E; /* 陶土色底線 */
+}
+
+h3 {
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #5c5a57;
+}
+
+/* --- 3. Quote 區塊優化（首頁那句話） --- */
+blockquote {
+  border-left: 4px solid #C2956E;
+  background: rgba(194, 149, 110, 0.06);
+  padding: 2rem 2.5rem;
+  margin: 3rem 0;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  line-height: 2;
+  color: #2d2c29;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+blockquote p {
+  margin: 0;
+}
+
+/* --- 4. 照片美化 --- */
+img {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 100%;
+  height: auto;
+}
+
+img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* --- 5. 表格/導覽區優化 --- */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 3rem 0;
+  width: 100%;
+}
+
+table th {
+  background: #f8f7f4;
+  padding: 1.2rem 1rem;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 2px solid #C2956E;
+  font-size: 1.1rem;
+}
+
+table td {
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid #e8e6e1;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+table tr:hover td {
+  background: rgba(194, 149, 110, 0.03);
+}
+
+/* --- 6. 連結優化 --- */
+a {
+  color: #C2956E;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.2s ease;
+}
+
+a:hover {
+  border-bottom: 1px solid #C2956E;
+}
+
+/* --- 7. 區塊間距優化 --- */
+.page-header,
+.page-content > * {
+  margin-bottom: 2.5rem;
+}
+
+section + section {
+  margin-top: 4rem;
+}
+
+/* --- 8. 卡片式區塊（最新動態、陶工身影） --- */
+.callout,
+.card {
+  background: #f8f7f4;
+  border-left: 4px solid #8B8680; /* 柴燒灰 */
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.callout-title {
+  font-weight: 600;
+  color: #2d2c29;
+  margin-bottom: 0.5rem;
+}
+
+/* --- 9. 程式碼區塊（如果你有放技術筆記） --- */
+code {
+  background: #f0ede8;
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #5c5a57;
+}
+
+pre {
+  background: #2d2c29;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+pre code {
+  background: transparent;
+  color: #ebebec;
+}
+
+/* --- 10. 深色模式微調（如果你有用） --- */
+.dark-mode {
+  blockquote {
+    background: rgba(194, 149, 110, 0.1);
+    border-left-color: #C2956E;
+  }
+  
+  table th {
+    background: #2a2a2a;
+  }
+  
+  img {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* --- 11. 首頁標語特別處理 --- */
+.hero-quote {
+  font-size: 1.3rem;
+  text-align: center;
+  padding: 3rem 2rem;
+  margin: 3rem 0;
+  border: none;
+  background: linear-gradient(135deg, rgba(194, 149, 110, 0.08), rgba(139, 134, 128, 0.08));
+  border-radius: 12px;
+}
+
+/* --- 12. 響應式調整 --- */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  blockquote { padding: 1.5rem; font-size: 1rem; }
+  table th, table td { padding: 0.8rem 0.6rem; }
+}
