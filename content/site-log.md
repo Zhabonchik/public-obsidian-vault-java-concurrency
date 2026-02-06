@@ -7,6 +7,16 @@ description: Still Whispers 網站優化與待辦清單
 紀錄「靜觀微語」數位圖書館的建置過程、技術參數與結構更動。
 
 ---
+> [!abstract]- 📅 2026-02-06 | 品牌識別整合：Favicon 實裝與搜尋引擎驗證
+> - **🎨 視覺識別與 Favicon 革命 (Branding & Identity)**
+>     - **負片「永」字實裝**：採用 2026 年新落款字體，經負片模式處理後上傳至 `static/icon.png`。
+>     - **自動化適配**：利用 Quartz Favicon 外掛，自動從單一 PNG 產生 `favicon.ico` 及行動端所需的各式圖標，確保全平台視覺統一。
+> - **🔍 搜尋引擎治理 (SEO & Webmaster)**
+>     - **Bing Webmaster 驗證**：透過 Cloudflare DNS 成功新增 CNAME 記錄，完成 Microsoft 搜尋引擎權限驗證。
+>     - **Yandex 驗證**：於 Cloudflare 部署 TXT 驗證記錄，擴展海外搜尋引擎（Yandex）的收錄範圍。
+> - **🔧 基礎設施 (DNS Management)**
+>     - **Cloudflare 聯動**：所有驗證記錄均透過 Cloudflare 全球節點即時生效，維持 DNS 層級的純粹性。
+
 > [!abstract]- 📅 2026-01-30 | 效能全彈發射：Cloudflare 深度優化與連線提速
 > - **🚀 傳輸效能革命 (Performance Tuning)**
 >     - **載入順序重構**：啟用 **Rocket Loader™**。將 JavaScript 異步化處理，優先釋放主線程以解決 PageSpeed 報告中 5.1s LCP 的延遲問題。
