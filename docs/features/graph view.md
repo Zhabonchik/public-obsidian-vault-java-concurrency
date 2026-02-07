@@ -23,7 +23,7 @@ npm install github:quartz-community/graph --legacy-peer-deps
 Then import it in your `quartz.layout.ts`:
 
 ```typescript title="quartz.layout.ts"
-import { Graph } from "@quartz-community/graph/components"
+import { Graph } from "@quartz-community/graph"
 
 // Create once and reuse
 const graphComponent = Graph()

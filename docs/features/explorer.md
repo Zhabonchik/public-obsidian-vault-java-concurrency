@@ -20,7 +20,7 @@ npm install github:quartz-community/explorer --legacy-peer-deps
 Then import it in your `quartz.layout.ts`:
 
 ```typescript title="quartz.layout.ts"
-import { Explorer } from "@quartz-community/explorer/components"
+import { Explorer } from "@quartz-community/explorer"
 
 // Create once and reuse
 const explorerComponent = Explorer()
