@@ -24,6 +24,11 @@ import Comments from "./Comments"
 import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
 
+export { componentRegistry, defineComponent } from "./registry"
+export { External } from "./external"
+export type { ComponentManifest, RegisteredComponent } from "./registry"
+export type { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+
 export {
   ArticleTitle,
   Content,

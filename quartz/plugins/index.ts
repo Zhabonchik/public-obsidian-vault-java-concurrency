@@ -45,6 +45,9 @@ export function getStaticResourcesFromPlugins(ctx: BuildCtx) {
 export * from "./transformers"
 export * from "./filters"
 export * from "./emitters"
+export * from "./types"
+export * from "./config"
+export * as PluginLoader from "./loader"
 
 declare module "vfile" {
   // inserted in processors.ts

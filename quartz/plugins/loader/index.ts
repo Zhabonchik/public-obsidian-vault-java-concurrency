@@ -1,0 +1,293 @@
+import { styleText } from "util"
+import {
+  PluginManifest,
+  LoadedPlugin,
+  PluginResolution,
+  PluginResolutionError,
+  PluginResolutionOptions,
+  PluginSpecifier,
+} from "./types"
+import { QuartzTransformerPlugin, QuartzFilterPlugin, QuartzEmitterPlugin } from "../types"
+
+const MINIMUM_QUARTZ_VERSION = "4.5.0"
+
+function satisfiesVersion(required: string | undefined, current: string): boolean {
+  if (!required) return true
+
+  const parseVersion = (v: string) => {
+    const parts = v.replace(/^v/, "").split(".")
+    return {
+      major: parseInt(parts[0]) || 0,
+      minor: parseInt(parts[1]) || 0,
+      patch: parseInt(parts[2]) || 0,
+    }
+  }
+
+  const req = parseVersion(required)
+  const cur = parseVersion(current)
+
+  if (cur.major > req.major) return true
+  if (cur.major < req.major) return false
+  if (cur.minor > req.minor) return true
+  if (cur.minor < req.minor) return false
+  return cur.patch >= req.patch
+}
+
+async function tryImportPlugin(packageName: string): Promise<{
+  module: unknown
+  manifest: PluginManifest | null
+}> {
+  try {
+    const module = await import(packageName)
+
+    const manifest: PluginManifest | null = module.manifest ?? null
+
+    return { module, manifest }
+  } catch (error) {
+    throw new Error(
+      `Failed to import package: ${error instanceof Error ? error.message : String(error)}`,
+    )
+  }
+}
+
+function detectPluginType(module: unknown): "transformer" | "filter" | "emitter" | null {
+  if (!module || typeof module !== "object") return null
+
+  const mod = module as Record<string, unknown>
+
+  if (typeof mod.default === "function") {
+    return null
+  }
+
+  const hasTransformerProps = ["textTransform", "markdownPlugins", "htmlPlugins"].some(
+    (key) => key in mod && (typeof mod[key] === "function" || mod[key] === undefined),
+  )
+
+  const hasFilterProps = ["shouldPublish"].some(
+    (key) => key in mod && typeof mod[key] === "function",
+  )
+
+  const hasEmitterProps = ["emit"].some((key) => key in mod && typeof mod[key] === "function")
+
+  if (hasEmitterProps) return "emitter"
+  if (hasFilterProps) return "filter"
+  if (hasTransformerProps) return "transformer"
+
+  return null
+}
+
+function extractPluginFactory(
+  module: unknown,
+  type: "transformer" | "filter" | "emitter",
+): QuartzTransformerPlugin | QuartzFilterPlugin | QuartzEmitterPlugin | null {
+  if (!module || typeof module !== "object") return null
+
+  const mod = module as Record<string, unknown>
+
+  const factory = mod.default ?? mod[type] ?? mod.plugin ?? null
+
+  if (typeof factory === "function") {
+    return factory as QuartzTransformerPlugin | QuartzFilterPlugin | QuartzEmitterPlugin
+  }
+
+  return null
+}
+
+async function resolveSinglePlugin(
+  specifier: PluginSpecifier,
+  options: PluginResolutionOptions,
+): Promise<{ plugin: LoadedPlugin | null; error: PluginResolutionError | null }> {
+  let packageName: string
+  let manifest: Partial<PluginManifest> = {}
+
+  if (typeof specifier === "string") {
+    packageName = specifier
+  } else if ("name" in specifier) {
+    packageName = specifier.name
+  } else if ("plugin" in specifier) {
+    const type = specifier.manifest?.category ?? "transformer"
+    return {
+      plugin: {
+        plugin: specifier.plugin as QuartzTransformerPlugin,
+        manifest: {
+          name: specifier.manifest?.name ?? "inline-plugin",
+          displayName: specifier.manifest?.displayName ?? "Inline Plugin",
+          description: specifier.manifest?.description ?? "Inline plugin instance",
+          version: specifier.manifest?.version ?? "1.0.0",
+          category: type as "transformer" | "filter" | "emitter",
+          ...specifier.manifest,
+        } as PluginManifest,
+        type: type as "transformer" | "filter" | "emitter",
+        source: "inline",
+      },
+      error: null,
+    }
+  } else {
+    return {
+      plugin: null,
+      error: {
+        plugin: "unknown",
+        message: "Invalid plugin specifier format",
+        type: "invalid-manifest",
+      },
+    }
+  }
+
+  try {
+    const { module: importedModule, manifest: importedManifest } =
+      await tryImportPlugin(packageName)
+
+    manifest = importedManifest ?? {}
+
+    // Load components if the plugin declares any
+    if (manifest.components && Object.keys(manifest.components).length > 0) {
+      const { loadComponentsFromPackage } = await import("./componentLoader")
+      await loadComponentsFromPackage(packageName, manifest as PluginManifest)
+    }
+
+    const detectedType = manifest.category ?? detectPluginType(importedModule)
+
+    if (!detectedType) {
+      return {
+        plugin: null,
+        error: {
+          plugin: packageName,
+          message: `Could not detect plugin type. Ensure the plugin exports a valid factory function or has a 'category' field in its manifest.`,
+          type: "invalid-manifest",
+        },
+      }
+    }
+
+    if (
+      manifest.quartzVersion &&
+      !satisfiesVersion(manifest.quartzVersion, options.quartzVersion)
+    ) {
+      return {
+        plugin: null,
+        error: {
+          plugin: packageName,
+          message: `Plugin requires Quartz ${manifest.quartzVersion} but current version is ${options.quartzVersion}`,
+          type: "version-mismatch",
+        },
+      }
+    }
+
+    const factory = extractPluginFactory(importedModule, detectedType)
+
+    if (!factory) {
+      return {
+        plugin: null,
+        error: {
+          plugin: packageName,
+          message: `Could not find plugin factory in module. Expected 'export default' or '${detectedType}' export.`,
+          type: "invalid-manifest",
+        },
+      }
+    }
+
+    const fullManifest: PluginManifest = {
+      name: manifest.name ?? packageName,
+      displayName: manifest.displayName ?? packageName,
+      description: manifest.description ?? "No description provided",
+      version: manifest.version ?? "1.0.0",
+      author: manifest.author,
+      homepage: manifest.homepage,
+      keywords: manifest.keywords,
+      category: manifest.category ?? detectedType,
+      quartzVersion: manifest.quartzVersion,
+      configSchema: manifest.configSchema,
+    }
+
+    const loadedPlugin: LoadedPlugin = {
+      plugin: factory,
+      manifest: fullManifest,
+      type: detectedType,
+      source: packageName,
+    }
+
+    if (options.verbose) {
+      console.log(
+        styleText("green", `✓`) +
+          ` Loaded ${detectedType} plugin: ${styleText("cyan", fullManifest.displayName)}@${fullManifest.version}`,
+      )
+    }
+
+    return { plugin: loadedPlugin, error: null }
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+
+    if (errorMessage.includes("Cannot find module") || errorMessage.includes("MODULE_NOT_FOUND")) {
+      return {
+        plugin: null,
+        error: {
+          plugin: packageName,
+          message: `Plugin package not found. Run 'npm install ${packageName}' to install it.`,
+          type: "not-found",
+        },
+      }
+    }
+
+    return {
+      plugin: null,
+      error: {
+        plugin: packageName,
+        message: errorMessage,
+        type: "import-error",
+      },
+    }
+  }
+}
+
+export async function resolvePlugins(
+  specifiers: PluginSpecifier[],
+  options: PluginResolutionOptions,
+): Promise<PluginResolution> {
+  const plugins: LoadedPlugin[] = []
+  const errors: PluginResolutionError[] = []
+
+  if (options.verbose) {
+    console.log(styleText("cyan", `Resolving ${specifiers.length} external plugin(s)...`))
+  }
+
+  for (const specifier of specifiers) {
+    const { plugin, error } = await resolveSinglePlugin(specifier, options)
+
+    if (plugin) {
+      plugins.push(plugin)
+    } else if (error) {
+      errors.push(error)
+      console.error(
+        styleText("red", `✗`) +
+          ` Failed to load plugin: ${styleText("yellow", error.plugin)}\n` +
+          `  ${error.message}`,
+      )
+    }
+  }
+
+  if (options.verbose && plugins.length > 0) {
+    const byType = plugins.reduce(
+      (acc, p) => {
+        acc[p.type] = (acc[p.type] || 0) + 1
+        return acc
+      },
+      {} as Record<string, number>,
+    )
+
+    console.log(
+      styleText("cyan", `External plugins loaded:`) +
+        ` ${byType.transformer ?? 0} transformers, ${byType.filter ?? 0} filters, ${byType.emitter ?? 0} emitters`,
+    )
+  }
+
+  return { plugins, errors }
+}
+
+export function instantiatePlugin<T>(
+  loadedPlugin: LoadedPlugin,
+  options?: T,
+): ReturnType<typeof loadedPlugin.plugin> {
+  const factory = loadedPlugin.plugin as (opts?: T) => ReturnType<typeof loadedPlugin.plugin>
+  return factory(options)
+}
+
+export { satisfiesVersion, MINIMUM_QUARTZ_VERSION }

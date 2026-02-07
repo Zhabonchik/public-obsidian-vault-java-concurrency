@@ -8,7 +8,21 @@ import {
   handleRestore,
   handleSync,
 } from "./cli/handlers.js"
-import { CommonArgv, BuildArgv, CreateArgv, SyncArgv } from "./cli/args.js"
+import {
+  handlePluginInstall,
+  handlePluginList,
+  handlePluginSearch,
+  handlePluginUninstall,
+} from "./cli/plugin-handlers.js"
+import {
+  CommonArgv,
+  BuildArgv,
+  CreateArgv,
+  SyncArgv,
+  PluginInstallArgv,
+  PluginUninstallArgv,
+  PluginSearchArgv,
+} from "./cli/args.js"
 import { version } from "./cli/constants.js"
 
 yargs(hideBin(process.argv))
@@ -35,6 +49,44 @@ yargs(hideBin(process.argv))
   .command("build", "Build Quartz into a bundle of static HTML files", BuildArgv, async (argv) => {
     await handleBuild(argv)
   })
+  .command(
+    "plugin <subcommand>",
+    "Manage Quartz plugins",
+    (yargs) => {
+      return yargs
+        .command(
+          "install <packages..>",
+          "Install Quartz plugins from npm",
+          PluginInstallArgv,
+          async (argv) => {
+            await handlePluginInstall(argv.packages)
+          },
+        )
+        .command(
+          "uninstall <packages..>",
+          "Uninstall Quartz plugins",
+          PluginUninstallArgv,
+          async (argv) => {
+            await handlePluginUninstall(argv.packages)
+          },
+        )
+        .command("list", "List installed Quartz plugins", CommonArgv, async () => {
+          await handlePluginList()
+        })
+        .command(
+          "search [query]",
+          "Search for Quartz plugins on npm",
+          PluginSearchArgv,
+          async (argv) => {
+            await handlePluginSearch(argv.query)
+          },
+        )
+        .demandCommand(1, "Please specify a plugin subcommand")
+    },
+    async () => {
+      // This handler is called when no subcommand is provided
+    },
+  )
   .showHelpOnFail(false)
   .help()
   .strict()
