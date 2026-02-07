@@ -21,7 +21,9 @@ description: 紀錄泥土、火與時間的對話。深耕陶藝防裂技法、�
 ---
 
 ### 🆕 最新動態 (Recent Updates)
-> [!abstract] **✍️ Notes 隨筆更新** > - **[[notes/2026-02-07-signature-stamp|2026 落款印章]]**：比起像別人的刻印，我比較在意它像不像我。 > - **[[notes/2026-02-03-reclaimed-clay|回收土]]**：朱坤培老師提醒的那句話。
+> [!abstract] **✍️ Notes 隨筆更新** 
+> > - **[[notes/2026-02-07-signature-stamp|2026 落款印章]]**：比起像別人的刻印，我比較在意它像不像我。 
+> > - **[[notes/2026-02-03-reclaimed-clay|回收土]]**：朱坤培老師提醒的那句話。
 
 > [!abstract] **🛠️ Equipment 設備更新**
 > - **[[notes/Equipment/Vacuum-Pug-Mill-2HP|練土機]]**：完成中油 R100 真空油更換技術考據，並同步更新「硅肺」歷史警示筆記。
