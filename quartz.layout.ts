@@ -1,7 +1,7 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
-import { Explorer } from "@quartz-community/explorer/components"
-import { Graph } from "@quartz-community/graph/components"
+import { Explorer } from "@quartz-community/explorer"
+import { Graph } from "@quartz-community/graph"
 
 const explorerComponent = Explorer()
 const graphComponent = Graph()
