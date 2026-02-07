@@ -9,6 +9,36 @@ Quartz features a graph-view that can show both a local graph view and a global 
 - The local graph view shows files that either link to the current file or are linked from the current file. In other words, it shows all notes that are _at most_ one hop away.
 - The global graph view can be toggled by clicking the graph icon on the top-right of the local graph view. It shows _all_ the notes in your graph and how they connect to each other.
 
+> [!info]
+> The Graph View is now a community plugin. This demonstrates how external plugins can extend Quartz functionality while serving as a reference implementation for plugin developers.
+
+## Installation
+
+The Graph View is available as a community plugin from GitHub:
+
+```bash
+npm install github:quartz-community/graph --legacy-peer-deps
+```
+
+Then import it in your `quartz.layout.ts`:
+
+```typescript title="quartz.layout.ts"
+import { Graph } from "@quartz-community/graph/components"
+
+// Create once and reuse
+const graphComponent = Graph()
+
+export const defaultContentPageLayout: PageLayout = {
+  // ... other layout config
+  right: [
+    // ... other components
+    graphComponent,
+  ],
+}
+```
+
+## Features
+
 By default, the node radius is proportional to the total number of incoming and outgoing internal links from that file.
 
 Additionally, similar to how browsers highlight visited links a different colour, the graph view will also show nodes that you have visited in a different colour.
@@ -18,12 +48,12 @@ Additionally, similar to how browsers highlight visited links a different colour
 
 ## Customization
 
-Most configuration can be done by passing in options to `Component.Graph()`.
+Most configuration can be done by passing in options to `Graph()`.
 
 For example, here's what the default configuration looks like:
 
 ```typescript title="quartz.layout.ts"
-Component.Graph({
+Graph({
   localGraph: {
     drag: true, // whether to allow panning the view around
     zoom: true, // whether to allow zooming in and out
@@ -50,6 +80,7 @@ Component.Graph({
     opacityScale: 1,
     removeTags: [], // what tags to remove from the graph
     showTags: true, // whether to show tags in the graph
+    focusOnHover: true, // dim non-connected nodes on hover
     enableRadial: true, // whether to constrain the graph, similar to Obsidian
   },
 })
@@ -59,7 +90,5 @@ When passing in your own options, you can omit any or all of these fields if you
 
 Want to customize it even more?
 
-- Removing graph view: delete all usages of `Component.Graph()` from `quartz.layout.ts`.
-- Component: `quartz/components/Graph.tsx`
-- Style: `quartz/components/styles/graph.scss`
-- Script: `quartz/components/scripts/graph.inline.ts`
+- Removing graph view: remove `graphComponent` from `quartz.layout.ts`
+- Component source: https://github.com/quartz-community/graph

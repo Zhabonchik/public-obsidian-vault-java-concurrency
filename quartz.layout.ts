@@ -1,9 +1,10 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 import { Explorer } from "@quartz-community/explorer/components"
+import { Graph } from "@quartz-community/graph/components"
 
-// Create Explorer once and reuse for both layouts
 const explorerComponent = Explorer()
+const graphComponent = Graph()
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -45,7 +46,7 @@ export const defaultContentPageLayout: PageLayout = {
     explorerComponent,
   ],
   right: [
-    Component.Graph(),
+    graphComponent,
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],

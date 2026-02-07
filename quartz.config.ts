@@ -92,7 +92,7 @@ const config: QuartzConfig = {
       Plugin.CustomOgImages(),
     ],
   },
-  externalPlugins: ["@quartz-community/explorer"],
+  externalPlugins: ["@quartz-community/explorer", "@quartz-community/graph"],
 }
 
 export default config

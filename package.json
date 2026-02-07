@@ -40,6 +40,7 @@
     "@myriaddreamin/rehype-typst": "^0.6.0",
     "@napi-rs/simple-git": "0.1.22",
     "@quartz-community/explorer": "github:quartz-community/explorer",
+    "@quartz-community/graph": "github:quartz-community/graph",
     "@tweenjs/tween.js": "^25.0.0",
     "ansi-truncate": "^1.4.0",
     "async-mutex": "^0.5.0",
