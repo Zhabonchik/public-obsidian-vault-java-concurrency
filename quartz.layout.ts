@@ -1,5 +1,9 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { Explorer } from "@quartz-community/explorer/components"
+
+// Create Explorer once and reuse for both layouts
+const explorerComponent = Explorer()
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -38,7 +42,7 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    explorerComponent,
   ],
   right: [
     Component.Graph(),
@@ -62,7 +66,7 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    explorerComponent,
   ],
   right: [],
 }

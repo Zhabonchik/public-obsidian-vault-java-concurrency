@@ -6,6 +6,36 @@ tags:
 
 Quartz features an explorer that allows you to navigate all files and folders on your site. It supports nested folders and is highly customizable.
 
+> [!info]
+> The Explorer is now a community plugin. This demonstrates how external plugins can extend Quartz functionality while serving as a reference implementation for plugin developers.
+
+## Installation
+
+The Explorer is available as a community plugin from GitHub:
+
+```bash
+npm install github:quartz-community/explorer --legacy-peer-deps
+```
+
+Then import it in your `quartz.layout.ts`:
+
+```typescript title="quartz.layout.ts"
+import { Explorer } from "@quartz-community/explorer/components"
+
+// Create once and reuse
+const explorerComponent = Explorer()
+
+export const defaultContentPageLayout: PageLayout = {
+  // ... other layout config
+  left: [
+    // ... other components
+    explorerComponent,
+  ],
+}
+```
+
+## Features
+
 By default, it shows all folders and files on your page. To display the explorer in a different spot, you can edit the [[layout]].
 
 Display names for folders get determined by the `title` frontmatter field in `folder/index.md` (more detail in [[authoring content | Authoring Content]]). If this file does not exist or does not contain frontmatter, the local folder name will be used instead.
@@ -17,12 +47,12 @@ Display names for folders get determined by the `title` frontmatter field in `fo
 
 ## Customization
 
-Most configuration can be done by passing in options to `Component.Explorer()`.
+Most configuration can be done by passing in options to `Explorer()`.
 
 For example, here's what the default configuration looks like:
 
 ```typescript title="quartz.layout.ts"
-Component.Explorer({
+Explorer({
   title: "Explorer", // title of the explorer component
   folderClickBehavior: "collapse", // what happens when you click a folder ("link" to navigate to folder page on click or "collapse" to collapse folder on click)
   folderDefaultState: "collapsed", // default state of folders ("collapsed" or "open")
@@ -40,19 +70,16 @@ When passing in your own options, you can omit any or all of these fields if you
 
 Want to customize it even more?
 
-- Removing explorer: remove `Component.Explorer()` from `quartz.layout.ts`
+- Removing explorer: remove `explorerComponent` from `quartz.layout.ts`
   - (optional): After removing the explorer component, you can move the [[table of contents | Table of Contents]] component back to the `left` part of the layout
 - Changing `sort`, `filter` and `map` behavior: explained in [[#Advanced customization]]
-- Component: `quartz/components/Explorer.tsx`
-- Style: `quartz/components/styles/explorer.scss`
-- Script: `quartz/components/scripts/explorer.inline.ts`
 
 ## Advanced customization
 
 This component allows you to fully customize all of its behavior. You can pass a custom `sort`, `filter` and `map` function.
 All functions you can pass work with the `FileTrieNode` class, which has the following properties:
 
-```ts title="quartz/components/Explorer.tsx"
+```ts title="@quartz-community/explorer"
 class FileTrieNode {
   isFolder: boolean
   children: Array<FileTrieNode>
@@ -60,7 +87,7 @@ class FileTrieNode {
 }
 ```
 
-```ts title="quartz/plugins/emitters/contentIndex.tsx"
+```ts
 export type ContentDetails = {
   slug: FullSlug
   title: string
@@ -74,7 +101,7 @@ Every function you can pass is optional. By default, only a `sort` function will
 
 ```ts title="Default sort function"
 // Sort order: folders first, then files. Sort folders and files alphabetically
-Component.Explorer({
+Explorer({
   sortFn: (a, b) => {
     if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
       return a.displayName.localeCompare(b.displayName, undefined, {
@@ -115,7 +142,7 @@ These examples show the basic usage of `sort`, `map` and `filter`.
 Using this example, the explorer will alphabetically sort everything.
 
 ```ts title="quartz.layout.ts"
-Component.Explorer({
+Explorer({
   sortFn: (a, b) => {
     return a.displayName.localeCompare(b.displayName)
   },
@@ -127,7 +154,7 @@ Component.Explorer({
 Using this example, the display names of all `FileNodes` (folders + files) will be converted to full upper case.
 
 ```ts title="quartz.layout.ts"
-Component.Explorer({
+Explorer({
   mapFn: (node) => {
     node.displayName = node.displayName.toUpperCase()
     return node
@@ -141,7 +168,7 @@ Using this example, you can remove elements from your explorer by providing an a
 Note that this example filters on the title but you can also do it via slug or any other field available on `FileTrieNode`.
 
 ```ts title="quartz.layout.ts"
-Component.Explorer({
+Explorer({
   filterFn: (node) => {
     // set containing names of everything you want to filter out
     const omit = new Set(["authoring content", "tags", "advanced"])
@@ -159,7 +186,7 @@ Component.Explorer({
 You can access the tags of a file by `node.data.tags`.
 
 ```ts title="quartz.layout.ts"
-Component.Explorer({
+Explorer({
   filterFn: (node) => {
     // exclude files with the tag "explorerexclude"
     return node.data?.tags?.includes("explorerexclude") !== true
@@ -173,7 +200,7 @@ By default, the explorer will filter out the `tags` folder.
 To override the default filter function, you can set the filter function to `undefined`.
 
 ```ts title="quartz.layout.ts"
-Component.Explorer({
+Explorer({
   filterFn: undefined, // apply no filter function, every file and folder will visible
 })
 ```
@@ -186,19 +213,19 @@ Component.Explorer({
 > and passing it in.
 >
 > ```ts title="quartz.layout.ts"
-> import { Options } from "./quartz/components/Explorer"
+> import { ExplorerOptions } from "@quartz-community/explorer/components"
 >
-> export const mapFn: Options["mapFn"] = (node) => {
+> export const mapFn: ExplorerOptions["mapFn"] = (node) => {
 >   // implement your function here
 > }
-> export const filterFn: Options["filterFn"] = (node) => {
+> export const filterFn: ExplorerOptions["filterFn"] = (node) => {
 >   // implement your function here
 > }
-> export const sortFn: Options["sortFn"] = (a, b) => {
+> export const sortFn: ExplorerOptions["sortFn"] = (a, b) => {
 >   // implement your function here
 > }
 >
-> Component.Explorer({
+> Explorer({
 >   // ... your other options
 >   mapFn,
 >   filterFn,
@@ -211,7 +238,7 @@ Component.Explorer({
 To add emoji prefixes (📁 for folders, 📄 for files), you could use a map function like this:
 
 ```ts title="quartz.layout.ts"
-Component.Explorer({
+Explorer({
   mapFn: (node) => {
     if (node.isFolder) {
       node.displayName = "📁 " + node.displayName
