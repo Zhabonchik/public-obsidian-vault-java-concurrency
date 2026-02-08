@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "plugins": {
+    "explorer": {
+      "source": "github:quartz-community/explorer",
+      "resolved": "https://github.com/quartz-community/explorer.git",
+      "commit": "6c97847cf1d200da2764554268c8f3d74a1edb6d",
+      "installedAt": "2026-02-08T12:00:00.000Z"
+    },
+    "graph": {
+      "source": "github:quartz-community/graph",
+      "resolved": "https://github.com/quartz-community/graph.git",
+      "commit": "c6a8cbb7e268999b131c1946ee4e97e1599157b4",
+      "installedAt": "2026-02-08T12:00:00.000Z"
+    },
+    "search": {
+      "source": "github:quartz-community/search",
+      "resolved": "https://github.com/quartz-community/search.git",
+      "commit": "0131923f00c485664a50d1209a3e8eabde591856",
+      "installedAt": "2026-02-08T12:00:00.000Z"
+    }
+  }
+}

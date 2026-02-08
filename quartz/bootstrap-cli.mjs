@@ -9,11 +9,13 @@ import {
   handleSync,
 } from "./cli/handlers.js"
 import {
-  handlePluginInstall,
+  handlePluginInstall as handleGitPluginInstall,
+  handlePluginAdd,
+  handlePluginRemove,
+  handlePluginUpdate,
+  handlePluginRestore,
   handlePluginList,
-  handlePluginSearch,
-  handlePluginUninstall,
-} from "./cli/plugin-handlers.js"
+} from "./cli/plugin-git-handlers.js"
 import {
   CommonArgv,
   BuildArgv,
@@ -54,31 +56,32 @@ yargs(hideBin(process.argv))
     "Manage Quartz plugins",
     (yargs) => {
       return yargs
+        .command("install", "Install plugins from quartz.lock.json", CommonArgv, async () => {
+          await handleGitPluginInstall()
+        })
+        .command("add <repos..>", "Add plugins from Git repositories", CommonArgv, async (argv) => {
+          await handlePluginAdd(argv.repos)
+        })
+        .command("remove <names..>", "Remove installed plugins", CommonArgv, async (argv) => {
+          await handlePluginRemove(argv.names)
+        })
         .command(
-          "install <packages..>",
-          "Install Quartz plugins from npm",
-          PluginInstallArgv,
+          "update [names..]",
+          "Update installed plugins to latest version",
+          CommonArgv,
           async (argv) => {
-            await handlePluginInstall(argv.packages)
+            await handlePluginUpdate(argv.names)
           },
         )
-        .command(
-          "uninstall <packages..>",
-          "Uninstall Quartz plugins",
-          PluginUninstallArgv,
-          async (argv) => {
-            await handlePluginUninstall(argv.packages)
-          },
-        )
-        .command("list", "List installed Quartz plugins", CommonArgv, async () => {
+        .command("list", "List all installed plugins", CommonArgv, async () => {
           await handlePluginList()
         })
         .command(
-          "search [query]",
-          "Search for Quartz plugins on npm",
-          PluginSearchArgv,
-          async (argv) => {
-            await handlePluginSearch(argv.query)
+          "restore",
+          "Restore plugins from lockfile (exact versions)",
+          CommonArgv,
+          async () => {
+            await handlePluginRestore()
           },
         )
         .demandCommand(1, "Please specify a plugin subcommand")
