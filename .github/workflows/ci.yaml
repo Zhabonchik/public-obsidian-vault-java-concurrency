@@ -38,6 +38,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Restore Quartz plugins
+        run: npx quartz plugin restore
+
       - name: Check types and style
         run: npm run check
 
