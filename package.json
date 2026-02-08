@@ -17,7 +17,9 @@
     "check": "tsc --noEmit && npx prettier . --check",
     "format": "npx prettier . --write",
     "test": "tsx --test",
-    "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1"
+    "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
+    "install-plugins": "npx tsx ./quartz/plugins/loader/install-plugins.ts",
+    "prebuild": "npm run install-plugins"
   },
   "engines": {
     "npm": ">=10.9.2",
@@ -39,8 +41,6 @@
     "@floating-ui/dom": "^1.7.4",
     "@myriaddreamin/rehype-typst": "^0.6.0",
     "@napi-rs/simple-git": "0.1.22",
-    "@quartz-community/explorer": "github:quartz-community/explorer",
-    "@quartz-community/graph": "github:quartz-community/graph",
     "@tweenjs/tween.js": "^25.0.0",
     "ansi-truncate": "^1.4.0",
     "async-mutex": "^0.5.0",
@@ -56,6 +56,7 @@
     "hast-util-to-jsx-runtime": "^2.3.6",
     "hast-util-to-string": "^3.0.1",
     "is-absolute-url": "^5.0.0",
+    "isomorphic-git": "^1.36.3",
     "js-yaml": "^4.1.1",
     "lightningcss": "^1.31.1",
     "mdast-util-find-and-replace": "^3.0.2",

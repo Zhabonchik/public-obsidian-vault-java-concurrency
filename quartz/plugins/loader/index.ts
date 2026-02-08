@@ -8,6 +8,7 @@ import {
   PluginSpecifier,
 } from "./types"
 import { QuartzTransformerPlugin, QuartzFilterPlugin, QuartzEmitterPlugin } from "../types"
+import { parsePluginSource, installPlugin, getPluginEntryPoint } from "./gitLoader"
 
 const MINIMUM_QUARTZ_VERSION = "4.5.0"
 
@@ -93,17 +94,36 @@ function extractPluginFactory(
   return null
 }
 
+function isGitSource(source: string): boolean {
+  // Check if it's a Git-based source
+  return (
+    source.startsWith("github:") ||
+    source.startsWith("git+") ||
+    source.startsWith("https://github.com/") ||
+    source.startsWith("https://gitlab.com/") ||
+    source.startsWith("https://bitbucket.org/")
+  )
+}
+
 async function resolveSinglePlugin(
   specifier: PluginSpecifier,
   options: PluginResolutionOptions,
 ): Promise<{ plugin: LoadedPlugin | null; error: PluginResolutionError | null }> {
   let packageName: string
   let manifest: Partial<PluginManifest> = {}
+  let pluginSource = "npm"
 
   if (typeof specifier === "string") {
     packageName = specifier
+    // Check if it's a Git-based source
+    if (isGitSource(specifier)) {
+      pluginSource = "git"
+    }
   } else if ("name" in specifier) {
     packageName = specifier.name
+    if (isGitSource(specifier.name)) {
+      pluginSource = "git"
+    }
   } else if ("plugin" in specifier) {
     const type = specifier.manifest?.category ?? "transformer"
     return {
@@ -130,6 +150,85 @@ async function resolveSinglePlugin(
         message: "Invalid plugin specifier format",
         type: "invalid-manifest",
       },
+    }
+  }
+
+  if (pluginSource === "git") {
+    try {
+      const gitSpec = parsePluginSource(packageName)
+      await installPlugin(gitSpec, { verbose: options.verbose })
+      const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
+
+      // Import the plugin
+      const module = await import(entryPoint)
+      const importedManifest: PluginManifest | null = module.manifest ?? null
+
+      manifest = importedManifest ?? {}
+
+      const detectedType = manifest.category ?? detectPluginType(module)
+
+      if (!detectedType) {
+        return {
+          plugin: null,
+          error: {
+            plugin: packageName,
+            message: "Could not detect plugin type from Git source",
+            type: "invalid-manifest",
+          },
+        }
+      }
+
+      const factory = extractPluginFactory(module, detectedType)
+
+      if (!factory) {
+        return {
+          plugin: null,
+          error: {
+            plugin: packageName,
+            message: "Could not find plugin factory in Git source",
+            type: "invalid-manifest",
+          },
+        }
+      }
+
+      const fullManifest: PluginManifest = {
+        name: manifest.name ?? gitSpec.name,
+        displayName: manifest.displayName ?? gitSpec.name,
+        description: manifest.description ?? "No description provided",
+        version: manifest.version ?? "1.0.0",
+        author: manifest.author,
+        homepage: manifest.homepage,
+        keywords: manifest.keywords,
+        category: manifest.category ?? detectedType,
+        quartzVersion: manifest.quartzVersion,
+        configSchema: manifest.configSchema,
+      }
+
+      const loadedPlugin: LoadedPlugin = {
+        plugin: factory,
+        manifest: fullManifest,
+        type: detectedType,
+        source: `${gitSpec.repo}#${gitSpec.ref}`,
+      }
+
+      if (options.verbose) {
+        console.log(
+          styleText("green", `✓`) +
+            ` Loaded ${detectedType} plugin: ${styleText("cyan", fullManifest.displayName)}@${fullManifest.version} ${styleText("gray", `(from ${gitSpec.repo})`)}`,
+        )
+      }
+
+      return { plugin: loadedPlugin, error: null }
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      return {
+        plugin: null,
+        error: {
+          plugin: packageName,
+          message: `Failed to load Git plugin: ${errorMessage}`,
+          type: "import-error",
+        },
+      }
     }
   }
 

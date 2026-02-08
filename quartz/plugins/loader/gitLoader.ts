@@ -1,0 +1,251 @@
+import fs from "fs"
+import path from "path"
+import git from "isomorphic-git"
+import http from "isomorphic-git/http/node"
+import { styleText } from "util"
+
+export interface GitPluginSpec {
+  /** Plugin name (used for directory) */
+  name: string
+  /** Git repository URL (https://github.com/user/repo.git or just github:user/repo) */
+  repo: string
+  /** Git ref (branch, tag, or commit hash). Defaults to 'main' */
+  ref?: string
+  /** Optional subdirectory within the repo if plugin is not at root */
+  subdir?: string
+}
+
+export type PluginInstallSource = string | GitPluginSpec
+
+const PLUGINS_CACHE_DIR = path.join(process.cwd(), ".quartz", "plugins")
+
+/**
+ * Parse a plugin source string into a GitPluginSpec
+ * Supports:
+ * - "github:user/repo" -> https://github.com/user/repo.git
+ * - "github:user/repo#ref" -> https://github.com/user/repo.git with specific ref
+ * - "git+https://..." -> direct git URL
+ * - "https://github.com/..." -> direct https URL
+ */
+export function parsePluginSource(source: string): GitPluginSpec {
+  // Handle github shorthand: github:user/repo or github:user/repo#ref
+  if (source.startsWith("github:")) {
+    const withoutPrefix = source.replace("github:", "")
+    const [repoPath, ref] = withoutPrefix.split("#")
+    const [owner, repo] = repoPath.split("/")
+
+    if (!owner || !repo) {
+      throw new Error(`Invalid GitHub source: ${source}. Expected format: github:user/repo`)
+    }
+
+    return {
+      name: repo,
+      repo: `https://github.com/${owner}/${repo}.git`,
+      ref: ref || "main",
+    }
+  }
+
+  // Handle git+https:// protocol
+  if (source.startsWith("git+")) {
+    const url = source.replace("git+", "")
+    const name = extractRepoName(url)
+    return { name, repo: url, ref: "main" }
+  }
+
+  // Handle direct HTTPS URL (GitHub, GitLab, etc.)
+  if (source.startsWith("https://")) {
+    const name = extractRepoName(source)
+    return { name, repo: source, ref: "main" }
+  }
+
+  // Assume it's a plain repo name and try github
+  const parts = source.split("/")
+  if (parts.length === 2) {
+    return {
+      name: parts[1],
+      repo: `https://github.com/${source}.git`,
+      ref: "main",
+    }
+  }
+
+  throw new Error(`Cannot parse plugin source: ${source}`)
+}
+
+function extractRepoName(url: string): string {
+  // Extract repo name from URL like https://github.com/user/repo.git
+  const match = url.match(/\/([^\/]+?)(?:\.git)?$/)
+  return match ? match[1] : "unknown"
+}
+
+/**
+ * Install a plugin from a Git repository
+ */
+export async function installPlugin(
+  spec: GitPluginSpec,
+  options: { verbose?: boolean; force?: boolean } = {},
+): Promise<string> {
+  const pluginDir = path.join(PLUGINS_CACHE_DIR, spec.name)
+
+  // Check if already installed
+  if (!options.force && fs.existsSync(pluginDir)) {
+    // Check if it's a git repo by trying to resolve HEAD
+    try {
+      await git.resolveRef({ fs, dir: pluginDir, ref: "HEAD" })
+      if (options.verbose) {
+        console.log(styleText("cyan", `→`), `Plugin ${spec.name} already installed`)
+      }
+      return pluginDir
+    } catch {
+      // If git operations fail, re-clone
+    }
+  }
+
+  // Clean up if force reinstall
+  if (options.force && fs.existsSync(pluginDir)) {
+    fs.rmSync(pluginDir, { recursive: true })
+  }
+
+  if (options.verbose) {
+    console.log(styleText("cyan", `→`), `Cloning ${spec.name} from ${spec.repo}#${spec.ref}...`)
+  }
+
+  // Clone the repository
+  await git.clone({
+    fs,
+    http,
+    dir: pluginDir,
+    url: spec.repo,
+    ref: spec.ref,
+    singleBranch: true,
+    depth: 1,
+    noCheckout: false,
+  })
+
+  if (options.verbose) {
+    console.log(styleText("green", `✓`), `Installed ${spec.name}`)
+  }
+
+  return pluginDir
+}
+
+/**
+ * Install multiple plugins from Git repositories
+ */
+export async function installPlugins(
+  sources: PluginInstallSource[],
+  options: { verbose?: boolean; force?: boolean } = {},
+): Promise<Map<string, string>> {
+  const installed = new Map<string, string>()
+
+  for (const source of sources) {
+    try {
+      const spec = typeof source === "string" ? parsePluginSource(source) : source
+      const pluginDir = await installPlugin(spec, options)
+      installed.set(spec.name, pluginDir)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      console.error(styleText("red", `✗`), `Failed to install plugin: ${message}`)
+    }
+  }
+
+  return installed
+}
+
+/**
+ * Get the installation directory for a plugin
+ */
+export function getPluginDir(name: string): string {
+  return path.join(PLUGINS_CACHE_DIR, name)
+}
+
+/**
+ * Check if a plugin is installed
+ */
+export function isPluginInstalled(name: string): boolean {
+  return fs.existsSync(getPluginDir(name))
+}
+
+/**
+ * Get the entry point for a plugin
+ */
+export function getPluginEntryPoint(name: string, subdir?: string): string {
+  const pluginDir = getPluginDir(name)
+  const searchDir = subdir ? path.join(pluginDir, subdir) : pluginDir
+
+  // Try common entry points
+  const candidates = [
+    path.join(searchDir, "src", "index.ts"),
+    path.join(searchDir, "src", "index.js"),
+    path.join(searchDir, "index.ts"),
+    path.join(searchDir, "index.js"),
+    path.join(searchDir, "dist", "index.js"),
+  ]
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate
+    }
+  }
+
+  // If no entry found, return the search dir and let Node handle it
+  return searchDir
+}
+
+/**
+ * Update all installed plugins
+ */
+export async function updatePlugins(options: { verbose?: boolean } = {}): Promise<void> {
+  if (!fs.existsSync(PLUGINS_CACHE_DIR)) {
+    console.log("No plugins installed")
+    return
+  }
+
+  const plugins = fs.readdirSync(PLUGINS_CACHE_DIR)
+
+  for (const pluginName of plugins) {
+    const pluginDir = path.join(PLUGINS_CACHE_DIR, pluginName)
+
+    try {
+      // Check if it's a git repo
+      await git.resolveRef({ fs, dir: pluginDir, ref: "HEAD" })
+
+      if (options.verbose) {
+        console.log(styleText("cyan", `→`), `Updating ${pluginName}...`)
+      }
+
+      // Fetch latest
+      await git.fetch({
+        fs,
+        http,
+        dir: pluginDir,
+        singleBranch: true,
+      })
+
+      // Checkout to latest fetched commit
+      await git.checkout({
+        fs,
+        dir: pluginDir,
+        ref: "FETCH_HEAD",
+        force: true,
+      })
+
+      if (options.verbose) {
+        console.log(styleText("green", `✓`), `Updated ${pluginName}`)
+      }
+    } catch (error) {
+      if (options.verbose) {
+        console.error(styleText("yellow", `⚠`), `Skipping ${pluginName}: Not a git repo`)
+      }
+    }
+  }
+}
+
+/**
+ * Clean all installed plugins
+ */
+export function cleanPlugins(): void {
+  if (fs.existsSync(PLUGINS_CACHE_DIR)) {
+    fs.rmSync(PLUGINS_CACHE_DIR, { recursive: true })
+    console.log(styleText("green", `✓`), "Cleaned all plugins")
+  }
+}

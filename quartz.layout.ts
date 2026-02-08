@@ -1,10 +1,12 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
-import { Explorer } from "@quartz-community/explorer"
-import { Graph } from "@quartz-community/graph"
+import Explorer from "./.quartz/plugins/explorer/src/components/Explorer"
+import Graph from "./.quartz/plugins/graph/src/components/Graph"
+import Search from "./.quartz/plugins/search/src/components/Search"
 
 const explorerComponent = Explorer()
 const graphComponent = Graph()
+const searchComponent = Search()
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -36,7 +38,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Flex({
       components: [
         {
-          Component: Component.Search(),
+          Component: searchComponent,
           grow: true,
         },
         { Component: Component.Darkmode() },
@@ -61,7 +63,7 @@ export const defaultListPageLayout: PageLayout = {
     Component.Flex({
       components: [
         {
-          Component: Component.Search(),
+          Component: searchComponent,
           grow: true,
         },
         { Component: Component.Darkmode() },
