@@ -15,4 +15,3 @@ Quartz is a static site generator for digital gardens.
 - Fast search
 - Graph view
 - Explorer sidebar
-

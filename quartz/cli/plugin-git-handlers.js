@@ -52,7 +52,9 @@ export async function handlePluginInstall() {
   const lockfile = readLockfile()
 
   if (!lockfile) {
-    console.log(styleText("yellow", "⚠ No quartz.lock.json found. Run 'npx quartz plugin add <repo>' first."))
+    console.log(
+      styleText("yellow", "⚠ No quartz.lock.json found. Run 'npx quartz plugin add <repo>' first."),
+    )
     return
   }
 
@@ -71,7 +73,9 @@ export async function handlePluginInstall() {
       try {
         const currentCommit = getGitCommit(pluginDir)
         if (currentCommit === entry.commit) {
-          console.log(styleText("gray", `  ✓ ${name}@${entry.commit.slice(0, 7)} already installed`))
+          console.log(
+            styleText("gray", `  ✓ ${name}@${entry.commit.slice(0, 7)} already installed`),
+          )
           installed++
           continue
         }
@@ -88,7 +92,10 @@ export async function handlePluginInstall() {
         console.log(styleText("cyan", `  → ${name}: cloning...`))
         execSync(`git clone --depth 1 ${entry.resolved} ${pluginDir}`, { stdio: "ignore" })
         if (entry.commit !== "unknown") {
-          execSync(`git fetch --depth 1 origin ${entry.commit}`, { cwd: pluginDir, stdio: "ignore" })
+          execSync(`git fetch --depth 1 origin ${entry.commit}`, {
+            cwd: pluginDir,
+            stdio: "ignore",
+          })
           execSync(`git checkout ${entry.commit}`, { cwd: pluginDir, stdio: "ignore" })
         }
         console.log(styleText("green", `  ✓ ${name}@${entry.commit.slice(0, 7)}`))
@@ -203,7 +210,9 @@ export async function handlePluginUpdate(names) {
 
     const pluginDir = path.join(PLUGINS_DIR, name)
     if (!fs.existsSync(pluginDir)) {
-      console.log(styleText("yellow", `⚠ ${name} directory missing. Run 'npx quartz plugin install'.`))
+      console.log(
+        styleText("yellow", `⚠ ${name} directory missing. Run 'npx quartz plugin install'.`),
+      )
       continue
     }
 
@@ -295,7 +304,9 @@ export async function handlePluginRestore() {
     }
 
     try {
-      console.log(styleText("cyan", `→ ${name}: cloning ${entry.resolved}@${entry.commit.slice(0, 7)}...`))
+      console.log(
+        styleText("cyan", `→ ${name}: cloning ${entry.resolved}@${entry.commit.slice(0, 7)}...`),
+      )
       execSync(`git clone ${entry.resolved} ${pluginDir}`, { stdio: "ignore" })
       execSync(`git checkout ${entry.commit}`, { cwd: pluginDir, stdio: "ignore" })
       console.log(styleText("green", `✓ ${name} restored`))
