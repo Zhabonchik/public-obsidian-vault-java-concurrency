@@ -6,7 +6,7 @@ description: 林永章 Lin Yung-Chang | Nick | 陶工生活隨筆。
 # 林永章 
 ### Lin Yung-Chang (Nick)
 
-![林永章](lin-yung-chang-pottery.webp)
+![林永章|400](lin-yung-chang-pottery.webp)
 
 指尖與泥土的對話，位元與日常的紀錄。
 
