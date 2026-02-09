@@ -16,8 +16,8 @@
     "search": {
       "source": "github:quartz-community/search",
       "resolved": "https://github.com/quartz-community/search.git",
-      "commit": "28eea49e76535b2a888e78419da57a2f6064f4a5",
-      "installedAt": "2026-02-09T12:03:13.215Z"
+      "commit": "1e00f2e97eadc1a5f8a2d5dac50e8a2fb864da24",
+      "installedAt": "2026-02-09T12:09:25.372Z"
     }
   }
 }
