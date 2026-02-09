@@ -4,14 +4,14 @@
     "explorer": {
       "source": "github:quartz-community/explorer",
       "resolved": "https://github.com/quartz-community/explorer.git",
-      "commit": "56f6b7b8f04186ca69808ea6bf33e112f7f8b5f7",
-      "installedAt": "2026-02-09T12:03:12.123Z"
+      "commit": "e109c4df63095796c2c55e5eadb6f532c16f9135",
+      "installedAt": "2026-02-09T19:24:48.360Z"
     },
     "graph": {
       "source": "github:quartz-community/graph",
       "resolved": "https://github.com/quartz-community/graph.git",
-      "commit": "0fda721a585b1348a5a8b5f8c7826132a15edf99",
-      "installedAt": "2026-02-09T12:03:12.673Z"
+      "commit": "c8883fa1d3ddc7749ebc0bb43e798ec1af4b55d7",
+      "installedAt": "2026-02-09T19:24:48.821Z"
     },
     "search": {
       "source": "github:quartz-community/search",
