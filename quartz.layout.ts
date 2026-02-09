@@ -1,32 +1,17 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 import { QuartzComponent } from "./quartz/components/types"
-import { Explorer, Graph, Search, TableOfContents, Backlinks, Comments } from "./.quartz/plugins"
-
-const explorerComponent = Explorer() as QuartzComponent
-const graphComponent = Graph() as QuartzComponent
-const searchComponent = Search() as QuartzComponent
-const tocComponent = TableOfContents() as QuartzComponent
-const backlinksComponent = Backlinks() as QuartzComponent
-const commentsComponent = Comments({
-  provider: "giscus",
-  options: {
-    repo: "jackyzha0/quartz",
-    repoId: "MDEwOlJlcG9zaXRvcnkzODcyMTMyMDg",
-    category: "Announcements",
-    categoryId: "DIC_kwDOFxRnMM4CaYBe",
-    mapping: "pathname",
-    strict: false,
-    reactionsEnabled: true,
-    inputPosition: "top",
-  },
-}) as QuartzComponent
+import * as Plugin from "./.quartz/plugins"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [commentsComponent],
+  afterBody: [
+    // Plugin.Comments({
+    //   provider: "giscus",
+    //   options: {}) as QuartzComponent,
+  ],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/jackyzha0/quartz",
@@ -52,16 +37,20 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Flex({
       components: [
         {
-          Component: searchComponent,
+          Component: Plugin.Search() as QuartzComponent,
           grow: true,
         },
         { Component: Component.Darkmode() },
         { Component: Component.ReaderMode() },
       ],
     }),
-    explorerComponent,
+    Plugin.Explorer() as QuartzComponent,
   ],
-  right: [graphComponent, Component.DesktopOnly(tocComponent), backlinksComponent],
+  right: [
+    Plugin.Graph() as QuartzComponent,
+    Component.DesktopOnly(Plugin.TableOfContents() as QuartzComponent),
+    Plugin.Backlinks() as QuartzComponent,
+  ],
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)
@@ -73,13 +62,13 @@ export const defaultListPageLayout: PageLayout = {
     Component.Flex({
       components: [
         {
-          Component: searchComponent,
+          Component: Plugin.Search() as QuartzComponent,
           grow: true,
         },
         { Component: Component.Darkmode() },
       ],
     }),
-    explorerComponent,
+    Plugin.Explorer() as QuartzComponent,
   ],
   right: [],
 }
