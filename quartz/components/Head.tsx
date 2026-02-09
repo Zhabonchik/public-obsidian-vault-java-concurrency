@@ -37,6 +37,7 @@ export default (() => {
     return (
       <head>
         <title>{title}</title>
+        <meta name="baidu-site-verification" content="codeva-ShptV6SLT7" />
         <meta charSet="utf-8" />
         <meta name="google-site-verification" content="HyE1QTcufGYoDxMk5SY7zlUK2NSYoBquwAmbqVb-gQQ" />
         
