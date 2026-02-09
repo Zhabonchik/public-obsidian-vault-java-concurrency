@@ -18,5 +18,5 @@
     "jsxImportSource": "preact"
   },
   "include": ["quartz/**/*.ts", "quartz/**/*.tsx", "*.ts", "*.tsx", "./package.json"],
-  "exclude": ["build/**/*.d.ts", ".quartz/**", "node_modules/**"]
+  "exclude": ["build/**/*.d.ts", ".quartz/**/src/**", ".quartz/**/test/**", "node_modules/**"]
 }
