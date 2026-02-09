@@ -5,6 +5,88 @@ import { styleText } from "util"
 
 const LOCKFILE_PATH = path.join(process.cwd(), "quartz.lock.json")
 const PLUGINS_DIR = path.join(process.cwd(), ".quartz", "plugins")
+const INTERNAL_EXPORTS = new Set(["manifest", "default"])
+
+function buildPlugin(pluginDir, name) {
+  try {
+    console.log(styleText("cyan", `  → ${name}: installing dependencies...`))
+    execSync("npm install", { cwd: pluginDir, stdio: "ignore" })
+    console.log(styleText("cyan", `  → ${name}: building...`))
+    execSync("npm run build", { cwd: pluginDir, stdio: "ignore" })
+    return true
+  } catch (error) {
+    console.log(styleText("red", `  ✗ ${name}: build failed`))
+    return false
+  }
+}
+
+function needsBuild(pluginDir) {
+  const distDir = path.join(pluginDir, "dist")
+  return !fs.existsSync(distDir)
+}
+
+function parseExportsFromDts(content) {
+  const exports = []
+  const exportMatches = content.matchAll(/export\s*{\s*([^}]+)\s*}(?:\s*from\s*['"]([^'"]+)['"])?/g)
+  for (const match of exportMatches) {
+    const fromModule = match[2]
+    if (fromModule?.startsWith("@")) continue
+
+    const names = match[1]
+      .split(",")
+      .map((n) => n.trim())
+      .filter(Boolean)
+    for (const name of names) {
+      const cleanName = name.split(" as ").pop()?.trim() || name.trim()
+      if (cleanName && !cleanName.startsWith("_") && !INTERNAL_EXPORTS.has(cleanName)) {
+        const finalName = cleanName.replace(/^type\s+/, "")
+        if (name.includes("type ")) {
+          exports.push(`type ${finalName}`)
+        } else {
+          exports.push(finalName)
+        }
+      }
+    }
+  }
+  return exports
+}
+
+async function regeneratePluginIndex() {
+  if (!fs.existsSync(PLUGINS_DIR)) return
+
+  const plugins = fs.readdirSync(PLUGINS_DIR).filter((name) => {
+    const pluginPath = path.join(PLUGINS_DIR, name)
+    return fs.statSync(pluginPath).isDirectory()
+  })
+
+  const exports = []
+
+  for (const pluginName of plugins) {
+    const pluginDir = path.join(PLUGINS_DIR, pluginName)
+    const distIndex = path.join(pluginDir, "dist", "index.d.ts")
+
+    if (!fs.existsSync(distIndex)) continue
+
+    const dtsContent = fs.readFileSync(distIndex, "utf-8")
+    const exportedNames = parseExportsFromDts(dtsContent)
+
+    if (exportedNames.length > 0) {
+      const namedExports = exportedNames.filter((e) => !e.startsWith("type "))
+      const typeExports = exportedNames.filter((e) => e.startsWith("type ")).map((e) => e.slice(5))
+
+      if (namedExports.length > 0) {
+        exports.push(`export { ${namedExports.join(", ")} } from "./${pluginName}"`)
+      }
+      if (typeExports.length > 0) {
+        exports.push(`export type { ${typeExports.join(", ")} } from "./${pluginName}"`)
+      }
+    }
+  }
+
+  const indexContent = exports.join("\n") + "\n"
+  const indexPath = path.join(PLUGINS_DIR, "index.ts")
+  fs.writeFileSync(indexPath, indexContent)
+}
 
 function readLockfile() {
   if (!fs.existsSync(LOCKFILE_PATH)) {
@@ -65,6 +147,7 @@ export async function handlePluginInstall() {
   console.log(styleText("cyan", "→ Installing plugins from lockfile..."))
   let installed = 0
   let failed = 0
+  const pluginsToBuild = []
 
   for (const [name, entry] of Object.entries(lockfile.plugins)) {
     const pluginDir = path.join(PLUGINS_DIR, name)
@@ -72,16 +155,19 @@ export async function handlePluginInstall() {
     if (fs.existsSync(pluginDir)) {
       try {
         const currentCommit = getGitCommit(pluginDir)
-        if (currentCommit === entry.commit) {
+        if (currentCommit === entry.commit && !needsBuild(pluginDir)) {
           console.log(
             styleText("gray", `  ✓ ${name}@${entry.commit.slice(0, 7)} already installed`),
           )
           installed++
           continue
         }
-        console.log(styleText("cyan", `  → ${name}: updating to ${entry.commit.slice(0, 7)}...`))
-        execSync("git fetch --depth 1 origin", { cwd: pluginDir, stdio: "ignore" })
-        execSync(`git reset --hard ${entry.commit}`, { cwd: pluginDir, stdio: "ignore" })
+        if (currentCommit !== entry.commit) {
+          console.log(styleText("cyan", `  → ${name}: updating to ${entry.commit.slice(0, 7)}...`))
+          execSync("git fetch --depth 1 origin", { cwd: pluginDir, stdio: "ignore" })
+          execSync(`git reset --hard ${entry.commit}`, { cwd: pluginDir, stdio: "ignore" })
+        }
+        pluginsToBuild.push({ name, pluginDir })
         installed++
       } catch {
         console.log(styleText("red", `  ✗ ${name}: failed to update`))
@@ -99,6 +185,7 @@ export async function handlePluginInstall() {
           execSync(`git checkout ${entry.commit}`, { cwd: pluginDir, stdio: "ignore" })
         }
         console.log(styleText("green", `  ✓ ${name}@${entry.commit.slice(0, 7)}`))
+        pluginsToBuild.push({ name, pluginDir })
         installed++
       } catch {
         console.log(styleText("red", `  ✗ ${name}: failed to clone`))
@@ -106,6 +193,21 @@ export async function handlePluginInstall() {
       }
     }
   }
+
+  if (pluginsToBuild.length > 0) {
+    console.log()
+    console.log(styleText("cyan", "→ Building plugins..."))
+    for (const { name, pluginDir } of pluginsToBuild) {
+      if (!buildPlugin(pluginDir, name)) {
+        failed++
+        installed--
+      } else {
+        console.log(styleText("green", `  ✓ ${name} built`))
+      }
+    }
+  }
+
+  await regeneratePluginIndex()
 
   console.log()
   if (failed === 0) {
@@ -124,6 +226,8 @@ export async function handlePluginAdd(sources) {
   if (!fs.existsSync(PLUGINS_DIR)) {
     fs.mkdirSync(PLUGINS_DIR, { recursive: true })
   }
+
+  const addedPlugins = []
 
   for (const source of sources) {
     try {
@@ -151,10 +255,22 @@ export async function handlePluginAdd(sources) {
         installedAt: new Date().toISOString(),
       }
 
+      addedPlugins.push({ name, pluginDir })
       console.log(styleText("green", `✓ Added ${name}@${commit.slice(0, 7)}`))
     } catch (error) {
       console.log(styleText("red", `✗ Failed to add ${source}: ${error}`))
     }
+  }
+
+  if (addedPlugins.length > 0) {
+    console.log()
+    console.log(styleText("cyan", "→ Building plugins..."))
+    for (const { name, pluginDir } of addedPlugins) {
+      if (buildPlugin(pluginDir, name)) {
+        console.log(styleText("green", `  ✓ ${name} built`))
+      }
+    }
+    await regeneratePluginIndex()
   }
 
   writeLockfile(lockfile)
@@ -169,6 +285,7 @@ export async function handlePluginRemove(names) {
     return
   }
 
+  let removed = false
   for (const name of names) {
     const pluginDir = path.join(PLUGINS_DIR, name)
 
@@ -185,6 +302,11 @@ export async function handlePluginRemove(names) {
 
     delete lockfile.plugins[name]
     console.log(styleText("green", `✓ Removed ${name}`))
+    removed = true
+  }
+
+  if (removed) {
+    await regeneratePluginIndex()
   }
 
   writeLockfile(lockfile)
@@ -200,6 +322,7 @@ export async function handlePluginUpdate(names) {
   }
 
   const pluginsToUpdate = names || Object.keys(lockfile.plugins)
+  const updatedPlugins = []
 
   for (const name of pluginsToUpdate) {
     const entry = lockfile.plugins[name]
@@ -225,6 +348,7 @@ export async function handlePluginUpdate(names) {
       if (newCommit !== entry.commit) {
         entry.commit = newCommit
         entry.installedAt = new Date().toISOString()
+        updatedPlugins.push({ name, pluginDir })
         console.log(styleText("green", `✓ Updated ${name} to ${newCommit.slice(0, 7)}`))
       } else {
         console.log(styleText("gray", `✓ ${name} already up to date`))
@@ -232,6 +356,17 @@ export async function handlePluginUpdate(names) {
     } catch (error) {
       console.log(styleText("red", `✗ Failed to update ${name}: ${error}`))
     }
+  }
+
+  if (updatedPlugins.length > 0) {
+    console.log()
+    console.log(styleText("cyan", "→ Rebuilding updated plugins..."))
+    for (const { name, pluginDir } of updatedPlugins) {
+      if (buildPlugin(pluginDir, name)) {
+        console.log(styleText("green", `  ✓ ${name} rebuilt`))
+      }
+    }
+    await regeneratePluginIndex()
   }
 
   writeLockfile(lockfile)
@@ -294,6 +429,7 @@ export async function handlePluginRestore() {
 
   let installed = 0
   let failed = 0
+  const restoredPlugins = []
 
   for (const [name, entry] of Object.entries(lockfile.plugins)) {
     const pluginDir = path.join(pluginsDir, name)
@@ -310,11 +446,26 @@ export async function handlePluginRestore() {
       execSync(`git clone ${entry.resolved} ${pluginDir}`, { stdio: "ignore" })
       execSync(`git checkout ${entry.commit}`, { cwd: pluginDir, stdio: "ignore" })
       console.log(styleText("green", `✓ ${name} restored`))
+      restoredPlugins.push({ name, pluginDir })
       installed++
     } catch {
       console.log(styleText("red", `✗ ${name}: failed to restore`))
       failed++
     }
+  }
+
+  if (restoredPlugins.length > 0) {
+    console.log()
+    console.log(styleText("cyan", "→ Building restored plugins..."))
+    for (const { name, pluginDir } of restoredPlugins) {
+      if (!buildPlugin(pluginDir, name)) {
+        failed++
+        installed--
+      } else {
+        console.log(styleText("green", `  ✓ ${name} built`))
+      }
+    }
+    await regeneratePluginIndex()
   }
 
   console.log()
