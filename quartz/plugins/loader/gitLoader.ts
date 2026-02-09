@@ -148,6 +148,8 @@ export async function installPlugins(
     }
   }
 
+  await regeneratePluginIndex(options)
+
   return installed
 }
 
@@ -248,4 +250,85 @@ export function cleanPlugins(): void {
     fs.rmSync(PLUGINS_CACHE_DIR, { recursive: true })
     console.log(styleText("green", `✓`), "Cleaned all plugins")
   }
+}
+
+export async function regeneratePluginIndex(options: { verbose?: boolean } = {}): Promise<void> {
+  if (!fs.existsSync(PLUGINS_CACHE_DIR)) {
+    return
+  }
+
+  const plugins = fs.readdirSync(PLUGINS_CACHE_DIR).filter((name) => {
+    const pluginPath = path.join(PLUGINS_CACHE_DIR, name)
+    return fs.statSync(pluginPath).isDirectory()
+  })
+
+  const exports: string[] = []
+
+  for (const pluginName of plugins) {
+    const pluginDir = path.join(PLUGINS_CACHE_DIR, pluginName)
+    const distIndex = path.join(pluginDir, "dist", "index.d.ts")
+
+    if (!fs.existsSync(distIndex)) {
+      if (options.verbose) {
+        console.log(styleText("yellow", `⚠`), `Skipping ${pluginName}: no dist/index.d.ts found`)
+      }
+      continue
+    }
+
+    const dtsContent = fs.readFileSync(distIndex, "utf-8")
+    const exportedNames = parseExportsFromDts(dtsContent)
+
+    if (exportedNames.length > 0) {
+      const namedExports = exportedNames.filter((e) => !e.startsWith("type "))
+      const typeExports = exportedNames.filter((e) => e.startsWith("type ")).map((e) => e.slice(5))
+
+      if (namedExports.length > 0) {
+        exports.push(`export { ${namedExports.join(", ")} } from "./${pluginName}"`)
+      }
+      if (typeExports.length > 0) {
+        exports.push(`export type { ${typeExports.join(", ")} } from "./${pluginName}"`)
+      }
+    }
+  }
+
+  const indexContent = exports.join("\n") + "\n"
+  const indexPath = path.join(PLUGINS_CACHE_DIR, "index.ts")
+
+  fs.writeFileSync(indexPath, indexContent)
+
+  if (options.verbose) {
+    console.log(styleText("green", `✓`), `Regenerated plugin index with ${plugins.length} plugins`)
+  }
+}
+
+const INTERNAL_EXPORTS = new Set(["manifest", "default"])
+
+function parseExportsFromDts(content: string): string[] {
+  const exports: string[] = []
+
+  const exportMatches = content.matchAll(/export\s*{\s*([^}]+)\s*}(?:\s*from\s*['"]([^'"]+)['"])?/g)
+  for (const match of exportMatches) {
+    const fromModule = match[2]
+    if (fromModule?.startsWith("@")) {
+      continue
+    }
+
+    const names = match[1]
+      .split(",")
+      .map((n) => n.trim())
+      .filter(Boolean)
+    for (const name of names) {
+      const cleanName = name.split(" as ").pop()?.trim() || name.trim()
+      if (cleanName && !cleanName.startsWith("_") && !INTERNAL_EXPORTS.has(cleanName)) {
+        const finalName = cleanName.replace(/^type\s+/, "")
+        if (name.includes("type ")) {
+          exports.push(`type ${finalName}`)
+        } else {
+          exports.push(finalName)
+        }
+      }
+    }
+  }
+
+  return exports
 }

@@ -1,18 +1,32 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
-import Explorer from "./.quartz/plugins/explorer/src/components/Explorer"
-import Graph from "./.quartz/plugins/graph/src/components/Graph"
-import Search from "./.quartz/plugins/search/src/components/Search"
+import { QuartzComponent } from "./quartz/components/types"
+import { Explorer, Graph, Search, TableOfContents, Backlinks, Comments } from "./.quartz/plugins"
 
-const explorerComponent = Explorer()
-const graphComponent = Graph()
-const searchComponent = Search()
+const explorerComponent = Explorer() as QuartzComponent
+const graphComponent = Graph() as QuartzComponent
+const searchComponent = Search() as QuartzComponent
+const tocComponent = TableOfContents() as QuartzComponent
+const backlinksComponent = Backlinks() as QuartzComponent
+const commentsComponent = Comments({
+  provider: "giscus",
+  options: {
+    repo: "jackyzha0/quartz",
+    repoId: "MDEwOlJlcG9zaXRvcnkzODcyMTMyMDg",
+    category: "Announcements",
+    categoryId: "DIC_kwDOFxRnMM4CaYBe",
+    mapping: "pathname",
+    strict: false,
+    reactionsEnabled: true,
+    inputPosition: "top",
+  },
+}) as QuartzComponent
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [commentsComponent],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/jackyzha0/quartz",
@@ -47,11 +61,7 @@ export const defaultContentPageLayout: PageLayout = {
     }),
     explorerComponent,
   ],
-  right: [
-    graphComponent,
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [graphComponent, Component.DesktopOnly(tocComponent), backlinksComponent],
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)

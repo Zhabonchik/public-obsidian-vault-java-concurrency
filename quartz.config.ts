@@ -96,6 +96,9 @@ const config: QuartzConfig = {
     "github:quartz-community/explorer",
     "github:quartz-community/graph",
     "github:quartz-community/search",
+    "github:quartz-community/table-of-contents",
+    "github:quartz-community/backlinks",
+    "github:quartz-community/comments",
   ],
 }
 
