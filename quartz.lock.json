@@ -4,8 +4,8 @@
     "explorer": {
       "source": "github:quartz-community/explorer",
       "resolved": "https://github.com/quartz-community/explorer.git",
-      "commit": "8e0b7e619088ecc1fee282feba7d0dfebd281bc7",
-      "installedAt": "2026-02-10T02:00:00.000Z"
+      "commit": "1d9b3bb9165dd376c81ede83a8b93e4c1cd059f5",
+      "installedAt": "2026-02-10T02:15:00.000Z"
     },
     "graph": {
       "source": "github:quartz-community/graph",
