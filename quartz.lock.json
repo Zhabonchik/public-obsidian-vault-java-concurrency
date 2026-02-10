@@ -10,8 +10,8 @@
     "graph": {
       "source": "github:quartz-community/graph",
       "resolved": "https://github.com/quartz-community/graph.git",
-      "commit": "8c004e9bb2bbb1d62d3397159913f912c49cca3a",
-      "installedAt": "2026-02-09T23:18:37.867Z"
+      "commit": "768a983440e59b4752f11d4e41c14129141436f1",
+      "installedAt": "2026-02-10T01:45:00.000Z"
     },
     "search": {
       "source": "github:quartz-community/search",
