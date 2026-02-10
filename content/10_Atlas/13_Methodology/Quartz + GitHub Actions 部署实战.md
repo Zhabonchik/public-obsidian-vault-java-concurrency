@@ -64,6 +64,7 @@ jobs:
 
 - **上层概念**：[Synapse-Vault 搭建全指南：从零构建你的第二大脑](Synapse-Vault%20搭建全指南：从零构建你的第二大脑.md)
 - **应用场景**：个人技术博客、公开的知识索引库、面试作品集展示。
+- **进一步实践**：[Quartz V4 部署实战：从本地到公网的数字花园](Quartz%20V4%20部署实战：从本地到公网的数字花园.md)
 
 ---
 #Knowledge #Structure #automation #quartz 
