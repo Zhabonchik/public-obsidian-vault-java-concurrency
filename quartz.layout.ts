@@ -3,6 +3,13 @@ import * as Component from "./quartz/components"
 import { QuartzComponent } from "./quartz/components/types"
 import * as Plugin from "./.quartz/plugins"
 
+// Create plugin components once and reuse across layouts
+const explorerComponent = Plugin.Explorer() as QuartzComponent
+const graphComponent = Plugin.Graph() as QuartzComponent
+const searchComponent = Plugin.Search() as QuartzComponent
+const backlinksComponent = Plugin.Backlinks() as QuartzComponent
+const tocComponent = Plugin.TableOfContents() as QuartzComponent
+
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
@@ -37,20 +44,16 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Flex({
       components: [
         {
-          Component: Plugin.Search() as QuartzComponent,
+          Component: searchComponent,
           grow: true,
         },
         { Component: Component.Darkmode() },
         { Component: Component.ReaderMode() },
       ],
     }),
-    Plugin.Explorer() as QuartzComponent,
+    explorerComponent,
   ],
-  right: [
-    Plugin.Graph() as QuartzComponent,
-    Component.DesktopOnly(Plugin.TableOfContents() as QuartzComponent),
-    Plugin.Backlinks() as QuartzComponent,
-  ],
+  right: [graphComponent, Component.DesktopOnly(tocComponent), backlinksComponent],
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)
@@ -62,13 +65,13 @@ export const defaultListPageLayout: PageLayout = {
     Component.Flex({
       components: [
         {
-          Component: Plugin.Search() as QuartzComponent,
+          Component: searchComponent,
           grow: true,
         },
         { Component: Component.Darkmode() },
       ],
     }),
-    Plugin.Explorer() as QuartzComponent,
+    explorerComponent,
   ],
   right: [],
 }
