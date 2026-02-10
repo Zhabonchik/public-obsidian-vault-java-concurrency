@@ -1,0 +1,20 @@
+name: Sync to Quartz
+on:
+  push:
+    branches: [ main ]
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Pushing to Quartz Repo
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.QUARTZ_SYNC_TOKEN }}
+        with:
+          source-directory: '.'
+          destination-github-username: 'witty-hamster'
+          destination-repository-name: 'quartz'
+          user-email: cuiguodong_2012@163.com
+          target-directory: 'content'
