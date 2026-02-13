@@ -8,6 +8,10 @@ import { write } from "../emitters/helpers"
 import { BuildCtx } from "../../util/ctx"
 import { StaticResources } from "../../util/resources"
 
+function getPageTypes(ctx: BuildCtx): QuartzPageTypePluginInstance[] {
+  return (ctx.cfg.plugins.pageTypes ?? []) as unknown as QuartzPageTypePluginInstance[]
+}
+
 function resolveLayout(
   pageType: QuartzPageTypePluginInstance,
   sharedDefaults: Partial<FullPageLayout>,
@@ -92,13 +96,11 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
   return {
     name: "PageTypeDispatcher",
     getQuartzComponents(ctx) {
-      const pageTypes = ctx.cfg.plugins.pageTypes ?? []
+      const pageTypes = getPageTypes(ctx)
       return collectComponents(pageTypes, defaults, byPageType)
     },
     async *emit(ctx, content, resources) {
-      const pageTypes = [...(ctx.cfg.plugins.pageTypes ?? [])].sort(
-        (a, b) => (b.priority ?? 0) - (a.priority ?? 0),
-      )
+      const pageTypes = [...getPageTypes(ctx)].sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
       const cfg = ctx.cfg.configuration
       const allFiles = content.map((c) => c[1].data)
 
@@ -122,20 +124,19 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
         const layout = resolveLayout(pt, defaults, byPageType)
 
         for (const vp of virtualPages) {
+          const vpSlug = vp.slug as FullSlug
           const [tree, vfile] = defaultProcessedContent({
-            slug: vp.slug,
+            slug: vpSlug,
             frontmatter: { title: vp.title, tags: [] },
             ...vp.data,
           })
 
-          yield emitPage(ctx, vp.slug, tree, vfile.data, allFiles, layout, resources)
+          yield emitPage(ctx, vpSlug, tree, vfile.data, allFiles, layout, resources)
         }
       }
     },
     async *partialEmit(ctx, content, resources, changeEvents) {
-      const pageTypes = [...(ctx.cfg.plugins.pageTypes ?? [])].sort(
-        (a, b) => (b.priority ?? 0) - (a.priority ?? 0),
-      )
+      const pageTypes = [...getPageTypes(ctx)].sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
       const cfg = ctx.cfg.configuration
       const allFiles = content.map((c) => c[1].data)
 
@@ -168,13 +169,14 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
         const layout = resolveLayout(pt, defaults, byPageType)
 
         for (const vp of virtualPages) {
+          const vpSlug = vp.slug as FullSlug
           const [tree, vfile] = defaultProcessedContent({
-            slug: vp.slug,
+            slug: vpSlug,
             frontmatter: { title: vp.title, tags: [] },
             ...vp.data,
           })
 
-          yield emitPage(ctx, vp.slug, tree, vfile.data, allFiles, layout, resources)
+          yield emitPage(ctx, vpSlug, tree, vfile.data, allFiles, layout, resources)
         }
       }
     },
