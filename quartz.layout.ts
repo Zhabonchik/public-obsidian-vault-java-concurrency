@@ -15,6 +15,7 @@ const tagListComponent = Plugin.TagList() as QuartzComponent
 const pageTitleComponent = Plugin.PageTitle() as QuartzComponent
 const darkmodeComponent = Plugin.Darkmode() as QuartzComponent
 const readerModeComponent = Plugin.ReaderMode() as QuartzComponent
+const breadcrumbsComponent = Plugin.Breadcrumbs() as QuartzComponent
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -37,7 +38,7 @@ export const sharedPageComponents: SharedLayout = {
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
-      component: Component.Breadcrumbs(),
+      component: breadcrumbsComponent,
       condition: (page) => page.fileData.slug !== "index",
     }),
     articleTitleComponent,
@@ -64,7 +65,7 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), articleTitleComponent, contentMetaComponent],
+  beforeBody: [breadcrumbsComponent, articleTitleComponent, contentMetaComponent],
   left: [
     pageTitleComponent,
     Component.MobileOnly(Component.Spacer()),
