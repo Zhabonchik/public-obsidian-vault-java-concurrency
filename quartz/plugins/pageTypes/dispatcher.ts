@@ -5,7 +5,7 @@ import { FullPageLayout } from "../../cfg"
 import { FullSlug, pathToRoot } from "../../util/path"
 import { ProcessedContent, defaultProcessedContent } from "../vfile"
 import { write } from "../emitters/helpers"
-import { BuildCtx } from "../../util/ctx"
+import { BuildCtx, trieFromAllFiles } from "../../util/ctx"
 import { StaticResources } from "../../util/resources"
 
 function getPageTypes(ctx: BuildCtx): QuartzPageTypePluginInstance[] {
@@ -104,6 +104,9 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
       const cfg = ctx.cfg.configuration
       const allFiles = content.map((c) => c[1].data)
 
+      // Ensure trie is available for components that need folder hierarchy (e.g. FolderContent)
+      ctx.trie ??= trieFromAllFiles(allFiles)
+
       for (const [tree, file] of content) {
         const slug = file.data.slug!
         const fileData = file.data
@@ -139,6 +142,9 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
       const pageTypes = [...getPageTypes(ctx)].sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
       const cfg = ctx.cfg.configuration
       const allFiles = content.map((c) => c[1].data)
+
+      // Rebuild trie on partial emit to reflect file changes
+      ctx.trie = trieFromAllFiles(allFiles)
 
       const changedSlugs = new Set<string>()
       for (const changeEvent of changeEvents) {
