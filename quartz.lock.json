@@ -54,6 +54,48 @@
       "resolved": "https://github.com/quartz-community/latex.git",
       "commit": "c9116138d15f702b1f10ebbe8cdaa231b041fd93",
       "installedAt": "2026-02-13T15:36:15.428Z"
+    },
+    "article-title": {
+      "source": "github:quartz-community/article-title",
+      "resolved": "https://github.com/quartz-community/article-title.git",
+      "commit": "d927a158f04cec6e0b57e5bd22bc6a3d09f3ceb2",
+      "installedAt": "2026-02-13T17:02:14.634Z"
+    },
+    "tag-list": {
+      "source": "github:quartz-community/tag-list",
+      "resolved": "https://github.com/quartz-community/tag-list.git",
+      "commit": "4136bf0aba9189598d3bc0af20c3bbd6e2617325",
+      "installedAt": "2026-02-13T17:02:21.825Z"
+    },
+    "page-title": {
+      "source": "github:quartz-community/page-title",
+      "resolved": "https://github.com/quartz-community/page-title.git",
+      "commit": "6aa778f7d83822f7d3f9b781842af7bb090a97a2",
+      "installedAt": "2026-02-13T17:02:30.858Z"
+    },
+    "darkmode": {
+      "source": "github:quartz-community/darkmode",
+      "resolved": "https://github.com/quartz-community/darkmode.git",
+      "commit": "2fc5ca7afa22d8162d25a3faea3e66f407978acd",
+      "installedAt": "2026-02-13T17:02:38.111Z"
+    },
+    "reader-mode": {
+      "source": "github:quartz-community/reader-mode",
+      "resolved": "https://github.com/quartz-community/reader-mode.git",
+      "commit": "cc25e7eaf1297a3e4313d50512d8b0bdf0d45f32",
+      "installedAt": "2026-02-13T17:02:46.183Z"
+    },
+    "content-meta": {
+      "source": "github:quartz-community/content-meta",
+      "resolved": "https://github.com/quartz-community/content-meta.git",
+      "commit": "b61471f8305067dde87c9af4be59faa78e334904",
+      "installedAt": "2026-02-13T17:02:53.623Z"
+    },
+    "footer": {
+      "source": "github:quartz-community/footer",
+      "resolved": "https://github.com/quartz-community/footer.git",
+      "commit": "78e3750b3df50a36865f9ba362e7409be6a2c0a3",
+      "installedAt": "2026-02-13T17:03:00.954Z"
     }
   }
 }
