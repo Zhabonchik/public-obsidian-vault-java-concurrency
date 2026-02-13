@@ -106,14 +106,14 @@
     "folder-page": {
       "source": "github:quartz-community/folder-page",
       "resolved": "https://github.com/quartz-community/folder-page.git",
-      "commit": "911b6a0",
-      "installedAt": "2026-02-13T18:15:53.787Z"
+      "commit": "911b6a01ea6b7fb3dc8ab47bc61694d9f9e714a2",
+      "installedAt": "2026-02-13T18:55:32.666Z"
     },
     "tag-page": {
       "source": "github:quartz-community/tag-page",
       "resolved": "https://github.com/quartz-community/tag-page.git",
-      "commit": "a244ddb",
-      "installedAt": "2026-02-13T18:15:54.453Z"
+      "commit": "a244ddb1a143654186dbe24e5bc2dc95de343111",
+      "installedAt": "2026-02-13T18:55:33.209Z"
     }
   }
 }
