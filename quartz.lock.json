@@ -186,6 +186,36 @@
       "resolved": "https://github.com/quartz-community/explicit-publish.git",
       "commit": "f870ac6a13d297c0f4451986c7f7042f006c3b38",
       "installedAt": "2026-02-13T22:28:08.774Z"
+    },
+    "alias-redirects": {
+      "source": "github:quartz-community/alias-redirects",
+      "resolved": "https://github.com/quartz-community/alias-redirects.git",
+      "commit": "e890973e16a4365a989306ccc9fb9c4591128897",
+      "installedAt": "2026-02-13T22:53:31.585Z"
+    },
+    "cname": {
+      "source": "github:quartz-community/cname",
+      "resolved": "https://github.com/quartz-community/cname.git",
+      "commit": "1d2cf8aba20e1687c9e54fc40ce20048e55648f5",
+      "installedAt": "2026-02-13T22:53:45.670Z"
+    },
+    "favicon": {
+      "source": "github:quartz-community/favicon",
+      "resolved": "https://github.com/quartz-community/favicon.git",
+      "commit": "319c6ac41e56c63f2d2f503c78fc18e59e70bd8d",
+      "installedAt": "2026-02-13T22:53:55.256Z"
+    },
+    "content-index": {
+      "source": "github:quartz-community/content-index",
+      "resolved": "https://github.com/quartz-community/content-index.git",
+      "commit": "2eb7bfd0dc1e6a625542eadb470009e77990b056",
+      "installedAt": "2026-02-13T22:59:01.330Z"
+    },
+    "og-image": {
+      "source": "github:quartz-community/og-image",
+      "resolved": "https://github.com/quartz-community/og-image.git",
+      "commit": "d68d1fba330d97661c3b4a5df73149c4e20e7c56",
+      "installedAt": "2026-02-13T22:59:01.745Z"
     }
   }
 }

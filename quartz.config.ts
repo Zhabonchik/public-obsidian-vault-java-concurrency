@@ -72,20 +72,21 @@ const config: QuartzConfig = {
     ],
     filters: [ExternalPlugin.RemoveDrafts()],
     emitters: [
-      Plugin.AliasRedirects(),
+      ExternalPlugin.AliasRedirects(),
       Plugin.ComponentResources(),
-      Plugin.ContentIndex({
+      ExternalPlugin.ContentIndex({
         enableSiteMap: true,
         enableRSS: true,
       }),
       Plugin.Assets(),
       Plugin.Static(),
-      Plugin.Favicon(),
+      ExternalPlugin.Favicon(),
       Plugin.PageTypes.PageTypeDispatcher({
         defaults: layout.defaults,
         byPageType: layout.byPageType,
       }),
-      Plugin.CustomOgImages(),
+      ExternalPlugin.CustomOgImages(),
+      ExternalPlugin.CNAME(),
     ],
     pageTypes: [
       ExternalPlugin.ContentPage(),
@@ -124,6 +125,11 @@ const config: QuartzConfig = {
     "github:quartz-community/roam",
     "github:quartz-community/remove-draft",
     "github:quartz-community/explicit-publish",
+    "github:quartz-community/alias-redirects",
+    "github:quartz-community/cname",
+    "github:quartz-community/favicon",
+    "github:quartz-community/content-index",
+    "github:quartz-community/og-image",
   ],
 }
 

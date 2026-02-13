@@ -1,8 +1,3 @@
-export { ContentIndex as ContentIndex } from "./contentIndex"
-export { AliasRedirects } from "./aliases"
 export { Assets } from "./assets"
 export { Static } from "./static"
-export { Favicon } from "./favicon"
 export { ComponentResources } from "./componentResources"
-export { CNAME } from "./cname"
-export { CustomOgImages } from "./ogImage"
