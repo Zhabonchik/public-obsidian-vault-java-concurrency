@@ -1,4 +1,9 @@
-import { QuartzTransformerPlugin, QuartzFilterPlugin, QuartzEmitterPlugin } from "../types"
+import {
+  QuartzTransformerPlugin,
+  QuartzFilterPlugin,
+  QuartzEmitterPlugin,
+  QuartzPageTypePlugin,
+} from "../types"
 import { BuildCtx } from "../../util/ctx"
 
 /**
@@ -25,7 +30,7 @@ export interface PluginManifest {
   author?: string
   homepage?: string
   keywords?: string[]
-  category?: "transformer" | "filter" | "emitter"
+  category?: "transformer" | "filter" | "emitter" | "pageType"
   quartzVersion?: string
   configSchema?: object
   /** Components provided by this plugin */
@@ -36,9 +41,9 @@ export interface PluginManifest {
  * Loaded plugin with metadata
  */
 export interface LoadedPlugin {
-  plugin: QuartzTransformerPlugin | QuartzFilterPlugin | QuartzEmitterPlugin
+  plugin: QuartzTransformerPlugin | QuartzFilterPlugin | QuartzEmitterPlugin | QuartzPageTypePlugin
   manifest: PluginManifest
-  type: "transformer" | "filter" | "emitter"
+  type: "transformer" | "filter" | "emitter" | "pageType"
   source: string
 }
 

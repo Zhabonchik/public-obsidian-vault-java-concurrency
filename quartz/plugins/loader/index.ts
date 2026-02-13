@@ -7,7 +7,12 @@ import {
   PluginResolutionOptions,
   PluginSpecifier,
 } from "./types"
-import { QuartzTransformerPlugin, QuartzFilterPlugin, QuartzEmitterPlugin } from "../types"
+import {
+  QuartzTransformerPlugin,
+  QuartzFilterPlugin,
+  QuartzEmitterPlugin,
+  QuartzPageTypePlugin,
+} from "../types"
 import { parsePluginSource, installPlugin, getPluginEntryPoint } from "./gitLoader"
 
 const MINIMUM_QUARTZ_VERSION = "4.5.0"
@@ -51,7 +56,9 @@ async function tryImportPlugin(packageName: string): Promise<{
   }
 }
 
-function detectPluginType(module: unknown): "transformer" | "filter" | "emitter" | null {
+function detectPluginType(
+  module: unknown,
+): "transformer" | "filter" | "emitter" | "pageType" | null {
   if (!module || typeof module !== "object") return null
 
   const mod = module as Record<string, unknown>
@@ -59,6 +66,8 @@ function detectPluginType(module: unknown): "transformer" | "filter" | "emitter"
   if (typeof mod.default === "function") {
     return null
   }
+
+  const hasPageTypeProps = ["match", "body", "layout"].every((key) => key in mod)
 
   const hasTransformerProps = ["textTransform", "markdownPlugins", "htmlPlugins"].some(
     (key) => key in mod && (typeof mod[key] === "function" || mod[key] === undefined),
@@ -70,6 +79,7 @@ function detectPluginType(module: unknown): "transformer" | "filter" | "emitter"
 
   const hasEmitterProps = ["emit"].some((key) => key in mod && typeof mod[key] === "function")
 
+  if (hasPageTypeProps) return "pageType"
   if (hasEmitterProps) return "emitter"
   if (hasFilterProps) return "filter"
   if (hasTransformerProps) return "transformer"
@@ -79,8 +89,13 @@ function detectPluginType(module: unknown): "transformer" | "filter" | "emitter"
 
 function extractPluginFactory(
   module: unknown,
-  type: "transformer" | "filter" | "emitter",
-): QuartzTransformerPlugin | QuartzFilterPlugin | QuartzEmitterPlugin | null {
+  type: "transformer" | "filter" | "emitter" | "pageType",
+):
+  | QuartzTransformerPlugin
+  | QuartzFilterPlugin
+  | QuartzEmitterPlugin
+  | QuartzPageTypePlugin
+  | null {
   if (!module || typeof module !== "object") return null
 
   const mod = module as Record<string, unknown>
@@ -88,7 +103,11 @@ function extractPluginFactory(
   const factory = mod.default ?? mod[type] ?? mod.plugin ?? null
 
   if (typeof factory === "function") {
-    return factory as QuartzTransformerPlugin | QuartzFilterPlugin | QuartzEmitterPlugin
+    return factory as
+      | QuartzTransformerPlugin
+      | QuartzFilterPlugin
+      | QuartzEmitterPlugin
+      | QuartzPageTypePlugin
   }
 
   return null
@@ -374,7 +393,7 @@ export async function resolvePlugins(
 
     console.log(
       styleText("cyan", `External plugins loaded:`) +
-        ` ${byType.transformer ?? 0} transformers, ${byType.filter ?? 0} filters, ${byType.emitter ?? 0} emitters`,
+        ` ${byType.transformer ?? 0} transformers, ${byType.filter ?? 0} filters, ${byType.emitter ?? 0} emitters, ${byType.pageType ?? 0} pageTypes`,
     )
   }
 

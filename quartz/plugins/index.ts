@@ -47,6 +47,7 @@ export * from "./filters"
 export * from "./emitters"
 export * from "./types"
 export * from "./config"
+export * as PageTypes from "./pageTypes"
 export * as PluginLoader from "./loader"
 
 declare module "vfile" {

@@ -56,13 +56,14 @@ async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
   const output = argv.output
 
   const pluginCount = Object.values(cfg.plugins).flat().length
-  const pluginNames = (key: "transformers" | "filters" | "emitters") =>
-    cfg.plugins[key].map((plugin) => plugin.name)
+  const pluginNames = (key: "transformers" | "filters" | "emitters" | "pageTypes") =>
+    (cfg.plugins[key] ?? []).map((plugin) => plugin.name)
   if (argv.verbose) {
     console.log(`Loaded ${pluginCount} plugins`)
     console.log(`  Transformers: ${pluginNames("transformers").join(", ")}`)
     console.log(`  Filters: ${pluginNames("filters").join(", ")}`)
     console.log(`  Emitters: ${pluginNames("emitters").join(", ")}`)
+    console.log(`  PageTypes: ${pluginNames("pageTypes").join(", ")}`)
   }
 
   const release = await mut.acquire()
