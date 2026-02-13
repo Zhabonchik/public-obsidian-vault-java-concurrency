@@ -9,6 +9,12 @@ const graphComponent = Plugin.Graph() as QuartzComponent
 const searchComponent = Plugin.Search() as QuartzComponent
 const backlinksComponent = Plugin.Backlinks() as QuartzComponent
 const tocComponent = Plugin.TableOfContents() as QuartzComponent
+const articleTitleComponent = Plugin.ArticleTitle() as QuartzComponent
+const contentMetaComponent = Plugin.ContentMeta() as QuartzComponent
+const tagListComponent = Plugin.TagList() as QuartzComponent
+const pageTitleComponent = Plugin.PageTitle() as QuartzComponent
+const darkmodeComponent = Plugin.Darkmode() as QuartzComponent
+const readerModeComponent = Plugin.ReaderMode() as QuartzComponent
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -19,12 +25,12 @@ export const sharedPageComponents: SharedLayout = {
     //   provider: "giscus",
     //   options: {}) as QuartzComponent,
   ],
-  footer: Component.Footer({
+  footer: Plugin.Footer({
     links: {
       GitHub: "https://github.com/jackyzha0/quartz",
       "Discord Community": "https://discord.gg/cRFFHYye7t",
     },
-  }),
+  }) as QuartzComponent,
 }
 
 // components for pages that display a single page (e.g. a single note)
@@ -34,12 +40,12 @@ export const defaultContentPageLayout: PageLayout = {
       component: Component.Breadcrumbs(),
       condition: (page) => page.fileData.slug !== "index",
     }),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
+    articleTitleComponent,
+    contentMetaComponent,
+    tagListComponent,
   ],
   left: [
-    Component.PageTitle(),
+    pageTitleComponent,
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
@@ -47,8 +53,8 @@ export const defaultContentPageLayout: PageLayout = {
           Component: searchComponent,
           grow: true,
         },
-        { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
+        { Component: darkmodeComponent },
+        { Component: readerModeComponent },
       ],
     }),
     explorerComponent,
@@ -58,9 +64,9 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [Component.Breadcrumbs(), articleTitleComponent, contentMetaComponent],
   left: [
-    Component.PageTitle(),
+    pageTitleComponent,
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
@@ -68,7 +74,7 @@ export const defaultListPageLayout: PageLayout = {
           Component: searchComponent,
           grow: true,
         },
-        { Component: Component.Darkmode() },
+        { Component: darkmodeComponent },
       ],
     }),
     explorerComponent,

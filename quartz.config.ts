@@ -99,6 +99,13 @@ const config: QuartzConfig = {
     "github:quartz-community/table-of-contents",
     "github:quartz-community/backlinks",
     "github:quartz-community/comments",
+    "github:quartz-community/article-title",
+    "github:quartz-community/tag-list",
+    "github:quartz-community/page-title",
+    "github:quartz-community/darkmode",
+    "github:quartz-community/reader-mode",
+    "github:quartz-community/content-meta",
+    "github:quartz-community/footer",
   ],
 }
 
