@@ -174,6 +174,18 @@
       "resolved": "https://github.com/quartz-community/roam.git",
       "commit": "b6e6fab11cde1430d396822ebcefd501b486adf1",
       "installedAt": "2026-02-13T22:03:27.359Z"
+    },
+    "remove-draft": {
+      "source": "github:quartz-community/remove-draft",
+      "resolved": "https://github.com/quartz-community/remove-draft.git",
+      "commit": "6f7fbeb4b092e7549e3e04b8de5e830f5660015d",
+      "installedAt": "2026-02-13T22:27:58.368Z"
+    },
+    "explicit-publish": {
+      "source": "github:quartz-community/explicit-publish",
+      "resolved": "https://github.com/quartz-community/explicit-publish.git",
+      "commit": "f870ac6a13d297c0f4451986c7f7042f006c3b38",
+      "installedAt": "2026-02-13T22:28:08.774Z"
     }
   }
 }

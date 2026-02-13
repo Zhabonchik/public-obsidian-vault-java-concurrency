@@ -70,7 +70,7 @@ const config: QuartzConfig = {
       ExternalPlugin.Description(),
       ExternalPlugin.Latex({ renderEngine: "katex" }),
     ],
-    filters: [Plugin.RemoveDrafts()],
+    filters: [ExternalPlugin.RemoveDrafts()],
     emitters: [
       Plugin.AliasRedirects(),
       Plugin.ComponentResources(),
@@ -122,6 +122,8 @@ const config: QuartzConfig = {
     "github:quartz-community/citations",
     "github:quartz-community/ox-hugo",
     "github:quartz-community/roam",
+    "github:quartz-community/remove-draft",
+    "github:quartz-community/explicit-publish",
   ],
 }
 
