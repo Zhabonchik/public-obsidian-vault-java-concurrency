@@ -124,8 +124,8 @@
     "syntax-highlighting": {
       "source": "github:quartz-community/syntax-highlighting",
       "resolved": "https://github.com/quartz-community/syntax-highlighting.git",
-      "commit": "7255e37de4d17690eba5508944c232c3a85f74d5",
-      "installedAt": "2026-02-13T22:03:22.542Z"
+      "commit": "fada634ccd28a29580472555153933dcefe580e0",
+      "installedAt": "2026-02-13T23:33:13.407Z"
     },
     "obsidian-flavored-markdown": {
       "source": "github:quartz-community/obsidian-flavored-markdown",
