@@ -2,7 +2,7 @@ import {
   QuartzTransformerPluginInstance,
   QuartzFilterPluginInstance,
   QuartzEmitterPluginInstance,
-  QuartzPageTypePluginInstance,
+  PageTypePluginEntry,
 } from "./types"
 import { LoadedPlugin } from "./loader/types"
 
@@ -10,7 +10,7 @@ export interface PluginConfiguration {
   transformers: (QuartzTransformerPluginInstance | LoadedPlugin)[]
   filters: (QuartzFilterPluginInstance | LoadedPlugin)[]
   emitters: (QuartzEmitterPluginInstance | LoadedPlugin)[]
-  pageTypes?: (QuartzPageTypePluginInstance | LoadedPlugin)[]
+  pageTypes?: (PageTypePluginEntry | LoadedPlugin)[]
 }
 
 export function isLoadedPlugin(plugin: unknown): plugin is LoadedPlugin {
@@ -29,14 +29,14 @@ export function getPluginInstance<T extends object | undefined>(
     | QuartzTransformerPluginInstance
     | QuartzFilterPluginInstance
     | QuartzEmitterPluginInstance
-    | QuartzPageTypePluginInstance
+    | PageTypePluginEntry
     | LoadedPlugin,
   options?: T,
 ):
   | QuartzTransformerPluginInstance
   | QuartzFilterPluginInstance
   | QuartzEmitterPluginInstance
-  | QuartzPageTypePluginInstance {
+  | PageTypePluginEntry {
   if (isLoadedPlugin(plugin)) {
     const factory = plugin.plugin as (
       opts?: T,
@@ -44,7 +44,7 @@ export function getPluginInstance<T extends object | undefined>(
       | QuartzTransformerPluginInstance
       | QuartzFilterPluginInstance
       | QuartzEmitterPluginInstance
-      | QuartzPageTypePluginInstance
+      | PageTypePluginEntry
     return factory(options)
   }
   return plugin
