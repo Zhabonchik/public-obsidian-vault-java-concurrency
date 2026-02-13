@@ -53,22 +53,22 @@ const config: QuartzConfig = {
   plugins: {
     transformers: [
       Plugin.FrontMatter(),
-      Plugin.CreatedModifiedDate({
+      ExternalPlugin.CreatedModifiedDate({
         priority: ["frontmatter", "git", "filesystem"],
       }),
-      Plugin.SyntaxHighlighting({
+      ExternalPlugin.SyntaxHighlighting({
         theme: {
           light: "github-light",
           dark: "github-dark",
         },
         keepBackground: false,
       }),
-      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
-      Plugin.GitHubFlavoredMarkdown(),
-      Plugin.TableOfContents(),
-      Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
-      Plugin.Description(),
-      Plugin.Latex({ renderEngine: "katex" }),
+      ExternalPlugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
+      ExternalPlugin.GitHubFlavoredMarkdown(),
+      ExternalPlugin.TableOfContentsTransformer(),
+      ExternalPlugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
+      ExternalPlugin.Description(),
+      ExternalPlugin.Latex({ renderEngine: "katex" }),
     ],
     filters: [Plugin.RemoveDrafts()],
     emitters: [
@@ -111,6 +111,17 @@ const config: QuartzConfig = {
     "github:quartz-community/content-page",
     "github:quartz-community/folder-page",
     "github:quartz-community/tag-page",
+    "github:quartz-community/latex",
+    "github:quartz-community/created-modified-date",
+    "github:quartz-community/syntax-highlighting",
+    "github:quartz-community/obsidian-flavored-markdown",
+    "github:quartz-community/github-flavored-markdown",
+    "github:quartz-community/crawl-links",
+    "github:quartz-community/description",
+    "github:quartz-community/hard-line-breaks",
+    "github:quartz-community/citations",
+    "github:quartz-community/ox-hugo",
+    "github:quartz-community/roam",
   ],
 }
 

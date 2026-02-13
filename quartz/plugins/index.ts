@@ -1,6 +1,8 @@
 import { StaticResources } from "../util/resources"
-import { FilePath, FullSlug } from "../util/path"
+import { FilePath, FullSlug, SimpleSlug } from "../util/path"
 import { BuildCtx } from "../util/ctx"
+import { Root as HtmlRoot } from "hast"
+import { Element } from "hast"
 
 export function getStaticResourcesFromPlugins(ctx: BuildCtx) {
   const staticResources: StaticResources = {
@@ -56,5 +58,23 @@ declare module "vfile" {
     slug: FullSlug
     filePath: FilePath
     relativePath: FilePath
+    // from description transformer
+    description: string
+    text: string
+    // from crawl-links transformer
+    links: SimpleSlug[]
+    // from table-of-contents transformer
+    toc: { depth: number; text: string; slug: string }[]
+    collapseToc: boolean
+    // from obsidian-flavored-markdown transformer
+    blocks: Record<string, Element>
+    htmlAst: HtmlRoot
+    hasMermaidDiagram: boolean | undefined
+    // from created-modified-date transformer
+    dates: {
+      created: Date
+      modified: Date
+      published: Date
+    }
   }
 }

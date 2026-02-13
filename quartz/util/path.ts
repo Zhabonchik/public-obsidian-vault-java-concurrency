@@ -7,17 +7,17 @@ import { clone } from "./clone"
 export const QUARTZ = "quartz"
 
 /// Utility type to simulate nominal types in TypeScript
-type SlugLike<T> = string & { __brand: T }
+type SlugLike<T extends string> = string & { _brand: T }
 
 /** Cannot be relative and must have a file extension. */
-export type FilePath = SlugLike<"filepath">
+export type FilePath = SlugLike<"FilePath">
 export function isFilePath(s: string): s is FilePath {
   const validStart = !s.startsWith(".")
   return validStart && _hasFileExtension(s)
 }
 
 /** Cannot be relative and may not have leading or trailing slashes. It can have `index` as it's last segment. Use this wherever possible is it's the most 'general' interpretation of a slug. */
-export type FullSlug = SlugLike<"full">
+export type FullSlug = SlugLike<"FullSlug">
 export function isFullSlug(s: string): s is FullSlug {
   const validStart = !(s.startsWith(".") || s.startsWith("/"))
   const validEnding = !s.endsWith("/")
@@ -25,7 +25,7 @@ export function isFullSlug(s: string): s is FullSlug {
 }
 
 /** Shouldn't be a relative path and shouldn't have `/index` as an ending or a file extension. It _can_ however have a trailing slash to indicate a folder path. */
-export type SimpleSlug = SlugLike<"simple">
+export type SimpleSlug = SlugLike<"SimpleSlug">
 export function isSimpleSlug(s: string): s is SimpleSlug {
   const validStart = !(s.startsWith(".") || (s.length > 1 && s.startsWith("/")))
   const validEnding = !endsWith(s, "index")
@@ -33,7 +33,7 @@ export function isSimpleSlug(s: string): s is SimpleSlug {
 }
 
 /** Can be found on `href`s but can also be constructed for client-side navigation (e.g. search and graph) */
-export type RelativeURL = SlugLike<"relative">
+export type RelativeURL = SlugLike<"RelativeURL">
 export function isRelativeURL(s: string): s is RelativeURL {
   const validStart = /^\.{1,2}/.test(s)
   const validEnding = !endsWith(s, "index")
