@@ -106,8 +106,8 @@
     "folder-page": {
       "source": "github:quartz-community/folder-page",
       "resolved": "https://github.com/quartz-community/folder-page.git",
-      "commit": "81f3f27",
-      "installedAt": "2026-02-13T18:55:32.666Z"
+      "commit": "81f3f27413c6b3af9c65f4f416153ee792503f9e",
+      "installedAt": "2026-02-13T19:14:08.050Z"
     },
     "tag-page": {
       "source": "github:quartz-community/tag-page",
