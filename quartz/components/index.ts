@@ -1,6 +1,3 @@
-import Content from "./pages/Content"
-import TagContent from "./pages/TagContent"
-import FolderContent from "./pages/FolderContent"
 import NotFound from "./pages/404"
 import Head from "./Head"
 import Spacer from "./Spacer"
@@ -14,15 +11,4 @@ export { External } from "./external"
 export type { ComponentManifest, RegisteredComponent } from "./registry"
 export type { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 
-export {
-  Content,
-  TagContent,
-  FolderContent,
-  Head,
-  Spacer,
-  DesktopOnly,
-  MobileOnly,
-  NotFound,
-  Flex,
-  ConditionalRender,
-}
+export { Head, Spacer, DesktopOnly, MobileOnly, NotFound, Flex, ConditionalRender }
