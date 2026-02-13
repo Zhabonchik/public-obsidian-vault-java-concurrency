@@ -1,11 +1,8 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
+import * as ExternalPlugin from "./.quartz/plugins"
+import { layout } from "./quartz.layout"
 
-/**
- * Quartz 5 Configuration
- *
- * See https://quartz.jzhao.xyz/configuration for more information.
- */
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "Quartz 5",
@@ -77,9 +74,6 @@ const config: QuartzConfig = {
     emitters: [
       Plugin.AliasRedirects(),
       Plugin.ComponentResources(),
-      Plugin.ContentPage(),
-      Plugin.FolderPage(),
-      Plugin.TagPage(),
       Plugin.ContentIndex({
         enableSiteMap: true,
         enableRSS: true,
@@ -87,9 +81,17 @@ const config: QuartzConfig = {
       Plugin.Assets(),
       Plugin.Static(),
       Plugin.Favicon(),
-      Plugin.NotFoundPage(),
-      // Comment out CustomOgImages to speed up build time
+      Plugin.PageTypes.PageTypeDispatcher({
+        defaults: layout.defaults,
+        byPageType: layout.byPageType,
+      }),
       Plugin.CustomOgImages(),
+    ],
+    pageTypes: [
+      ExternalPlugin.ContentPage(),
+      ExternalPlugin.FolderPage(),
+      ExternalPlugin.TagPage(),
+      Plugin.PageTypes.NotFoundPageType(),
     ],
   },
   externalPlugins: [
@@ -106,6 +108,9 @@ const config: QuartzConfig = {
     "github:quartz-community/reader-mode",
     "github:quartz-community/content-meta",
     "github:quartz-community/footer",
+    "github:quartz-community/content-page",
+    "github:quartz-community/folder-page",
+    "github:quartz-community/tag-page",
   ],
 }
 
