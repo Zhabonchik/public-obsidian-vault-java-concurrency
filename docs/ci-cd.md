@@ -23,7 +23,7 @@ This installs all dependencies including `@quartz-community/types` which is requ
 ### 2. Install Git-based plugins
 
 ```bash
-npx quartz plugin install
+npx quartz plugin restore
 ```
 
 This reads `quartz.lock.json` and clones the exact plugin versions specified.
@@ -61,7 +61,7 @@ jobs:
         run: npm ci
 
       - name: Install Quartz plugins
-        run: npx quartz plugin install
+        run: npx quartz plugin restore
 
       - name: Build Quartz
         run: npx quartz build
@@ -86,7 +86,7 @@ build:
       - .quartz/plugins/
   script:
     - npm ci
-    - npx quartz plugin install
+    - npx quartz plugin restore
     - npx quartz build
   artifacts:
     paths:
@@ -98,14 +98,14 @@ build:
 For Netlify, use a custom build command:
 
 ```bash
-npm ci && npx quartz plugin install && npx quartz build
+npm ci && npx quartz plugin restore && npx quartz build
 ```
 
 Add this to your `netlify.toml`:
 
 ```toml
 [build]
-  command = "npm ci && npx quartz plugin install && npx quartz build"
+  command = "npm ci && npx quartz plugin restore && npx quartz build"
   publish = "public"
 
 [build.environment]
@@ -116,7 +116,7 @@ Add this to your `netlify.toml`:
 
 For Vercel, configure the build settings:
 
-- **Build Command:** `npm ci && npx quartz plugin install && npx quartz build`
+- **Build Command:** `npm ci && npx quartz plugin restore && npx quartz build`
 - **Output Directory:** `public`
 - **Node.js Version:** `22.x`
 
@@ -133,7 +133,7 @@ RUN npm ci
 
 # Install plugins from lockfile
 COPY quartz.lock.json .
-RUN npx quartz plugin install
+RUN npx quartz plugin restore
 
 FROM node:22-slim
 WORKDIR /usr/src/app
@@ -219,7 +219,7 @@ The key change from traditional npm-based plugin systems:
 | Step            | Traditional          | Git-based                   |
 | --------------- | -------------------- | --------------------------- |
 | Install deps    | `npm ci`             | `npm ci`                    |
-| Install plugins | (included in npm ci) | `npx quartz plugin install` |
+| Install plugins | (included in npm ci) | `npx quartz plugin restore` |
 | Build           | `npx quartz build`   | `npx quartz build`          |
 
-**Always run `npx quartz plugin install` after `npm ci` and before `npx quartz build`.**
+**Always run `npx quartz plugin restore` after `npm ci` and before `npx quartz build`.**

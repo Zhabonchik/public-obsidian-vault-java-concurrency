@@ -18,19 +18,22 @@ However, if you'd like to publish your site to the world, you need a way to host
 2. In Account Home, select **Compute (Workers)** > **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
 3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
 
-| Configuration option   | Value              |
-| ---------------------- | ------------------ |
-| Production branch      | `v4`               |
-| Framework preset       | `None`             |
-| Build command          | `npx quartz build` |
-| Build output directory | `public`           |
+| Configuration option   | Value                                           |
+| ---------------------- | ----------------------------------------------- |
+| Production branch      | `v5`                                            |
+| Framework preset       | `None`                                          |
+| Build command          | `npx quartz plugin restore && npx quartz build` |
+| Build output directory | `public`                                        |
 
 Press "Save and deploy" and Cloudflare should have a deployed version of your site in about a minute. Then, every time you sync your Quartz changes to GitHub, your site should be updated.
 
 To add a custom domain, check out [Cloudflare's documentation](https://developers.cloudflare.com/pages/platform/custom-domains/).
 
 > [!warning]
-> Cloudflare Pages performs a shallow clone by default, so if you rely on `git` for timestamps, it is recommended that you add `git fetch --unshallow &&` to the beginning of the build command (e.g., `git fetch --unshallow && npx quartz build`).
+> Cloudflare Pages performs a shallow clone by default, so if you rely on `git` for timestamps, it is recommended that you add `git fetch --unshallow &&` to the beginning of the build command (e.g., `git fetch --unshallow && npx quartz plugin restore && npx quartz build`).
+
+> [!note]
+> For more detailed CI/CD configuration including caching and plugin management, see [[ci-cd]].
 
 ## GitHub Pages
 
@@ -42,7 +45,7 @@ name: Deploy Quartz site to GitHub Pages
 on:
   push:
     branches:
-      - v4
+      - v5
 
 permissions:
   contents: read
@@ -142,11 +145,11 @@ Before deploying to Vercel, a `vercel.json` file is required at the root of the 
 3. Give the project a name (lowercase characters and hyphens only)
 4. Check that these configuration options are set:
 
-| Configuration option                      | Value              |
-| ----------------------------------------- | ------------------ |
-| Framework Preset                          | `Other`            |
-| Root Directory                            | `./`               |
-| Build and Output Settings > Build Command | `npx quartz build` |
+| Configuration option                      | Value                                           |
+| ----------------------------------------- | ----------------------------------------------- |
+| Framework Preset                          | `Other`                                         |
+| Root Directory                            | `./`                                            |
+| Build and Output Settings > Build Command | `npx quartz plugin restore && npx quartz build` |
 
 5. Press Deploy. Once it's live, you'll have 2 `*.vercel.app` URLs to view the page.
 
@@ -177,7 +180,7 @@ Using `docs.example.com` is an example of a subdomain. They're a simple way of c
 
 1. Log in to the [Netlify dashboard](https://app.netlify.com/) and click "Add new site".
 2. Select your Git provider and repository containing your Quartz project.
-3. Under "Build command", enter `npx quartz build`.
+3. Under "Build command", enter `npx quartz plugin restore && npx quartz build`.
 4. Under "Publish directory", enter `public`.
 5. Press Deploy. Once it's live, you'll have a `*.netlify.app` URL to view the page.
 6. To add a custom domain, check "Domain management" in the left sidebar, just like with Vercel.
@@ -200,11 +203,12 @@ cache: # Cache modules in between jobs
 build:
   stage: build
   rules:
-    - if: '$CI_COMMIT_REF_NAME == "v4"'
+    - if: '$CI_COMMIT_REF_NAME == "v5"'
   before_script:
     - hash -r
     - npm ci --cache .npm --prefer-offline
   script:
+    - npx quartz plugin restore
     - npx quartz build
   artifacts:
     paths:
@@ -215,7 +219,7 @@ build:
 pages:
   stage: deploy
   rules:
-    - if: '$CI_COMMIT_REF_NAME == "v4"'
+    - if: '$CI_COMMIT_REF_NAME == "v5"'
   script:
     - echo "Deploying to GitLab Pages..."
   artifacts:

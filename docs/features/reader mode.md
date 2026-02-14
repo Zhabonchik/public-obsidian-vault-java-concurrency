@@ -12,8 +12,11 @@ Reader Mode is enabled by default. To disable it, you can remove the component f
 
 ```ts
 // Remove or comment out this line
-Component.ReaderMode(),
+Plugin.ReaderMode(),
 ```
+
+- Install: `npx quartz plugin add github:quartz-community/reader-mode`
+- Source: [`quartz-community/reader-mode`](https://github.com/quartz-community/reader-mode)
 
 ## Usage
 

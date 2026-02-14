@@ -30,11 +30,11 @@ After entering both your repository and selecting the discussion category, Giscu
 
 ![[giscus-results.png]]
 
-Finally, in `quartz.layout.ts`, edit the `afterBody` field of `sharedPageComponents` to include the following options but with the values you got from above:
+Finally, in `quartz.layout.ts`, edit the `afterBody` field of the `defaults` layout to include the following options but with the values you got from above:
 
 ```ts title="quartz.layout.ts"
 afterBody: [
-  Component.Comments({
+  Plugin.Comments({
     provider: 'giscus',
     options: {
       // from data-repo
@@ -51,6 +51,9 @@ afterBody: [
   }),
 ],
 ```
+
+> [!note]
+> Install the comments plugin first: `npx quartz plugin add github:quartz-community/comments`
 
 ### Customization
 
@@ -108,7 +111,7 @@ For example, if you have a light theme `light-theme.css`, a dark theme `dark-the
 
 ```ts
 afterBody: [
-  Component.Comments({
+  Plugin.Comments({
     provider: 'giscus',
     options: {
       // Other options

@@ -11,7 +11,7 @@ This question is best answered by tracing what happens when a user (you!) runs `
 1. After running `npx quartz build`, npm will look at `package.json` to find the `bin` entry for `quartz` which points at `./quartz/bootstrap-cli.mjs`.
 2. This file has a [shebang](<https://en.wikipedia.org/wiki/Shebang_(Unix)>) line at the top which tells npm to execute it using Node.
 3. `bootstrap-cli.mjs` is responsible for a few things:
-   1. Parsing the command-line arguments using [yargs](http://yargs.js.org/).
+   1. Parsing the command-line arguments using [yargs](http://yargs.js.org/). The `plugin` subcommand is also handled here for managing external plugins.
    2. Transpiling and bundling the rest of Quartz (which is in Typescript) to regular JavaScript using [esbuild](https://esbuild.github.io/). The `esbuild` configuration here is slightly special as it also handles `.scss` file imports using [esbuild-sass-plugin v2](https://www.npmjs.com/package/esbuild-sass-plugin). Additionally, we bundle 'inline' client-side scripts (any `.inline.ts` file) that components declare using a custom `esbuild` plugin that runs another instance of `esbuild` which bundles for the browser instead of `node`. Modules of both types are imported as plain text.
    3. Running the local preview server if `--serve` is set. This starts two servers:
       1. A WebSocket server on port 3001 to handle hot-reload signals. This tracks all inbound connections and sends a 'rebuild' message a server-side change is detected (either content or configuration).
@@ -49,4 +49,43 @@ This question is best answered by tracing what happens when a user (you!) runs `
    1. If the [[SPA Routing|enableSPA option]] is enabled in the [[configuration]], this `"nav"` event is also fired on any client-navigation to allow for components to unregister and reregister any event handlers and state.
    2. If it's not, we wire up the `"nav"` event to just be fired a single time after page load to allow for consistency across how state is setup across both SPA and non-SPA contexts.
 
-The architecture and design of the plugin system was intentionally left pretty vague here as this is described in much more depth in the guide on [[making plugins|making your own plugin]].
+## Plugin System
+
+### External Plugin Architecture
+
+Quartz v5 introduces a community plugin system. Plugins are standalone Git repositories that are cloned into `.quartz/plugins/` and re-exported through an auto-generated index file at `.quartz/plugins/index.ts`.
+
+### Plugin Types
+
+There are now four plugin categories:
+
+- **Transformers**: Map over content (parse frontmatter, generate descriptions, syntax highlighting)
+- **Filters**: Filter content (remove drafts, explicit publish)
+- **Emitters**: Reduce over content (generate RSS, sitemaps, alias redirects, OG images)
+- **Page Types**: Define how pages are rendered. Each page type handles a specific kind of page (content notes, folder listings, tag listings, 404). The `PageTypeDispatcher` emitter routes pages to the appropriate page type plugin based on the content.
+
+### Plugin Resolution
+
+When `npx quartz plugin add github:quartz-community/explorer` is run:
+
+1. The repository is cloned into `.quartz/plugins/explorer/`
+2. The plugin is built using `tsup` (defined in each plugin's `tsup.config.ts`)
+3. An auto-generated `.quartz/plugins/index.ts` re-exports all installed plugins
+4. The plugin's commit hash is recorded in `quartz.lock.json`
+
+### Plugin CLI Commands
+
+- `npx quartz plugin add github:quartz-community/<name>` — Install a community plugin
+- `npx quartz plugin update` — Update all plugins to latest commits
+- `npx quartz plugin restore` — Restore plugins from locked commits in `quartz.lock.json` (used in CI/CD)
+- `npx quartz plugin remove <name>` — Remove an installed plugin
+
+### Plugin Structure
+
+Each community plugin repository contains:
+
+- `src/index.ts` — Plugin entry point exporting the plugin function
+- `tsup.config.ts` — Build configuration using tsup
+- `package.json` — Declares dependencies on `@quartz-community/types` and `@quartz-community/utils`
+
+The architecture and design of the plugin system was intentionally left pretty vague here as this is described in much more depth in the guide on [[making plugins|creating plugins]].

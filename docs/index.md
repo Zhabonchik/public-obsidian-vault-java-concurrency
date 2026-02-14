@@ -11,9 +11,10 @@ Quartz requires **at least [Node](https://nodejs.org/) v22** and `npm` v10.9.2 t
 Then, in your terminal of choice, enter the following commands line by line:
 
 ```shell
-git clone https://github.com/jackyzha0/quartz.git
+git clone -b v5 https://github.com/jackyzha0/quartz.git
 cd quartz
 npm i
+npx quartz plugin restore
 npx quartz create
 ```
 

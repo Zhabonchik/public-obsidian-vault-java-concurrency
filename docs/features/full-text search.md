@@ -23,8 +23,6 @@ It properly tokenizes Chinese, Korean, and Japenese characters and constructs se
 
 ## Customization
 
-- Removing search: delete all usages of `Component.Search()` from `quartz.layout.ts`.
-- Component: `quartz/components/Search.tsx`
-- Style: `quartz/components/styles/search.scss`
-- Script: `quartz/components/scripts/search.inline.ts`
-  - You can edit `contextWindowWords`, `numSearchResults` or `numTagResults` to suit your needs
+- Removing search: delete all usages of `Plugin.Search()` from `quartz.layout.ts`.
+- Install: `npx quartz plugin add github:quartz-community/search`
+- Source: [`quartz-community/search`](https://github.com/quartz-community/search)

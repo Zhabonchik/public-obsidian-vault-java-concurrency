@@ -72,42 +72,60 @@ plugins: {
   transformers: [...],
   filters: [...],
   emitters: [...],
+  pageTypes: [...],
 }
 ```
 
 - [[tags/plugin/transformer|Transformers]] **map** over content (e.g. parsing frontmatter, generating a description)
 - [[tags/plugin/filter|Filters]] **filter** content (e.g. filtering out drafts)
 - [[tags/plugin/emitter|Emitters]] **reduce** over content (e.g. creating an RSS feed or pages that list all files with a specific tag)
+- **Page Types** define how different types of pages are rendered (content pages, folder listings, tag listings)
 
-You can customize the behaviour of Quartz by adding, removing and reordering plugins in the `transformers`, `filters` and `emitters` fields.
+### Internal vs External Plugins
 
-> [!note]
-> Each node is modified by every transformer _in order_. Some transformers are position sensitive, so you may need to pay particular attention to whether they need to come before or after certain other plugins.
-
-You should take care to add the plugin to the right entry corresponding to its plugin type. For example, to add the [[ExplicitPublish]] plugin (a [[tags/plugin/filter|Filter]]), you would add the following line:
+Quartz distinguishes between internal plugins that are bundled with Quartz and community plugins that are installed separately.
 
 ```ts title="quartz.config.ts"
-filters: [
-  ...
-  Plugin.ExplicitPublish(),
-  ...
+import * as Plugin from "./quartz/plugins" // internal plugins
+import * as ExternalPlugin from "./.quartz/plugins" // community plugins
+```
+
+Internal plugins (like `Plugin.FrontMatter()`) are bundled with Quartz. Community plugins (like `ExternalPlugin.Explorer()`) are installed separately.
+
+### Community Plugins
+
+The `externalPlugins` array in your configuration declares which community plugin repositories to install. Each entry is a GitHub repository reference.
+
+```ts title="quartz.config.ts"
+externalPlugins: [
+  "github:quartz-community/explorer",
+  "github:quartz-community/syntax-highlighting",
+  // ... other community plugins
 ],
 ```
 
-To remove a plugin, you should remove all occurrences of it in the `quartz.config.ts`.
+To install a community plugin, you can use the following command:
 
-To customize plugins further, some plugins may also have their own configuration settings that you can pass in. If you do not pass in a configuration, the plugin will use its default settings.
+```shell
+npx quartz plugin add github:quartz-community/explorer
+```
 
-For example, the [[plugins/Latex|Latex]] plugin allows you to pass in a field specifying the `renderEngine` to choose between Katex and MathJax.
+This adds the plugin to `externalPlugins` and installs it to `.quartz/plugins/`.
+
+### Usage
+
+You can customize the behaviour of Quartz by adding, removing and reordering plugins in the `transformers`, `filters`, `emitters`, and `pageTypes` fields. You can mix internal and external plugins as needed.
 
 ```ts title="quartz.config.ts"
 transformers: [
-  Plugin.FrontMatter(), // use default options
-  Plugin.Latex({ renderEngine: "katex" }), // set some custom options
+  Plugin.FrontMatter(), // internal
+  ExternalPlugin.CreatedModifiedDate({
+    // community
+    priority: ["frontmatter", "git", "filesystem"],
+  }),
+  ExternalPlugin.Latex({ renderEngine: "katex" }), // community with options
 ]
 ```
-
-Some plugins are included by default in the [`quartz.config.ts`](https://github.com/jackyzha0/quartz/blob/v4/quartz.config.ts), but there are more available.
 
 You can see a list of all plugins and their configuration options [[tags/plugin|here]].
 
