@@ -220,8 +220,8 @@
     "canvas-page": {
       "source": "github:quartz-community/canvas-page",
       "resolved": "https://github.com/quartz-community/canvas-page.git",
-      "commit": "977e316c6695851577a717ac1b70d09a1f7ba9ef",
-      "installedAt": "2026-02-14T16:06:57.681Z"
+      "commit": "c942fcb1c2a83b16f41838a2d4d2ecd45b387457",
+      "installedAt": "2026-02-14T16:50:45.232Z"
     }
   }
 }
