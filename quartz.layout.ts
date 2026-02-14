@@ -130,8 +130,9 @@ export const layout: {
             { Component: darkmodeComponent },
           ],
         }),
+        explorerComponent,
       ],
-      right: [],
+      right: [graphComponent, Component.DesktopOnly(tocComponent), backlinksComponent],
     },
   },
 }
