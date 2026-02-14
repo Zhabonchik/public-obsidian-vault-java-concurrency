@@ -358,3 +358,10 @@ export const og: SocialImageOptions["Component"] = (
   )
 }
 ```
+
+## API
+
+- Category: Emitter
+- Function name: `ExternalPlugin.CustomOgImages()`.
+- Source: [`quartz-community/og-image`](https://github.com/quartz-community/og-image)
+- Install: `npx quartz plugin add github:quartz-community/og-image`

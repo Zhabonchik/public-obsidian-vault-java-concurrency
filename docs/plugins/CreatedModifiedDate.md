@@ -23,5 +23,6 @@ When loading the frontmatter, the value of [[Frontmatter#List]] is used.
 ## API
 
 - Category: Transformer
-- Function name: `Plugin.CreatedModifiedDate()`.
-- Source: [`quartz/plugins/transformers/lastmod.ts`](https://github.com/jackyzha0/quartz/blob/v4/quartz/plugins/transformers/lastmod.ts).
+- Function name: `ExternalPlugin.CreatedModifiedDate()`.
+- Source: [`quartz-community/created-modified-date`](https://github.com/quartz-community/created-modified-date)
+- Install: `npx quartz plugin add github:quartz-community/created-modified-date`

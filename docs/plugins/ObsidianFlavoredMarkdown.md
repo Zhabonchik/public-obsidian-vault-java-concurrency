@@ -31,5 +31,6 @@ This plugin accepts the following configuration options:
 ## API
 
 - Category: Transformer
-- Function name: `Plugin.ObsidianFlavoredMarkdown()`.
-- Source: [`quartz/plugins/transformers/ofm.ts`](https://github.com/jackyzha0/quartz/blob/v4/quartz/plugins/transformers/ofm.ts)
+- Function name: `ExternalPlugin.ObsidianFlavoredMarkdown()`.
+- Source: [`quartz-community/obsidian-flavored-markdown`](https://github.com/quartz-community/obsidian-flavored-markdown)
+- Install: `npx quartz plugin add github:quartz-community/obsidian-flavored-markdown`

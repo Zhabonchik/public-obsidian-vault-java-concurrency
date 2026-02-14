@@ -22,5 +22,6 @@ This plugin accepts the following configuration options:
 ## API
 
 - Category: Transformer
-- Function name: `Plugin.TableOfContents()`.
-- Source: [`quartz/plugins/transformers/toc.ts`](https://github.com/jackyzha0/quartz/blob/v4/quartz/plugins/transformers/toc.ts).
+- Function name: `ExternalPlugin.TableOfContentsTransformer()`.
+- Source: [`quartz-community/table-of-contents`](https://github.com/quartz-community/table-of-contents)
+- Install: `npx quartz plugin add github:quartz-community/table-of-contents`
