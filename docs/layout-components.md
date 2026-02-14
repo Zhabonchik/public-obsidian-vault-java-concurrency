@@ -4,6 +4,9 @@ title: Higher-Order Layout Components
 
 Quartz provides several higher-order components that help with layout composition and responsive design. These components wrap other components to add additional functionality or modify their behavior.
 
+> [!note]
+> In the examples below, `Component.` refers to internal layout utilities (imported from `./quartz/components`), while `Plugin.` refers to community plugins (imported from `./.quartz/plugins`). See [[layout]] for more details.
+
 ## `Flex` Component
 
 The `Flex` component creates a [flexible box layout](https://developer.mozilla.org/en-US/docs/Web/CSS/flex) that can arrange child components in various ways. It's particularly useful for creating responsive layouts and organizing components in rows or columns.
@@ -31,10 +34,10 @@ type FlexConfig = {
 Component.Flex({
   components: [
     {
-      Component: Component.Search(),
+      Component: Plugin.Search(),
       grow: true, // Search will grow to fill available space
     },
-    { Component: Component.Darkmode() }, // Darkmode keeps its natural size
+    { Component: Plugin.Darkmode() }, // Darkmode keeps its natural size
   ],
   direction: "row",
   gap: "1rem",
@@ -67,7 +70,7 @@ The `DesktopOnly` component is the counterpart to `MobileOnly`. It makes its chi
 ### Example Usage
 
 ```typescript
-Component.DesktopOnly(Component.TableOfContents())
+Component.DesktopOnly(Plugin.TableOfContents())
 ```
 
 ## `ConditionalRender` Component
@@ -85,7 +88,7 @@ type ConditionalRenderConfig = {
 
 ```typescript
 Component.ConditionalRender({
-  component: Component.Search(),
+  component: Plugin.Search(),
   condition: (props) => props.displayClass !== "fullpage",
 })
 ```
@@ -94,7 +97,7 @@ The example above would only render the Search component when the page is not in
 
 ```typescript
 Component.ConditionalRender({
-  component: Component.Breadcrumbs(),
+  component: Plugin.Breadcrumbs(),
   condition: (page) => page.fileData.slug !== "index",
 })
 ```
