@@ -1,154 +1,14 @@
 {
   "nodes": [
     {
-      "id": "title",
-      "type": "text",
-      "x": 0,
-      "y": 0,
-      "width": 560,
-      "height": 200,
-      "text": "# CanvasPage Plugin\n\nThis plugin renders [JSON Canvas](https://jsoncanvas.org) (`.canvas`) files as interactive, pannable and zoomable canvas pages. It supports the full [JSON Canvas 1.0 spec](https://jsoncanvas.org/spec/1.0/).\n\nInstall: `npx quartz plugin add github:quartz-community/canvas-page`",
-      "color": "5"
-    },
-    {
       "id": "group-node-types",
       "type": "group",
       "x": -30,
       "y": 260,
       "width": 1220,
       "height": 460,
-      "label": "Node Types",
-      "color": "6"
-    },
-    {
-      "id": "text-node-demo",
-      "type": "text",
-      "x": 0,
-      "y": 300,
-      "width": 360,
-      "height": 280,
-      "text": "## Text Nodes\n\nText nodes render **Markdown** content with GFM support:\n\n- **Bold** and *italic* text\n- ~~Strikethrough~~ text\n- [External links](https://jsoncanvas.org)\n- `Inline code` blocks\n- Lists (like this one)\n\n### Headings Work Too\n\nAll standard Markdown syntax is rendered at build time.",
-      "color": "1"
-    },
-    {
-      "id": "file-node-info",
-      "type": "text",
-      "x": 400,
-      "y": 300,
-      "width": 360,
-      "height": 160,
-      "text": "## File Nodes\n\nFile nodes reference other pages in your vault. They appear as clickable links and support **popover previews** on hover.\n\nThe node below links to the CanvasPage documentation:",
-      "color": "2"
-    },
-    {
-      "id": "file-node-demo",
-      "type": "file",
-      "x": 400,
-      "y": 500,
-      "width": 360,
-      "height": 80,
-      "file": "docs/plugins/CanvasPage.md",
-      "color": "4"
-    },
-    {
-      "id": "link-node-info",
-      "type": "text",
-      "x": 800,
-      "y": 300,
-      "width": 360,
-      "height": 120,
-      "text": "## Link Nodes\n\nLink nodes reference external URLs. The node below links to the JSON Canvas specification:",
-      "color": "3"
-    },
-    {
-      "id": "link-node-demo",
-      "type": "link",
-      "x": 800,
-      "y": 460,
-      "width": 360,
-      "height": 80,
-      "url": "https://jsoncanvas.org/spec/1.0/",
-      "color": "5"
-    },
-    {
-      "id": "group-colors",
-      "type": "group",
-      "x": -30,
-      "y": 790,
-      "width": 1220,
-      "height": 320,
-      "label": "Preset Colors",
-      "color": "4"
-    },
-    {
-      "id": "color-1",
-      "type": "text",
-      "x": 0,
-      "y": 830,
-      "width": 180,
-      "height": 80,
-      "text": "**Color 1** — Red",
-      "color": "1"
-    },
-    {
-      "id": "color-2",
-      "type": "text",
-      "x": 200,
-      "y": 830,
-      "width": 180,
-      "height": 80,
-      "text": "**Color 2** — Orange",
-      "color": "2"
-    },
-    {
-      "id": "color-3",
-      "type": "text",
-      "x": 400,
-      "y": 830,
-      "width": 180,
-      "height": 80,
-      "text": "**Color 3** — Yellow",
-      "color": "3"
-    },
-    {
-      "id": "color-4",
-      "type": "text",
-      "x": 600,
-      "y": 830,
-      "width": 180,
-      "height": 80,
-      "text": "**Color 4** — Green",
-      "color": "4"
-    },
-    {
-      "id": "color-5",
-      "type": "text",
-      "x": 800,
-      "y": 830,
-      "width": 180,
-      "height": 80,
-      "text": "**Color 5** — Cyan",
-      "color": "5"
-    },
-    {
-      "id": "color-6",
-      "type": "text",
-      "x": 1000,
-      "y": 830,
-      "width": 180,
-      "height": 80,
-      "text": "**Color 6** — Purple",
-      "color": "6"
-    },
-    {
-      "id": "color-custom",
-      "type": "text",
-      "x": 400,
-      "y": 950,
-      "width": 380,
-      "height": 80,
-      "text": "**Custom hex color** — `#ff6600`",
-      "color": "#ff6600"
+      "color": "6",
+      "label": "Node Types"
     },
     {
       "id": "group-config",
@@ -157,26 +17,18 @@
       "y": 1180,
       "width": 1220,
       "height": 360,
-      "label": "Configuration",
-      "color": "2"
+      "color": "2",
+      "label": "Configuration"
     },
     {
-      "id": "config-options",
-      "type": "text",
-      "x": 0,
-      "y": 1220,
-      "width": 560,
-      "height": 280,
-      "text": "## Configuration Options\n\n- `enableInteraction` — Enable pan and zoom. Default: `true`\n- `initialZoom` — Initial zoom level. Default: `1`\n- `minZoom` — Minimum zoom level. Default: `0.1`\n- `maxZoom` — Maximum zoom level. Default: `5`\n- `defaultFullscreen` — Start in fullscreen mode. Default: `false`\n\nConfigure in `quartz.config.ts`:\n\n```\nCanvasPage({ defaultFullscreen: false, initialZoom: 1 })\n```"
-    },
-    {
-      "id": "config-fullscreen",
-      "type": "text",
-      "x": 600,
-      "y": 1220,
-      "width": 560,
-      "height": 280,
-      "text": "## Fullscreen Mode\n\nClick the **expand button** (top-right corner) to toggle fullscreen mode. The canvas fills the entire viewport.\n\n- Press **Escape** to exit fullscreen\n- Set `defaultFullscreen: true` to start in fullscreen\n- The toggle button switches between expand and collapse icons\n\n## Quartz Integration\n\n- **Popover previews**: Hover over file nodes to see a preview\n- **Internal links**: File nodes link to pages in your vault\n- **Dark mode**: Canvas adapts to your theme settings"
+      "id": "group-colors",
+      "type": "group",
+      "x": -30,
+      "y": 790,
+      "width": 1220,
+      "height": 320,
+      "color": "4",
+      "label": "Preset Colors"
     },
     {
       "id": "group-edges",
@@ -185,66 +37,214 @@
       "y": 1610,
       "width": 1220,
       "height": 320,
-      "label": "Edges & Connections",
+      "color": "3",
+      "label": "Edges & Connections"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "text": "# CanvasPage Plugin\n\nThis plugin renders [JSON Canvas](https://jsoncanvas.org) (`.canvas`) files as interactive, pannable and zoomable canvas pages. It supports the full [JSON Canvas 1.0 spec](https://jsoncanvas.org/spec/1.0/).\n\nInstall: `npx quartz plugin add github:quartz-community/canvas-page`",
+      "x": 0,
+      "y": 0,
+      "width": 560,
+      "height": 200,
+      "color": "5"
+    },
+    {
+      "id": "text-node-demo",
+      "type": "text",
+      "text": "## Text Nodes\n\nText nodes render **Markdown** content with GFM support:\n\n- **Bold** and *italic* text\n- ~~Strikethrough~~ text\n- [External links](https://jsoncanvas.org)\n- `Inline code` blocks\n- Lists (like this one)\n\n### Headings Work Too\n\nAll standard Markdown syntax is rendered at build time.",
+      "x": 0,
+      "y": 300,
+      "width": 360,
+      "height": 280,
+      "color": "1"
+    },
+    {
+      "id": "file-node-info",
+      "type": "text",
+      "text": "## File Nodes\n\nFile nodes reference other pages in your vault. They appear as clickable links and support **popover previews** on hover.\n\nThe node below links to the CanvasPage documentation:",
+      "x": 400,
+      "y": 300,
+      "width": 360,
+      "height": 160,
+      "color": "2"
+    },
+    {
+      "id": "file-node-demo",
+      "type": "file",
+      "file": "plugins/CanvasPage.md",
+      "x": 400,
+      "y": 500,
+      "width": 360,
+      "height": 80,
+      "color": "4"
+    },
+    {
+      "id": "link-node-info",
+      "type": "text",
+      "text": "## Link Nodes\n\nLink nodes reference external URLs. The node below links to the JSON Canvas specification:",
+      "x": 800,
+      "y": 300,
+      "width": 360,
+      "height": 120,
       "color": "3"
+    },
+    {
+      "id": "link-node-demo",
+      "type": "link",
+      "url": "https://jsoncanvas.org/spec/1.0/",
+      "x": 800,
+      "y": 460,
+      "width": 360,
+      "height": 80,
+      "color": "5"
+    },
+    {
+      "id": "color-1",
+      "type": "text",
+      "text": "**Color 1** — Red",
+      "x": 0,
+      "y": 830,
+      "width": 180,
+      "height": 80,
+      "color": "1"
+    },
+    {
+      "id": "color-2",
+      "type": "text",
+      "text": "**Color 2** — Orange",
+      "x": 200,
+      "y": 830,
+      "width": 180,
+      "height": 80,
+      "color": "2"
+    },
+    {
+      "id": "color-3",
+      "type": "text",
+      "text": "**Color 3** — Yellow",
+      "x": 400,
+      "y": 830,
+      "width": 180,
+      "height": 80,
+      "color": "3"
+    },
+    {
+      "id": "color-4",
+      "type": "text",
+      "text": "**Color 4** — Green",
+      "x": 600,
+      "y": 830,
+      "width": 180,
+      "height": 80,
+      "color": "4"
+    },
+    {
+      "id": "color-5",
+      "type": "text",
+      "text": "**Color 5** — Cyan",
+      "x": 800,
+      "y": 830,
+      "width": 180,
+      "height": 80,
+      "color": "5"
+    },
+    {
+      "id": "color-6",
+      "type": "text",
+      "text": "**Color 6** — Purple",
+      "x": 1000,
+      "y": 830,
+      "width": 180,
+      "height": 80,
+      "color": "6"
+    },
+    {
+      "id": "color-custom",
+      "type": "text",
+      "text": "**Custom hex color** — `#ff6600`",
+      "x": 400,
+      "y": 950,
+      "width": 380,
+      "height": 80,
+      "color": "#ff6600"
+    },
+    {
+      "id": "config-options",
+      "type": "text",
+      "text": "## Configuration Options\n\n- `enableInteraction` — Enable pan and zoom. Default: `true`\n- `initialZoom` — Initial zoom level. Default: `1`\n- `minZoom` — Minimum zoom level. Default: `0.1`\n- `maxZoom` — Maximum zoom level. Default: `5`\n- `defaultFullscreen` — Start in fullscreen mode. Default: `false`\n\nConfigure in `quartz.config.ts`:\n\n```\nCanvasPage({ defaultFullscreen: false, initialZoom: 1 })\n```",
+      "x": 0,
+      "y": 1220,
+      "width": 560,
+      "height": 280
+    },
+    {
+      "id": "config-fullscreen",
+      "type": "text",
+      "text": "## Fullscreen Mode\n\nClick the **expand button** (top-right corner) to toggle fullscreen mode. The canvas fills the entire viewport.\n\n- Press **Escape** to exit fullscreen\n- Set `defaultFullscreen: true` to start in fullscreen\n- The toggle button switches between expand and collapse icons\n\n## Quartz Integration\n\n- **Popover previews**: Hover over file nodes to see a preview\n- **Internal links**: File nodes link to pages in your vault\n- **Dark mode**: Canvas adapts to your theme settings",
+      "x": 600,
+      "y": 1220,
+      "width": 560,
+      "height": 280
     },
     {
       "id": "edge-source",
       "type": "text",
+      "text": "## Edges\n\nEdges connect nodes with SVG paths. They support **labels**, **arrows**, and **colors**.",
       "x": 0,
       "y": 1650,
       "width": 300,
       "height": 120,
-      "text": "## Edges\n\nEdges connect nodes with SVG paths. They support **labels**, **arrows**, and **colors**.",
       "color": "1"
     },
     {
       "id": "edge-labeled",
       "type": "text",
+      "text": "This edge has a **label** and an arrow marker.",
       "x": 450,
       "y": 1650,
       "width": 260,
       "height": 80,
-      "text": "This edge has a **label** and an arrow marker.",
       "color": "4"
     },
     {
       "id": "edge-colored",
       "type": "text",
+      "text": "This edge has a **custom color** (`#ff6600`).",
       "x": 450,
       "y": 1780,
       "width": 260,
       "height": 80,
-      "text": "This edge has a **custom color** (`#ff6600`).",
       "color": "2"
     },
     {
       "id": "edge-preset",
       "type": "text",
+      "text": "Edges can use the same **preset colors** (1–6) as nodes, or custom **hex colors** like `#ff6600`.",
       "x": 850,
       "y": 1650,
       "width": 300,
       "height": 120,
-      "text": "Edges can use the same **preset colors** (1–6) as nodes, or custom **hex colors** like `#ff6600`.",
       "color": "6"
     },
     {
       "id": "api-info",
       "type": "text",
+      "text": "## API\n\n- **Category**: Page Type\n- **Function name**: `ExternalPlugin.CanvasPage()`\n- **Source**: [quartz-community/canvas-page](https://github.com/quartz-community/canvas-page)\n- **Install**: `npx quartz plugin add github:quartz-community/canvas-page`",
       "x": 0,
       "y": 2000,
       "width": 560,
-      "height": 180,
-      "text": "## API\n\n- **Category**: Page Type\n- **Function name**: `ExternalPlugin.CanvasPage()`\n- **Source**: [quartz-community/canvas-page](https://github.com/quartz-community/canvas-page)\n- **Install**: `npx quartz plugin add github:quartz-community/canvas-page`"
+      "height": 180
     },
     {
       "id": "spec-info",
       "type": "text",
+      "text": "## JSON Canvas Spec\n\nThis plugin implements the [JSON Canvas 1.0](https://jsoncanvas.org/spec/1.0/) specification — an open file format for infinite canvas data.\n\nCanvas files use the `.canvas` extension and are standard JSON. They are natively supported by [Obsidian](https://obsidian.md).",
       "x": 600,
       "y": 2000,
       "width": 560,
-      "height": 180,
-      "text": "## JSON Canvas Spec\n\nThis plugin implements the [JSON Canvas 1.0](https://jsoncanvas.org/spec/1.0/) specification — an open file format for infinite canvas data.\n\nCanvas files use the `.canvas` extension and are standard JSON. They are natively supported by [Obsidian](https://obsidian.md)."
+      "height": 180
     }
   ],
   "edges": [
@@ -254,7 +254,6 @@
       "fromSide": "bottom",
       "toNode": "group-node-types",
       "toSide": "top",
-      "toEnd": "arrow",
       "label": "supports"
     },
     {
@@ -263,7 +262,6 @@
       "fromSide": "bottom",
       "toNode": "file-node-demo",
       "toSide": "top",
-      "toEnd": "arrow",
       "color": "4"
     },
     {
@@ -272,7 +270,6 @@
       "fromSide": "bottom",
       "toNode": "link-node-demo",
       "toSide": "top",
-      "toEnd": "arrow",
       "color": "5"
     },
     {
@@ -280,24 +277,21 @@
       "fromNode": "group-node-types",
       "fromSide": "bottom",
       "toNode": "group-colors",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toSide": "top"
     },
     {
       "id": "edge-colors-to-config",
       "fromNode": "group-colors",
       "fromSide": "bottom",
       "toNode": "group-config",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toSide": "top"
     },
     {
       "id": "edge-config-to-edges",
       "fromNode": "group-config",
       "fromSide": "bottom",
       "toNode": "group-edges",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toSide": "top"
     },
     {
       "id": "edge-labeled-demo",
@@ -305,7 +299,6 @@
       "fromSide": "right",
       "toNode": "edge-labeled",
       "toSide": "left",
-      "toEnd": "arrow",
       "label": "labeled edge"
     },
     {
@@ -314,7 +307,6 @@
       "fromSide": "right",
       "toNode": "edge-colored",
       "toSide": "left",
-      "toEnd": "arrow",
       "color": "#ff6600"
     },
     {
@@ -323,7 +315,6 @@
       "fromSide": "right",
       "toNode": "edge-preset",
       "toSide": "left",
-      "toEnd": "arrow",
       "color": "6"
     }
   ]
