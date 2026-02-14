@@ -97,6 +97,7 @@ export type QuartzPageTypePlugin<Options extends OptionType = undefined> = (
 export interface QuartzPageTypePluginInstance {
   name: string
   priority?: number
+  fileExtensions?: string[]
   match: PageMatcher
   generate?: PageGenerator
   layout: string
@@ -112,6 +113,7 @@ export interface QuartzPageTypePluginInstance {
 export interface PageTypePluginEntry {
   name: string
   priority?: number
+  fileExtensions?: string[]
   match: (...args: never[]) => boolean
   generate?: (...args: never[]) => VirtualPage[]
   layout: string

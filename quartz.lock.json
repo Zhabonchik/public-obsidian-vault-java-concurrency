@@ -216,6 +216,12 @@
       "resolved": "https://github.com/quartz-community/og-image.git",
       "commit": "c72ed66e951663a40bd2d0834725090572ffb124",
       "installedAt": "2026-02-14T01:16:33.273Z"
+    },
+    "canvas-page": {
+      "source": "github:quartz-community/canvas-page",
+      "resolved": "https://github.com/quartz-community/canvas-page.git",
+      "commit": "08b05cc9a5ebc2897793b81fc0c3de3b39b7259d",
+      "installedAt": "2026-02-14T14:31:17.985Z"
     }
   }
 }

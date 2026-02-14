@@ -114,5 +114,24 @@ export const layout: {
       left: [],
       right: [],
     },
+
+    // Canvas pages — expansive layout, no sidebars
+    canvas: {
+      beforeBody: [breadcrumbsComponent, articleTitleComponent],
+      left: [
+        pageTitleComponent,
+        Component.MobileOnly(Component.Spacer()),
+        Component.Flex({
+          components: [
+            {
+              Component: searchComponent,
+              grow: true,
+            },
+            { Component: darkmodeComponent },
+          ],
+        }),
+      ],
+      right: [],
+    },
   },
 }

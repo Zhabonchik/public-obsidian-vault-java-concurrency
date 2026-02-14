@@ -89,6 +89,7 @@ const config: QuartzConfig = {
       ExternalPlugin.CNAME(),
     ],
     pageTypes: [
+      ExternalPlugin.CanvasPage(),
       ExternalPlugin.ContentPage(),
       ExternalPlugin.FolderPage(),
       ExternalPlugin.TagPage(),
@@ -130,6 +131,7 @@ const config: QuartzConfig = {
     "github:quartz-community/favicon",
     "github:quartz-community/content-index",
     "github:quartz-community/og-image",
+    "github:quartz-community/canvas-page",
   ],
 }
 
