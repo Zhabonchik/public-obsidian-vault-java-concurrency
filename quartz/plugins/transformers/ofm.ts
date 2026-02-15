@@ -202,6 +202,17 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
             return `${embedDisplay}[${displayAlias.replace(/^\|/, "")}](${rawFp})`
           }
 
+          // Convert image embeds to standard markdown to prevent underscores
+          // in filenames from being parsed as emphasis by the markdown parser.
+          // Uses angle-bracket destination syntax to preserve special characters.
+          if (embedDisplay === "!" && fp) {
+            const ext = path.extname(fp).toLowerCase()
+            if ([".png", ".jpg", ".jpeg", ".gif", ".bmp", ".svg", ".webp"].includes(ext)) {
+              const alt = displayAlias ? displayAlias.replace(/^\|/, "").trim() : ""
+              return `![${alt}](<${fp}>)`
+            }
+          }
+
           return `${embedDisplay}[[${fp}${displayAnchor}${displayAlias}]]`
         })
       }
