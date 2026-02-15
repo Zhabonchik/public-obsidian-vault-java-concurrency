@@ -63,7 +63,7 @@ const config: QuartzConfig = {
         },
         keepBackground: false,
       }),
-      ExternalPlugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
+      ExternalPlugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false, enableCheckbox: true }),
       ExternalPlugin.GitHubFlavoredMarkdown(),
       ExternalPlugin.TableOfContentsTransformer(),
       ExternalPlugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
