@@ -116,6 +116,11 @@ Standard checkboxes work out of the box. With `enableCheckbox: true`, you also g
 
 Each custom character is preserved as a `data-task` attribute on the rendered element, allowing CSS-based styling per character.
 
+- [ ] Unchecked
+- [x] Checked
+- [?] Question
+- [!] Important
+
 ### Mermaid Diagrams
 
 [[Mermaid diagrams|Mermaid]] code blocks are rendered as diagrams:
