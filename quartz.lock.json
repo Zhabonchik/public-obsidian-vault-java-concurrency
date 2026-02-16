@@ -130,8 +130,8 @@
     "obsidian-flavored-markdown": {
       "source": "github:quartz-community/obsidian-flavored-markdown",
       "resolved": "https://github.com/quartz-community/obsidian-flavored-markdown.git",
-      "commit": "3e4115539e5d90cf20f61214eb9065d423388666",
-      "installedAt": "2026-02-15T23:31:22.417Z"
+      "commit": "b985da8db841cb8a453785608ff0a5feb847a69b",
+      "installedAt": "2026-02-16T21:29:43.859Z"
     },
     "github-flavored-markdown": {
       "source": "github:quartz-community/github-flavored-markdown",
