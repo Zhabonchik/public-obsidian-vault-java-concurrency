@@ -42,13 +42,11 @@ const commonExplorer = Component.Explorer({
 
     // 3. 只有在「檔案」且「標題沒被我們剛剛加過 emoji」時，才加點點
     if (isFile && node.displayName) {
-      // 明確檢查：如果標題是這幾個特定 emoji 開頭，就不加點點
       const specialEmojis = ["👤", "⚙️", "✍️", "📚"]
       const startsWithSpecialEmoji = specialEmojis.some((emoji) =>
         node.displayName.startsWith(emoji),
       )
 
-      // 如果不是我們定義的特殊 emoji，也沒有點點，就加上去
       if (!startsWithSpecialEmoji && !node.displayName.startsWith("・")) {
         node.displayName = "・" + node.displayName
       }
@@ -65,13 +63,26 @@ export const sharedPageComponents: SharedLayout = {
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/vcdvcd214/lin-yung-chang",
-      "⚙️ 建構日誌": "site-log", // ✅ 已補上建構日誌連結
+      "⚙️ 建構日誌": "site-log",
       "📧 聯絡我": "mailto:vcdvcd@gmail.com",
     },
   }),
 }
 
-// 4. 內容頁面版型
+// 4. 列表頁面版型（預設完整 Explorer）
+export const defaultListPageLayout: PageLayout = {
+  left: [
+    Component.PageTitle(),
+    Component.MobileOnly(Component.Spacer()),
+    Component.Search(),
+    Component.Darkmode(),
+    commonExplorer,
+  ],
+  right: [],
+  center: [Component.Breadcrumbs(), Component.Content()],
+}
+
+// 5. 內容頁面版型（一般文章頁，用完整 Explorer）
 export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
@@ -87,32 +98,35 @@ export const defaultContentPageLayout: PageLayout = {
   ],
   center: [Component.Breadcrumbs(), Component.Content()],
 
-  // 👇 Giscus 評論系統放在這裡
   afterBody: [
     Component.Comments({
-      provider: 'giscus',
+      provider: "giscus",
       options: {
-        repo: 'vcdvcd214/lin-yung-chang',
-        repoId: 'R_kgDOQ47Q9g',          // ✅ 你的 Repo ID
-        category: 'General',             // ✅ 你的 Category
-        categoryId: 'DIC_kwDOQ47Q9s4C06UD', // ✅ 你的 Category ID
-        mapping: 'pathname',
+        repo: "vcdvcd214/lin-yung-chang",
+        repoId: "R_kgDOQ47Q9g",
+        category: "General",
+        categoryId: "DIC_kwDOQ47Q9s4C06UD",
+        mapping: "pathname",
         strict: false,
         reactionsEnabled: true,
-        inputPosition: 'bottom',
-      }
+        inputPosition: "bottom",
+      },
     }),
   ],
 }
 
-// 5. 列表頁面版型
-export const defaultListPageLayout: PageLayout = {
+// 6. notes 首頁版型：只顯示最近 8 篇筆記
+export const notesHomePageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    commonExplorer,
+    Component.RecentNotes({
+      limit: 8,
+      linkToMore: "/notes/", // 指向完整日記列表頁
+      title: "📝 最近的筆記",
+    }),
   ],
   right: [],
   center: [Component.Breadcrumbs(), Component.Content()],
