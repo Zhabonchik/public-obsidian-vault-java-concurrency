@@ -2,50 +2,20 @@ import fs from "fs"
 import path from "path"
 import { execSync } from "child_process"
 import { styleText } from "util"
+import {
+  readPluginsJson,
+  writePluginsJson,
+  readLockfile,
+  writeLockfile,
+  extractPluginName,
+  readManifestFromPackageJson,
+  parseGitSource,
+  getGitCommit,
+  PLUGINS_DIR,
+  LOCKFILE_PATH,
+} from "./plugin-data.js"
 
-const LOCKFILE_PATH = path.join(process.cwd(), "quartz.lock.json")
-const PLUGINS_DIR = path.join(process.cwd(), ".quartz", "plugins")
-const PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.json")
 const INTERNAL_EXPORTS = new Set(["manifest", "default"])
-
-function readPluginsJson() {
-  if (!fs.existsSync(PLUGINS_JSON_PATH)) return null
-  try {
-    return JSON.parse(fs.readFileSync(PLUGINS_JSON_PATH, "utf-8"))
-  } catch {
-    return null
-  }
-}
-
-function writePluginsJson(data) {
-  fs.writeFileSync(PLUGINS_JSON_PATH, JSON.stringify(data, null, 2) + "\n")
-}
-
-function extractPluginName(source) {
-  if (source.startsWith("github:")) {
-    const withoutPrefix = source.replace("github:", "")
-    const [repoPath] = withoutPrefix.split("#")
-    const parts = repoPath.split("/")
-    return parts[parts.length - 1]
-  }
-  if (source.startsWith("git+") || source.startsWith("https://")) {
-    const url = source.replace("git+", "")
-    const match = url.match(/\/([^/]+?)(?:\.git)?(?:#|$)/)
-    return match?.[1] ?? source
-  }
-  return source
-}
-
-function readManifestFromPackageJson(pluginDir) {
-  const pkgPath = path.join(pluginDir, "package.json")
-  if (!fs.existsSync(pkgPath)) return null
-  try {
-    const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"))
-    return pkg.quartz ?? null
-  } catch {
-    return null
-  }
-}
 
 function buildPlugin(pluginDir, name) {
   try {
@@ -126,48 +96,6 @@ async function regeneratePluginIndex() {
   const indexContent = exports.join("\n") + "\n"
   const indexPath = path.join(PLUGINS_DIR, "index.ts")
   fs.writeFileSync(indexPath, indexContent)
-}
-
-function readLockfile() {
-  if (!fs.existsSync(LOCKFILE_PATH)) {
-    return null
-  }
-  try {
-    const content = fs.readFileSync(LOCKFILE_PATH, "utf-8")
-    return JSON.parse(content)
-  } catch {
-    return null
-  }
-}
-
-function writeLockfile(lockfile) {
-  fs.writeFileSync(LOCKFILE_PATH, JSON.stringify(lockfile, null, 2))
-}
-
-function parseGitSource(source) {
-  if (source.startsWith("github:")) {
-    const [repoPath, ref] = source.replace("github:", "").split("#")
-    const [owner, repo] = repoPath.split("/")
-    return { name: repo, url: `https://github.com/${owner}/${repo}.git`, ref }
-  }
-  if (source.startsWith("git+")) {
-    const url = source.replace("git+", "")
-    const name = path.basename(url, ".git")
-    return { name, url }
-  }
-  if (source.startsWith("https://")) {
-    const name = path.basename(source, ".git")
-    return { name, url: source }
-  }
-  throw new Error(`Cannot parse plugin source: ${source}`)
-}
-
-function getGitCommit(pluginDir) {
-  try {
-    return execSync("git rev-parse HEAD", { cwd: pluginDir, encoding: "utf-8" }).trim()
-  } catch {
-    return "unknown"
-  }
 }
 
 export async function handlePluginInstall() {

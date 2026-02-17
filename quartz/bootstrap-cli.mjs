@@ -32,6 +32,47 @@ import {
 } from "./cli/args.js"
 import { version } from "./cli/constants.js"
 
+async function launchTui() {
+  const { pathToFileURL } = await import("url")
+  const { join } = await import("path")
+  const { existsSync } = await import("fs")
+  const { spawn } = await import("child_process")
+  const tuiPath = join(process.cwd(), "quartz", "cli", "tui", "dist", "App.mjs")
+
+  if (!existsSync(tuiPath)) {
+    console.log("TUI not built yet. Building...")
+    const buildScript = pathToFileURL(join(process.cwd(), "quartz", "cli", "build-tui.mjs")).href
+    await import(buildScript)
+    console.log("TUI built successfully.")
+  }
+
+  // OpenTUI requires Bun runtime (uses bun:ffi for Zig renderer)
+  return new Promise((resolve, reject) => {
+    const child = spawn("bun", ["run", tuiPath], {
+      stdio: "inherit",
+      cwd: process.cwd(),
+    })
+
+    child.on("error", (err) => {
+      if (err.code === "ENOENT") {
+        console.error(
+          "Error: Bun runtime not found. The TUI requires Bun to run.\n" +
+            "Install Bun: https://bun.sh/docs/installation",
+        )
+      }
+      reject(err)
+    })
+
+    child.on("close", (code) => {
+      if (code === 0) {
+        resolve()
+      } else {
+        reject(new Error(`TUI exited with code ${code}`))
+      }
+    })
+  })
+}
+
 yargs(hideBin(process.argv))
   .scriptName("quartz")
   .version(version)
@@ -59,8 +100,11 @@ yargs(hideBin(process.argv))
   .command("migrate", "Migrate old config to quartz.plugins.json", CommonArgv, async () => {
     await handleMigrate()
   })
+  .command("tui", "Launch interactive plugin manager", CommonArgv, async () => {
+    await launchTui()
+  })
   .command(
-    "plugin <subcommand>",
+    "plugin [subcommand]",
     "Manage Quartz plugins",
     (yargs) => {
       return yargs
@@ -125,10 +169,11 @@ yargs(hideBin(process.argv))
         .command("check", "Check for plugin updates", CommonArgv, async () => {
           await handlePluginCheck()
         })
-        .demandCommand(1, "Please specify a plugin subcommand")
+        .demandCommand(0, "")
     },
-    async () => {
-      // This handler is called when no subcommand is provided
+    async (argv) => {
+      if (!argv._.includes("plugin") || argv._.length > 1) return
+      await launchTui()
     },
   )
   .showHelpOnFail(false)
