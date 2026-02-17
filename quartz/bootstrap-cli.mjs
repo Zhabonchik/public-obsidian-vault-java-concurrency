@@ -8,6 +8,7 @@ import {
   handleRestore,
   handleSync,
 } from "./cli/handlers.js"
+import { handleMigrate } from "./cli/migrate-handler.js"
 import {
   handlePluginInstall as handleGitPluginInstall,
   handlePluginAdd,
@@ -15,6 +16,10 @@ import {
   handlePluginUpdate,
   handlePluginRestore,
   handlePluginList,
+  handlePluginEnable,
+  handlePluginDisable,
+  handlePluginConfig,
+  handlePluginCheck,
 } from "./cli/plugin-git-handlers.js"
 import {
   CommonArgv,
@@ -51,6 +56,9 @@ yargs(hideBin(process.argv))
   .command("build", "Build Quartz into a bundle of static HTML files", BuildArgv, async (argv) => {
     await handleBuild(argv)
   })
+  .command("migrate", "Migrate old config to quartz.plugins.json", CommonArgv, async () => {
+    await handleMigrate()
+  })
   .command(
     "plugin <subcommand>",
     "Manage Quartz plugins",
@@ -84,6 +92,39 @@ yargs(hideBin(process.argv))
             await handlePluginRestore()
           },
         )
+        .command(
+          "enable <names..>",
+          "Enable plugins in quartz.plugins.json",
+          CommonArgv,
+          async (argv) => {
+            await handlePluginEnable(argv.names)
+          },
+        )
+        .command(
+          "disable <names..>",
+          "Disable plugins in quartz.plugins.json",
+          CommonArgv,
+          async (argv) => {
+            await handlePluginDisable(argv.names)
+          },
+        )
+        .command(
+          "config <name>",
+          "View or set plugin configuration",
+          {
+            ...CommonArgv,
+            set: {
+              string: true,
+              describe: "Set a config value (key=value)",
+            },
+          },
+          async (argv) => {
+            await handlePluginConfig(argv.name, { set: argv.set })
+          },
+        )
+        .command("check", "Check for plugin updates", CommonArgv, async () => {
+          await handlePluginCheck()
+        })
         .demandCommand(1, "Please specify a plugin subcommand")
     },
     async () => {

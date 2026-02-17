@@ -6,6 +6,12 @@ import {
 } from "../types"
 import { BuildCtx } from "../../util/ctx"
 
+export type PluginCategory = "transformer" | "filter" | "emitter" | "pageType"
+
+export type LayoutPosition = "left" | "right" | "beforeBody" | "afterBody"
+
+export type LayoutDisplay = "all" | "mobile-only" | "desktop-only"
+
 /**
  * Component manifest metadata
  */
@@ -20,7 +26,20 @@ export interface ComponentManifest {
 }
 
 /**
- * Plugin manifest metadata for discovery and documentation
+ * Layout defaults for a component declared in a plugin manifest.
+ * These are used as fallback values when no user layout config is specified.
+ */
+export interface ComponentLayoutDefaults {
+  displayName: string
+  description?: string
+  defaultPosition?: LayoutPosition
+  defaultPriority?: number
+}
+
+/**
+ * Plugin manifest metadata for discovery and documentation.
+ *
+ * This corresponds to the `quartz` field in a plugin's `package.json`.
  */
 export interface PluginManifest {
   name: string
@@ -30,11 +49,20 @@ export interface PluginManifest {
   author?: string
   homepage?: string
   keywords?: string[]
-  category?: "transformer" | "filter" | "emitter" | "pageType"
+  category?: PluginCategory
   quartzVersion?: string
+  /** Plugin sources this plugin depends on (e.g., "github:quartz-community/crawl-links") */
+  dependencies?: string[]
+  /** Default numeric execution order (0-100 convention, lower = runs first). Defaults to 50. */
+  defaultOrder?: number
+  /** Whether the plugin is enabled by default on install. Defaults to true. */
+  defaultEnabled?: boolean
+  /** Default options applied when no user options are specified */
+  defaultOptions?: Record<string, unknown>
+  /** JSON Schema for the plugin's options object, used for validation and TUI generation */
   configSchema?: object
-  /** Components provided by this plugin */
-  components?: Record<string, ComponentManifest>
+  /** Components provided by this plugin, keyed by component export name */
+  components?: Record<string, ComponentManifest & ComponentLayoutDefaults>
 }
 
 /**
@@ -43,7 +71,7 @@ export interface PluginManifest {
 export interface LoadedPlugin {
   plugin: QuartzTransformerPlugin | QuartzFilterPlugin | QuartzEmitterPlugin | QuartzPageTypePlugin
   manifest: PluginManifest
-  type: "transformer" | "filter" | "emitter" | "pageType"
+  type: PluginCategory
   source: string
 }
 
@@ -91,3 +119,56 @@ export type PluginSpecifier =
   | string
   | { name: string; options?: unknown }
   | { plugin: LoadedPlugin["plugin"]; manifest?: Partial<PluginManifest> }
+
+/** Layout declaration for a component-providing plugin in quartz.plugins.json */
+export interface PluginLayoutDeclaration {
+  position: LayoutPosition
+  priority: number
+  display?: LayoutDisplay
+  condition?: string
+  group?: string
+  groupOptions?: {
+    grow?: boolean
+    shrink?: boolean
+    basis?: string
+    order?: number
+    align?: "start" | "end" | "center" | "stretch"
+    justify?: "start" | "end" | "center" | "between" | "around"
+  }
+}
+
+/** A single plugin entry in quartz.plugins.json */
+export interface PluginJsonEntry {
+  source: string
+  enabled: boolean
+  options?: Record<string, unknown>
+  order?: number
+  layout?: PluginLayoutDeclaration
+}
+
+/** Flex group configuration in the top-level layout section */
+export interface FlexGroupConfig {
+  direction?: "row" | "row-reverse" | "column" | "column-reverse"
+  wrap?: "nowrap" | "wrap" | "wrap-reverse"
+  gap?: string
+}
+
+/** Per-page-type layout overrides */
+export interface PageTypeLayoutOverride {
+  exclude?: string[]
+  positions?: Partial<Record<LayoutPosition, PluginLayoutDeclaration[]>>
+}
+
+/** Top-level layout section of quartz.plugins.json */
+export interface LayoutConfig {
+  groups?: Record<string, FlexGroupConfig>
+  byPageType?: Record<string, PageTypeLayoutOverride>
+}
+
+/** Root type for quartz.plugins.json */
+export interface QuartzPluginsJson {
+  $schema?: string
+  configuration: Record<string, unknown>
+  plugins: PluginJsonEntry[]
+  layout?: LayoutConfig
+}

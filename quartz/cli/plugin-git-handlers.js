@@ -5,7 +5,47 @@ import { styleText } from "util"
 
 const LOCKFILE_PATH = path.join(process.cwd(), "quartz.lock.json")
 const PLUGINS_DIR = path.join(process.cwd(), ".quartz", "plugins")
+const PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.json")
 const INTERNAL_EXPORTS = new Set(["manifest", "default"])
+
+function readPluginsJson() {
+  if (!fs.existsSync(PLUGINS_JSON_PATH)) return null
+  try {
+    return JSON.parse(fs.readFileSync(PLUGINS_JSON_PATH, "utf-8"))
+  } catch {
+    return null
+  }
+}
+
+function writePluginsJson(data) {
+  fs.writeFileSync(PLUGINS_JSON_PATH, JSON.stringify(data, null, 2) + "\n")
+}
+
+function extractPluginName(source) {
+  if (source.startsWith("github:")) {
+    const withoutPrefix = source.replace("github:", "")
+    const [repoPath] = withoutPrefix.split("#")
+    const parts = repoPath.split("/")
+    return parts[parts.length - 1]
+  }
+  if (source.startsWith("git+") || source.startsWith("https://")) {
+    const url = source.replace("git+", "")
+    const match = url.match(/\/([^/]+?)(?:\.git)?(?:#|$)/)
+    return match?.[1] ?? source
+  }
+  return source
+}
+
+function readManifestFromPackageJson(pluginDir) {
+  const pkgPath = path.join(pluginDir, "package.json")
+  if (!fs.existsSync(pkgPath)) return null
+  try {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"))
+    return pkg.quartz ?? null
+  } catch {
+    return null
+  }
+}
 
 function buildPlugin(pluginDir, name) {
   try {
@@ -255,7 +295,7 @@ export async function handlePluginAdd(sources) {
         installedAt: new Date().toISOString(),
       }
 
-      addedPlugins.push({ name, pluginDir })
+      addedPlugins.push({ name, pluginDir, source })
       console.log(styleText("green", `✓ Added ${name}@${commit.slice(0, 7)}`))
     } catch (error) {
       console.log(styleText("red", `✗ Failed to add ${source}: ${error}`))
@@ -274,6 +314,33 @@ export async function handlePluginAdd(sources) {
   }
 
   writeLockfile(lockfile)
+  const pluginsJson = readPluginsJson()
+  if (pluginsJson?.plugins) {
+    for (const { pluginDir, source } of addedPlugins) {
+      const manifest = readManifestFromPackageJson(pluginDir)
+      const newEntry = {
+        source,
+        enabled: manifest?.defaultEnabled ?? true,
+        options: manifest?.defaultOptions ?? {},
+        order: manifest?.defaultOrder ?? 50,
+      }
+
+      if (manifest?.components) {
+        const firstComponentKey = Object.keys(manifest.components)[0]
+        const comp = manifest.components[firstComponentKey]
+        if (comp?.defaultPosition) {
+          newEntry.layout = {
+            position: comp.defaultPosition,
+            priority: comp.defaultPriority ?? 50,
+            display: "all",
+          }
+        }
+      }
+
+      pluginsJson.plugins.push(newEntry)
+    }
+    writePluginsJson(pluginsJson)
+  }
   console.log()
   console.log(styleText("gray", "Updated quartz.lock.json"))
 }
@@ -310,8 +377,172 @@ export async function handlePluginRemove(names) {
   }
 
   writeLockfile(lockfile)
+  const pluginsJson = readPluginsJson()
+  if (pluginsJson?.plugins) {
+    pluginsJson.plugins = pluginsJson.plugins.filter(
+      (plugin) =>
+        !names.includes(extractPluginName(plugin.source)) && !names.includes(plugin.source),
+    )
+    writePluginsJson(pluginsJson)
+  }
   console.log()
   console.log(styleText("gray", "Updated quartz.lock.json"))
+}
+
+export async function handlePluginEnable(names) {
+  const json = readPluginsJson()
+  if (!json) {
+    console.log(styleText("red", "✗ No quartz.plugins.json found. Cannot enable plugins."))
+    return
+  }
+
+  for (const name of names) {
+    const entry = json.plugins.find(
+      (e) => extractPluginName(e.source) === name || e.source === name,
+    )
+    if (!entry) {
+      console.log(styleText("yellow", `⚠ Plugin "${name}" not found in quartz.plugins.json`))
+      continue
+    }
+    if (entry.enabled) {
+      console.log(styleText("gray", `✓ ${name} is already enabled`))
+      continue
+    }
+    entry.enabled = true
+    console.log(styleText("green", `✓ Enabled ${name}`))
+  }
+
+  writePluginsJson(json)
+}
+
+export async function handlePluginDisable(names) {
+  const json = readPluginsJson()
+  if (!json) {
+    console.log(styleText("red", "✗ No quartz.plugins.json found. Cannot disable plugins."))
+    return
+  }
+
+  for (const name of names) {
+    const entry = json.plugins.find(
+      (e) => extractPluginName(e.source) === name || e.source === name,
+    )
+    if (!entry) {
+      console.log(styleText("yellow", `⚠ Plugin "${name}" not found in quartz.plugins.json`))
+      continue
+    }
+    if (!entry.enabled) {
+      console.log(styleText("gray", `✓ ${name} is already disabled`))
+      continue
+    }
+    entry.enabled = false
+    console.log(styleText("green", `✓ Disabled ${name}`))
+  }
+
+  writePluginsJson(json)
+}
+
+export async function handlePluginConfig(name, options = {}) {
+  const json = readPluginsJson()
+  if (!json) {
+    console.log(styleText("red", "✗ No quartz.plugins.json found."))
+    return
+  }
+
+  const entry = json.plugins.find((e) => extractPluginName(e.source) === name || e.source === name)
+  if (!entry) {
+    console.log(styleText("red", `✗ Plugin "${name}" not found in quartz.plugins.json`))
+    return
+  }
+
+  if (options.set) {
+    const eqIndex = options.set.indexOf("=")
+    if (eqIndex === -1) {
+      console.log(styleText("red", "✗ Invalid format. Use: --set key=value"))
+      return
+    }
+    const key = options.set.slice(0, eqIndex)
+    let value = options.set.slice(eqIndex + 1)
+
+    try {
+      value = JSON.parse(value)
+    } catch {}
+
+    if (!entry.options) entry.options = {}
+    entry.options[key] = value
+    writePluginsJson(json)
+    console.log(styleText("green", `✓ Set ${name}.${key} = ${JSON.stringify(value)}`))
+  } else {
+    console.log(styleText("bold", `Plugin: ${name}`))
+    console.log(`  Source: ${entry.source}`)
+    console.log(`  Enabled: ${entry.enabled}`)
+    console.log(`  Order: ${entry.order ?? 50}`)
+    if (entry.options && Object.keys(entry.options).length > 0) {
+      console.log(`  Options:`)
+      for (const [k, v] of Object.entries(entry.options)) {
+        console.log(`    ${k}: ${JSON.stringify(v)}`)
+      }
+    } else {
+      console.log(`  Options: (none)`)
+    }
+    if (entry.layout) {
+      console.log(`  Layout:`)
+      for (const [k, v] of Object.entries(entry.layout)) {
+        console.log(`    ${k}: ${JSON.stringify(v)}`)
+      }
+    }
+  }
+}
+
+export async function handlePluginCheck() {
+  const lockfile = readLockfile()
+  if (!lockfile || Object.keys(lockfile.plugins).length === 0) {
+    console.log(styleText("gray", "No plugins installed"))
+    return
+  }
+
+  console.log(styleText("bold", "Checking for plugin updates...\n"))
+
+  const results = []
+  for (const [name, entry] of Object.entries(lockfile.plugins)) {
+    try {
+      const latestCommit = execSync(`git ls-remote ${entry.resolved} HEAD`, {
+        encoding: "utf-8",
+      })
+        .split("\t")[0]
+        .trim()
+
+      const isCurrent = latestCommit === entry.commit
+      results.push({
+        name,
+        installed: entry.commit.slice(0, 7),
+        latest: latestCommit.slice(0, 7),
+        status: isCurrent ? "up to date" : "update available",
+      })
+    } catch {
+      results.push({
+        name,
+        installed: entry.commit.slice(0, 7),
+        latest: "?",
+        status: "check failed",
+      })
+    }
+  }
+
+  const nameWidth = Math.max(6, ...results.map((r) => r.name.length)) + 2
+  const header = `${"Plugin".padEnd(nameWidth)}${"Installed".padEnd(12)}${"Latest".padEnd(12)}Status`
+  console.log(styleText("bold", header))
+  console.log("─".repeat(header.length))
+
+  for (const r of results) {
+    const color =
+      r.status === "up to date" ? "green" : r.status === "check failed" ? "red" : "yellow"
+    console.log(
+      `${r.name.padEnd(nameWidth)}${r.installed.padEnd(12)}${r.latest.padEnd(12)}${styleText(
+        color,
+        r.status,
+      )}`,
+    )
+  }
 }
 
 export async function handlePluginUpdate(names) {

@@ -23,9 +23,11 @@ import {
   popContentFolder,
   stashContentFolder,
 } from "./helpers.js"
+import { handlePluginRestore, handlePluginCheck } from "./plugin-git-handlers.js"
 import {
   UPSTREAM_NAME,
   QUARTZ_SOURCE_BRANCH,
+  QUARTZ_SOURCE_REPO,
   ORIGIN_NAME,
   version,
   fp,
@@ -215,14 +217,20 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
   )
   await fs.promises.writeFile(configFilePath, configContent)
 
+  const pluginsJsonPath = path.join(cwd, "quartz.plugins.json")
+  const defaultPluginsJsonPath = path.join(cwd, "quartz.plugins.default.json")
+  if (!fs.existsSync(pluginsJsonPath) && fs.existsSync(defaultPluginsJsonPath)) {
+    await fs.promises.copyFile(defaultPluginsJsonPath, pluginsJsonPath)
+    console.log(styleText("green", "Created quartz.plugins.json from defaults"))
+  }
+
   // setup remote
-  execSync(
-    `git remote show upstream || git remote add upstream https://github.com/jackyzha0/quartz.git`,
-    { stdio: "ignore" },
-  )
+  execSync(`git remote show upstream || git remote add upstream ${QUARTZ_SOURCE_REPO}`, {
+    stdio: "ignore",
+  })
 
   outro(`You're all set! Not sure what to do next? Try:
-  • Customizing Quartz a bit more by editing \`quartz.config.ts\`
+  • Customizing Quartz a bit more by editing \`quartz.plugins.json\`
   • Running \`npx quartz build --serve\` to preview your Quartz locally
   • Hosting your Quartz online (see: https://quartz.jzhao.xyz/hosting)
 `)
@@ -494,9 +502,7 @@ export async function handleUpdate(argv) {
   const contentFolder = resolveContentPath(argv.directory)
   console.log(`\n${styleText(["bgGreen", "black"], ` Quartz v${version} `)} \n`)
   console.log("Backing up your content")
-  execSync(
-    `git remote show upstream || git remote add upstream https://github.com/jackyzha0/quartz.git`,
-  )
+  execSync(`git remote show upstream || git remote add upstream ${QUARTZ_SOURCE_REPO}`)
   await stashContentFolder(contentFolder)
   console.log(
     "Pulling updates... you may need to resolve some `git` conflicts if you've made changes to components or plugins.",
@@ -532,10 +538,18 @@ export async function handleUpdate(argv) {
 
   const res = spawnSync("npm", ["i"], opts)
   if (res.status === 0) {
-    console.log(styleText("green", "Done!"))
+    console.log(styleText("green", "Dependencies updated!"))
   } else {
     console.log(styleText("red", "An error occurred above while installing dependencies."))
   }
+
+  console.log("Restoring plugins from lockfile...")
+  await handlePluginRestore()
+
+  console.log("Checking plugin compatibility...")
+  await handlePluginCheck()
+
+  console.log(styleText("green", "Done!"))
 }
 
 /**
