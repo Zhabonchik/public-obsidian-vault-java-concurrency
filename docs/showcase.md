@@ -18,6 +18,5 @@ Want to see what Quartz can do? Here are some cool community gardens:
 - [Data Engineering Vault: A Second Brain Knowledge Network](https://vault.ssp.sh/)
 - [🪴Aster's notebook](https://notes.asterhu.com)
 - [Gatekeeper Wiki](https://www.gatekeeper.wiki)
-- [Ellie's Notes](https://ellie.wtf)
 - [Eledah's Crystalline](https://blog.eledah.ir/)
 - [🌓 Projects & Privacy - FOSS, tech, law](https://be-far.com)
