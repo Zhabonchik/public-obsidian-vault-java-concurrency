@@ -17,39 +17,27 @@ const explorerSortFn = (a, b) => {
   )
 }
 
-// 2. 定義統一的 Explorer 設定
+// 2. 定義統一的 Explorer 設定（用 iconizeIcon）
 const commonExplorer = Component.Explorer({
   title: "🏺 全站導覽",
   folderClickBehavior: "link",
   sortFn: explorerSortFn,
   mapFn: (node) => {
-    // 1. 處理特殊名稱加 Emoji
-    if (node.name === "about" || node.displayName?.toLowerCase() === "about") {
-      node.displayName = "👤 關於我"
-    } else if (
-      node.name === "網站設置LOG" ||
-      node.displayName?.includes("網站設置LOG")
-    ) {
-      node.displayName = "⚙️ 網站設置 LOG"
-    } else if (node.name === "隨筆紀錄" || node.displayName === "隨筆紀錄") {
-      node.displayName = "✍️ 隨筆紀錄"
-    } else if (node.name === "書籍紀錄" || node.displayName === "書籍紀錄") {
-      node.displayName = "📚 書籍紀錄"
+    const isFile = !node.children || node.children.length === 0
+    const frontmatter = node.frontmatter ?? {}
+    const displayName = node.displayName ?? node.name
+    const icon = frontmatter.iconizeIcon ?? ""
+
+    // 1. 有 iconizeIcon 就放在前面，取代原本的手動 emoji
+    if (icon) {
+      node.displayName = `${icon} ${displayName}`
+    } else {
+      node.displayName = displayName
     }
 
-    // 2. 判斷是否為檔案（沒有 children）
-    const isFile = !node.children || node.children.length === 0
-
-    // 3. 只有在「檔案」且「標題沒被我們剛剛加過 emoji」時，才加點點
-    if (isFile && node.displayName) {
-      const specialEmojis = ["👤", "⚙️", "✍️", "📚"]
-      const startsWithSpecialEmoji = specialEmojis.some((emoji) =>
-        node.displayName.startsWith(emoji),
-      )
-
-      if (!startsWithSpecialEmoji && !node.displayName.startsWith("・")) {
-        node.displayName = "・" + node.displayName
-      }
+    // 2. 如果是「檔案」且沒有 icon / emoji 開頭，就加「・」點
+    if (isFile && !icon && !node.displayName.startsWith("・")) {
+      node.displayName = "・" + node.displayName
     }
   },
 })
