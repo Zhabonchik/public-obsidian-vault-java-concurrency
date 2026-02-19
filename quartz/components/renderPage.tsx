@@ -78,7 +78,11 @@ function renderTranscludes(
       if (classNames.includes("transclude")) {
         const inner = node.children[0] as Element
         const transcludeTarget = (inner.properties["data-slug"] ?? slug) as FullSlug
-        if (visited.has(transcludeTarget)) {
+        const dataBlock = node.properties.dataBlock as string | undefined
+        const visitedKey = dataBlock
+          ? (`${transcludeTarget}${dataBlock}` as FullSlug)
+          : transcludeTarget
+        if (visited.has(visitedKey)) {
           console.warn(
             styleText(
               "yellow",
@@ -100,7 +104,7 @@ function renderTranscludes(
           ]
           return
         }
-        visited.add(transcludeTarget)
+        visited.add(visitedKey)
 
         const page = componentData.allFiles.find((f) => f.slug === transcludeTarget)
         if (!page) {
