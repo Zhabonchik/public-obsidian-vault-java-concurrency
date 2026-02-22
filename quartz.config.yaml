@@ -191,12 +191,6 @@ plugins:
       position: left
       priority: 35
       group: toolbar
-  - source: github:quartz-community/spacer
-    enabled: true
-    layout:
-      position: left
-      priority: 15
-      display: mobile-only
   - source: github:quartz-community/breadcrumbs
     enabled: true
     layout:
@@ -219,6 +213,14 @@ plugins:
         Discord Community: https://discord.gg/cRFFHYye7t
   - source: github:quartz-community/recent-notes
     enabled: false
+  - source: github:quartz-community/spacer
+    enabled: true
+    options: {}
+    order: 15
+    layout:
+      position: left
+      priority: 15
+      display: all
 layout:
   groups:
     toolbar:
