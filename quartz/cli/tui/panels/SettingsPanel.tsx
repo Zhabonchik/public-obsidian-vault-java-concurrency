@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback, useEffect } from "react"
 import { useKeyboard } from "@opentui/react"
 import { useSettings } from "../hooks/useSettings.js"
+import { readDefaultPluginsJson } from "../../plugin-data.js"
 
 type View = "list" | "edit-string" | "edit-boolean" | "edit-enum" | "edit-array" | "edit-color"
 
@@ -116,6 +117,37 @@ function formatStringValue(value: unknown): string {
   return String(value)
 }
 
+function getDefaultSettingValue(
+  defaultConfig: Record<string, unknown> | null,
+  keyPath: string[],
+): unknown | undefined {
+  if (!defaultConfig) return undefined
+  let current: unknown = defaultConfig
+  for (const key of keyPath) {
+    if (current === null || current === undefined || typeof current !== "object") return undefined
+    current = (current as Record<string, unknown>)[key]
+  }
+  return current
+}
+
+function deepEqual(a: unknown, b: unknown): boolean {
+  if (a === b) return true
+  if (a === null || b === null) return false
+  if (typeof a !== typeof b) return false
+  if (typeof a !== "object") return false
+  if (Array.isArray(a) !== Array.isArray(b)) return false
+  if (Array.isArray(a) && Array.isArray(b)) {
+    if (a.length !== b.length) return false
+    return a.every((val, i) => deepEqual(val, b[i]))
+  }
+  const keysA = Object.keys(a as Record<string, unknown>)
+  const keysB = Object.keys(b as Record<string, unknown>)
+  if (keysA.length !== keysB.length) return false
+  return keysA.every((key) =>
+    deepEqual((a as Record<string, unknown>)[key], (b as Record<string, unknown>)[key]),
+  )
+}
+
 export function SettingsPanel({ notify, onFocusChange }: SettingsPanelProps) {
   const { config, updateField } = useSettings()
   const [view, setView] = useState<View>("list")
@@ -129,6 +161,11 @@ export function SettingsPanel({ notify, onFocusChange }: SettingsPanelProps) {
   const [editingArrayItemIndex, setEditingArrayItemIndex] = useState<number | null>(null)
   const [colorError, setColorError] = useState<string | null>(null)
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set())
+
+  const defaultConfig = useMemo(() => {
+    const data = readDefaultPluginsJson()
+    return (data?.configuration as Record<string, unknown>) ?? null
+  }, [])
 
   const allEntries = useMemo(() => {
     if (!config) return []
@@ -251,6 +288,21 @@ export function SettingsPanel({ notify, onFocusChange }: SettingsPanelProps) {
       } else {
         enterEdit(entry)
       }
+    }
+    if (event.name === "d" && event.shift) {
+      const entry = visibleEntries[highlightedIndex]
+      if (!entry) return
+      const defaultValue = getDefaultSettingValue(defaultConfig, entry.keyPath)
+      if (defaultValue === undefined) {
+        notify("No default available for " + entry.keyPath.join("."), "error")
+        return
+      }
+      if (deepEqual(entry.value, defaultValue)) {
+        notify(entry.keyPath.join(".") + " is already default", "info")
+        return
+      }
+      applyValue(entry.keyPath, defaultValue)
+      notify("Restored " + entry.keyPath.join(".") + " to default", "success")
     }
   })
 
@@ -416,6 +468,10 @@ export function SettingsPanel({ notify, onFocusChange }: SettingsPanelProps) {
       }
 
       const displayFg = isHighlighted ? (valueFg ?? highlightFg) : (valueFg ?? baseFg)
+      const isDefault =
+        !entry.isObject &&
+        deepEqual(entry.value, getDefaultSettingValue(defaultConfig, entry.keyPath))
+      const defaultTag = isDefault ? " (default)" : ""
 
       return (
         <text key={entry.keyPath.join(".")}>
@@ -435,7 +491,19 @@ export function SettingsPanel({ notify, onFocusChange }: SettingsPanelProps) {
             </span>
           )}
           {swatchColor ? <span fg={swatchColor}>█ </span> : null}
-          <span fg={displayFg}>{isHighlighted ? <strong>{valueText}</strong> : valueText}</span>
+          <span fg={displayFg}>
+            {isHighlighted ? (
+              <strong>
+                {valueText}
+                {defaultTag}
+              </strong>
+            ) : (
+              <>
+                {valueText}
+                <span fg="#555555">{defaultTag}</span>
+              </>
+            )}
+          </span>
         </text>
       )
     })
@@ -705,6 +773,9 @@ export function SettingsPanel({ notify, onFocusChange }: SettingsPanelProps) {
       >
         {renderTree(false)}
       </box>
+      <text>
+        <span fg="#888888">↑↓: navigate │ Enter: edit/expand │ Shift+D: restore default</span>
+      </text>
     </box>
   )
 }

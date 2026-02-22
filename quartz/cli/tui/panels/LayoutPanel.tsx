@@ -295,7 +295,41 @@ export function LayoutPanel({ notify, onFocusChange }: LayoutPanelProps) {
       enterView("confirm-remove-layout")
     }
 
-    if (event.name === "k" && event.shift && selectedComp && selectedComponent > 0) {
+    if (event.name === "d" && event.shift && selectedComp) {
+      const arrIdx = findPluginArrayIndex(selectedComp.pluginIndex)
+      if (arrIdx >= 0) {
+        const plugin = plugins[arrIdx]
+        const manifest = plugin.manifest as Record<string, unknown> | null
+        const components = manifest?.components as
+          | Record<string, Record<string, unknown>>
+          | undefined
+        if (components) {
+          const compEntry = Object.values(components)[0]
+          if (compEntry) {
+            const defaultPosition = (compEntry.defaultPosition as string) || "left"
+            const defaultPriority = (compEntry.defaultPriority as number) || 50
+            updateLayout(arrIdx, {
+              position: defaultPosition,
+              priority: defaultPriority,
+              display: "all",
+            })
+            notify(`Restored ${selectedComp.displayName} to defaults`, "success")
+          } else {
+            notify("No component defaults found in manifest", "error")
+          }
+        } else {
+          // No manifest components — restore sensible defaults
+          updateLayout(arrIdx, {
+            position: selectedComp.position,
+            priority: 50,
+            display: "all",
+          })
+          notify(`Reset ${selectedComp.displayName} display settings`, "success")
+        }
+      }
+    }
+
+    if (event.name === "up" && event.shift && selectedComp && selectedComponent > 0) {
       const above = currentComponents[selectedComponent - 1]
       const arrIdx = findPluginArrayIndex(selectedComp.pluginIndex)
       const aboveArrIdx = findPluginArrayIndex(above.pluginIndex)
@@ -312,7 +346,7 @@ export function LayoutPanel({ notify, onFocusChange }: LayoutPanelProps) {
     }
 
     if (
-      event.name === "j" &&
+      event.name === "down" &&
       event.shift &&
       selectedComp &&
       selectedComponent < currentComponents.length - 1
@@ -685,7 +719,7 @@ export function LayoutPanel({ notify, onFocusChange }: LayoutPanelProps) {
         <text>
           <span fg="#888888">
             {drillMode
-              ? "↑↓ select │ K/J reorder │ m move │ p priority │ v display │ c condition │ x remove │ Esc: back"
+              ? "↑↓ select │ ⇧↑↓ reorder │ m move │ p priority │ v display │ c condition │ x remove │ ⇧D restore │ Esc: back"
               : `←→ columns │ ↑↓ zones │ Enter: edit zone │ g groups │ t page-types${pageTypes.length > 1 ? " │ [ prev / ] next page type" : ""}`}
           </span>
         </text>

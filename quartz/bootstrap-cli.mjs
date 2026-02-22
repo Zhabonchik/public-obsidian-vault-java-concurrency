@@ -97,7 +97,7 @@ yargs(hideBin(process.argv))
   .command("build", "Build Quartz into a bundle of static HTML files", BuildArgv, async (argv) => {
     await handleBuild(argv)
   })
-  .command("migrate", "Migrate old config to quartz.plugins.json", CommonArgv, async () => {
+  .command("migrate", "Migrate old config to quartz.config.yaml", CommonArgv, async () => {
     await handleMigrate()
   })
   .command("tui", "Launch interactive plugin manager", CommonArgv, async () => {
@@ -138,7 +138,7 @@ yargs(hideBin(process.argv))
         )
         .command(
           "enable <names..>",
-          "Enable plugins in quartz.plugins.json",
+          "Enable plugins in quartz.config.yaml",
           CommonArgv,
           async (argv) => {
             await handlePluginEnable(argv.names)
@@ -146,7 +146,7 @@ yargs(hideBin(process.argv))
         )
         .command(
           "disable <names..>",
-          "Disable plugins in quartz.plugins.json",
+          "Disable plugins in quartz.config.yaml",
           CommonArgv,
           async (argv) => {
             await handlePluginDisable(argv.names)

@@ -1,5 +1,6 @@
 import fs from "fs"
 import path from "path"
+import YAML from "yaml"
 import { styleText } from "util"
 import { QuartzConfig, GlobalConfiguration, FullPageLayout } from "../../cfg"
 import { QuartzComponent } from "../../components/types"
@@ -18,13 +19,23 @@ import { loadComponentsFromPackage } from "./componentLoader"
 import { componentRegistry } from "../../components/registry"
 import { getCondition } from "./conditions"
 
-const PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.json")
+const CONFIG_YAML_PATH = path.join(process.cwd(), "quartz.config.yaml")
+const LEGACY_PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.json")
 
+function resolveConfigPath(): string {
+  if (fs.existsSync(CONFIG_YAML_PATH)) return CONFIG_YAML_PATH
+  if (fs.existsSync(LEGACY_PLUGINS_JSON_PATH)) return LEGACY_PLUGINS_JSON_PATH
+  return CONFIG_YAML_PATH
+}
 function readPluginsJson(): QuartzPluginsJson | null {
-  if (!fs.existsSync(PLUGINS_JSON_PATH)) {
+  const configPath = resolveConfigPath()
+  if (!fs.existsSync(configPath)) {
     return null
   }
-  const raw = fs.readFileSync(PLUGINS_JSON_PATH, "utf-8")
+  const raw = fs.readFileSync(configPath, "utf-8")
+  if (configPath.endsWith(".yaml") || configPath.endsWith(".yml")) {
+    return YAML.parse(raw) as QuartzPluginsJson
+  }
   return JSON.parse(raw) as QuartzPluginsJson
 }
 

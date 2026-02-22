@@ -320,7 +320,7 @@ export async function handlePluginRemove(names) {
 export async function handlePluginEnable(names) {
   const json = readPluginsJson()
   if (!json) {
-    console.log(styleText("red", "✗ No quartz.plugins.json found. Cannot enable plugins."))
+    console.log(styleText("red", "✗ No quartz.config.yaml found. Cannot enable plugins."))
     return
   }
 
@@ -329,7 +329,7 @@ export async function handlePluginEnable(names) {
       (e) => extractPluginName(e.source) === name || e.source === name,
     )
     if (!entry) {
-      console.log(styleText("yellow", `⚠ Plugin "${name}" not found in quartz.plugins.json`))
+      console.log(styleText("yellow", `⚠ Plugin "${name}" not found in quartz.config.yaml`))
       continue
     }
     if (entry.enabled) {
@@ -346,7 +346,7 @@ export async function handlePluginEnable(names) {
 export async function handlePluginDisable(names) {
   const json = readPluginsJson()
   if (!json) {
-    console.log(styleText("red", "✗ No quartz.plugins.json found. Cannot disable plugins."))
+    console.log(styleText("red", "✗ No quartz.config.yaml found. Cannot disable plugins."))
     return
   }
 
@@ -355,7 +355,7 @@ export async function handlePluginDisable(names) {
       (e) => extractPluginName(e.source) === name || e.source === name,
     )
     if (!entry) {
-      console.log(styleText("yellow", `⚠ Plugin "${name}" not found in quartz.plugins.json`))
+      console.log(styleText("yellow", `⚠ Plugin "${name}" not found in quartz.config.yaml`))
       continue
     }
     if (!entry.enabled) {
@@ -372,13 +372,13 @@ export async function handlePluginDisable(names) {
 export async function handlePluginConfig(name, options = {}) {
   const json = readPluginsJson()
   if (!json) {
-    console.log(styleText("red", "✗ No quartz.plugins.json found."))
+    console.log(styleText("red", "✗ No quartz.config.yaml found."))
     return
   }
 
   const entry = json.plugins.find((e) => extractPluginName(e.source) === name || e.source === name)
   if (!entry) {
-    console.log(styleText("red", `✗ Plugin "${name}" not found in quartz.plugins.json`))
+    console.log(styleText("red", `✗ Plugin "${name}" not found in quartz.config.yaml`))
     return
   }
 

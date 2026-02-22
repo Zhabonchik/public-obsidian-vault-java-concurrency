@@ -2,12 +2,14 @@ import fs from "fs"
 import path from "path"
 import { spawnSync } from "child_process"
 import { styleText } from "util"
+import YAML from "yaml"
 
 const CWD = process.cwd()
 const CONFIG_PATH = path.join(CWD, "quartz.config.ts")
 const LAYOUT_PATH = path.join(CWD, "quartz.layout.ts")
-const PLUGINS_JSON_PATH = path.join(CWD, "quartz.plugins.json")
-const DEFAULT_PLUGINS_JSON_PATH = path.join(CWD, "quartz.plugins.default.json")
+const CONFIG_YAML_PATH = path.join(CWD, "quartz.config.yaml")
+const DEFAULT_CONFIG_YAML_PATH = path.join(CWD, "quartz.config.default.yaml")
+const LEGACY_DEFAULT_JSON_PATH = path.join(CWD, "quartz.plugins.default.json")
 const LOCKFILE_PATH = path.join(CWD, "quartz.lock.json")
 const PLUGINS_DIR = path.join(CWD, ".quartz", "plugins")
 const PACKAGE_JSON_PATH = path.join(CWD, "package.json")
@@ -117,11 +119,11 @@ export async function handleMigrate() {
     return
   }
 
-  if (fs.existsSync(PLUGINS_JSON_PATH)) {
-    console.log(styleText("yellow", "⚠ quartz.plugins.json already exists. Overwriting."))
+  if (fs.existsSync(CONFIG_YAML_PATH)) {
+    console.log(styleText("yellow", "⚠ quartz.config.yaml already exists. Overwriting."))
   }
 
-  const defaultJson = readJson(DEFAULT_PLUGINS_JSON_PATH)
+  const defaultJson = readJson(DEFAULT_CONFIG_YAML_PATH) ?? readJson(LEGACY_DEFAULT_JSON_PATH)
   let configuration = defaultJson?.configuration ?? {}
   let layout = ensureLayoutDefaults(defaultJson?.layout ?? {})
   let layoutInfo = null
@@ -165,13 +167,13 @@ export async function handleMigrate() {
   }
 
   const outputJson = {
-    $schema: "./quartz/plugins/quartz-plugins.schema.json",
     configuration,
     plugins,
     layout,
   }
 
-  fs.writeFileSync(PLUGINS_JSON_PATH, JSON.stringify(outputJson, null, 2) + "\n")
+  const header = "# yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json\n"
+  fs.writeFileSync(CONFIG_YAML_PATH, header + YAML.stringify(outputJson, { lineWidth: 120 }))
 
   const configTemplate =
     'import { loadQuartzConfig } from "./quartz/plugins/loader/config-loader"\n' +
@@ -183,10 +185,10 @@ export async function handleMigrate() {
   fs.writeFileSync(CONFIG_PATH, configTemplate)
   fs.writeFileSync(LAYOUT_PATH, layoutTemplate)
 
-  console.log(styleText("green", "✓ Created quartz.plugins.json"))
+  console.log(styleText("green", "✓ Created quartz.config.yaml"))
   console.log(styleText("green", "✓ Replaced quartz.config.ts"))
   console.log(styleText("green", "✓ Replaced quartz.layout.ts"))
   console.log()
-  console.log(styleText("yellow", "⚠ Verify plugin options in quartz.plugins.json"))
+  console.log(styleText("yellow", "⚠ Verify plugin options in quartz.config.yaml"))
   console.log(styleText("gray", `Plugins migrated: ${plugins.length}`))
 }

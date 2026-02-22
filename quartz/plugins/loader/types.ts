@@ -120,7 +120,7 @@ export type PluginSpecifier =
   | { name: string; options?: unknown }
   | { plugin: LoadedPlugin["plugin"]; manifest?: Partial<PluginManifest> }
 
-/** Layout declaration for a component-providing plugin in quartz.plugins.json */
+/** Layout declaration for a component-providing plugin in quartz.config.yaml */
 export interface PluginLayoutDeclaration {
   position: LayoutPosition
   priority: number
@@ -137,7 +137,7 @@ export interface PluginLayoutDeclaration {
   }
 }
 
-/** A single plugin entry in quartz.plugins.json */
+/** A single plugin entry in quartz.config.yaml */
 export interface PluginJsonEntry {
   source: string
   enabled: boolean
@@ -159,13 +159,13 @@ export interface PageTypeLayoutOverride {
   positions?: Partial<Record<LayoutPosition, PluginLayoutDeclaration[]>>
 }
 
-/** Top-level layout section of quartz.plugins.json */
+/** Top-level layout section of quartz.config.yaml */
 export interface LayoutConfig {
   groups?: Record<string, FlexGroupConfig>
   byPageType?: Record<string, PageTypeLayoutOverride>
 }
 
-/** Root type for quartz.plugins.json */
+/** Root type for quartz.config.yaml */
 export interface QuartzPluginsJson {
   $schema?: string
   configuration: Record<string, unknown>

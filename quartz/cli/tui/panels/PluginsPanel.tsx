@@ -367,11 +367,11 @@ export function PluginsPanel({ notify, onFocusChange, maxHeight }: PluginsPanelP
       }
     }
 
-    if (event.name === "a") {
+    if (event.name === "n") {
       enterView("add")
     }
 
-    if (event.name === "r" && selectedPlugin) {
+    if (event.name === "x" && selectedPlugin) {
       enterView("confirm-remove")
     }
 

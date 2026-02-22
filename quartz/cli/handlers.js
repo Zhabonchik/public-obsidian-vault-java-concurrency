@@ -24,6 +24,7 @@ import {
   stashContentFolder,
 } from "./helpers.js"
 import { handlePluginRestore, handlePluginCheck } from "./plugin-git-handlers.js"
+import { configExists, createConfigFromDefault } from "./plugin-data.js"
 import {
   UPSTREAM_NAME,
   QUARTZ_SOURCE_BRANCH,
@@ -217,11 +218,9 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
   )
   await fs.promises.writeFile(configFilePath, configContent)
 
-  const pluginsJsonPath = path.join(cwd, "quartz.plugins.json")
-  const defaultPluginsJsonPath = path.join(cwd, "quartz.plugins.default.json")
-  if (!fs.existsSync(pluginsJsonPath) && fs.existsSync(defaultPluginsJsonPath)) {
-    await fs.promises.copyFile(defaultPluginsJsonPath, pluginsJsonPath)
-    console.log(styleText("green", "Created quartz.plugins.json from defaults"))
+  if (!configExists()) {
+    createConfigFromDefault()
+    console.log(styleText("green", "Created quartz.config.yaml from defaults"))
   }
 
   // setup remote
@@ -230,7 +229,7 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
   })
 
   outro(`You're all set! Not sure what to do next? Try:
-  • Customizing Quartz a bit more by editing \`quartz.plugins.json\`
+  • Customizing Quartz a bit more by editing \`quartz.config.yaml\`
   • Running \`npx quartz build --serve\` to preview your Quartz locally
   • Hosting your Quartz online (see: https://quartz.jzhao.xyz/hosting)
 `)

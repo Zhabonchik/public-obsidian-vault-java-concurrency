@@ -1,32 +1,63 @@
 import fs from "fs"
 import path from "path"
 import { execSync } from "child_process"
+import YAML from "yaml"
 
 const LOCKFILE_PATH = path.join(process.cwd(), "quartz.lock.json")
 const PLUGINS_DIR = path.join(process.cwd(), ".quartz", "plugins")
-const PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.json")
-const DEFAULT_PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.default.json")
+const CONFIG_YAML_PATH = path.join(process.cwd(), "quartz.config.yaml")
+const DEFAULT_CONFIG_YAML_PATH = path.join(process.cwd(), "quartz.config.default.yaml")
 
-export function readPluginsJson() {
-  if (!fs.existsSync(PLUGINS_JSON_PATH)) return null
+const LEGACY_PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.json")
+const LEGACY_DEFAULT_PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.default.json")
+
+function resolveConfigPath() {
+  if (fs.existsSync(CONFIG_YAML_PATH)) return CONFIG_YAML_PATH
+  if (fs.existsSync(LEGACY_PLUGINS_JSON_PATH)) return LEGACY_PLUGINS_JSON_PATH
+  return CONFIG_YAML_PATH
+}
+
+function resolveDefaultConfigPath() {
+  if (fs.existsSync(DEFAULT_CONFIG_YAML_PATH)) return DEFAULT_CONFIG_YAML_PATH
+  if (fs.existsSync(LEGACY_DEFAULT_PLUGINS_JSON_PATH)) return LEGACY_DEFAULT_PLUGINS_JSON_PATH
+  return DEFAULT_CONFIG_YAML_PATH
+}
+
+function readFileAsData(filePath) {
+  if (!fs.existsSync(filePath)) return null
   try {
-    return JSON.parse(fs.readFileSync(PLUGINS_JSON_PATH, "utf-8"))
+    const raw = fs.readFileSync(filePath, "utf-8")
+    if (filePath.endsWith(".yaml") || filePath.endsWith(".yml")) {
+      return YAML.parse(raw)
+    }
+    return JSON.parse(raw)
   } catch {
     return null
   }
+}
+
+function writeDataToFile(filePath, data) {
+  if (filePath.endsWith(".yaml") || filePath.endsWith(".yml")) {
+    const header = "# yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json\n"
+    fs.writeFileSync(filePath, header + YAML.stringify(data, { lineWidth: 120 }))
+  } else {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + "\n")
+  }
+}
+
+export function readPluginsJson() {
+  const configPath = resolveConfigPath()
+  return readFileAsData(configPath)
 }
 
 export function writePluginsJson(data) {
-  fs.writeFileSync(PLUGINS_JSON_PATH, JSON.stringify(data, null, 2) + "\n")
+  const { $schema, ...rest } = data
+  writeDataToFile(CONFIG_YAML_PATH, rest)
 }
 
 export function readDefaultPluginsJson() {
-  if (!fs.existsSync(DEFAULT_PLUGINS_JSON_PATH)) return null
-  try {
-    return JSON.parse(fs.readFileSync(DEFAULT_PLUGINS_JSON_PATH, "utf-8"))
-  } catch {
-    return null
-  }
+  const defaultPath = resolveDefaultConfigPath()
+  return readFileAsData(defaultPath)
 }
 
 export function readLockfile() {
@@ -116,7 +147,7 @@ export function ensurePluginsDir() {
 }
 
 /**
- * Merges quartz.plugins.json, quartz.lock.json, and on-disk manifest data
+ * Merges quartz.config.yaml, quartz.lock.json, and on-disk manifest data
  * into enriched plugin entries with: name, displayName, source, enabled,
  * options, order, layout, category, installed, locked, manifest,
  * currentCommit, modified.
@@ -216,15 +247,14 @@ export function addPluginEntry(entry) {
 }
 
 export function configExists() {
-  return fs.existsSync(PLUGINS_JSON_PATH)
+  return fs.existsSync(CONFIG_YAML_PATH) || fs.existsSync(LEGACY_PLUGINS_JSON_PATH)
 }
 
 export function createConfigFromDefault() {
-  const defaultJson = readDefaultPluginsJson()
-  if (!defaultJson) {
+  const defaultData = readDefaultPluginsJson()
+  if (!defaultData) {
     // No default available — create minimal config
     const minimal = {
-      $schema: "./quartz/plugins/quartz-plugins.schema.json",
       configuration: {
         pageTitle: "Quartz",
         enableSPA: true,
@@ -273,8 +303,12 @@ export function createConfigFromDefault() {
     writePluginsJson(minimal)
     return minimal
   }
-  writePluginsJson(defaultJson)
-  return defaultJson
+
+  const { $schema, ...rest } = defaultData
+  writePluginsJson(rest)
+  return rest
 }
 
-export { LOCKFILE_PATH, PLUGINS_DIR, PLUGINS_JSON_PATH, DEFAULT_PLUGINS_JSON_PATH }
+export const PLUGINS_JSON_PATH = CONFIG_YAML_PATH
+export const DEFAULT_PLUGINS_JSON_PATH = DEFAULT_CONFIG_YAML_PATH
+export { LOCKFILE_PATH, PLUGINS_DIR }

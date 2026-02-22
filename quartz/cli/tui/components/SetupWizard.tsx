@@ -19,7 +19,7 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
           {
             key: "default" as Choice,
             label: "Use default configuration",
-            description: "Copy quartz.plugins.default.json as your starting config",
+            description: "Copy quartz.config.default.yaml as your starting config",
           },
         ]
       : []),
@@ -46,7 +46,7 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
         </text>
         <text>
           <span fg="#888888">
-            quartz.plugins.json does not exist yet. How would you like to set up your configuration?
+            quartz.config.yaml does not exist yet. How would you like to set up your configuration?
           </span>
         </text>
       </box>
