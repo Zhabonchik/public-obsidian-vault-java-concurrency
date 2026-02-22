@@ -130,6 +130,8 @@ plugins:
     enabled: true
   - source: github:quartz-community/canvas-page
     enabled: true
+  - source: github:quartz-community/bases-page
+    enabled: true
   - source: github:quartz-community/content-page
     enabled: true
   - source: github:quartz-community/folder-page
@@ -242,3 +244,4 @@ layout:
       positions:
         right: []
     canvas: {}
+    bases: {}
