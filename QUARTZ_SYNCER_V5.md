@@ -288,10 +288,12 @@ layout:
 ### Per-Page-Type Overrides
 
 The global `layout.byPageType` object can override layout for specific page types:
-
-- `folder` — folder listing pages
-- `tag` — tag listing pages
-- `404` — not found page
+`content` — standard markdown content pages
+`folder` — folder listing pages
+`tag` — tag listing pages
+`canvas` — Obsidian canvas pages
+`bases` — Obsidian Bases database pages
+`404` — not found page
 
 Each can `exclude` specific plugins or override `positions` entirely.
 
@@ -490,10 +492,11 @@ No TypeScript parsing. No AST manipulation. No Node.js subprocess. Just YAML.
 
 ---
 
-## Quick Reference: All 37 Default Plugins
+## Quick Reference: All 40 Default Plugins
 
 | Plugin                     | Category    | Default Enabled | Has Component | Default Position |
 | -------------------------- | ----------- | --------------- | ------------- | ---------------- |
+| note-properties            | transformer | ✅              | ✅            | beforeBody       |
 | created-modified-date      | transformer | ✅              | ❌            | -                |
 | syntax-highlighting        | transformer | ✅              | ❌            | -                |
 | obsidian-flavored-markdown | transformer | ✅              | ❌            | -                |
@@ -515,6 +518,7 @@ No TypeScript parsing. No AST manipulation. No Node.js subprocess. Just YAML.
 | cname                      | emitter     | ✅              | ❌            | -                |
 | canvas-page                | pageType    | ✅              | ❌            | -                |
 | content-page               | pageType    | ✅              | ❌            | -                |
+| bases-page                 | pageType    | ✅              | ❌            | -                |
 | folder-page                | pageType    | ✅              | ❌            | -                |
 | tag-page                   | pageType    | ✅              | ❌            | -                |
 | explorer                   | emitter     | ✅              | ✅            | left             |
@@ -531,3 +535,4 @@ No TypeScript parsing. No AST manipulation. No Node.js subprocess. Just YAML.
 | comments                   | emitter     | ❌              | ✅            | afterBody        |
 | footer                     | emitter     | ✅              | ✅            | footer           |
 | recent-notes               | emitter     | ❌              | ❌            | -                |
+| spacer                     | component   | ✅              | ✅            | left             |
