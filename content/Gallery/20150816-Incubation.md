@@ -1,11 +1,16 @@
 ---
-title: Incubation (醞釀 / 異形卵)
+title: Incubation 孵化
 date: 2015-08-16
-tags: [作品, 南投燒, 柴燒, 現代陶藝, 異形卵]
+tags:
+  - 作品
+  - 南投燒
+  - 柴燒
+  - 現代陶藝
+  - 異形卵
 ---
 
 # Incubation 孵化
-這是 2015 年南投陶展示館的作品。
+2015 年南投陶展示館的作品。
 
 ![Incubation 作品展示|400](20150816-Incubation-01.webp)
 
