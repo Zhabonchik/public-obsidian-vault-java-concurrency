@@ -10,14 +10,14 @@ const config: QuartzConfig = {
   configuration: {
     pageTitle: "靜觀微語",
     pageTitleSuffix: "",
-    enableSPA: false,
+    enableSPA: true,
     enablePopovers: true,
     analytics: {
-  provider: "null",
+  provider: "umami",
   websiteId: "d6f39378-93d1-416e-94f5-2f29b2474f4a",
   host: "https://cloud.umami.is", // 拿掉後面的 /script.js
 },
-    locale: "en-US",
+    locale: "zh-TW",
     baseUrl: "vcdvcd.com",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
