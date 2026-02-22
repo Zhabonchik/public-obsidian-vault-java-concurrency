@@ -22,3 +22,8 @@ tags:
 
 在工作室裡，我其實很喜歡這種敲敲打打、很大聲的時候。
 
+
+
+---
+### 相關設備
+- [[notes/Equipment/Vacuum-Pug-Mill-2HP|練土機]]
