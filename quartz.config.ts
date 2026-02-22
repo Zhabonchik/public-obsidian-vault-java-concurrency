@@ -52,7 +52,7 @@ const config: QuartzConfig = {
   },
   plugins: {
     transformers: [
-      Plugin.FrontMatter(),
+      // FrontMatter processing now handled by note-properties plugin (via quartz.config.yaml)
       ExternalPlugin.CreatedModifiedDate({
         priority: ["frontmatter", "git", "filesystem"],
       }),
