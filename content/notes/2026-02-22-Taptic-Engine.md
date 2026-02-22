@@ -32,4 +32,4 @@ tags:
 > [!abstract] **從紀錄到實踐 (Practice Alignment)**
 > 既然工藝是為了對抗消逝，那麼每一次的對位與投件，都是在為生命尋找更久的容身之處。
 > 
-> 🔗 **[[notes/open-call/index|2026 年度工藝賽事對位工具書]]**
+> 🔗 **[[lin-yung-chang/content/notes/open-call/index|2026 年度工藝賽事對位工具書]]**
