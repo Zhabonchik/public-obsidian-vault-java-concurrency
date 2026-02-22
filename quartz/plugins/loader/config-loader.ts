@@ -258,8 +258,17 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
   for (const entry of enabledEntries) {
     const manifest = manifests.get(entry.source)
     const category = manifest?.category
+    // Resolve processing category: for array categories (e.g. ["transformer", "component"]),
+    // find the first processing category. "component" is handled separately via loadComponentsFromPackage.
+    const processingCategories = ["transformer", "filter", "emitter", "pageType"] as const
+    let resolvedCategory: string | undefined
+    if (Array.isArray(category)) {
+      resolvedCategory = category.find((c) => (processingCategories as readonly string[]).includes(c))
+    } else {
+      resolvedCategory = category
+    }
 
-    switch (category) {
+    switch (resolvedCategory) {
       case "transformer":
         transformers.push({ entry, manifest })
         break
@@ -358,7 +367,7 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
 
   // Import built-in plugins
   const builtinPlugins = await import("../index")
-  const builtinTransformers = [builtinPlugins.FrontMatter()]
+  const builtinTransformers: unknown[] = []
   const builtinEmitters = [
     builtinPlugins.ComponentResources(),
     builtinPlugins.Assets(),

@@ -49,7 +49,7 @@ export interface PluginManifest {
   author?: string
   homepage?: string
   keywords?: string[]
-  category?: PluginCategory
+  category?: PluginCategory | PluginCategory[]
   quartzVersion?: string
   /** Plugin sources this plugin depends on (e.g., "github:quartz-community/crawl-links") */
   dependencies?: string[]
