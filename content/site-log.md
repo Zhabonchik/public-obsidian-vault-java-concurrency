@@ -7,6 +7,17 @@ description: Still Whispers 網站優化與待辦清單
 紀錄「靜觀微語」數位圖書館的建置過程、技術參數與結構更動。
 
 ---
+> [!abstract]- 📅 2026-02-22 | 賽事對位系統建置與首頁 SEO 深度重構
+> - **🗓️ 賽事對位系統 (Open Call System)**
+>     [cite_start]- **建立「規格工具書」**：於 `notes/open-call/` 目錄下建立 [[notes/open-call/yushan-fine-arts-award|玉山獎]]、[[notes/open-call/huangsi-art-exhibition|磺溪美展]]及[[notes/open-call/golden-teapot-award|金壺獎]]專屬頁面 [cite: 2, 176, 280]。
+>     [cite_start]- **原子化管理**：將簡章中的工藝類規格（重量限制 80kg/100kg、尺寸、年份要求）提取為常態性參考資料，實現「去年份化」的長期對位邏輯 [cite: 30, 229, 281]。
+> - **🏛️ 首頁結構進化 (Index Refinement)**
+>     - **賽事地圖實裝**：於首頁導入 `Exhibition Circuit` 表格，直觀呈現年度參賽節奏與目前進度。
+>     - **視覺去亂化**：徹底移除重複的 PDF 連結與過時的文字區塊，確立「地圖入口 → 工具書詳情」的導覽層次。
+> - **🔍 SEO 品牌正名 (Branding & Discovery)**
+>     [cite_start]- **官方譯名同步**：全面採用官方英文譯名如 *Nantou County Yushan Fine Arts Award* 與 *Huang-Si Art Exhibition* [cite: 2, 176]。
+>     - **Meta Description 優化**：重構網頁描述，鎖定「賽事對位」、「設備維護」與「文獻整理」三大關鍵字，提升在工藝社群的搜尋權威。
+> - **📸 影像敘事佈局**：將代表性投材紀錄照移至首頁底部，平衡「計畫性表格」與「現場職人感」。
 > [!abstract]- 📅 2026-02-06 | 品牌識別整合：Favicon 實裝與搜尋引擎驗證
 > - **🎨 視覺識別與 Favicon 革命 (Branding & Identity)**
 >     - **負片「永」字實裝**：採用 [[2026-02-07-signature-stamp|2026 年新落款字體]]，經負片模式處理後上傳至 `static/icon.png`。
