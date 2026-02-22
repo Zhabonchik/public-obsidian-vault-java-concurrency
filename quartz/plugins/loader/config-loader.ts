@@ -263,7 +263,9 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
     const processingCategories = ["transformer", "filter", "emitter", "pageType"] as const
     let resolvedCategory: string | undefined
     if (Array.isArray(category)) {
-      resolvedCategory = category.find((c) => (processingCategories as readonly string[]).includes(c))
+      resolvedCategory = category.find((c) =>
+        (processingCategories as readonly string[]).includes(c),
+      )
     } else {
       resolvedCategory = category
     }

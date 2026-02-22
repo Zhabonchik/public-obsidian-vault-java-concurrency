@@ -52,7 +52,7 @@ plugins:
         - aliases
       excludedProperties: []
       hidePropertiesView: false
-      delimiters: "---"
+      delimiters: ---
       language: yaml
     order: 5
     layout:
@@ -221,6 +221,27 @@ plugins:
     order: 15
     layout:
       position: left
+      priority: 15
+      display: all
+  - source: github:quartz-community/bases-page
+    enabled: true
+    options: {}
+    order: 50
+  - source: github:quartz-community/note-properties
+    enabled: true
+    options:
+      includeAll: false
+      includedProperties:
+        - description
+        - tags
+        - aliases
+      excludedProperties: []
+      hidePropertiesView: false
+      delimiters: ---
+      language: yaml
+    order: 5
+    layout:
+      position: beforeBody
       priority: 15
       display: all
 layout:
