@@ -1,6 +1,7 @@
 import { styleText } from "util"
 import {
   PluginManifest,
+  PluginCategory,
   LoadedPlugin,
   PluginResolution,
   PluginResolutionError,
@@ -198,13 +199,46 @@ async function resolveSinglePlugin(
         }
       }
 
-      // Normalize to single category for factory extraction (use primary/first category)
-      const detectedType = Array.isArray(categoryOrCategories)
+      // Normalize to single processing category for factory extraction
+      const processingCategories = ["transformer", "filter", "emitter", "pageType"] as const
+      type ProcessingCategory = (typeof processingCategories)[number]
+      const detectedType: PluginCategory = Array.isArray(categoryOrCategories)
         ? categoryOrCategories[0]
         : categoryOrCategories
+      const processingType: ProcessingCategory | undefined = Array.isArray(categoryOrCategories)
+        ? (categoryOrCategories.find((c) =>
+            (processingCategories as readonly string[]).includes(c),
+          ) as ProcessingCategory | undefined)
+        : (processingCategories as readonly string[]).includes(categoryOrCategories)
+          ? (categoryOrCategories as ProcessingCategory)
+          : undefined
 
-      const factory = extractPluginFactory(module, detectedType)
+      // Component-only plugins don't have a processing factory
+      if (!processingType) {
+        const fullManifest: PluginManifest = {
+          name: manifest.name ?? gitSpec.name,
+          displayName: manifest.displayName ?? gitSpec.name,
+          description: manifest.description ?? "No description provided",
+          version: manifest.version ?? "1.0.0",
+          author: manifest.author,
+          homepage: manifest.homepage,
+          keywords: manifest.keywords,
+          category: manifest.category ?? detectedType,
+          quartzVersion: manifest.quartzVersion,
+          configSchema: manifest.configSchema,
+        }
 
+        if (options.verbose) {
+          console.log(
+            styleText("green", `\u2713`) +
+              ` Loaded ${detectedType} plugin: ${styleText("cyan", fullManifest.displayName)}@${fullManifest.version} ${styleText("gray", `(from ${gitSpec.repo})`)}`,
+          )
+        }
+
+        return { plugin: null, error: null }
+      }
+
+      const factory = extractPluginFactory(module, processingType)
       if (!factory) {
         return {
           plugin: null,
@@ -282,10 +316,19 @@ async function resolveSinglePlugin(
       }
     }
 
-    // Normalize to single category for factory extraction (use primary/first category)
-    const detectedType = Array.isArray(categoryOrCategories)
+    // Normalize to single processing category for factory extraction
+    const processingCategories = ["transformer", "filter", "emitter", "pageType"] as const
+    type ProcessingCategory = (typeof processingCategories)[number]
+    const detectedType: PluginCategory = Array.isArray(categoryOrCategories)
       ? categoryOrCategories[0]
       : categoryOrCategories
+    const processingType: ProcessingCategory | undefined = Array.isArray(categoryOrCategories)
+      ? (categoryOrCategories.find((c) =>
+          (processingCategories as readonly string[]).includes(c),
+        ) as ProcessingCategory | undefined)
+      : (processingCategories as readonly string[]).includes(categoryOrCategories)
+        ? (categoryOrCategories as ProcessingCategory)
+        : undefined
 
     if (
       manifest.quartzVersion &&
@@ -300,14 +343,39 @@ async function resolveSinglePlugin(
         },
       }
     }
-    const factory = extractPluginFactory(importedModule, detectedType)
 
+    // Component-only plugins don't have a processing factory
+    if (!processingType) {
+      const fullManifest: PluginManifest = {
+        name: manifest.name ?? packageName,
+        displayName: manifest.displayName ?? packageName,
+        description: manifest.description ?? "No description provided",
+        version: manifest.version ?? "1.0.0",
+        author: manifest.author,
+        homepage: manifest.homepage,
+        keywords: manifest.keywords,
+        category: manifest.category ?? detectedType,
+        quartzVersion: manifest.quartzVersion,
+        configSchema: manifest.configSchema,
+      }
+
+      if (options.verbose) {
+        console.log(
+          styleText("green", `\u2713`) +
+            ` Loaded ${detectedType} plugin: ${styleText("cyan", fullManifest.displayName)}@${fullManifest.version}`,
+        )
+      }
+
+      return { plugin: null, error: null }
+    }
+
+    const factory = extractPluginFactory(importedModule, processingType)
     if (!factory) {
       return {
         plugin: null,
         error: {
           plugin: packageName,
-          message: `Could not find plugin factory in module. Expected 'export default' or '${detectedType}' export.`,
+          message: `Could not find plugin factory in module. Expected 'export default' or '${processingType}' export.`,
           type: "invalid-manifest",
         },
       }
