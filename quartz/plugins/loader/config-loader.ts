@@ -12,7 +12,6 @@ import {
   LayoutConfig,
   PluginLayoutDeclaration,
   FlexGroupConfig,
-  PluginCategory,
 } from "./types"
 import { parsePluginSource, installPlugin, getPluginEntryPoint } from "./gitLoader"
 import { loadComponentsFromPackage } from "./componentLoader"
@@ -284,8 +283,17 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
         pageTypes.push({ entry, manifest })
         break
       default: {
-        // Try to detect category from the loaded module
         const gitSpec = parsePluginSource(entry.source)
+        const isComponentOnly =
+          resolvedCategory === "component" ||
+          (Array.isArray(category) && category.every((c) => c === "component"))
+
+        if (isComponentOnly) {
+          if (manifest?.components && Object.keys(manifest.components).length > 0) {
+            await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+          }
+          break
+        }
         const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
         try {
           const module = await import(entryPoint)
@@ -298,6 +306,8 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
               pageType: pageTypes,
             }[detected]
             target.push({ entry, manifest })
+          } else if (manifest?.components && Object.keys(manifest.components).length > 0) {
+            await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
           } else {
             console.warn(
               styleText("yellow", `⚠`) +
@@ -305,10 +315,14 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
             )
           }
         } catch {
-          console.warn(
-            styleText("yellow", `⚠`) +
-              ` Could not load plugin "${extractPluginName(entry.source)}" to detect category. Skipping.`,
-          )
+          if (manifest?.components && Object.keys(manifest.components).length > 0) {
+            await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+          } else {
+            console.warn(
+              styleText("yellow", `⚠`) +
+                ` Could not load plugin "${extractPluginName(entry.source)}" to detect category. Skipping.`,
+            )
+          }
         }
       }
     }
@@ -332,6 +346,7 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
   // Instantiate plugins
   const instantiate = async (
     items: { entry: PluginJsonEntry; manifest: PluginManifest | undefined }[],
+    expectedCategory: ProcessingCategory,
   ) => {
     const instances = []
     for (const { entry, manifest } of items) {
@@ -339,22 +354,18 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
         const gitSpec = parsePluginSource(entry.source)
         const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
         const module = await import(entryPoint)
-
-        // Load components if declared
         if (manifest?.components && Object.keys(manifest.components).length > 0) {
-          await loadComponentsFromPackage(entryPoint, manifest)
+          await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
         }
 
-        const factory = module.default ?? module.plugin
-        if (typeof factory !== "function") {
+        const factory = findFactory(module, expectedCategory)
+        if (!factory) {
           console.warn(
             styleText("yellow", `⚠`) +
-              ` Plugin "${extractPluginName(entry.source)}" has no factory function. Skipping.`,
+              ` Plugin "${extractPluginName(entry.source)}" has no factory function for category "${expectedCategory}". Skipping.`,
           )
           continue
         }
-
-        // Merge default options with user options
         const options = { ...manifest?.defaultOptions, ...entry.options }
         instances.push(factory(Object.keys(options).length > 0 ? options : undefined))
       } catch (err) {
@@ -378,19 +389,77 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
   const builtinPageTypes = [builtinPlugins.PageTypes.NotFoundPageType()]
 
   const plugins: PluginTypes = {
-    transformers: [...builtinTransformers, ...(await instantiate(transformers))],
-    filters: await instantiate(filters),
-    emitters: [...builtinEmitters, ...(await instantiate(emitters))],
-    pageTypes: [...(await instantiate(pageTypes)), ...builtinPageTypes],
+    transformers: [...builtinTransformers, ...(await instantiate(transformers, "transformer"))],
+    filters: await instantiate(filters, "filter"),
+    emitters: [...builtinEmitters, ...(await instantiate(emitters, "emitter"))],
+    pageTypes: [...(await instantiate(pageTypes, "pageType")), ...builtinPageTypes],
   }
 
+  // Load layout and add PageTypeDispatcher to emitters.
+  // This must happen after plugin instantiation so the component registry is populated.
+  const layout = await loadQuartzLayout()
+  plugins.emitters.push(
+    builtinPlugins.PageTypes.PageTypeDispatcher({
+      defaults: layout.defaults,
+      byPageType: layout.byPageType,
+    }),
+  )
   return {
     configuration,
     plugins,
   }
 }
 
-function detectCategoryFromModule(module: unknown): PluginCategory | null {
+type ProcessingCategory = "transformer" | "filter" | "emitter" | "pageType"
+
+function matchesCategory(factory: Function, expected: ProcessingCategory): boolean {
+  try {
+    const instance = factory()
+    if (!instance || typeof instance !== "object") return false
+    switch (expected) {
+      case "pageType":
+        return "match" in instance && "body" in instance && "layout" in instance
+      case "emitter":
+        return "emit" in instance
+      case "filter":
+        return "shouldPublish" in instance
+      case "transformer":
+        return (
+          "textTransform" in instance || "markdownPlugins" in instance || "htmlPlugins" in instance
+        )
+    }
+  } catch {
+    return false
+  }
+}
+
+function findFactory(
+  module: Record<string, unknown>,
+  expectedCategory: ProcessingCategory,
+): Function | null {
+  if (
+    typeof module.default === "function" &&
+    matchesCategory(module.default as Function, expectedCategory)
+  ) {
+    return module.default as Function
+  }
+  if (
+    typeof module.plugin === "function" &&
+    matchesCategory(module.plugin as Function, expectedCategory)
+  ) {
+    return module.plugin as Function
+  }
+
+  for (const [, value] of Object.entries(module)) {
+    if (typeof value === "function" && matchesCategory(value as Function, expectedCategory)) {
+      return value as Function
+    }
+  }
+
+  return null
+}
+
+function detectCategoryFromModule(module: unknown): ProcessingCategory | null {
   if (!module || typeof module !== "object") return null
   const mod = module as Record<string, unknown>
 
@@ -474,23 +543,24 @@ export async function loadQuartzLayout(): Promise<{
   const HeadModule = await import("../../components/Head")
   const head = HeadModule.default()
 
-  // Find footer plugin
+  // Find footer from component registry (loaded during plugin instantiation)
   const footerEntry = json.plugins.find(
     (e) => e.enabled && extractPluginName(e.source) === "footer",
   )
   let footer: QuartzComponent | undefined
   if (footerEntry) {
-    try {
-      const gitSpec = parsePluginSource(footerEntry.source)
-      const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
-      const module = await import(entryPoint)
-      const factory = module.default ?? module.plugin
-      if (typeof factory === "function") {
-        const options = { ...footerEntry.options }
-        footer = factory(Object.keys(options).length > 0 ? options : undefined)
+    // Try registry lookup: plugin name ("footer") or export name ("Footer")
+    const footerReg = componentRegistry.get("footer") ?? componentRegistry.get("Footer")
+    if (footerReg) {
+      if (typeof footerReg.component === "function" && !("displayName" in footerReg.component)) {
+        // It's a constructor, instantiate with options
+        const opts = { ...footerEntry.options }
+        footer = (footerReg.component as Function)(
+          Object.keys(opts).length > 0 ? opts : undefined,
+        ) as QuartzComponent
+      } else {
+        footer = footerReg.component as QuartzComponent
       }
-    } catch {
-      // Footer not available
     }
   }
 

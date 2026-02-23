@@ -168,31 +168,102 @@ export function isPluginInstalled(name: string): boolean {
 }
 
 /**
- * Get the entry point for a plugin
+ * Get the entry point for a plugin.
+ * Prefers compiled dist/ output over raw src/ to avoid ESM resolution issues.
  */
 export function getPluginEntryPoint(name: string, subdir?: string): string {
   const pluginDir = getPluginDir(name)
   const searchDir = subdir ? path.join(pluginDir, subdir) : pluginDir
+  // Check package.json exports first (most reliable)
+  const pkgJsonPath = path.join(searchDir, "package.json")
+  if (fs.existsSync(pkgJsonPath)) {
+    try {
+      const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
+      const exportEntry = pkg.exports?.["."]
+      const importPath = typeof exportEntry === "string" ? exportEntry : exportEntry?.import
+      if (importPath) {
+        const resolved = path.join(searchDir, importPath)
+        if (fs.existsSync(resolved)) {
+          return resolved
+        }
+      }
+      // Fall back to main/module fields
+      const mainField = pkg.module ?? pkg.main
+      if (mainField) {
+        const resolved = path.join(searchDir, mainField)
+        if (fs.existsSync(resolved)) {
+          return resolved
+        }
+      }
+    } catch {
+      // package.json parse error, fall through to candidates
+    }
+  }
 
-  // Try common entry points
+  // Try common entry points — prefer compiled dist/ over raw src/
   const candidates = [
-    path.join(searchDir, "src", "index.ts"),
-    path.join(searchDir, "src", "index.js"),
-    path.join(searchDir, "index.ts"),
-    path.join(searchDir, "index.js"),
     path.join(searchDir, "dist", "index.js"),
+    path.join(searchDir, "dist", "index.mjs"),
+    path.join(searchDir, "index.js"),
+    path.join(searchDir, "index.ts"),
+    path.join(searchDir, "src", "index.js"),
+    path.join(searchDir, "src", "index.ts"),
   ]
-
   for (const candidate of candidates) {
     if (fs.existsSync(candidate)) {
       return candidate
     }
   }
-
   // If no entry found, return the search dir and let Node handle it
   return searchDir
 }
 
+/**
+ * Resolve a subpath export for a plugin (e.g. "./components").
+ * Uses package.json exports map, then falls back to dist/ directory structure.
+ */
+export function getPluginSubpathEntry(
+  name: string,
+  subpath: string,
+  subdir?: string,
+): string | null {
+  const pluginDir = getPluginDir(name)
+  const searchDir = subdir ? path.join(pluginDir, subdir) : pluginDir
+
+  // Check package.json exports map
+  const pkgJsonPath = path.join(searchDir, "package.json")
+  if (fs.existsSync(pkgJsonPath)) {
+    try {
+      const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
+      const exportEntry = pkg.exports?.[subpath]
+      const importPath = typeof exportEntry === "string" ? exportEntry : exportEntry?.import
+      if (importPath) {
+        const resolved = path.join(searchDir, importPath)
+        if (fs.existsSync(resolved)) {
+          return resolved
+        }
+      }
+    } catch {
+      // fall through
+    }
+  }
+
+  // Fall back: try dist/<subpath>/index.js
+  const subpathClean = subpath.replace(/^\.\/?/, "")
+  const fallbackCandidates = [
+    path.join(searchDir, "dist", subpathClean, "index.js"),
+    path.join(searchDir, "dist", `${subpathClean}.js`),
+    path.join(searchDir, subpathClean, "index.js"),
+  ]
+
+  for (const candidate of fallbackCandidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate
+    }
+  }
+
+  return null
+}
 /**
  * Update all installed plugins
  */

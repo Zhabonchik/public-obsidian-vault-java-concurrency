@@ -25,7 +25,8 @@ class ComponentRegistry {
     source: string,
     manifest?: ComponentManifest,
   ): void {
-    if (this.components.has(name)) {
+    const existing = this.components.get(name)
+    if (existing && existing.source !== source) {
       console.warn(`Component "${name}" is being overwritten by ${source}`)
     }
     this.components.set(name, { component, source, manifest })
@@ -40,12 +41,27 @@ class ComponentRegistry {
   }
 
   getAllComponents(): QuartzComponent[] {
-    return Array.from(this.components.values()).map((r) => {
-      if (typeof r.component === "function") {
-        return (r.component as QuartzComponentConstructor)(undefined)
+    // Deduplicate by component reference (same constructor may be registered under multiple keys)
+    const seen = new Set<QuartzComponent | QuartzComponentConstructor>()
+    const results: QuartzComponent[] = []
+    for (const r of this.components.values()) {
+      if (seen.has(r.component)) continue
+      seen.add(r.component)
+      try {
+        let instance: QuartzComponent
+        if (typeof r.component === "function") {
+          instance = (r.component as QuartzComponentConstructor)(undefined)
+        } else {
+          instance = r.component as QuartzComponent
+        }
+        if (instance) {
+          results.push(instance)
+        }
+      } catch {
+        // Skip components that fail to instantiate
       }
-      return r.component as QuartzComponent
-    })
+    }
+    return results
   }
 }
 

@@ -6,7 +6,7 @@ import {
 } from "../types"
 import { BuildCtx } from "../../util/ctx"
 
-export type PluginCategory = "transformer" | "filter" | "emitter" | "pageType"
+export type PluginCategory = "transformer" | "filter" | "emitter" | "pageType" | "component"
 
 export type LayoutPosition = "left" | "right" | "beforeBody" | "afterBody"
 
