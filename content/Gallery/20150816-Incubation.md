@@ -1,5 +1,5 @@
 ---
-title: Incubation 孵化
+title: Incubation 孵
 date: 2015-08-16
 tags:
   - 作品
@@ -9,7 +9,7 @@ tags:
   - 異形卵
 ---
 
-# Incubation 孵化
+# Incubation 孵
 2015 年南投陶展示館的作品。
 
 ![Incubation 作品展示|400](20150816-Incubation-01.webp)
