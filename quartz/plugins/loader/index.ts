@@ -144,7 +144,8 @@ async function resolveSinglePlugin(
       pluginSource = "git"
     }
   } else if ("plugin" in specifier) {
-    const type = specifier.manifest?.category ?? "transformer"
+    const rawType = specifier.manifest?.category ?? "transformer"
+    const type = Array.isArray(rawType) ? rawType[0] : rawType
     return {
       plugin: {
         plugin: specifier.plugin as QuartzTransformerPlugin,
@@ -153,10 +154,10 @@ async function resolveSinglePlugin(
           displayName: specifier.manifest?.displayName ?? "Inline Plugin",
           description: specifier.manifest?.description ?? "Inline plugin instance",
           version: specifier.manifest?.version ?? "1.0.0",
-          category: type as "transformer" | "filter" | "emitter",
+          category: rawType,
           ...specifier.manifest,
         } as PluginManifest,
-        type: type as "transformer" | "filter" | "emitter",
+        type,
         source: "inline",
       },
       error: null,
@@ -184,9 +185,9 @@ async function resolveSinglePlugin(
 
       manifest = importedManifest ?? {}
 
-      const detectedType = manifest.category ?? detectPluginType(module)
+      const categoryOrCategories = manifest.category ?? detectPluginType(module)
 
-      if (!detectedType) {
+      if (!categoryOrCategories) {
         return {
           plugin: null,
           error: {
@@ -196,6 +197,11 @@ async function resolveSinglePlugin(
           },
         }
       }
+
+      // Normalize to single category for factory extraction (use primary/first category)
+      const detectedType = Array.isArray(categoryOrCategories)
+        ? categoryOrCategories[0]
+        : categoryOrCategories
 
       const factory = extractPluginFactory(module, detectedType)
 
@@ -263,9 +269,9 @@ async function resolveSinglePlugin(
       await loadComponentsFromPackage(packageName, manifest as PluginManifest)
     }
 
-    const detectedType = manifest.category ?? detectPluginType(importedModule)
+    const categoryOrCategories = manifest.category ?? detectPluginType(importedModule)
 
-    if (!detectedType) {
+    if (!categoryOrCategories) {
       return {
         plugin: null,
         error: {
@@ -275,6 +281,11 @@ async function resolveSinglePlugin(
         },
       }
     }
+
+    // Normalize to single category for factory extraction (use primary/first category)
+    const detectedType = Array.isArray(categoryOrCategories)
+      ? categoryOrCategories[0]
+      : categoryOrCategories
 
     if (
       manifest.quartzVersion &&
@@ -289,7 +300,6 @@ async function resolveSinglePlugin(
         },
       }
     }
-
     const factory = extractPluginFactory(importedModule, detectedType)
 
     if (!factory) {
