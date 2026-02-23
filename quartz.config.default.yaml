@@ -55,9 +55,6 @@ plugins:
       delimiters: "---"
       language: yaml
     order: 5
-    layout:
-      position: beforeBody
-      priority: 15
   - source: github:quartz-community/created-modified-date
     enabled: true
     options:

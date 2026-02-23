@@ -154,8 +154,8 @@
     "note-properties": {
       "source": "github:quartz-community/note-properties",
       "resolved": "https://github.com/quartz-community/note-properties.git",
-      "commit": "75ba1049957293bb726672fa5f1b06bb43cf4ad1",
-      "installedAt": "2026-02-23T08:37:39.042Z"
+      "commit": "a67025816e6410254c9210405daeeba1da6b1142",
+      "installedAt": "2026-02-23T18:37:33.084Z"
     },
     "obsidian-flavored-markdown": {
       "source": "github:quartz-community/obsidian-flavored-markdown",

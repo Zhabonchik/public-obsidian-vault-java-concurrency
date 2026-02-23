@@ -52,7 +52,14 @@ const config: QuartzConfig = {
   },
   plugins: {
     transformers: [
-      // FrontMatter processing now handled by note-properties plugin (via quartz.config.yaml)
+      ExternalPlugin.NoteProperties({
+        includeAll: false,
+        includedProperties: ["description", "tags", "aliases"],
+        excludedProperties: [],
+        hidePropertiesView: false,
+        delimiters: "---",
+        language: "yaml",
+      }),
       ExternalPlugin.CreatedModifiedDate({
         priority: ["frontmatter", "git", "filesystem"],
       }),
@@ -90,6 +97,7 @@ const config: QuartzConfig = {
     ],
     pageTypes: [
       ExternalPlugin.CanvasPage(),
+      ExternalPlugin.BasesPage(),
       ExternalPlugin.ContentPage(),
       ExternalPlugin.FolderPage(),
       ExternalPlugin.TagPage(),
@@ -132,6 +140,11 @@ const config: QuartzConfig = {
     "github:quartz-community/content-index",
     "github:quartz-community/og-image",
     "github:quartz-community/canvas-page",
+    "github:quartz-community/note-properties",
+    "github:quartz-community/bases-page",
+    "github:quartz-community/breadcrumbs",
+    "github:quartz-community/spacer",
+    "github:quartz-community/recent-notes",
   ],
 }
 

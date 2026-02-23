@@ -15,6 +15,7 @@ const pageTitleComponent = Plugin.PageTitle()
 const darkmodeComponent = Plugin.Darkmode()
 const readerModeComponent = Plugin.ReaderMode()
 const breadcrumbsComponent = Plugin.Breadcrumbs()
+const notePropertiesComponent = Plugin.NotePropertiesComponent()
 
 export const layout: {
   defaults: Partial<FullPageLayout>
@@ -47,6 +48,7 @@ export const layout: {
           condition: (page) => page.fileData.slug !== "index",
         }),
         articleTitleComponent,
+        notePropertiesComponent,
         contentMetaComponent,
         tagListComponent,
       ],
@@ -70,7 +72,12 @@ export const layout: {
 
     // Folder listing pages
     folder: {
-      beforeBody: [breadcrumbsComponent, articleTitleComponent, contentMetaComponent],
+      beforeBody: [
+        breadcrumbsComponent,
+        articleTitleComponent,
+        notePropertiesComponent,
+        contentMetaComponent,
+      ],
       left: [
         pageTitleComponent,
         Component.MobileOnly(Component.Spacer()),
@@ -90,7 +97,12 @@ export const layout: {
 
     // Tag listing pages
     tag: {
-      beforeBody: [breadcrumbsComponent, articleTitleComponent, contentMetaComponent],
+      beforeBody: [
+        breadcrumbsComponent,
+        articleTitleComponent,
+        notePropertiesComponent,
+        contentMetaComponent,
+      ],
       left: [
         pageTitleComponent,
         Component.MobileOnly(Component.Spacer()),
@@ -117,7 +129,7 @@ export const layout: {
 
     // Canvas pages — expansive layout, no sidebars
     canvas: {
-      beforeBody: [breadcrumbsComponent, articleTitleComponent],
+      beforeBody: [breadcrumbsComponent, articleTitleComponent, notePropertiesComponent],
       left: [
         pageTitleComponent,
         Component.MobileOnly(Component.Spacer()),
