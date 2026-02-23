@@ -22,8 +22,8 @@
     "bases-page": {
       "source": "github:quartz-community/bases-page",
       "resolved": "https://github.com/quartz-community/bases-page.git",
-      "commit": "9475efea1eb246d3b1f0053780710061070686b8",
-      "installedAt": "2026-02-23T00:39:58.836Z"
+      "commit": "b3fca7454784b45d6dcbf77d7d0aaf9c5021a58b",
+      "installedAt": "2026-02-23T09:04:27.072Z"
     },
     "breadcrumbs": {
       "source": "github:quartz-community/breadcrumbs",
@@ -154,8 +154,8 @@
     "note-properties": {
       "source": "github:quartz-community/note-properties",
       "resolved": "https://github.com/quartz-community/note-properties.git",
-      "commit": "c074e112d626b6db37d0347ad482b3b865a8b591",
-      "installedAt": "2026-02-23T00:40:10.887Z"
+      "commit": "75ba1049957293bb726672fa5f1b06bb43cf4ad1",
+      "installedAt": "2026-02-23T08:37:39.042Z"
     },
     "obsidian-flavored-markdown": {
       "source": "github:quartz-community/obsidian-flavored-markdown",
