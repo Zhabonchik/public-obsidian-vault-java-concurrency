@@ -3,6 +3,20 @@ import path from "path"
 import git from "isomorphic-git"
 import http from "isomorphic-git/http/node"
 import { styleText } from "util"
+import { pathToFileURL } from "url"
+
+/**
+ * Convert an absolute filesystem path to a file:// URL string for use with dynamic import().
+ * On Windows, absolute paths like D:\path\file.js have "D:" interpreted as a URL protocol
+ * by Node ESM, so they must be converted to file:// URLs.
+ * Non-absolute paths (e.g. npm package names) are returned as-is.
+ */
+export function toFileUrl(filePath: string): string {
+  if (path.isAbsolute(filePath)) {
+    return pathToFileURL(filePath).href
+  }
+  return filePath
+}
 
 export interface GitPluginSpec {
   /** Plugin name (used for directory) */

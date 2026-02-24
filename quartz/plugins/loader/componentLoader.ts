@@ -1,7 +1,7 @@
 import { componentRegistry } from "../../components/registry"
 import { ComponentManifest, PluginManifest } from "./types"
 import { QuartzComponentConstructor } from "../../components/types"
-import { getPluginSubpathEntry } from "./gitLoader"
+import { getPluginSubpathEntry, toFileUrl } from "./gitLoader"
 
 export async function loadComponentsFromPackage(
   pluginName: string,
@@ -15,7 +15,7 @@ export async function loadComponentsFromPackage(
 
     let componentsModule: Record<string, unknown>
     if (componentsPath) {
-      componentsModule = await import(componentsPath)
+      componentsModule = await import(toFileUrl(componentsPath))
     } else {
       componentsModule = await import(`${pluginName}/components`)
     }

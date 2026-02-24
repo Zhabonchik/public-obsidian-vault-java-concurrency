@@ -14,7 +14,7 @@ import {
   QuartzEmitterPlugin,
   QuartzPageTypePlugin,
 } from "../types"
-import { parsePluginSource, installPlugin, getPluginEntryPoint } from "./gitLoader"
+import { parsePluginSource, installPlugin, getPluginEntryPoint, toFileUrl } from "./gitLoader"
 
 const MINIMUM_QUARTZ_VERSION = "4.5.0"
 
@@ -181,7 +181,7 @@ async function resolveSinglePlugin(
       const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
 
       // Import the plugin
-      const module = await import(entryPoint)
+      const module = await import(toFileUrl(entryPoint))
       const importedManifest: PluginManifest | null = module.manifest ?? null
 
       manifest = importedManifest ?? {}

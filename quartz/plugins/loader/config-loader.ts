@@ -13,7 +13,7 @@ import {
   PluginLayoutDeclaration,
   FlexGroupConfig,
 } from "./types"
-import { parsePluginSource, installPlugin, getPluginEntryPoint } from "./gitLoader"
+import { parsePluginSource, installPlugin, getPluginEntryPoint, toFileUrl } from "./gitLoader"
 import { loadComponentsFromPackage } from "./componentLoader"
 import { componentRegistry } from "../../components/registry"
 import { getCondition } from "./conditions"
@@ -157,7 +157,7 @@ async function resolvePluginManifest(source: string): Promise<PluginManifest | n
   try {
     const gitSpec = parsePluginSource(source)
     const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
-    const module = await import(entryPoint)
+    const module = await import(toFileUrl(entryPoint))
     return module.manifest ?? null
   } catch {
     return null
@@ -296,7 +296,7 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
         }
         const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
         try {
-          const module = await import(entryPoint)
+          const module = await import(toFileUrl(entryPoint))
           const detected = detectCategoryFromModule(module)
           if (detected) {
             const target = {
@@ -353,7 +353,7 @@ export async function loadQuartzConfig(): Promise<QuartzConfig> {
       try {
         const gitSpec = parsePluginSource(entry.source)
         const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
-        const module = await import(entryPoint)
+        const module = await import(toFileUrl(entryPoint))
         if (manifest?.components && Object.keys(manifest.components).length > 0) {
           await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
         }
