@@ -2,28 +2,37 @@
 title: quartz update
 ---
 
-The `update` command keeps your Quartz installation up to date with the latest features and bug fixes from the official repository.
+The `update` command updates your installed plugins to their latest versions. It is a convenient shortcut for `npx quartz plugin update`.
 
-## How it Works
+## Usage
 
-When you run `npx quartz update`, Quartz attempts to pull the latest code from the upstream Quartz repository. It uses Git to merge these changes into your local project.
+Update all installed plugins:
 
 ```shell
 npx quartz update
 ```
 
-## Handling Conflicts
+Update specific plugins by name:
 
-Because Quartz allows you to customize almost every part of the code, updates can sometimes result in merge conflicts. This happens if you have modified a file that the Quartz team has also updated.
+```shell
+npx quartz update my-plugin another-plugin
+```
 
-If a conflict occurs:
+## How it Works
 
-1. Git will mark the conflicting sections in the affected files.
-2. You will need to open these files and manually choose which changes to keep.
-3. After resolving the conflicts, you can commit the changes.
+For each plugin, `update` fetches the latest commit from the plugin's remote repository and rebuilds it. The lockfile (`quartz.lock.json`) is updated with the new commit hashes.
 
-## Recovery
+This is functionally identical to running:
 
-If an update goes wrong or leaves your project in an unusable state, you can use the [[cli/restore|restore]] command to recover your content from the local cache.
+```shell
+npx quartz plugin update
+```
 
-For a more detailed guide on the upgrading process, see [[getting-started/upgrading]].
+## Flags
+
+The `update` command supports the standard [[cli/index|common flags]] (`--directory`, `--verbose`).
+
+## See Also
+
+- [[cli/upgrade|quartz upgrade]] — upgrade the Quartz framework itself
+- [[cli/plugin|quartz plugin]] — full plugin management (install, remove, enable, disable, etc.)

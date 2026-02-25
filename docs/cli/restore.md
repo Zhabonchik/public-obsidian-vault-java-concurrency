@@ -8,7 +8,7 @@ The `restore` command is a safety mechanism that allows you to recover your cont
 
 You should use `restore` if:
 
-- A `quartz update` failed and corrupted your content.
+- A `quartz upgrade` failed and corrupted your content.
 - You accidentally deleted files in your content folder.
 - You encountered complex merge conflicts that you want to undo.
 

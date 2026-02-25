@@ -5,6 +5,7 @@ import {
   handleBuild,
   handleCreate,
   handleUpdate,
+  handleUpgrade,
   handleRestore,
   handleSync,
 } from "./cli/handlers.js"
@@ -80,8 +81,16 @@ yargs(hideBin(process.argv))
   .command("create", "Initialize Quartz", CreateArgv, async (argv) => {
     await handleCreate(argv)
   })
-  .command("update", "Get the latest Quartz updates", CommonArgv, async (argv) => {
-    await handleUpdate(argv)
+  .command(
+    "update [names..]",
+    "Update installed plugins to latest version",
+    CommonArgv,
+    async (argv) => {
+      await handleUpdate(argv)
+    },
+  )
+  .command("upgrade", "Upgrade Quartz to the latest version", CommonArgv, async (argv) => {
+    await handleUpgrade(argv)
   })
   .command(
     "restore",

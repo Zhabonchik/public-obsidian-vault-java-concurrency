@@ -18,7 +18,7 @@ This restores all plugins from your `quartz.lock.json` to `.quartz/plugins/`.
 
 ### `tsc` type errors after updating
 
-After running `npx quartz update`, type errors can occur if the update changed internal APIs that your `quartz.ts` overrides depend on. Check the changelog for breaking changes and update your overrides accordingly.
+After running `npx quartz upgrade`, type errors can occur if the update changed internal APIs that your `quartz.ts` overrides depend on. Check the changelog for breaking changes and update your overrides accordingly.
 
 ### Build is slow
 

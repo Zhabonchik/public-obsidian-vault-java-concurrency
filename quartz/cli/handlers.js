@@ -23,7 +23,11 @@ import {
   popContentFolder,
   stashContentFolder,
 } from "./helpers.js"
-import { handlePluginRestore, handlePluginCheck } from "./plugin-git-handlers.js"
+import {
+  handlePluginRestore,
+  handlePluginCheck,
+  handlePluginUpdate,
+} from "./plugin-git-handlers.js"
 import {
   configExists,
   createConfigFromDefault,
@@ -506,10 +510,11 @@ export async function handleBuild(argv) {
 }
 
 /**
- * Handles `npx quartz update`
- * @param {*} argv arguments for `update`
+ * Handles `npx quartz upgrade`
+ * Upgrades the Quartz framework itself by pulling latest changes from upstream.
+ * @param {*} argv arguments for `upgrade`
  */
-export async function handleUpdate(argv) {
+export async function handleUpgrade(argv) {
   const contentFolder = resolveContentPath(argv.directory)
   console.log(`\n${styleText(["bgGreen", "black"], ` Quartz v${version} `)} \n`)
   console.log("Backing up your content")
@@ -528,6 +533,16 @@ export async function handleUpdate(argv) {
   }
 
   await popContentFolder(contentFolder)
+
+  // Read the new version after pulling
+  const newPkg = JSON.parse(fs.readFileSync("./package.json").toString())
+  const newVersion = newPkg.version
+  if (newVersion !== version) {
+    console.log(styleText("cyan", `Upgraded Quartz: v${version} → v${newVersion}`))
+  } else {
+    console.log(styleText("gray", `Quartz is already up to date (v${version})`))
+  }
+
   console.log("Ensuring dependencies are up to date")
 
   /*
@@ -535,7 +550,7 @@ export async function handleUpdate(argv) {
   as it will be unable to find `npm`. This is often the case on systems
   where `npm` is installed via a package manager.
 
-  This means `npx quartz update` will not actually update dependencies
+  This means `npx quartz upgrade` will not actually update dependencies
   on Windows, without a manual `npm i` from the caller.
 
   However, by spawning a shell, we are able to call `npm.cmd`.
@@ -561,6 +576,16 @@ export async function handleUpdate(argv) {
   await handlePluginCheck()
 
   console.log(styleText("green", "Done!"))
+}
+
+/**
+ * Handles `npx quartz update`
+ * Shortcut for `npx quartz plugin update` — updates all installed plugins.
+ * @param {*} argv arguments for `update`
+ */
+export async function handleUpdate(argv) {
+  console.log(`\n${styleText(["bgGreen", "black"], ` Quartz v${version} `)} \n`)
+  await handlePluginUpdate(argv.names)
 }
 
 /**
