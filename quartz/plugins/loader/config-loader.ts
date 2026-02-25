@@ -201,16 +201,21 @@ async function getManifest(source: string): Promise<PluginManifest | null> {
   return (await readManifestFromPackageJson(source)) ?? (await resolvePluginManifest(source))
 }
 
-export async function loadQuartzConfig(): Promise<QuartzConfig> {
+export async function loadQuartzConfig(
+  configOverrides?: Partial<GlobalConfiguration>,
+): Promise<QuartzConfig> {
   const json = readPluginsJson()
 
   if (!json) {
     // Fallback: import old-style config directly
-    const oldConfig = await import("../../../quartz.config")
+    const oldConfig = await import("../../../quartz")
     return oldConfig.default
   }
 
-  const configuration = json.configuration as unknown as GlobalConfiguration
+  const configuration = {
+    ...(json.configuration as unknown as GlobalConfiguration),
+    ...configOverrides,
+  }
 
   const enabledEntries = json.plugins.filter((e) => e.enabled)
   const manifests = new Map<string, PluginManifest>()
@@ -486,7 +491,10 @@ function detectCategoryFromModule(module: unknown): ProcessingCategory | null {
   return null
 }
 
-export async function loadQuartzLayout(): Promise<{
+export async function loadQuartzLayout(layoutOverrides?: {
+  defaults?: Partial<FullPageLayout>
+  byPageType?: Record<string, Partial<FullPageLayout>>
+}): Promise<{
   defaults: Partial<FullPageLayout>
   byPageType: Record<string, Partial<FullPageLayout>>
 }> {
@@ -494,7 +502,7 @@ export async function loadQuartzLayout(): Promise<{
 
   if (!json) {
     // Fallback: import old-style layout directly
-    const oldLayout = await import("../../../quartz.layout")
+    const oldLayout = await import("../../../quartz")
     return oldLayout.layout
   }
 
@@ -579,7 +587,15 @@ export async function loadQuartzLayout(): Promise<{
     if (footer && !pt.footer) pt.footer = footer
   }
 
-  return { defaults: defaultLayout, byPageType }
+  const mergedDefaults = { ...defaultLayout, ...layoutOverrides?.defaults }
+  const mergedByPageType = { ...byPageType }
+  if (layoutOverrides?.byPageType) {
+    for (const [pageType, overrideLayout] of Object.entries(layoutOverrides.byPageType)) {
+      mergedByPageType[pageType] = { ...mergedByPageType[pageType], ...overrideLayout }
+    }
+  }
+
+  return { defaults: mergedDefaults, byPageType: mergedByPageType }
 }
 
 function buildLayoutForEntries(

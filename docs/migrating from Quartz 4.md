@@ -12,7 +12,7 @@ List the key architectural changes:
 
 - **Plugin system**: Plugins are now standalone Git repositories, installed via `npx quartz plugin add`
 - **Import pattern**: Community plugins use `ExternalPlugin.X()` (from `.quartz/plugins`) instead of `Plugin.X()` (from `./quartz/plugins`)
-- **Layout structure**: `quartz.layout.ts` now uses `defaults` + `byPageType` instead of `sharedPageComponents` + per-layout objects
+- **Layout structure**: `quartz.config.yaml` now uses `defaults` + `byPageType` instead of `sharedPageComponents` + per-layout objects
 - **Page Types**: A new plugin category for page rendering (content, folder, tag pages)
 - **Component references**: In layout files, community components use `Plugin.X()` (from `.quartz/plugins`) instead of `Component.X()` (from `./quartz/components`)
 
@@ -67,7 +67,7 @@ npx quartz plugin add github:quartz-community/roam
 npx quartz plugin add github:quartz-community/explicit-publish
 ```
 
-### 2. Update quartz.config.ts
+### 2. Update quartz.config.yaml
 
 Show before (v4) and after (v5) comparison:
 
@@ -99,56 +99,60 @@ plugins: {
 
 **After (v5):**
 
-```ts title="quartz.config.ts"
-import * as Plugin from "./quartz/plugins"
-import * as ExternalPlugin from "./.quartz/plugins"
-import { layout } from "./quartz.layout"
-
-plugins: {
-  transformers: [
-    Plugin.FrontMatter(),
-    ExternalPlugin.CreatedModifiedDate({ priority: ["frontmatter", "git", "filesystem"] }),
-    ExternalPlugin.Latex({ renderEngine: "katex" }),
-  ],
-  filters: [ExternalPlugin.RemoveDrafts()],
-  emitters: [
-    ExternalPlugin.AliasRedirects(),
-    Plugin.ComponentResources(),
-    ExternalPlugin.ContentIndex({ enableSiteMap: true, enableRSS: true }),
-    Plugin.Assets(),
-    Plugin.Static(),
-    ExternalPlugin.Favicon(),
-    Plugin.PageTypes.PageTypeDispatcher({
-      defaults: layout.defaults,
-      byPageType: layout.byPageType,
-    }),
-    ExternalPlugin.CustomOgImages(),
-    ExternalPlugin.CNAME(),
-  ],
-  pageTypes: [
-    ExternalPlugin.ContentPage(),
-    ExternalPlugin.FolderPage(),
-    ExternalPlugin.TagPage(),
-    Plugin.PageTypes.NotFoundPageType(),
-  ],
-},
-externalPlugins: [
-  "github:quartz-community/explorer",
-  "github:quartz-community/graph",
-  // ... all your community plugins
-],
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/note-properties
+    enabled: true
+    options:
+      delimiters: "---"
+      language: yaml
+    order: 5
+  - source: github:quartz-community/created-modified-date
+    enabled: true
+    options:
+      priority:
+        - frontmatter
+        - git
+        - filesystem
+    order: 10
+  - source: github:quartz-community/latex
+    enabled: true
+    options:
+      renderEngine: katex
+    order: 80
+  - source: github:quartz-community/remove-draft
+    enabled: true
+  - source: github:quartz-community/alias-redirects
+    enabled: true
+  - source: github:quartz-community/content-index
+    enabled: true
+    options:
+      enableSiteMap: true
+      enableRSS: true
+  - source: github:quartz-community/favicon
+    enabled: true
+  - source: github:quartz-community/og-image
+    enabled: true
+  - source: github:quartz-community/cname
+    enabled: true
+  - source: github:quartz-community/content-page
+    enabled: true
+  - source: github:quartz-community/folder-page
+    enabled: true
+  - source: github:quartz-community/tag-page
+    enabled: true
+  # ... more plugins
 ```
 
 Key changes:
 
-- `Plugin.X()` becomes `ExternalPlugin.X()` for community plugins
-- `Plugin.FrontMatter()` stays as `Plugin.X()` (it's internal)
-- `Plugin.ComponentResources()`, `Plugin.Assets()`, `Plugin.Static()` stay internal
-- Page-rendering emitters (`ContentPage`, `FolderPage`, `TagPage`, `NotFoundPage`) move to new `pageTypes` array
-- `Plugin.PageTypes.PageTypeDispatcher()` replaces individual page emitters in the `emitters` array
-- New `externalPlugins` array lists all community plugin repos
+- Plugins are now referenced by their GitHub source (`github:org/repo`)
+- Plugin type (transformer, filter, emitter, pageType) is determined by the plugin's manifest, not by which array you place it in
+- Execution order is controlled by the `order` field (lower numbers run first)
+- Each plugin entry has `enabled`, `options`, `order`, and optionally `layout` fields
+- Install community plugins with `npx quartz plugin add github:quartz-community/<name>`
 
-### 3. Update quartz.layout.ts
+### 3. Update layout configuration
 
 Show before (v4) and after (v5):
 
@@ -173,37 +177,92 @@ export const defaultContentPageLayout: PageLayout = {
 
 **After (v5):**
 
-```ts title="quartz.layout.ts"
-import * as Component from "./quartz/components"
-import * as Plugin from "./.quartz/plugins"
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/breadcrumbs
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 5
+  - source: github:quartz-community/article-title
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 10
+  - source: github:quartz-community/content-meta
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 20
+  - source: github:quartz-community/tag-list
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 30
+  - source: github:quartz-community/page-title
+    enabled: true
+    layout:
+      position: left
+      priority: 10
+  - source: github:quartz-community/search
+    enabled: true
+    layout:
+      position: left
+      priority: 20
+  - source: github:quartz-community/darkmode
+    enabled: true
+    layout:
+      position: left
+      priority: 30
+  - source: github:quartz-community/explorer
+    enabled: true
+    layout:
+      position: left
+      priority: 50
+  - source: github:quartz-community/graph
+    enabled: true
+    layout:
+      position: right
+      priority: 10
+  - source: github:quartz-community/backlinks
+    enabled: true
+    layout:
+      position: right
+      priority: 30
+  - source: github:quartz-community/footer
+    enabled: true
+    options:
+      links:
+        GitHub: https://github.com/jackyzha0/quartz
+        Discord Community: https://discord.gg/cRFFHYye7t
 
-export const layout = {
-  defaults: {
-    head: Component.Head(),
-    header: [],
-    afterBody: [],
-    footer: Plugin.Footer({ links: { ... } }),
-  },
-  byPageType: {
-    content: {
-      beforeBody: [Plugin.Breadcrumbs(), Plugin.ArticleTitle(), Plugin.ContentMeta(), Plugin.TagList()],
-      left: [Plugin.PageTitle(), Plugin.Search(), Plugin.Darkmode(), Plugin.Explorer()],
-      right: [Plugin.Graph(), Plugin.TableOfContents(), Plugin.Backlinks()],
-    },
-    folder: { ... },
-    tag: { ... },
-    "404": { beforeBody: [], left: [], right: [] },
-  },
-}
+layout:
+  byPageType:
+    content: {}
+    folder:
+      exclude:
+        - reader-mode
+      positions:
+        right: []
+    tag:
+      exclude:
+        - reader-mode
+      positions:
+        right: []
+    "404":
+      positions:
+        beforeBody: []
+        left: []
+        right: []
 ```
 
 Key changes:
 
-- `Component.X()` for community components becomes `Plugin.X()` (imported from `.quartz/plugins`)
-- `Component.Head()` and other layout utilities stay as `Component.X()` (from `./quartz/components`)
-- `sharedPageComponents` becomes `defaults`
-- Per-layout objects become entries in `byPageType`
-- Each page type (content, folder, tag, 404) gets its own layout override
+- Layout position is now a property on each plugin entry (`layout.position`, `layout.priority`)
+- `sharedPageComponents` is gone — all layout is plugin-driven
+- Per-page-type overrides live in the `layout.byPageType` section
+- Empty arrays (`[]`) clear a position for that page type
+- The `exclude` field removes specific plugins from a page type
 
 ### 4. Update CI/CD
 
@@ -212,7 +271,7 @@ Add `npx quartz plugin restore` to your build pipeline, before `npx quartz build
 ### 5. Commit and Deploy
 
 ```shell
-git add quartz.config.ts quartz.layout.ts quartz.lock.json
+git add quartz.ts quartz.lock.json
 git commit -m "chore: migrate to Quartz 5 plugin system"
 ```
 

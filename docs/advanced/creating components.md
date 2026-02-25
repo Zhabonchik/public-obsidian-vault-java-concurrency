@@ -84,7 +84,7 @@ export type QuartzComponentProps = {
 - `fileData`: Any metadata plugins may have added to the current page.
   - `fileData.slug`: slug of the current page.
   - `fileData.frontmatter`: any frontmatter parsed.
-- `cfg`: The `configuration` field in `quartz.config.ts`.
+- `cfg`: The `configuration` field in `quartz.config.yaml`.
 - `tree`: the resulting [HTML AST](https://github.com/syntax-tree/hast) after processing and transforming the file.
 - `allFiles`: Metadata for all files that have been parsed. Useful for doing page listings or figuring out the overall site structure.
 - `displayClass`: a utility class that indicates a preference from the user about how to render it in a mobile or desktop setting.
@@ -156,19 +156,34 @@ Once your component is published (e.g., to GitHub or npm), users can install it 
 npx quartz plugin add github:your-username/my-component
 ```
 
-Then, they can use it in their `quartz.layout.ts`:
+Then, they can add it to their `quartz.config.yaml`:
 
-```ts title="quartz.layout.ts"
-import * as Plugin from "./.quartz/plugins"
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:your-username/my-component
+    enabled: true
+    options:
+      favouriteNumber: 42
+    layout:
+      position: left
+      priority: 60
+```
 
-export const layout = {
-  defaults: { ... },
+For advanced usage via the TS override in `quartz.ts`:
+
+```ts title="quartz.ts (override)"
+import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
+import Plugin from "./.quartz/plugins"
+
+const config = await loadQuartzConfig()
+export default config
+export const layout = await loadQuartzLayout({
   byPageType: {
     content: {
-      left: [Plugin.MyComponent()],
+      left: [Plugin.MyComponent({ favouriteNumber: 42 })],
     },
   },
-}
+})
 ```
 
 ## Internal Components

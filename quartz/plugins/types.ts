@@ -108,7 +108,7 @@ export interface QuartzPageTypePluginInstance {
 // Community plugins use a differently-branded FullSlug in their PageMatcher,
 // making them incompatible with the internal PageMatcher under strict
 // function-parameter contravariance. This wider entry type avoids forcing
-// casts in quartz.config.ts while the dispatcher safely calls match/generate
+// casts in quartz.ts while the dispatcher safely calls match/generate
 // with the correct arguments at runtime.
 export interface PageTypePluginEntry {
   name: string

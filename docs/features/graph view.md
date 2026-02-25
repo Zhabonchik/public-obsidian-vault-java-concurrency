@@ -20,21 +20,15 @@ The Graph View is available as a community plugin from GitHub:
 npm install github:quartz-community/graph --legacy-peer-deps
 ```
 
-Then import it in your `quartz.layout.ts`:
+Then add it to your `quartz.config.yaml`:
 
-```typescript title="quartz.layout.ts"
-import { Graph } from "@quartz-community/graph"
-
-// Create once and reuse
-const graphComponent = Graph()
-
-export const defaultContentPageLayout: PageLayout = {
-  // ... other layout config
-  right: [
-    // ... other components
-    graphComponent,
-  ],
-}
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/graph
+    enabled: true
+    layout:
+      position: right
+      priority: 10
 ```
 
 ## Features
@@ -52,43 +46,46 @@ Most configuration can be done by passing in options to `Graph()`.
 
 For example, here's what the default configuration looks like:
 
-```typescript title="quartz.layout.ts"
-Graph({
-  localGraph: {
-    drag: true, // whether to allow panning the view around
-    zoom: true, // whether to allow zooming in and out
-    depth: 1, // how many hops of notes to display
-    scale: 1.1, // default view scale
-    repelForce: 0.5, // how much nodes should repel each other
-    centerForce: 0.3, // how much force to use when trying to center the nodes
-    linkDistance: 30, // how long should the links be by default?
-    fontSize: 0.6, // what size should the node labels be?
-    opacityScale: 1, // how quickly do we fade out the labels when zooming out?
-    removeTags: [], // what tags to remove from the graph
-    showTags: true, // whether to show tags in the graph
-    enableRadial: false, // whether to constrain the graph, similar to Obsidian
-  },
-  globalGraph: {
-    drag: true,
-    zoom: true,
-    depth: -1,
-    scale: 0.9,
-    repelForce: 0.5,
-    centerForce: 0.3,
-    linkDistance: 30,
-    fontSize: 0.6,
-    opacityScale: 1,
-    removeTags: [], // what tags to remove from the graph
-    showTags: true, // whether to show tags in the graph
-    focusOnHover: true, // dim non-connected nodes on hover
-    enableRadial: true, // whether to constrain the graph, similar to Obsidian
-  },
-})
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/graph
+    enabled: true
+    options:
+      localGraph:
+        drag: true
+        zoom: true
+        depth: 1
+        scale: 1.1
+        repelForce: 0.5
+        centerForce: 0.3
+        linkDistance: 30
+        fontSize: 0.6
+        opacityScale: 1
+        removeTags: []
+        showTags: true
+        enableRadial: false
+      globalGraph:
+        drag: true
+        zoom: true
+        depth: -1
+        scale: 0.9
+        repelForce: 0.5
+        centerForce: 0.3
+        linkDistance: 30
+        fontSize: 0.6
+        opacityScale: 1
+        removeTags: []
+        showTags: true
+        focusOnHover: true
+        enableRadial: true
+    layout:
+      position: right
+      priority: 10
 ```
 
 When passing in your own options, you can omit any or all of these fields if you'd like to keep the default value for that field.
 
 Want to customize it even more?
 
-- Removing graph view: remove `graphComponent` from `quartz.layout.ts`
+- Removing graph view: remove the `graph` entry from `quartz.config.yaml` or set `enabled: false`
 - Component source: https://github.com/quartz-community/graph

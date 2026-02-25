@@ -5,8 +5,7 @@ import { styleText } from "util"
 import YAML from "yaml"
 
 const CWD = process.cwd()
-const CONFIG_PATH = path.join(CWD, "quartz.config.ts")
-const LAYOUT_PATH = path.join(CWD, "quartz.layout.ts")
+const QUARTZ_TS_PATH = path.join(CWD, "quartz.ts")
 const CONFIG_YAML_PATH = path.join(CWD, "quartz.config.yaml")
 const DEFAULT_CONFIG_YAML_PATH = path.join(CWD, "quartz.config.default.yaml")
 const LEGACY_DEFAULT_JSON_PATH = path.join(CWD, "quartz.plugins.default.json")
@@ -30,8 +29,8 @@ function hasTsx() {
 
 function extractWithTsx() {
   const script = `
-    const { default: config } = await import("./quartz.config.ts")
-    const { layout } = await import("./quartz.layout.ts")
+    const { default: config } = await import("./quartz.ts")
+    const { layout } = await import("./quartz.ts")
     const result = {
       configuration: config?.configuration ?? null,
       layoutInfo: {
@@ -114,8 +113,8 @@ function buildPluginEntry(name, entry) {
 export async function handleMigrate() {
   console.log(styleText("cyan", "Migrating Quartz configuration..."))
 
-  if (!fs.existsSync(CONFIG_PATH)) {
-    console.log(styleText("red", "✗ quartz.config.ts not found. Aborting migration."))
+  if (!fs.existsSync(QUARTZ_TS_PATH)) {
+    console.log(styleText("red", "✗ quartz.ts not found. Aborting migration."))
     return
   }
 
@@ -175,19 +174,17 @@ export async function handleMigrate() {
   const header = "# yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json\n"
   fs.writeFileSync(CONFIG_YAML_PATH, header + YAML.stringify(outputJson, { lineWidth: 120 }))
 
-  const configTemplate =
-    'import { loadQuartzConfig } from "./quartz/plugins/loader/config-loader"\n' +
-    "export default await loadQuartzConfig()\n"
-  const layoutTemplate =
-    'import { loadQuartzLayout } from "./quartz/plugins/loader/config-loader"\n' +
+  const quartzTsTemplate =
+    'import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"\n' +
+    "\n" +
+    "const config = await loadQuartzConfig()\n" +
+    "export default config\n" +
     "export const layout = await loadQuartzLayout()\n"
 
-  fs.writeFileSync(CONFIG_PATH, configTemplate)
-  fs.writeFileSync(LAYOUT_PATH, layoutTemplate)
+  fs.writeFileSync(QUARTZ_TS_PATH, quartzTsTemplate)
 
   console.log(styleText("green", "✓ Created quartz.config.yaml"))
-  console.log(styleText("green", "✓ Replaced quartz.config.ts"))
-  console.log(styleText("green", "✓ Replaced quartz.layout.ts"))
+  console.log(styleText("green", "✓ Replaced quartz.ts"))
   console.log()
   console.log(styleText("yellow", "⚠ Verify plugin options in quartz.config.yaml"))
   console.log(styleText("gray", `Plugins migrated: ${plugins.length}`))

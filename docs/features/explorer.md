@@ -17,21 +17,15 @@ The Explorer is available as a community plugin from GitHub:
 npm install github:quartz-community/explorer --legacy-peer-deps
 ```
 
-Then import it in your `quartz.layout.ts`:
+Then add it to your `quartz.config.yaml`:
 
-```typescript title="quartz.layout.ts"
-import { Explorer } from "@quartz-community/explorer"
-
-// Create once and reuse
-const explorerComponent = Explorer()
-
-export const defaultContentPageLayout: PageLayout = {
-  // ... other layout config
-  left: [
-    // ... other components
-    explorerComponent,
-  ],
-}
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/explorer
+    enabled: true
+    layout:
+      position: left
+      priority: 50
 ```
 
 ## Features
@@ -51,26 +45,50 @@ Most configuration can be done by passing in options to `Explorer()`.
 
 For example, here's what the default configuration looks like:
 
-```typescript title="quartz.layout.ts"
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/explorer
+    enabled: true
+    options:
+      title: Explorer
+      folderClickBehavior: collapse # "link" to navigate or "collapse" to toggle
+      folderDefaultState: collapsed # "collapsed" or "open"
+      useSavedState: true
+    layout:
+      position: left
+      priority: 50
+```
+
+For advanced options like custom sort, filter, and map functions, use the TS override in `quartz.ts`:
+
+```ts title="quartz.ts"
+import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
+import { Explorer } from "@quartz-community/explorer"
+
+// Advanced: pass callback functions that can't be expressed in YAML
 Explorer({
-  title: "Explorer", // title of the explorer component
-  folderClickBehavior: "collapse", // what happens when you click a folder ("link" to navigate to folder page on click or "collapse" to collapse folder on click)
-  folderDefaultState: "collapsed", // default state of folders ("collapsed" or "open")
-  useSavedState: true, // whether to use local storage to save "state" (which folders are opened) of explorer
-  // omitted but shown later
-  sortFn: ...,
-  filterFn: ...,
-  mapFn: ...,
-  // what order to apply functions in
+  sortFn: (a, b) => {
+    /* ... */
+  },
+  filterFn: (node) => {
+    /* ... */
+  },
+  mapFn: (node) => {
+    /* ... */
+  },
   order: ["filter", "map", "sort"],
 })
+
+const config = await loadQuartzConfig()
+export default config
+export const layout = await loadQuartzLayout()
 ```
 
 When passing in your own options, you can omit any or all of these fields if you'd like to keep the default value for that field.
 
 Want to customize it even more?
 
-- Removing explorer: remove `explorerComponent` from `quartz.layout.ts`
+- Removing explorer: remove the `explorer` entry from `quartz.config.yaml` or set `enabled: false`
   - (optional): After removing the explorer component, you can move the [[table of contents | Table of Contents]] component back to the `left` part of the layout
 - Changing `sort`, `filter` and `map` behavior: explained in [[#Advanced customization]]
 
@@ -141,7 +159,19 @@ These examples show the basic usage of `sort`, `map` and `filter`.
 
 Using this example, the explorer will alphabetically sort everything.
 
-```ts title="quartz.layout.ts"
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/explorer
+    enabled: true
+    options:
+      # Simple options go in YAML
+      title: Explorer
+      folderDefaultState: collapsed
+```
+
+Custom sort functions require the TS override:
+
+```ts title="quartz.ts (override)"
 Explorer({
   sortFn: (a, b) => {
     return a.displayName.localeCompare(b.displayName)
@@ -153,7 +183,7 @@ Explorer({
 
 Using this example, the display names of all `FileNodes` (folders + files) will be converted to full upper case.
 
-```ts title="quartz.layout.ts"
+```ts title="quartz.ts (override)"
 Explorer({
   mapFn: (node) => {
     node.displayName = node.displayName.toUpperCase()
@@ -162,12 +192,15 @@ Explorer({
 })
 ```
 
+> [!note]
+> The `mapFn`, `filterFn`, and `sortFn` options require JavaScript callback functions and cannot be expressed in YAML. Use the TS override for these.
+
 ### Remove list of elements (`filter`)
 
 Using this example, you can remove elements from your explorer by providing an array of folders/files to exclude.
 Note that this example filters on the title but you can also do it via slug or any other field available on `FileTrieNode`.
 
-```ts title="quartz.layout.ts"
+```ts title="quartz.ts (override)"
 Explorer({
   filterFn: (node) => {
     // set containing names of everything you want to filter out
@@ -185,7 +218,7 @@ Explorer({
 
 You can access the tags of a file by `node.data.tags`.
 
-```ts title="quartz.layout.ts"
+```ts title="quartz.ts (override)"
 Explorer({
   filterFn: (node) => {
     // exclude files with the tag "explorerexclude"
@@ -199,7 +232,7 @@ Explorer({
 By default, the explorer will filter out the `tags` folder.
 To override the default filter function, you can set the filter function to `undefined`.
 
-```ts title="quartz.layout.ts"
+```ts title="quartz.ts (override)"
 Explorer({
   filterFn: undefined, // apply no filter function, every file and folder will visible
 })
@@ -208,11 +241,11 @@ Explorer({
 ## Advanced examples
 
 > [!tip]
-> When writing more complicated functions, the `layout` file can start to look very cramped.
+> When writing more complicated functions, the `quartz.ts` file can start to look very cramped.
 > You can fix this by defining your sort functions outside of the component
 > and passing it in.
 >
-> ```ts title="quartz.layout.ts"
+> ```ts title="quartz.ts"
 > import { ExplorerOptions } from "@quartz-community/explorer/components"
 >
 > export const mapFn: ExplorerOptions["mapFn"] = (node) => {
@@ -235,9 +268,9 @@ Explorer({
 
 ### Add emoji prefix
 
-To add emoji prefixes (📁 for folders, 📄 for files), you could use a map function like this:
+To add emoji prefixes (📁 for folders, 📄 for files), you could use a map function in `quartz.ts`:
 
-```ts title="quartz.layout.ts"
+```ts title="quartz.ts (override)"
 Explorer({
   mapFn: (node) => {
     if (node.isFolder) {

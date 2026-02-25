@@ -2,18 +2,21 @@
 title: Configuration
 ---
 
-Quartz is meant to be extremely configurable, even if you don't know any coding. Most of the configuration you should need can be done by just editing `quartz.config.ts` or changing [[layout|the layout]] in `quartz.layout.ts`.
+Quartz is meant to be extremely configurable, even if you don't know any coding. Most of the configuration you should need can be done by just editing `quartz.config.yaml`.
 
 > [!tip]
-> If you edit Quartz configuration using a text-editor that has TypeScript language support like VSCode, it will warn you when you you've made an error in your configuration, helping you avoid configuration mistakes!
+> If you edit `quartz.config.yaml` using a text-editor with YAML language support like VSCode, it will warn you when you've made an error in your configuration, helping you avoid configuration mistakes!
 
 The configuration of Quartz can be broken down into two main parts:
 
-```ts title="quartz.config.ts"
-const config: QuartzConfig = {
-  configuration: { ... },
-  plugins: { ... },
-}
+```yaml title="quartz.config.yaml"
+configuration:
+  pageTitle: "My Site"
+  # ... general configuration
+plugins:
+  - source: github:quartz-community/some-plugin
+    enabled: true
+    # ... plugin entries
 ```
 
 ## General Configuration
@@ -67,14 +70,31 @@ You can think of Quartz plugins as a series of transformations over content.
 
 ![[quartz transform pipeline.png]]
 
-```ts title="quartz.config.ts"
-plugins: {
-  transformers: [...],
-  filters: [...],
-  emitters: [...],
-  pageTypes: [...],
-}
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/created-modified-date
+    enabled: true
+    order: 10 # controls execution order
+  - source: github:quartz-community/syntax-highlighting
+    enabled: true
+    order: 20
+  # ... more plugins
 ```
+
+Plugins are categorized by their type (transformer, filter, emitter, pageType) based on their manifest. The `order` field controls execution order within each category.
+
+> [!note]
+> For advanced TS override of plugin configuration, you can modify `quartz.ts`:
+>
+> ```ts title="quartz.ts"
+> import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
+>
+> const config = await loadQuartzConfig({
+>   // override any configuration field here
+> })
+> export default config
+> export const layout = await loadQuartzLayout()
+> ```
 
 - [[tags/plugin/transformer|Transformers]] **map** over content (e.g. parsing frontmatter, generating a description)
 - [[tags/plugin/filter|Filters]] **filter** content (e.g. filtering out drafts)
@@ -85,24 +105,31 @@ plugins: {
 
 Quartz distinguishes between internal plugins that are bundled with Quartz and community plugins that are installed separately.
 
-```ts title="quartz.config.ts"
-import * as Plugin from "./quartz/plugins" // internal plugins
-import * as ExternalPlugin from "./.quartz/plugins" // community plugins
+In `quartz.config.yaml`, community plugins are referenced by their GitHub source:
+
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/explorer
+    enabled: true
+  - source: github:quartz-community/syntax-highlighting
+    enabled: true
+    options:
+      theme:
+        light: github-light
+        dark: github-dark
 ```
 
-Internal plugins (like `Plugin.FrontMatter()`) are bundled with Quartz. Community plugins (like `ExternalPlugin.Explorer()`) are installed separately.
+Internal plugins (like `FrontMatter`) are bundled with Quartz. Community plugins are installed separately and referenced by their `github:org/repo` source.
 
 ### Community Plugins
 
-The `externalPlugins` array in your configuration declares which community plugin repositories to install. Each entry is a GitHub repository reference.
+To install a community plugin, you can use the following command:
 
-```ts title="quartz.config.ts"
-externalPlugins: [
-  "github:quartz-community/explorer",
-  "github:quartz-community/syntax-highlighting",
-  // ... other community plugins
-],
+```shell
+npx quartz plugin add github:quartz-community/explorer
 ```
+
+This adds the plugin to `quartz.config.yaml` and installs it to `.quartz/plugins/`.
 
 To install a community plugin, you can use the following command:
 
@@ -114,18 +141,36 @@ This adds the plugin to `externalPlugins` and installs it to `.quartz/plugins/`.
 
 ### Usage
 
-You can customize the behaviour of Quartz by adding, removing and reordering plugins in the `transformers`, `filters`, `emitters`, and `pageTypes` fields. You can mix internal and external plugins as needed.
+You can customize the behaviour of Quartz by adding, removing and reordering plugins in `quartz.config.yaml`. Each plugin entry specifies its source, whether it's enabled, execution order, and any options:
 
-```ts title="quartz.config.ts"
-transformers: [
-  Plugin.FrontMatter(), // internal
-  ExternalPlugin.CreatedModifiedDate({
-    // community
-    priority: ["frontmatter", "git", "filesystem"],
-  }),
-  ExternalPlugin.Latex({ renderEngine: "katex" }), // community with options
-]
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/note-properties
+    enabled: true
+    options:
+      includeAll: false
+      includedProperties:
+        - description
+        - tags
+        - aliases
+    order: 5
+  - source: github:quartz-community/created-modified-date
+    enabled: true
+    options:
+      priority:
+        - frontmatter
+        - git
+        - filesystem
+    order: 10
+  - source: github:quartz-community/latex
+    enabled: true
+    options:
+      renderEngine: katex
+    order: 80
 ```
+
+> [!note]
+> For advanced options that require JavaScript (e.g. callback functions), use the TS override in `quartz.ts`. See the plugin-specific documentation for details.
 
 You can see a list of all plugins and their configuration options [[tags/plugin|here]].
 
@@ -133,22 +178,35 @@ If you'd like to make your own plugins, see the [[making plugins|making custom p
 
 ## Fonts
 
-Fonts can be specified as a `string` or a `FontSpecification`:
+Fonts can be specified as a simple string or with advanced options in `quartz.config.yaml`:
 
-```ts
-// string
-typography: {
-  header: "Schibsted Grotesk",
-  ...
-}
+```yaml title="quartz.config.yaml"
+configuration:
+  theme:
+    typography:
+      header: Schibsted Grotesk
+      body: Source Sans Pro
+      code: IBM Plex Mono
+```
 
-// FontSpecification
-typography: {
-  header: {
-    name: "Schibsted Grotesk",
-    weights: [400, 700],
-    includeItalic: true,
+For more control over font weights and italics, use the TS override in `quartz.ts`:
+
+```ts title="quartz.ts"
+import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
+
+const config = await loadQuartzConfig({
+  theme: {
+    typography: {
+      header: {
+        name: "Schibsted Grotesk",
+        weights: [400, 700],
+        includeItalic: true,
+      },
+      body: "Source Sans Pro",
+      code: "IBM Plex Mono",
+    },
   },
-  ...
-}
+})
+export default config
+export const layout = await loadQuartzLayout()
 ```

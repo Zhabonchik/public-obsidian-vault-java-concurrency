@@ -173,7 +173,7 @@
     {
       "id": "config-options",
       "type": "text",
-      "text": "## Configuration Options\n\n- `enableInteraction` — Enable pan and zoom. Default: `true`\n- `initialZoom` — Initial zoom level. Default: `1`\n- `minZoom` — Minimum zoom level. Default: `0.1`\n- `maxZoom` — Maximum zoom level. Default: `5`\n- `defaultFullscreen` — Start in fullscreen mode. Default: `false`\n\nConfigure in `quartz.config.ts`:\n\n```\nCanvasPage({ defaultFullscreen: false, initialZoom: 1 })\n```",
+      "text": "## Configuration Options\n\n- `enableInteraction` — Enable pan and zoom. Default: `true`\n- `initialZoom` — Initial zoom level. Default: `1`\n- `minZoom` — Minimum zoom level. Default: `0.1`\n- `maxZoom` — Maximum zoom level. Default: `5`\n- `defaultFullscreen` — Start in fullscreen mode. Default: `false`\n\nConfigure in `quartz.config.yaml`:\n\n```\nCanvasPage({ defaultFullscreen: false, initialZoom: 1 })\n```",
       "x": 0,
       "y": 1220,
       "width": 560,

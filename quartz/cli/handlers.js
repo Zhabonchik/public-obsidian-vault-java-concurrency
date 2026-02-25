@@ -24,7 +24,13 @@ import {
   stashContentFolder,
 } from "./helpers.js"
 import { handlePluginRestore, handlePluginCheck } from "./plugin-git-handlers.js"
-import { configExists, createConfigFromDefault } from "./plugin-data.js"
+import {
+  configExists,
+  createConfigFromDefault,
+  readPluginsJson,
+  writePluginsJson,
+  extractPluginName,
+} from "./plugin-data.js"
 import {
   UPSTREAM_NAME,
   QUARTZ_SOURCE_BRANCH,
@@ -189,7 +195,7 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
     // get a preferred link resolution strategy
     linkResolutionStrategy = exitIfCancel(
       await select({
-        message: `Choose how Quartz should resolve links in your content. This should match Obsidian's link format. You can change this later in \`quartz.config.ts\`.`,
+        message: `Choose how Quartz should resolve links in your content. This should match Obsidian's link format. You can change this later in \`quartz.config.yaml\`.`,
         options: [
           {
             value: "shortest",
@@ -209,14 +215,20 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
     )
   }
 
-  // now, do config changes
-  const configFilePath = path.join(cwd, "quartz.config.ts")
-  let configContent = await fs.promises.readFile(configFilePath, { encoding: "utf-8" })
-  configContent = configContent.replace(
-    /markdownLinkResolution: '(.+)'/,
-    `markdownLinkResolution: '${linkResolutionStrategy}'`,
-  )
-  await fs.promises.writeFile(configFilePath, configContent)
+  // Update markdownLinkResolution in the crawl-links plugin options via YAML config
+  const json = readPluginsJson()
+  if (json?.plugins) {
+    const crawlLinksIndex = json.plugins.findIndex(
+      (p) => extractPluginName(p.source) === "crawl-links",
+    )
+    if (crawlLinksIndex !== -1) {
+      json.plugins[crawlLinksIndex].options = {
+        ...json.plugins[crawlLinksIndex].options,
+        markdownLinkResolution: linkResolutionStrategy,
+      }
+      writePluginsJson(json)
+    }
+  }
 
   if (!configExists()) {
     createConfigFromDefault()

@@ -351,7 +351,7 @@ export const ContentPage: QuartzEmitterPlugin = () => {
 
 ### Page Types
 
-Page types define how a category of pages is rendered. They are configured in the `pageTypes` array in `quartz.config.ts`.
+Page types define how a category of pages is rendered. They are configured in the `pageTypes` array in `quartz.config.yaml`.
 
 ```ts
 export type QuartzPageTypePluginInstance = {
@@ -383,9 +383,17 @@ npx tsup
 npx quartz plugin add github:your-username/my-plugin
 ```
 
-Then add the plugin to the appropriate array in `quartz.config.ts`:
+Then add the plugin to your `quartz.config.yaml`:
 
-```ts
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:your-username/my-plugin
+    enabled: true
+```
+
+Or via TS override in `quartz.ts`:
+
+```ts title="quartz.ts (override)"
 import * as ExternalPlugin from "./.quartz/plugins"
 // ...
 transformers: [ExternalPlugin.MyPlugin()]

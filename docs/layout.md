@@ -4,7 +4,7 @@ title: Layout
 
 Certain emitters may also output [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) files. To enable easy customization, these emitters allow you to fully rearrange the layout of the page.
 
-In v5, the layout is defined in `quartz.layout.ts` using a `defaults` + `byPageType` structure.
+In v5, the layout is defined in `quartz.config.yaml` using a `defaults` + `byPageType` structure.
 
 - `defaults` contains layout components shared across ALL page types (head, header, afterBody, footer).
 - `byPageType` contains per-page-type overrides (content, folder, tag, 404) for beforeBody, left, and right sections.
@@ -38,47 +38,101 @@ These correspond to following parts of the page:
 > 1. `head` is a single component that renders the `<head>` [tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head) in the HTML. This doesn't appear visually on the page and is only is responsible for metadata about the document like the tab title, scripts, and styles.
 > 2. `header` is a set of components that are laid out horizontally and appears _before_ the `beforeBody` section. This enables you to replicate the old Quartz 3 header bar where the title, search bar, and dark mode toggle. By default, Quartz doesn't place any components in the `header`.
 
-### Configuration
+Layout components are configured in the `layout` section of `quartz.config.yaml`. Plugins declare their position and priority, and the layout system arranges them automatically:
 
-Layout components are imported from two main sources:
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: github:quartz-community/explorer
+    enabled: true
+    layout:
+      position: left
+      priority: 50
+  - source: github:quartz-community/graph
+    enabled: true
+    layout:
+      position: right
+      priority: 10
+  - source: github:quartz-community/search
+    enabled: true
+    layout:
+      position: left
+      priority: 20
+  - source: github:quartz-community/backlinks
+    enabled: true
+    layout:
+      position: right
+      priority: 30
+  - source: github:quartz-community/article-title
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 10
+  - source: github:quartz-community/content-meta
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 20
+  - source: github:quartz-community/tag-list
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 30
+  - source: github:quartz-community/footer
+    enabled: true
+    options:
+      links:
+        GitHub: https://github.com/jackyzha0/quartz
+        Discord Community: https://discord.gg/cRFFHYye7t
 
-```ts title="quartz.layout.ts"
-import * as Component from "./quartz/components" // internal HOC components
-import * as Plugin from "./.quartz/plugins" // community component plugins
+layout:
+  groups:
+    toolbar:
+      direction: row
+      gap: 0.5rem
+  byPageType:
+    content: {}
+    folder:
+      exclude:
+        - reader-mode
+      positions:
+        right: []
+    tag:
+      exclude:
+        - reader-mode
+      positions:
+        right: []
+    "404":
+      positions:
+        beforeBody: []
+        left: []
+        right: []
 ```
 
-Internal components (`Component.Head()`, `Component.Spacer()`, `Component.Flex()`, `Component.MobileOnly()`, `Component.DesktopOnly()`, `Component.ConditionalRender()`) are layout utilities. Community component plugins (`Plugin.Explorer()`, `Plugin.Search()`, `Plugin.Darkmode()`, etc.) provide the actual UI features.
+For advanced layout overrides using TypeScript (e.g. custom component wrappers or conditional logic), you can use the TS override in `quartz.ts`:
 
-Here is a simplified example of the layout structure:
+```ts title="quartz.ts"
+import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
 
-```ts title="quartz.layout.ts"
-export const layout = {
+const config = await loadQuartzConfig()
+export default config
+export const layout = await loadQuartzLayout({
   defaults: {
-    head: Component.Head(),
-    header: [],
-    afterBody: [],
-    footer: Plugin.Footer({ links: { ... } }),
+    // override default layout for all page types
   },
   byPageType: {
     content: {
-      beforeBody: [Plugin.ArticleTitle(), Plugin.ContentMeta(), Plugin.TagList()],
-      left: [Plugin.PageTitle(), Plugin.Search(), Plugin.Explorer()],
-      right: [Plugin.Graph(), Plugin.TableOfContents(), Plugin.Backlinks()],
+      // override layout for content pages only
     },
     folder: {
-      beforeBody: [Plugin.Breadcrumbs(), Plugin.ArticleTitle()],
-      left: [Plugin.PageTitle(), Plugin.Search(), Plugin.Explorer()],
-      right: [],
+      // override layout for folder pages only
     },
-    tag: { ... },
-    "404": { beforeBody: [], left: [], right: [] },
   },
-}
+})
 ```
 
 Fields defined in `defaults` can be overridden by specific entries in `byPageType`.
 
-Community component plugins are installed via `npx quartz plugin add github:quartz-community/<name>` and imported from `.quartz/plugins`. See [[layout-components]] for built-in layout utilities (Flex, MobileOnly, DesktopOnly, etc.).
+Community component plugins are installed via `npx quartz plugin add github:quartz-community/<name>`. See [[layout-components]] for built-in layout utilities (Flex, MobileOnly, DesktopOnly, etc.).
 
 You can also checkout the guide on [[creating components]] if you're interested in further customizing the behaviour of Quartz.
 

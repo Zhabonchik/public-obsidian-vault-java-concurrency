@@ -23,7 +23,7 @@ export async function handlePluginInstall(packageNames) {
   }
 
   console.log(styleText("green", "✓ Plugins installed successfully"))
-  console.log("\nAdd them to your quartz.config.ts:")
+  console.log("\nAdd them to your quartz.config.yaml:")
 
   for (const pkg of packageNames) {
     console.log(`  import { Plugin } from "${pkg}"`)
@@ -126,5 +126,5 @@ export async function handlePluginUninstall(packageNames) {
   }
 
   console.log(styleText("green", "✓ Plugins uninstalled successfully"))
-  console.log(styleText("yellow", "Don't forget to remove them from your quartz.config.ts!"))
+  console.log(styleText("yellow", "Don't forget to remove them from your quartz.config.yaml!"))
 }

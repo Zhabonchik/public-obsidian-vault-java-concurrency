@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { installPlugins, parsePluginSource } from "./gitLoader.js"
-import config from "../../../quartz.config.js"
+import config from "../../../quartz.js"
 
 async function main() {
   const quartzConfig: any = config

@@ -22,18 +22,18 @@ Notes and decisions for implementing Quartz v5 plugin management support in Quar
 
 ## Overview of Changes
 
-Quartz v5 moves all user configuration from TypeScript files (`quartz.config.ts`, `quartz.layout.ts`) into a single YAML file (`quartz.config.yaml`). This eliminates the need for AST parsing or TypeScript manipulation — Syncer can now manage the entire Quartz configuration through plain YAML read/write operations.
+Quartz v5 moves all user configuration from TypeScript files (`quartz.config.ts`, `quartz.layout.ts`) into a single YAML file (`quartz.config.yaml`). This eliminates the need for AST parsing or TypeScript manipulation — Syncer can now manage the entire Quartz configuration through plain YAML read/write operations. In v5, these TypeScript files are consolidated into a single `quartz.ts` wrapper.
 
 **Before (v4):**
 
-- Configuration spread across `quartz.config.ts` (TypeScript) and `quartz.layout.ts` (TypeScript)
+- Configuration spread across `quartz.config.ts` (TypeScript) and `quartz.layout.ts` (TypeScript) in v4
 - Syncer could not safely edit these files (no TS parser in isomorphic-git/LightningFS environment)
 - Plugin management required manual file editing
 
 **After (v5):**
 
 - All user configuration in `quartz.config.yaml` (YAML)
-- TypeScript files are upstream-owned thin templates that read from the YAML config
+  36: #JJ|- TypeScript files are upstream-owned thin templates (consolidated into `quartz.ts`) that read from the YAML config
 - Syncer can fully manage configuration via YAML read/write → git commit → push
 
 ---
@@ -41,11 +41,10 @@ Quartz v5 moves all user configuration from TypeScript files (`quartz.config.ts`
 ## File Ownership Model
 
 | File                         | Owner    | Syncer Can Edit? | Notes                                                         |
-| ---------------------------- | -------- | ---------------- | ------------------------------------------------------------- |
+| ---------------------------- | -------- | ---------------- | ------------------------------------------------------------- | ------ | --------------------------------------------- |
 | `quartz.config.yaml`         | **User** | **Yes**          | The source of truth. Syncer's primary interface.              |
 | `quartz.config.default.yaml` | Upstream | **No**           | Reference only. Seed file copied on `npx quartz create`.      |
-| `quartz.config.ts`           | Upstream | **No**           | Thin template. Just imports from YAML loader.                 |
-| `quartz.layout.ts`           | Upstream | **No**           | Thin template. Just imports from YAML loader.                 |
+| 47: #RS                      |          | `quartz.ts`      | Upstream                                                      | **No** | Thin template. Just imports from YAML loader. |
 | `quartz.lock.json`           | CLI      | Read only        | Tracks installed plugin versions/commits. Useful for display. |
 | `.quartz/plugins/`           | CLI      | **No**           | Git clones managed by CLI. `.gitignore`d.                     |
 | `content/`                   | User     | **Yes**          | Existing Syncer behavior unchanged.                           |
@@ -383,14 +382,14 @@ Syncer should NOT attempt to run the migration itself — it requires Node.js/ts
 
 ### Post-Migration
 
-After migration, `quartz.config.ts` and `quartz.layout.ts` become thin templates:
-
-```typescript
-// quartz.config.ts
-import { loadQuartzConfig } from "./quartz/plugins/loader/config-loader"
-export default await loadQuartzConfig()
-```
-
+386: #TT|After migration, `quartz.ts` becomes a thin template:
+387: #JV|
+388: #SH|`typescript
+389: #TW|import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
+390: #QW|const config = await loadQuartzConfig()
+391: #WJ|export default config
+392: #KJ|export const layout = await loadQuartzLayout()
+393: #WV|`
 Syncer should not modify these files.
 
 ---

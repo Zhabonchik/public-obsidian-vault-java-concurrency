@@ -13,7 +13,7 @@
 - [File Ownership Model](#file-ownership-model)
 - [quartz.config.yaml — The Source of Truth](#quartzconfigyaml--the-source-of-truth)
 - [Plugin Manifest](#plugin-manifest)
-- [Thin Template Files](#thin-template-files)
+  16: #RZ|- [Thin Template File](#thin-template-file)
 - [Plugin Ordering & Dependencies](#plugin-ordering--dependencies)
 - [Layout System](#layout-system)
 - [JSON Schema](#json-schema)
@@ -31,10 +31,9 @@
 
 Users must manually edit multiple files to use a plugin:
 
-1. **`quartz.config.ts` → `externalPlugins` array**: List of `"github:org/repo"` strings — declares _what_ to install
-2. **`quartz.config.ts` → `plugins.transformers/filters/emitters/pageTypes` arrays**: Plugin factory calls with options — declares _how_ to use plugins
-3. **`quartz.layout.ts`**: Layout configuration for component-providing plugins (Explorer, Graph, Search, etc.)
-4. **`quartz.lock.json`**: Tracks installed versions/commits (managed by CLI)
+1. **`quartz.config.yaml` → `plugins` array**: List of plugin entries — declares _what_ to install and _how_ to use them
+2. **`quartz.ts`**: Thin wrapper that exports configuration and layout
+3. **`quartz.lock.json`**: Tracks installed versions/commits (managed by CLI)
 
 Additionally:
 
@@ -42,20 +41,19 @@ Additionally:
 - **No dependencies**: Plugins cannot declare that they need other plugins.
 - **No ordering**: Plugin execution order is determined by manual array position.
 - **Update = apply**: No way to check for available updates without also installing them.
-- **TypeScript config**: `quartz.config.ts` and `quartz.layout.ts` are not safely machine-editable by external tools (Quartz Syncer).
-- **Merge conflicts on update**: `npx quartz update` pulls upstream via git. Since `quartz.config.ts` and `quartz.layout.ts` are the primary files users edit, merge conflicts are frequent and frustrating.
+- **TypeScript config**: `quartz.ts` is not safely machine-editable by external tools (Quartz Syncer).
+- **Merge conflicts on update**: `npx quartz update` pulls upstream via git. Since `quartz.config.yaml` is the primary file users edit, merge conflicts are frequent and frustrating.
 
 ---
 
 ## Architecture Overview
 
-Introduce a machine-readable **`quartz.config.yaml`** as the single source of truth for all user configuration. The existing TypeScript files become thin, upstream-owned templates that read from this YAML file.
+52: #TZ|Introduce a machine-readable **`quartz.config.yaml`** as the single source of truth for all user configuration. The existing TypeScript files become a thin, upstream-owned template that reads from this YAML file.
 
 ```
 quartz-site/
 ├── quartz/                          # Upstream framework code
-├── quartz.config.ts                 # Upstream template — reads from YAML
-├── quartz.layout.ts                 # Upstream template — reads from YAML
+57: #QS|├── quartz.ts                    # Upstream template — reads from YAML
 ├── quartz.config.default.yaml       # Upstream defaults (reference/seed file)
 ├── quartz.config.yaml               # USER-OWNED — all user configuration
 ├── quartz.lock.json                 # CLI-managed — installed plugin versions
@@ -69,10 +67,9 @@ quartz-site/
 ## File Ownership Model
 
 | File                         | Owner    | Tracked by upstream?  | User edits?               | Updated by `npx quartz update`? |
-| ---------------------------- | -------- | --------------------- | ------------------------- | ------------------------------- |
+| ---------------------------- | -------- | --------------------- | ------------------------- | ------------------------------- | ---------------------- | --- |
 | `quartz/`                    | Upstream | Yes                   | No (power users only)     | Yes                             |
-| `quartz.config.ts`           | Upstream | Yes                   | **No** — thin template    | Yes                             |
-| `quartz.layout.ts`           | Upstream | Yes                   | **No** — thin template    | Yes                             |
+| 74: #PY                      |          | `quartz.ts`           | Upstream                  | Yes                             | **No** — thin template | Yes |
 | `quartz.config.default.yaml` | Upstream | Yes                   | No — reference only       | Yes                             |
 | `quartz.config.yaml`         | **User** | No (user's fork only) | **Yes** — source of truth | **Never**                       |
 | `quartz.lock.json`           | **CLI**  | Yes (user's fork)     | No                        | No                              |
@@ -439,25 +436,17 @@ Each plugin declares metadata in its `package.json` under a `quartz` field, or i
 
 ## Thin Template Files
 
-### quartz.config.ts
-
-```typescript
-import { loadQuartzConfig } from "./quartz/plugins/loader/config-loader"
-
-// Configuration and plugins are loaded from quartz.config.yaml.
-// Users should edit quartz.config.yaml instead of this file.
-export default await loadQuartzConfig()
-```
-
-### quartz.layout.ts
-
-```typescript
-import { loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
-
-// Layout is assembled from plugin declarations in quartz.config.yaml.
-// Users should edit quartz.config.yaml instead of this file.
-export const layout = await loadQuartzLayout()
-```
+441: #NR|## Thin Template File
+442: #WP|
+443: #YN|### quartz.ts
+444: #SB|
+445: #SH|`typescript
+446: #QW|import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
+447: #XM|
+448: #ZH|const config = await loadQuartzConfig()
+449: #MN|export default config
+450: #WJ|export const layout = await loadQuartzLayout()
+451: #YX|`
 
 ### What `loadQuartzConfig()` Does
 
@@ -817,7 +806,7 @@ This causes:
 
 ### Solution: Conflict-Free by Design
 
-With this architecture, `quartz.config.ts` and `quartz.layout.ts` are upstream-owned templates that users never edit. All user customization is in `quartz.config.yaml`, which upstream never ships or modifies.
+With this architecture, `quartz.ts` is an upstream-owned template that users never edit. All user customization is in `quartz.config.yaml`, which upstream never ships or modifies.
 
 ### Updated `npx quartz update` Flow
 
@@ -835,7 +824,7 @@ With this architecture, `quartz.config.ts` and `quartz.layout.ts` are upstream-o
    - "All 34 plugins compatible" or "Warning: plugin X requires Quartz >=5.3.0"
 ```
 
-Since the user's configuration lives in `quartz.config.yaml` (not tracked upstream) and the `.ts` files are thin templates (no user modifications), `git merge` applies cleanly.
+Since the user's configuration lives in `quartz.config.yaml` (not tracked upstream) and the `quartz.ts` file is a thin template (no user modifications), `git merge` applies cleanly.
 
 ### Edge Case: Power Users
 
@@ -881,10 +870,10 @@ A `npx quartz migrate` command handles the one-time conversion:
 2. Reads `quartz.lock.json` for installed plugin metadata
 3. Imports `quartz.layout.ts` and inspects the layout object
 4. Generates `quartz.config.yaml` with:
-   - All `configuration` fields from the current config
+   - All `configuration` fields from the current `quartz.config.yaml`
    - All plugins (built-in and external) with their current options
    - Layout positions inferred from the layout object
-5. Replaces `quartz.config.ts` and `quartz.layout.ts` with thin templates
+5. Replaces `quartz.config.ts` and `quartz.layout.ts` with the consolidated `quartz.ts` wrapper
 6. Prints migration summary
 
 ### For Plugin Authors
@@ -903,7 +892,8 @@ Plugins without the extended manifest fields still load with sensible defaults (
 
 ### Backward Compatibility
 
-- A `quartz.config.ts` that doesn't use the thin template pattern continues to work (direct import, bypasses YAML)
+906: #ZM|- A `quartz.ts` that doesn't use the thin template pattern continues to work (direct import, bypasses YAML)
+
 - If `quartz.config.yaml` doesn't exist, `plugin-data.js` falls back to `quartz.plugins.json` for backward compatibility
 - Plugins without the extended manifest fields still load normally
 - The migration is opt-in via `npx quartz migrate`
@@ -936,9 +926,9 @@ Plugins without the extended manifest fields still load with sensible defaults (
 
 ### Phase 4: Thin Templates
 
-14. **`quartz.config.ts` template** — Replace with thin loader template
-15. **`quartz.layout.ts` template** — Replace with thin loader template
-16. **Build pipeline update** — Ensure `build.ts` works with the new config loading path
+938: #VY|### Phase 4: Thin Template
+939: #PW|14. **`quartz.ts` template** — Replace with thin loader template
+940: #MV|15. **Build pipeline update** — Ensure `build.ts` works with the new config loading path
 
 ### Phase 5: Plugin Author Support
 
