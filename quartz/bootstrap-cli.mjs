@@ -33,17 +33,17 @@ import {
 import { version } from "./cli/constants.js"
 
 async function launchTui() {
-  const { pathToFileURL } = await import("url")
   const { join } = await import("path")
   const { existsSync } = await import("fs")
   const { spawn } = await import("child_process")
-  const tuiPath = join(process.cwd(), "quartz", "cli", "tui", "dist", "App.mjs")
+  const tuiPath = join(process.cwd(), ".quartz", "plugins", "tui", "dist", "App.mjs")
 
   if (!existsSync(tuiPath)) {
-    console.log("TUI not built yet. Building...")
-    const buildScript = pathToFileURL(join(process.cwd(), "quartz", "cli", "build-tui.mjs")).href
-    await import(buildScript)
-    console.log("TUI built successfully.")
+    console.error(
+      "TUI plugin not installed. Install with:\n" +
+        "  npx quartz plugin add github:quartz-community/tui\n"
+    )
+    process.exit(1)
   }
 
   // OpenTUI requires Bun runtime (uses bun:ffi for Zig renderer)
