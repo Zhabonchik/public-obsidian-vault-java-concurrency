@@ -131,14 +131,6 @@ npx quartz plugin add github:quartz-community/explorer
 
 This adds the plugin to `quartz.config.yaml` and installs it to `.quartz/plugins/`.
 
-To install a community plugin, you can use the following command:
-
-```shell
-npx quartz plugin add github:quartz-community/explorer
-```
-
-This adds the plugin to `externalPlugins` and installs it to `.quartz/plugins/`.
-
 ### Usage
 
 You can customize the behaviour of Quartz by adding, removing and reordering plugins in `quartz.config.yaml`. Each plugin entry specifies its source, whether it's enabled, execution order, and any options:

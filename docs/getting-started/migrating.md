@@ -1,14 +1,19 @@
 ---
-title: "Migrating from Quartz 4"
+title: "Migrating to Quartz 5"
+aliases:
+  - "migrating from Quartz 3"
+  - "migrating from Quartz 4"
 ---
 
-## Overview
+This guide covers migrating to Quartz 5 from previous versions. If you're already on Quartz 5 and want to update to the latest version, see [[getting-started/upgrading|Upgrading Quartz]] instead.
+
+## Migrating from Quartz 4
+
+### Overview
 
 Quartz 5 introduces a community plugin system that fundamentally changes how plugins and components are managed. Most plugins that were built into Quartz 4 are now standalone community plugins maintained under the [quartz-community](https://github.com/quartz-community) organization. This guide walks through the changes needed to migrate your configuration.
 
-## What Changed
-
-List the key architectural changes:
+### What Changed
 
 - **Plugin system**: Plugins are now standalone Git repositories, installed via `npx quartz plugin add`
 - **Import pattern**: Community plugins use `ExternalPlugin.X()` (from `.quartz/plugins`) instead of `Plugin.X()` (from `./quartz/plugins`)
@@ -16,9 +21,9 @@ List the key architectural changes:
 - **Page Types**: A new plugin category for page rendering (content, folder, tag pages)
 - **Component references**: In layout files, community components use `Plugin.X()` (from `.quartz/plugins`) instead of `Component.X()` (from `./quartz/components`)
 
-## Step-by-Step Migration
+### Step-by-Step Migration
 
-### 1. Install Community Plugins
+#### 1. Install Community Plugins
 
 Run the following commands to install the default set of community plugins:
 
@@ -67,9 +72,7 @@ npx quartz plugin add github:quartz-community/roam
 npx quartz plugin add github:quartz-community/explicit-publish
 ```
 
-### 2. Update quartz.config.yaml
-
-Show before (v4) and after (v5) comparison:
+#### 2. Update quartz.config.yaml
 
 **Before (v4):**
 
@@ -152,9 +155,7 @@ Key changes:
 - Each plugin entry has `enabled`, `options`, `order`, and optionally `layout` fields
 - Install community plugins with `npx quartz plugin add github:quartz-community/<name>`
 
-### 3. Update layout configuration
-
-Show before (v4) and after (v5):
+#### 3. Update layout configuration
 
 **Before (v4):**
 
@@ -264,20 +265,20 @@ Key changes:
 - Empty arrays (`[]`) clear a position for that page type
 - The `exclude` field removes specific plugins from a page type
 
-### 4. Update CI/CD
+#### 4. Update CI/CD
 
 Add `npx quartz plugin restore` to your build pipeline, before `npx quartz build`. See [[ci-cd]] for detailed examples.
 
-### 5. Commit and Deploy
+#### 5. Commit and Deploy
 
 ```shell
 git add quartz.ts quartz.lock.json
 git commit -m "chore: migrate to Quartz 5 plugin system"
 ```
 
-## Plugin Reference Table
+### Plugin Reference Table
 
-Show a table mapping v4 Plugin names to v5 equivalents:
+Mapping v4 plugin names to v5 equivalents:
 
 | v4                                  | v5                                          | Type                  |
 | ----------------------------------- | ------------------------------------------- | --------------------- |
@@ -300,7 +301,7 @@ Show a table mapping v4 Plugin names to v5 equivalents:
 | `Plugin.AliasRedirects()`           | `ExternalPlugin.AliasRedirects()`           | Community             |
 | `Plugin.ContentIndex()`             | `ExternalPlugin.ContentIndex()`             | Community             |
 
-And for components in layout:
+Component layout mapping:
 
 | v4 Layout                     | v5 Layout                                  |
 | ----------------------------- | ------------------------------------------ |
@@ -313,3 +314,45 @@ And for components in layout:
 | `Component.TableOfContents()` | `Plugin.TableOfContents()`                 |
 | `Component.Head()`            | `Component.Head()` (unchanged, internal)   |
 | `Component.Spacer()`          | `Component.Spacer()` (unchanged, internal) |
+
+---
+
+## Migrating from Quartz 3
+
+As you already have Quartz locally, you don't need to fork or clone it again. Simply just checkout the v4 branch, install the dependencies, and import your old vault. Then follow the [Quartz 4 migration steps above](#migrating-from-quartz-4) to get to v5.
+
+```bash
+git fetch
+git checkout v4
+git pull upstream v4
+npm i
+npx quartz create
+```
+
+If you get an error like `fatal: 'upstream' does not appear to be a git repository`, make sure you add `upstream` as a remote origin:
+
+```shell
+git remote add upstream https://github.com/jackyzha0/quartz.git
+```
+
+When running `npx quartz create`, you will be prompted as to how to initialize your content folder. Here, you can choose to import or link your previous content folder and Quartz should work just as you expect it to.
+
+> [!note]
+> If the existing content folder you'd like to use is at the _same_ path on a different branch, clone the repo again somewhere at a _different_ path in order to use it.
+
+### Key changes from Quartz 3
+
+1. **Removing Hugo and `hugo-obsidian`**: Hugo worked well for earlier versions of Quartz but it also made it hard for people outside of the Golang and Hugo communities to fully understand what Quartz was doing under the hood and be able to properly customize it to their needs. Quartz 4 now uses a Node-based static-site generation process which should lead to a much more helpful error messages and an overall smoother user experience.
+2. **Full-hot reload**: The many rough edges of how `hugo-obsidian` integrated with Hugo meant that watch mode didn't re-trigger `hugo-obsidian` to update the content index. This lead to a lot of weird cases where the watch mode output wasn't accurate. Quartz 4 now uses a cohesive parse, filter, and emit pipeline which gets run on every change so hot-reloads are always accurate.
+3. **Replacing Go template syntax with JSX**: Quartz 3 used [Go templates](https://pkg.go.dev/text/template) to create layouts for pages. However, the syntax isn't great for doing any sort of complex rendering (like [text processing](https://github.com/jackyzha0/quartz/blob/hugo/layouts/partials/textprocessing.html)) and it got very difficult to make any meaningful layout changes to Quartz 3. Quartz 4 uses an extension of JavaScript syntax called JSX which allows you to write layout code that looks like HTML in JavaScript which is significantly easier to understand and maintain.
+4. **A new extensible [[configuration]] and [[configuration#Plugins|plugin]] system**: Quartz 3 was hard to configure without technical knowledge of how Hugo's partials worked. Extensions were even hard to make. Quartz 4's configuration and plugin system is designed to be extended by users while making updating to new versions of Quartz easy.
+
+### Things to update
+
+- You will need to update your deploy scripts. See the [[hosting]] guide for more details.
+- Ensure that your default branch on GitHub is updated from `hugo` to `v4`.
+- [[folder and tag listings|Folder and tag listings]] have also changed.
+  - Folder descriptions should go under `content/<folder-name>/index.md` where `<folder-name>` is the name of the folder.
+  - Tag descriptions should go under `content/tags/<tag-name>.md` where `<tag-name>` is the name of the tag.
+- Some HTML layout may not be the same between Quartz 3 and Quartz 4. If you depended on a particular HTML hierarchy or class names, you may need to update your custom CSS to reflect these changes.
+- If you customized the layout of Quartz 3, you may need to translate these changes from Go templates back to JSX as Quartz 4 no longer uses Hugo. For components, check out the guide on [[creating components]] for more details on this.

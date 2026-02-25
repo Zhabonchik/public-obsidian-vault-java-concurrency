@@ -1,5 +1,7 @@
 ---
-title: Setting up your GitHub repository
+title: "Installation"
+aliases:
+  - "setting up your GitHub repository"
 ---
 
 First, make sure you have Quartz [[index#🪴 Get Started|cloned and setup locally]].
@@ -8,7 +10,7 @@ Then, create a new repository on GitHub.com. Do **not** initialize the new repos
 
 ![[github-init-repo-options.png]]
 
-At the top of your repository on GitHub.com's Quick Setup page, click the clipboard to copy the remote repository URL.
+At the top of your repository on GitHub.com's Quick Setup page, click the clipboard to copy the remote repository URL.
 
 ![[github-quick-setup.png]]
 

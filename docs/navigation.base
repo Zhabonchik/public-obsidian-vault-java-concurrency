@@ -9,13 +9,17 @@ formulas:
     if(file.hasTag("component"), "component",
     if(file.inFolder("features"), "feature",
     if(file.inFolder("advanced"), "advanced",
-    if(file.inFolder("plugins"), "plugin", "guide")))))))
+    if(file.inFolder("plugins"), "plugin",
+    if(file.inFolder("getting-started"), "getting-started",
+    if(file.inFolder("cli"), "cli", "guide")))))))))
   last_modified: file.mtime.relative()
   section: |
     if(file.inFolder("plugins"), "plugins",
     if(file.inFolder("features"), "features",
     if(file.inFolder("advanced"), "advanced",
-    if(file.inFolder("tags"), "tags", "core"))))
+    if(file.inFolder("getting-started"), "getting-started",
+    if(file.inFolder("cli"), "cli",
+    if(file.inFolder("tags"), "tags", "core"))))))
 properties:
   title:
     displayName: Title
@@ -86,6 +90,8 @@ views:
         - file.inFolder("plugins")
         - file.inFolder("features")
         - file.inFolder("advanced")
+        - file.inFolder("getting-started")
+        - file.inFolder("cli")
         - file.inFolder("tags")
     order:
       - file.name
