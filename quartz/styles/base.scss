@@ -134,7 +134,7 @@ a {
 }
 
 .desktop-only {
-  display: initial;
+  display: contents;
   &.flex-component {
     display: flex;
   }
@@ -155,7 +155,7 @@ a {
     &.flex-component {
       display: flex;
     }
-    display: initial;
+    display: contents;
   }
 }
 

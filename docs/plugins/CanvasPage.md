@@ -8,6 +8,8 @@ This plugin is a page type plugin that renders [JSON Canvas](https://jsoncanvas.
 
 See [[CanvasPage.canvas]] for a live demo showcasing all supported features.
 
+![[canvasPage.canvas]]
+
 > [!note]
 > For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
 

@@ -136,8 +136,11 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
             ...vp.data,
           })
 
-          // Expose virtual pages on ctx so other emitters (e.g. ContentIndex) can include them
-          ctx.virtualPages.push([tree, vfile])
+          // Expose virtual pages on ctx so other emitters (e.g. ContentIndex) can include them.
+          // Skip special pages like 404 that shouldn't appear in content listings.
+          if (vpSlug !== "404") {
+            ctx.virtualPages.push([tree, vfile])
+          }
 
           yield emitPage(ctx, vpSlug, tree, vfile.data, allFiles, layout, resources)
         }
@@ -189,8 +192,11 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
             ...vp.data,
           })
 
-          // Expose virtual pages on ctx so other emitters (e.g. ContentIndex) can include them
-          ctx.virtualPages.push([tree, vfile])
+          // Expose virtual pages on ctx so other emitters (e.g. ContentIndex) can include them.
+          // Skip special pages like 404 that shouldn't appear in content listings.
+          if (vpSlug !== "404") {
+            ctx.virtualPages.push([tree, vfile])
+          }
 
           yield emitPage(ctx, vpSlug, tree, vfile.data, allFiles, layout, resources)
         }
