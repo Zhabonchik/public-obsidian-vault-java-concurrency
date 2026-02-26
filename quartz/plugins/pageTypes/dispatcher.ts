@@ -2,7 +2,7 @@ import { QuartzEmitterPlugin, QuartzPageTypePluginInstance } from "../types"
 import { QuartzComponent, QuartzComponentProps } from "../../components/types"
 import { pageResources, renderPage } from "../../components/renderPage"
 import { FullPageLayout } from "../../cfg"
-import { FullSlug, pathToRoot } from "../../util/path"
+import { FilePath, FullSlug, pathToRoot } from "../../util/path"
 import { ProcessedContent, defaultProcessedContent } from "../vfile"
 import { write } from "../emitters/helpers"
 import { BuildCtx, trieFromAllFiles } from "../../util/ctx"
@@ -128,8 +128,10 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
 
         for (const vp of virtualPages) {
           const vpSlug = vp.slug as FullSlug
+          const vpRelativePath = (vpSlug + ".md") as FilePath
           const [tree, vfile] = defaultProcessedContent({
             slug: vpSlug,
+            relativePath: vpRelativePath,
             frontmatter: { title: vp.title, tags: [] },
             ...vp.data,
           })
@@ -179,8 +181,10 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
 
         for (const vp of virtualPages) {
           const vpSlug = vp.slug as FullSlug
+          const vpRelativePath = (vpSlug + ".md") as FilePath
           const [tree, vfile] = defaultProcessedContent({
             slug: vpSlug,
+            relativePath: vpRelativePath,
             frontmatter: { title: vp.title, tags: [] },
             ...vp.data,
           })
