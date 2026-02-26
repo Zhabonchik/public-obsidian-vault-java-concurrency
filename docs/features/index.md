@@ -15,6 +15,8 @@ Quartz comes with a wide variety of features out of the box. Most features are p
 - [[OxHugo compatibility]] — Support for ox-hugo Markdown
 - [[Roam Research compatibility]] — Support for Roam Research syntax
 - [[Citations]] — Academic citation support
+- [[Canvas]] — Render Obsidian Canvas files as interactive pages
+- [[Bases]] — Database-like views for your notes (tables, cards, galleries, and more)
 
 ## Navigation & Discovery
 

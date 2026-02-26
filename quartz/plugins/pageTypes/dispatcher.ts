@@ -107,25 +107,18 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
       // Ensure trie is available for components that need folder hierarchy (e.g. FolderContent)
       ctx.trie ??= trieFromAllFiles(allFiles)
 
-      for (const [tree, file] of content) {
-        const slug = file.data.slug!
-        const fileData = file.data
-
-        for (const pt of pageTypes) {
-          if (pt.match({ slug, fileData, cfg })) {
-            const layout = resolveLayout(pt, defaults, byPageType)
-            yield emitPage(ctx, slug, tree, fileData, allFiles, layout, resources)
-            break
-          }
-        }
-      }
-
+      // Phase 1: Generate all virtual pages first so their data is available in allFiles
+      // for transclude resolution in renderPage (e.g. ![[file.canvas]], ![[file.base]])
+      const virtualEntries: Array<{
+        tree: ProcessedContent[0]
+        vfile: ProcessedContent[1]
+        layout: FullPageLayout
+        vpSlug: FullSlug
+      }> = []
       for (const pt of pageTypes) {
         if (!pt.generate) continue
-
         const virtualPages = pt.generate({ content, cfg, ctx })
         const layout = resolveLayout(pt, defaults, byPageType)
-
         for (const vp of virtualPages) {
           const vpSlug = vp.slug as FullSlug
           const vpRelativePath = (vpSlug + ".md") as FilePath
@@ -135,15 +128,40 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
             frontmatter: { title: vp.title, tags: [] },
             ...vp.data,
           })
-
-          // Expose virtual pages on ctx so other emitters (e.g. ContentIndex) can include them.
-          // Skip special pages like 404 that shouldn't appear in content listings.
           if (vpSlug !== "404") {
             ctx.virtualPages.push([tree, vfile])
           }
-
-          yield emitPage(ctx, vpSlug, tree, vfile.data, allFiles, layout, resources)
+          virtualEntries.push({ tree, vfile, layout, vpSlug })
         }
+      }
+
+      // Merge virtual page data into allFiles so renderPage can resolve transcludes
+      const allFilesWithVirtual = [...allFiles, ...virtualEntries.map((ve) => ve.vfile.data)]
+
+      // Phase 2: Emit regular pages (with virtual page data available for transclusion)
+      for (const [tree, file] of content) {
+        const slug = file.data.slug!
+        const fileData = file.data
+        for (const pt of pageTypes) {
+          if (pt.match({ slug, fileData, cfg })) {
+            const layout = resolveLayout(pt, defaults, byPageType)
+            yield emitPage(ctx, slug, tree, fileData, allFilesWithVirtual, layout, resources)
+            break
+          }
+        }
+      }
+
+      // Phase 3: Emit virtual pages
+      for (const ve of virtualEntries) {
+        yield emitPage(
+          ctx,
+          ve.vpSlug,
+          ve.tree,
+          ve.vfile.data,
+          allFilesWithVirtual,
+          ve.layout,
+          resources,
+        )
       }
     },
     async *partialEmit(ctx, content, resources, changeEvents) {
@@ -162,26 +180,17 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
         }
       }
 
-      for (const [tree, file] of content) {
-        const slug = file.data.slug!
-        if (!changedSlugs.has(slug)) continue
-
-        const fileData = file.data
-        for (const pt of pageTypes) {
-          if (pt.match({ slug, fileData, cfg })) {
-            const layout = resolveLayout(pt, defaults, byPageType)
-            yield emitPage(ctx, slug, tree, fileData, allFiles, layout, resources)
-            break
-          }
-        }
-      }
-
+      // Phase 1: Generate all virtual pages first so their data is available in allFiles
+      const virtualEntries: Array<{
+        tree: ProcessedContent[0]
+        vfile: ProcessedContent[1]
+        layout: FullPageLayout
+        vpSlug: FullSlug
+      }> = []
       for (const pt of pageTypes) {
         if (!pt.generate) continue
-
         const virtualPages = pt.generate({ content, cfg, ctx })
         const layout = resolveLayout(pt, defaults, byPageType)
-
         for (const vp of virtualPages) {
           const vpSlug = vp.slug as FullSlug
           const vpRelativePath = (vpSlug + ".md") as FilePath
@@ -191,15 +200,42 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
             frontmatter: { title: vp.title, tags: [] },
             ...vp.data,
           })
-
-          // Expose virtual pages on ctx so other emitters (e.g. ContentIndex) can include them.
-          // Skip special pages like 404 that shouldn't appear in content listings.
           if (vpSlug !== "404") {
             ctx.virtualPages.push([tree, vfile])
           }
-
-          yield emitPage(ctx, vpSlug, tree, vfile.data, allFiles, layout, resources)
+          virtualEntries.push({ tree, vfile, layout, vpSlug })
         }
+      }
+
+      // Merge virtual page data into allFiles for transclude resolution
+      const allFilesWithVirtual = [...allFiles, ...virtualEntries.map((ve) => ve.vfile.data)]
+
+      // Phase 2: Emit changed regular pages
+      for (const [tree, file] of content) {
+        const slug = file.data.slug!
+        if (!changedSlugs.has(slug)) continue
+
+        const fileData = file.data
+        for (const pt of pageTypes) {
+          if (pt.match({ slug, fileData, cfg })) {
+            const layout = resolveLayout(pt, defaults, byPageType)
+            yield emitPage(ctx, slug, tree, fileData, allFilesWithVirtual, layout, resources)
+            break
+          }
+        }
+      }
+
+      // Phase 3: Emit virtual pages
+      for (const ve of virtualEntries) {
+        yield emitPage(
+          ctx,
+          ve.vpSlug,
+          ve.tree,
+          ve.vfile.data,
+          allFilesWithVirtual,
+          ve.layout,
+          resources,
+        )
       }
     },
   }
