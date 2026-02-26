@@ -2,6 +2,7 @@
 title: 歷年展覽與獲獎 | Exhibitions & Awards
 description: 林永章 Lin Yung-Chang (Nick Lin) 陶藝創作歷程，包含金壺獎入選、個展紀錄及國家級手拉坯丙級認證。
 icon: 🏺
+image: lin-yung-chang-pottery-artist.webp
 ---
 
 <img src="lin-yung-chang-pottery-artist.webp" alt="陶藝家林永章 Nick Lin 形象照" width="300">
