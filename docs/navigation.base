@@ -97,3 +97,28 @@ views:
       - file.name
       - title
       - formula.last_modified
+  - type: board
+    name: By Type (Board)
+    groupBy:
+      property: formula.doc_type
+      direction: ASC
+    order:
+      - file.name
+      - title
+      - formula.last_modified
+  - type: gallery
+    name: Gallery
+    order:
+      - title
+      - formula.doc_type
+      - formula.section
+    limit: 30
+  - type: cards
+    name: Cards
+    order:
+      - file.name
+      - title
+      - formula.doc_type
+      - formula.section
+      - formula.last_modified
+    limit: 24
