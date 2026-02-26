@@ -215,10 +215,10 @@ plugins:
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
-    order: 65
+    order: 95
     layout:
       position: left
-      priority: 65
+      priority: 95
       display: mobile-only
   - source: github:quartz-community/bases-page
     enabled: true
