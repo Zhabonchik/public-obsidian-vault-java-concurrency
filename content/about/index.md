@@ -1,6 +1,7 @@
 ---
 title: 🧑‍🎨 關於我
 description: 林永章 Lin Yung-Chang | Nick | 陶工生活隨筆。
+image: lin-yung-chang-pottery.webp
 ---
 ---
 # 林永章 
