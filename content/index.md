@@ -1,6 +1,7 @@
 ---
 title: 林永章 | Lin Yung-Chang | Nick
 description: 林永章的個人工藝筆記。收錄年度工藝賽事地圖、真空練土機技術考據與經典陶藝文獻整理。在泥土與火的對話中，紀錄最純粹的職人實踐。
+image: lin-yung-chang-wood-firing.webp
 ---
 # 🏺 Still Whispers
 
