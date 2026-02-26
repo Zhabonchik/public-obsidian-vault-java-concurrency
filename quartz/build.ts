@@ -50,6 +50,7 @@ async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
     allSlugs: [],
     allFiles: [],
     incremental: false,
+    virtualPages: [],
   }
 
   const perf = new PerfTimer()
@@ -264,10 +265,40 @@ async function rebuild(changes: ChangeEvent[], clientRefresh: () => void, buildD
   )
 
   let emittedFiles = 0
+
+  // Phase 1: Run PageTypeDispatcher first so it populates ctx.virtualPages
+  const dispatcher = cfg.plugins.emitters.find((e) => e.name === "PageTypeDispatcher")
+  if (dispatcher) {
+    ctx.virtualPages = []
+    const emitFn = dispatcher.partialEmit ?? dispatcher.emit
+    const emitted = await emitFn(ctx, processedFiles, staticResources, changeEvents)
+    if (emitted !== null) {
+      if (Symbol.asyncIterator in emitted) {
+        for await (const file of emitted) {
+          emittedFiles++
+          if (ctx.argv.verbose) {
+            console.log(`[emit:${dispatcher.name}] ${file}`)
+          }
+        }
+      } else {
+        emittedFiles += emitted.length
+        if (ctx.argv.verbose) {
+          for (const file of emitted) {
+            console.log(`[emit:${dispatcher.name}] ${file}`)
+          }
+        }
+      }
+    }
+  }
+
+  // Phase 2: Run all other emitters with content extended by virtual pages
+  const contentWithVirtual =
+    ctx.virtualPages.length > 0 ? [...processedFiles, ...ctx.virtualPages] : processedFiles
   for (const emitter of cfg.plugins.emitters) {
+    if (emitter.name === "PageTypeDispatcher") continue
     // Try to use partialEmit if available, otherwise assume the output is static
     const emitFn = emitter.partialEmit ?? emitter.emit
-    const emitted = await emitFn(ctx, processedFiles, staticResources, changeEvents)
+    const emitted = await emitFn(ctx, contentWithVirtual, staticResources, changeEvents)
     if (emitted === null) {
       continue
     }

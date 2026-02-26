@@ -134,6 +134,9 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
             ...vp.data,
           })
 
+          // Expose virtual pages on ctx so other emitters (e.g. ContentIndex) can include them
+          ctx.virtualPages.push([tree, vfile])
+
           yield emitPage(ctx, vpSlug, tree, vfile.data, allFiles, layout, resources)
         }
       }
@@ -181,6 +184,9 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
             frontmatter: { title: vp.title, tags: [] },
             ...vp.data,
           })
+
+          // Expose virtual pages on ctx so other emitters (e.g. ContentIndex) can include them
+          ctx.virtualPages.push([tree, vfile])
 
           yield emitPage(ctx, vpSlug, tree, vfile.data, allFiles, layout, resources)
         }
