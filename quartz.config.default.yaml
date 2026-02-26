@@ -52,7 +52,7 @@ plugins:
         - aliases
       excludedProperties: []
       hidePropertiesView: false
-      delimiters: "---"
+      delimiters: ---
       language: yaml
     order: 5
   - source: github:quartz-community/created-modified-date
@@ -190,12 +190,6 @@ plugins:
       position: left
       priority: 35
       group: toolbar
-  - source: github:quartz-community/spacer
-    enabled: true
-    layout:
-      position: left
-      priority: 15
-      display: mobile-only
   - source: github:quartz-community/breadcrumbs
     enabled: true
     layout:
@@ -218,6 +212,35 @@ plugins:
         Discord Community: https://discord.gg/cRFFHYye7t
   - source: github:quartz-community/recent-notes
     enabled: false
+  - source: github:quartz-community/spacer
+    enabled: true
+    options: {}
+    order: 15
+    layout:
+      position: left
+      priority: 15
+      display: mobile-only
+  - source: github:quartz-community/bases-page
+    enabled: true
+    options: {}
+    order: 50
+  - source: github:quartz-community/note-properties
+    enabled: true
+    options:
+      includeAll: false
+      includedProperties:
+        - description
+        - tags
+        - aliases
+      excludedProperties: []
+      hidePropertiesView: false
+      delimiters: ---
+      language: yaml
+    order: 5
+    layout:
+      position: beforeBody
+      priority: 15
+      display: all
 layout:
   groups:
     toolbar:
