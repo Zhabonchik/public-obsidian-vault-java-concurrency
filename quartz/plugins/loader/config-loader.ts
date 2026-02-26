@@ -704,57 +704,74 @@ function resolveGroups(
   }[],
   groups: Record<string, FlexGroupConfig>,
 ): QuartzComponent[] {
-  const result: QuartzComponent[] = []
+  // Collect grouped components and track the effective priority for each group.
+  // Effective priority = explicit group config priority ?? first member's priority.
   const groupedComponents = new Map<
     string,
     { component: QuartzComponent; groupOptions?: PluginLayoutDeclaration["groupOptions"] }[]
   >()
-  const groupInsertionOrder: { name: string; priority: number }[] = []
+  const groupPriority = new Map<string, number>()
 
   for (const item of items) {
     if (item.group) {
       if (!groupedComponents.has(item.group)) {
         groupedComponents.set(item.group, [])
-        groupInsertionOrder.push({ name: item.group, priority: item.priority })
+        // Use explicit group priority from config if set, otherwise fall back to first member's priority
+        const groupConfig = groups[item.group]
+        groupPriority.set(item.group, groupConfig?.priority ?? item.priority)
       }
       groupedComponents.get(item.group)!.push({
         component: item.component,
         groupOptions: item.groupOptions,
       })
-    } else {
-      result.push(item.component)
     }
   }
 
-  // Insert flex groups at the position of their first member
-  for (const { name: groupName } of groupInsertionOrder) {
-    const members = groupedComponents.get(groupName)!
-    const groupConfig = groups[groupName] ?? {}
+  // Build a unified list of renderable entries (ungrouped components + flex groups),
+  // each with a priority, so we can sort them together.
+  type RenderEntry = { priority: number; component: QuartzComponent }
+  const entries: RenderEntry[] = []
+  const processedGroups = new Set<string>()
 
-    const flexComponents = members.map((m) => ({
-      Component: m.component,
-      grow: m.groupOptions?.grow,
-      shrink: m.groupOptions?.shrink,
-      basis: m.groupOptions?.basis,
-      order: m.groupOptions?.order,
-      align: m.groupOptions?.align,
-      justify: m.groupOptions?.justify,
-    }))
+  for (const item of items) {
+    if (item.group) {
+      // Only emit the flex group once (on first encounter)
+      if (processedGroups.has(item.group)) continue
+      processedGroups.add(item.group)
 
-    // Dynamically import Flex to avoid circular dependencies
-    const FlexModule = require("../../components/Flex")
-    const Flex = FlexModule.default as Function
-    const flexComponent = Flex({
-      components: flexComponents,
-      direction: groupConfig.direction ?? "row",
-      wrap: groupConfig.wrap,
-      gap: groupConfig.gap ?? "1rem",
-    }) as QuartzComponent
+      const members = groupedComponents.get(item.group)!
+      const groupConfig = groups[item.group] ?? {}
 
-    result.push(flexComponent)
+      const flexComponents = members.map((m) => ({
+        Component: m.component,
+        grow: m.groupOptions?.grow,
+        shrink: m.groupOptions?.shrink,
+        basis: m.groupOptions?.basis,
+        order: m.groupOptions?.order,
+        align: m.groupOptions?.align,
+        justify: m.groupOptions?.justify,
+      }))
+
+      // Dynamically import Flex to avoid circular dependencies
+      const FlexModule = require("../../components/Flex")
+      const Flex = FlexModule.default as Function
+      const flexComponent = Flex({
+        components: flexComponents,
+        direction: groupConfig.direction ?? "row",
+        wrap: groupConfig.wrap,
+        gap: groupConfig.gap ?? "1rem",
+      }) as QuartzComponent
+
+      entries.push({ priority: groupPriority.get(item.group)!, component: flexComponent })
+    } else {
+      entries.push({ priority: item.priority, component: item.component })
+    }
   }
 
-  return result
+  // Stable sort by priority (items already arrive sorted, so equal priorities preserve order)
+  entries.sort((a, b) => a.priority - b.priority)
+
+  return entries.map((e) => e.component)
 }
 
 function applyDisplayWrapper(
