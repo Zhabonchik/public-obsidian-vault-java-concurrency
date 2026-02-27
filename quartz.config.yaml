@@ -244,6 +244,7 @@ plugins:
 layout:
   groups:
     toolbar:
+      priority: 15
       direction: row
       gap: 0.5rem
   byPageType:
