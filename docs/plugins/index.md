@@ -66,7 +66,7 @@ Quartz plugins fall into several categories:
 | ------------------------------ | ------------------------------------------------------------------------------------- | :-----: | :------: | ------------------------------------------- |
 | [[ArticleTitle]]               | [`quartz-community/article-title`](https://github.com/quartz-community/article-title) |   ✅    |    ❌    | Renders the article title as an h1 heading. |
 | [[ContentMeta]]                | [`quartz-community/content-meta`](https://github.com/quartz-community/content-meta)   |   ✅    |    ❌    | Displays creation date and reading time.    |
-| [[TagList]]                    | [`quartz-community/tag-list`](https://github.com/quartz-community/tag-list)           |   ✅    |    ❌    | Renders tags as clickable links.            |
+| [[TagList]]                    | [`quartz-community/tag-list`](https://github.com/quartz-community/tag-list)           |   ❌    |    ❌    | Renders tags as clickable links.            |
 | [[PageTitle]]                  | [`quartz-community/page-title`](https://github.com/quartz-community/page-title)       |   ✅    |    ❌    | Renders the site title as a home link.      |
 | [[darkmode\|Darkmode]]         | [`quartz-community/darkmode`](https://github.com/quartz-community/darkmode)           |   ✅    |    ❌    | Toggle between light and dark themes.       |
 | [[reader mode\|Reader Mode]]   | [`quartz-community/reader-mode`](https://github.com/quartz-community/reader-mode)     |   ✅    |    ❌    | Distraction-free reading mode toggle.       |
