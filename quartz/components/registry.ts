@@ -18,6 +18,7 @@ export interface RegisteredComponent {
 
 class ComponentRegistry {
   private components = new Map<string, RegisteredComponent>()
+  private instanceCache = new Map<string, QuartzComponent>()
 
   register(
     name: string,
@@ -40,6 +41,30 @@ class ComponentRegistry {
     return new Map(this.components)
   }
 
+  /**
+   * Instantiate a component constructor with options, returning a cached instance
+   * if the same constructor was already called with equivalent options.
+   * This prevents duplicate afterDOMLoaded scripts when the same component
+   * appears in multiple page-type layouts.
+   */
+  instantiate(constructor: QuartzComponentConstructor, options?: unknown): QuartzComponent {
+    const optsKey = options !== undefined ? JSON.stringify(options) : ""
+    // Use constructor identity + serialized options as cache key
+    // We store constructor name as a hint but rely on a unique id for identity
+    const ctorId =
+      (constructor as unknown as { __cacheId?: string }).__cacheId ??
+      ((constructor as unknown as { __cacheId: string }).__cacheId =
+        `ctor_${this.instanceCache.size}`)
+    const cacheKey = `${ctorId}:${optsKey}`
+
+    const cached = this.instanceCache.get(cacheKey)
+    if (cached) return cached
+
+    const instance = constructor(options)
+    this.instanceCache.set(cacheKey, instance)
+    return instance
+  }
+
   getAllComponents(): QuartzComponent[] {
     // Deduplicate by component reference (same constructor may be registered under multiple keys)
     const seen = new Set<QuartzComponent | QuartzComponentConstructor>()
@@ -50,7 +75,7 @@ class ComponentRegistry {
       try {
         let instance: QuartzComponent
         if (typeof r.component === "function") {
-          instance = (r.component as QuartzComponentConstructor)(undefined)
+          instance = this.instantiate(r.component as QuartzComponentConstructor, undefined)
         } else {
           instance = r.component as QuartzComponent
         }

@@ -3,7 +3,7 @@ import path from "path"
 import YAML from "yaml"
 import { styleText } from "util"
 import { QuartzConfig, GlobalConfiguration, FullPageLayout } from "../../cfg"
-import { QuartzComponent } from "../../components/types"
+import { QuartzComponent, QuartzComponentConstructor } from "../../components/types"
 import { PluginTypes } from "../types"
 import {
   PluginManifest,
@@ -561,11 +561,12 @@ export async function loadQuartzLayout(layoutOverrides?: {
     const footerReg = componentRegistry.get("footer") ?? componentRegistry.get("Footer")
     if (footerReg) {
       if (typeof footerReg.component === "function" && !("displayName" in footerReg.component)) {
-        // It's a constructor, instantiate with options
+        // It's a constructor — use registry cache for consistent instances
         const opts = { ...footerEntry.options }
-        footer = (footerReg.component as Function)(
+        footer = componentRegistry.instantiate(
+          footerReg.component as QuartzComponentConstructor,
           Object.keys(opts).length > 0 ? opts : undefined,
-        ) as QuartzComponent
+        )
       } else {
         footer = footerReg.component as QuartzComponent
       }
@@ -648,11 +649,14 @@ function buildLayoutForEntries(
 
     let component: QuartzComponent
     if (typeof reg.component === "function" && !("displayName" in reg.component)) {
-      // It's a constructor, instantiate with options
+      // It's a constructor — use registry cache to avoid duplicate instances
+      // (and duplicate afterDOMLoaded scripts) across page-type layouts
       const opts = { ...entry.options }
-      component = (reg.component as Function)(
-        Object.keys(opts).length > 0 ? opts : undefined,
-      ) as QuartzComponent
+      const optsArg = Object.keys(opts).length > 0 ? opts : undefined
+      component = componentRegistry.instantiate(
+        reg.component as QuartzComponentConstructor,
+        optsArg,
+      )
     } else {
       component = reg.component as QuartzComponent
     }
