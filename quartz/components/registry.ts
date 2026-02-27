@@ -47,7 +47,10 @@ class ComponentRegistry {
    * This prevents duplicate afterDOMLoaded scripts when the same component
    * appears in multiple page-type layouts.
    */
-  instantiate(constructor: QuartzComponentConstructor, options?: unknown): QuartzComponent {
+  instantiate(
+    constructor: QuartzComponentConstructor<any>,
+    options?: Record<string, unknown>,
+  ): QuartzComponent {
     const optsKey = options !== undefined ? JSON.stringify(options) : ""
     // Use constructor identity + serialized options as cache key
     // We store constructor name as a hint but rely on a unique id for identity
