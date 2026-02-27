@@ -7,6 +7,9 @@ import { ProcessedContent, defaultProcessedContent } from "../vfile"
 import { write } from "../emitters/helpers"
 import { BuildCtx, trieFromAllFiles } from "../../util/ctx"
 import { StaticResources } from "../../util/resources"
+import { render } from "preact-render-to-string"
+import { fromHtml } from "hast-util-from-html"
+import { Root as HtmlRoot } from "hast"
 
 function getPageTypes(ctx: BuildCtx): QuartzPageTypePluginInstance[] {
   return (ctx.cfg.plugins.pageTypes ?? []) as unknown as QuartzPageTypePluginInstance[]
@@ -89,6 +92,47 @@ async function emitPage(
   })
 }
 
+/**
+ * Render each virtual page's Body component to HTML and parse it to a hast tree,
+ * populating both the ProcessedContent tree and vfile.data.htmlAst so that
+ * transclusion (e.g. ![[file.canvas]]) can inline the virtual page's content.
+ */
+function populateVirtualPageHtmlAst(
+  virtualEntries: Array<{
+    tree: ProcessedContent[0]
+    vfile: ProcessedContent[1]
+    layout: FullPageLayout
+    vpSlug: FullSlug
+  }>,
+  ctx: BuildCtx,
+  allFiles: ProcessedContent[1]["data"][],
+  resources: StaticResources,
+) {
+  const cfg = ctx.cfg.configuration
+  for (const ve of virtualEntries) {
+    const BodyComponent = ve.layout.pageBody
+    const externalResources = pageResources(pathToRoot(ve.vpSlug), resources)
+    const componentData: QuartzComponentProps = {
+      ctx,
+      fileData: ve.vfile.data,
+      externalResources,
+      cfg,
+      children: [],
+      tree: ve.tree,
+      allFiles,
+    }
+    try {
+      const htmlString = render(BodyComponent(componentData))
+      const htmlAst = fromHtml(htmlString, { fragment: true }) as HtmlRoot
+      ve.tree.children = htmlAst.children
+      ve.vfile.data.htmlAst = htmlAst
+    } catch {
+      // Body rendering failed — leave htmlAst empty so transclusion falls
+      // back to the default title-only display.
+    }
+  }
+}
+
 export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>> = (userOpts) => {
   const defaults = userOpts?.defaults ?? {}
   const byPageType = userOpts?.byPageType ?? {}
@@ -134,6 +178,9 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
           virtualEntries.push({ tree, vfile, layout, vpSlug })
         }
       }
+
+      // Render Body components to populate htmlAst for transclusion
+      populateVirtualPageHtmlAst(virtualEntries, ctx, allFiles, resources)
 
       // Merge virtual page data into allFiles so renderPage can resolve transcludes
       const allFilesWithVirtual = [...allFiles, ...virtualEntries.map((ve) => ve.vfile.data)]
@@ -206,6 +253,9 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
           virtualEntries.push({ tree, vfile, layout, vpSlug })
         }
       }
+
+      // Render Body components to populate htmlAst for transclusion
+      populateVirtualPageHtmlAst(virtualEntries, ctx, allFiles, resources)
 
       // Merge virtual page data into allFiles for transclude resolution
       const allFilesWithVirtual = [...allFiles, ...virtualEntries.map((ve) => ve.vfile.data)]

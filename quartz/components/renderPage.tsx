@@ -102,7 +102,19 @@ function renderTranscludes(
         }
         visited.add(transcludeTarget)
 
-        const page = componentData.allFiles.find((f) => f.slug === transcludeTarget)
+        let page = componentData.allFiles.find((f) => f.slug === transcludeTarget)
+        if (!page) {
+          // Virtual pages from PageType plugins have slugs without extensions
+          // (e.g. "plugins/CanvasPage") but CrawlLinks resolves wikilinks like
+          // ![[CanvasPage.canvas]] to "plugins/CanvasPage.canvas". Fall back to
+          // stripping the extension from the transclude target.
+          const dotIdx = transcludeTarget.lastIndexOf(".")
+          const slashIdx = transcludeTarget.lastIndexOf("/")
+          if (dotIdx > slashIdx + 1) {
+            const stripped = transcludeTarget.slice(0, dotIdx) as FullSlug
+            page = componentData.allFiles.findLast((f) => f.slug === stripped)
+          }
+        }
         if (!page) {
           return
         }
