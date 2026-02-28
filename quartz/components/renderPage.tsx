@@ -261,6 +261,7 @@ export function renderPage(
     <html lang={lang} dir={direction}>
       <Head {...componentData} />
       <body data-slug={slug}>
+        {frame.css && <style dangerouslySetInnerHTML={{ __html: frame.css }} />}
         <div id="quartz-root" class="page" data-frame={frame.name}>
           <Body {...componentData}>
             {[
