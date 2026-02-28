@@ -651,6 +651,7 @@ The layout builder looks up components by:
 7. Serializes to HTML string via `preact-render-to-string`
 
 The `data-frame` attribute on `#quartz-root` enables CSS targeting per-frame (see [Page Frames](#page-frames)).
+
 ### Page Frames
 
 The PageFrame system allows page types to optionally define completely different inner HTML structures (e.g. with/without sidebars, horizontal layouts, minimal chrome) while the outer shell remains stable for SPA navigation.
@@ -679,31 +680,31 @@ The PageFrame system allows page types to optionally define completely different
 
 ```typescript
 interface PageFrame {
-  name: string                                     // e.g. "default", "full-width", "minimal"
-  render: (props: PageFrameProps) => JSX.Element   // Renders the inner page structure
-  css?: string                                     // Optional frame-specific CSS
+  name: string // e.g. "default", "full-width", "minimal"
+  render: (props: PageFrameProps) => JSX.Element // Renders the inner page structure
+  css?: string // Optional frame-specific CSS
 }
 
 interface PageFrameProps {
-  componentData: QuartzComponentProps   // Shared props for all components
-  head: QuartzComponent                 // Head component (for completeness)
-  header: QuartzComponent[]             // Header slot
-  beforeBody: QuartzComponent[]         // Before-body slot
-  pageBody: QuartzComponent             // Content component (from PageType)
-  afterBody: QuartzComponent[]          // After-body slot
-  left: QuartzComponent[]               // Left sidebar components
-  right: QuartzComponent[]              // Right sidebar components
-  footer: QuartzComponent               // Footer component
+  componentData: QuartzComponentProps // Shared props for all components
+  head: QuartzComponent // Head component (for completeness)
+  header: QuartzComponent[] // Header slot
+  beforeBody: QuartzComponent[] // Before-body slot
+  pageBody: QuartzComponent // Content component (from PageType)
+  afterBody: QuartzComponent[] // After-body slot
+  left: QuartzComponent[] // Left sidebar components
+  right: QuartzComponent[] // Right sidebar components
+  footer: QuartzComponent // Footer component
 }
 ```
 
 #### Built-in Frames
 
-| Frame | Name | Description | Used By |
-| --- | --- | --- | --- |
-| **DefaultFrame** | `"default"` | Original three-column layout: left sidebar + center (header, beforeBody, content, afterBody) + right sidebar + footer | All page types by default |
-| **FullWidthFrame** | `"full-width"` | No sidebars. Single center column spanning full width with header, content, afterBody, and footer | `canvas-page` |
-| **MinimalFrame** | `"minimal"` | No sidebars, no header/beforeBody chrome. Only content + footer | `404` page |
+| Frame              | Name           | Description                                                                                                           | Used By                   |
+| ------------------ | -------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| **DefaultFrame**   | `"default"`    | Original three-column layout: left sidebar + center (header, beforeBody, content, afterBody) + right sidebar + footer | All page types by default |
+| **FullWidthFrame** | `"full-width"` | No sidebars. Single center column spanning full width with header, content, afterBody, and footer                     | `canvas-page`             |
+| **MinimalFrame**   | `"minimal"`    | No sidebars, no header/beforeBody chrome. Only content + footer                                                       | `404` page                |
 
 #### Frame Resolution Priority
 
@@ -721,7 +722,7 @@ This means site authors can override any page type's frame via configuration wit
 layout:
   byPageType:
     canvas:
-      template: minimal   # Override canvas pages to use minimal frame
+      template: minimal # Override canvas pages to use minimal frame
 ```
 
 #### Creating Custom Frames
@@ -780,13 +781,13 @@ Frame changes between pages are SPA-safe because:
 
 #### Source Files
 
-| File | Purpose |
-| --- | --- |
-| `quartz/components/frames/types.ts` | `PageFrame` and `PageFrameProps` interfaces |
-| `quartz/components/frames/DefaultFrame.tsx` | Default three-column layout |
-| `quartz/components/frames/FullWidthFrame.tsx` | Full-width single-column layout |
-| `quartz/components/frames/MinimalFrame.tsx` | Minimal content-only layout |
-| `quartz/components/frames/index.ts` | Frame registry and `resolveFrame()` |
+| File                                          | Purpose                                     |
+| --------------------------------------------- | ------------------------------------------- |
+| `quartz/components/frames/types.ts`           | `PageFrame` and `PageFrameProps` interfaces |
+| `quartz/components/frames/DefaultFrame.tsx`   | Default three-column layout                 |
+| `quartz/components/frames/FullWidthFrame.tsx` | Full-width single-column layout             |
+| `quartz/components/frames/MinimalFrame.tsx`   | Minimal content-only layout                 |
+| `quartz/components/frames/index.ts`           | Frame registry and `resolveFrame()`         |
 
 ### Transclusion
 

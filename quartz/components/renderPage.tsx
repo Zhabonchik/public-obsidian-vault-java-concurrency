@@ -263,17 +263,19 @@ export function renderPage(
       <body data-slug={slug}>
         <div id="quartz-root" class="page" data-frame={frame.name}>
           <Body {...componentData}>
-            {[frame.render({
-              componentData,
-              head: Head,
-              header,
-              beforeBody,
-              pageBody: Content,
-              afterBody,
-              left,
-              right,
-              footer: Footer,
-            })]}
+            {[
+              frame.render({
+                componentData,
+                head: Head,
+                header,
+                beforeBody,
+                pageBody: Content,
+                afterBody,
+                left,
+                right,
+                footer: Footer,
+              }),
+            ]}
           </Body>
         </div>
       </body>
