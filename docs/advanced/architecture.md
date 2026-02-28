@@ -100,14 +100,26 @@ The frame system lives in `quartz/components/frames/` and consists of:
 - `DefaultFrame.tsx` — Three-column layout (left sidebar, center, right sidebar, footer)
 - `FullWidthFrame.tsx` — No sidebars, single center column
 - `MinimalFrame.tsx` — No sidebars, no header/beforeBody, just content and footer
-- `index.ts` — Registry and `resolveFrame()` function
+- `registry.ts` — `FrameRegistry` singleton for plugin-registered frames
+- `index.ts` — `resolveFrame()` function and built-in frame registry
+
+### Frame Registry
+
+The `FrameRegistry` (`quartz/components/frames/registry.ts`) is a singleton that stores frames registered by community plugins. It mirrors the design of the `ComponentRegistry`. Plugins declare frames in their `package.json` manifest under the `"quartz"."frames"` field, and these are loaded by `quartz/plugins/loader/frameLoader.ts` during plugin initialization.
+
+### Frame Resolution
 
 The rendering pipeline in `quartz/components/renderPage.tsx` delegates to the resolved frame's `render()` function. Frame resolution happens in the `PageTypeDispatcher` emitter (`quartz/plugins/pageTypes/dispatcher.ts`) using this priority:
 
 1. YAML config: `layout.byPageType.<name>.template`
-2. Page type plugin: `frame` property
-3. Fallback: `"default"`
+2. Plugin-registered frame: looked up by name in the `FrameRegistry`
+3. Built-in frame: looked up by name in the `builtinFrames` map
+4. Fallback: `"default"`
 
 The active frame name is set as a `data-frame` attribute on the `.page` element, enabling frame-specific CSS overrides in `quartz/styles/base.scss`.
+
+### Plugin-Provided Frames
+
+Community plugins can ship their own frames by exporting them from a `./frames` subpath and declaring them in the plugin manifest. For example, the `canvas-page` plugin provides a `"canvas"` frame with a fullscreen layout and togglable sidebar. See [[making plugins#Providing Custom Frames]] for implementation details.
 
 See [[layout#Page Frames]] for user-facing documentation and [[making plugins#Page Types]] for how to set frames in page type plugins.

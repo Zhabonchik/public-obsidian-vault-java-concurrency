@@ -370,8 +370,101 @@ export interface QuartzPageTypePluginInstance {
 - `match`: A function that determines whether a given slug/file should be rendered by this page type.
 - `generate`: An optional function that produces virtual pages (pages not backed by files on disk, such as folder listings or tag indices).
 - `layout`: The layout configuration key (e.g. `"content"`, `"folder"`, `"tag"`). This determines which `byPageType` entry in `quartz.config.yaml` provides the layout overrides for this page type.
-- `frame`: The [[layout#Page Frames|page frame]] to use for this page type. Controls the overall HTML structure (e.g. `"default"`, `"full-width"`, `"minimal"`). If not set, defaults to `"default"`. Can be overridden per-page-type via `layout.byPageType.<name>.template` in `quartz.config.yaml`.
+- `frame`: The [[layout#Page Frames|page frame]] to use for this page type. Controls the overall HTML structure (e.g. `"default"`, `"full-width"`, `"minimal"`, or a custom frame provided by your plugin). If not set, defaults to `"default"`. Can be overridden per-page-type via `layout.byPageType.<name>.template` in `quartz.config.yaml`.
 - `body`: The Quartz component constructor that renders the page body content.
+
+### Providing Custom Frames
+
+Plugins can ship their own [[layout#Page Frames|page frames]] — custom page layouts that control how the HTML structure (sidebars, header, content area, footer) is arranged. This is useful for page types that need fundamentally different layouts (e.g. a fullscreen canvas, a presentation mode, a dashboard).
+
+To provide a custom frame:
+
+**1. Create the frame file:**
+
+```tsx title="src/frames/MyFrame.tsx"
+import type { PageFrame, PageFrameProps } from "@quartz-community/types"
+import type { ComponentChildren } from "preact"
+
+export const MyFrame: PageFrame = {
+  name: "my-frame",
+  css: `
+.page[data-frame="my-frame"] > #quartz-body {
+  grid-template-columns: 1fr;
+  grid-template-areas: "center";
+}
+`,
+  render({ componentData, pageBody: Content, footer: Footer }: PageFrameProps): unknown {
+    const renderSlot = (C: (props: typeof componentData) => unknown): ComponentChildren =>
+      C(componentData) as ComponentChildren
+    return (
+      <div class="center">
+        {(Content as any)(componentData)}
+        {(Footer as any)(componentData)}
+      </div>
+    )
+  },
+}
+```
+
+Key requirements:
+
+- `name`: A unique string identifier. This is what page types and YAML config reference.
+- `render()`: Receives all layout slots (header, sidebars, content, footer) and returns JSX for the inner page structure.
+- `css` (optional): Frame-specific CSS. Scope it with `.page[data-frame="my-frame"]` selectors to avoid conflicts.
+
+**2. Re-export the frame:**
+
+```ts title="src/frames/index.ts"
+export { MyFrame } from "./MyFrame"
+```
+
+**3. Declare the frame in `package.json`:**
+
+```json title="package.json"
+{
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./frames": {
+      "import": "./dist/frames/index.js",
+      "types": "./dist/frames/index.d.ts"
+    }
+  },
+  "quartz": {
+    "frames": {
+      "MyFrame": { "exportName": "MyFrame" }
+    }
+  }
+}
+```
+
+The `"frames"` field in the `"quartz"` manifest maps export names to frame metadata. The key (e.g. `"MyFrame"`) must match the export name in `src/frames/index.ts`.
+
+**4. Add the frame entry point to your build config:**
+
+```ts title="tsup.config.ts"
+export default defineConfig({
+  entry: ["src/index.ts", "src/frames/index.ts"],
+  // ...
+})
+```
+
+**5. Reference the frame in your page type:**
+
+```ts
+export const MyPageType: QuartzPageTypePlugin = () => ({
+  name: "MyPageType",
+  frame: "my-frame", // References the frame by its name property
+  // ...
+})
+```
+
+When a user installs your plugin, Quartz automatically loads the frame from the `./frames` export and registers it in the Frame Registry. The frame is then available by name in any page type or YAML config override.
+
+> [!tip]
+> See the [`canvas-page`](https://github.com/quartz-community/canvas-page) plugin for a complete real-world example of a plugin-provided frame.
 
 ## Building and Testing
 

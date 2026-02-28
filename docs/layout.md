@@ -145,16 +145,19 @@ Quartz ships with three built-in frames:
 | Frame        | Description                                                                                                                                                    | Used by                                     |
 | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
 | `default`    | Three-column layout with left sidebar, center content (header, beforeBody, content, afterBody), right sidebar, and footer. This is the standard Quartz layout. | ContentPage, FolderPage, TagPage, BasesPage |
-| `full-width` | No sidebars. Single center column spanning the full width with header, content, afterBody, and footer.                                                         | CanvasPage                                  |
+| `full-width` | No sidebars. Single center column spanning the full width with header, content, afterBody, and footer.                                                         | —                                           |
 | `minimal`    | No sidebars, no header or beforeBody chrome. Only content and footer.                                                                                          | NotFoundPage (404)                          |
+
+Plugins can also provide their own frames. For example, the `canvas-page` plugin ships a `"canvas"` frame that provides a fullscreen canvas with a togglable sidebar.
 
 #### How frames are resolved
 
 Each page type can declare a default frame in its plugin source code via the `frame` property. The resolution order is:
 
 1. **YAML config override**: `layout.byPageType.<name>.template` in `quartz.config.yaml`
-2. **Plugin declaration**: The `frame` property set in the page type plugin's source code
-3. **Fallback**: `"default"`
+2. **Plugin-registered frame**: Frames registered by plugins via the Frame Registry (loaded from the plugin's `frames` export)
+3. **Plugin declaration**: The `frame` property set in the page type plugin's source code
+4. **Fallback**: `"default"`
 
 For example, to override canvas pages to use the minimal frame:
 
@@ -167,7 +170,15 @@ layout:
 
 #### Custom frames
 
-You can create custom frames by adding a new `.tsx` file in `quartz/components/frames/` that implements the `PageFrame` interface, then registering it in `quartz/components/frames/index.ts`. See the [[advanced/architecture|architecture overview]] for the full `PageFrame` interface.
+There are two ways to provide custom frames:
+
+**1. Plugin-provided frames (recommended for reusable frames):**
+
+Plugins can ship their own frames by declaring them in `package.json` and exporting them from a `./frames` subpath. See [[making plugins#Providing Custom Frames|the plugin guide]] for details. When a plugin with frames is installed, its frames are automatically registered in the Frame Registry and available by name.
+
+**2. Core frames (for project-specific frames):**
+
+You can also create frames directly in `quartz/components/frames/` by implementing the `PageFrame` interface and registering the frame in `quartz/components/frames/index.ts`. See the [[advanced/architecture|architecture overview]] for the full `PageFrame` interface.
 
 Frames are applied as a `data-frame` attribute on the `.page` element, which you can target in CSS:
 
@@ -176,6 +187,8 @@ Frames are applied as a `data-frame` attribute on the `.page` element, which you
   /* custom grid layout */
 }
 ```
+
+Frame CSS should be scoped with `[data-frame="name"]` selectors to avoid conflicts with other frames.
 
 ### Layout breakpoints
 

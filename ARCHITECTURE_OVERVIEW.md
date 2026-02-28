@@ -173,6 +173,7 @@ quartz.config.yaml
   │  b. Clone/update from GitHub via isomorphic-git (gitLoader.ts)
   │  c. Read manifest from package.json "quartz" field
   │  d. Load components into ComponentRegistry (componentLoader.ts)
+  │  e. Load frames into FrameRegistry (frameLoader.ts)
   │
   ▼
 3. Validate dependencies
@@ -242,19 +243,20 @@ Each plugin declares metadata in its `package.json` under the `"quartz"` field:
 }
 ```
 
-| Field            | Type                                | Description                                                                 |
-| ---------------- | ----------------------------------- | --------------------------------------------------------------------------- |
-| `name`           | `string`                            | Plugin identifier (kebab-case)                                              |
-| `displayName`    | `string`                            | Human-readable name                                                         |
-| `category`       | `string \| string[]`                | One or more of: `transformer`, `filter`, `emitter`, `pageType`, `component` |
-| `version`        | `string`                            | Plugin version                                                              |
-| `quartzVersion`  | `string`                            | Compatible Quartz version range                                             |
-| `dependencies`   | `string[]`                          | Required plugin sources (e.g., `"github:quartz-community/crawl-links"`)     |
-| `defaultOrder`   | `number`                            | Default execution order (0-100, lower = runs first)                         |
-| `defaultEnabled` | `boolean`                           | Whether enabled by default on install                                       |
-| `defaultOptions` | `object`                            | Default options merged with user config                                     |
-| `configSchema`   | `object`                            | JSON Schema for options validation                                          |
-| `components`     | `Record<string, ComponentManifest>` | UI components provided by this plugin                                       |
+| Field            | Type                                     | Description                                                                 |
+| ---------------- | ---------------------------------------- | --------------------------------------------------------------------------- |
+| `name`           | `string`                                 | Plugin identifier (kebab-case)                                              |
+| `displayName`    | `string`                                 | Human-readable name                                                         |
+| `category`       | `string \| string[]`                     | One or more of: `transformer`, `filter`, `emitter`, `pageType`, `component` |
+| `version`        | `string`                                 | Plugin version                                                              |
+| `quartzVersion`  | `string`                                 | Compatible Quartz version range                                             |
+| `dependencies`   | `string[]`                               | Required plugin sources (e.g., `"github:quartz-community/crawl-links"`)     |
+| `defaultOrder`   | `number`                                 | Default execution order (0-100, lower = runs first)                         |
+| `defaultEnabled` | `boolean`                                | Whether enabled by default on install                                       |
+| `defaultOptions` | `object`                                 | Default options merged with user config                                     |
+| `configSchema`   | `object`                                 | JSON Schema for options validation                                          |
+| `components`     | `Record<string, ComponentManifest>`      | UI components provided by this plugin                                       |
+| `frames`         | `Record<string, { exportName: string }>` | Page frames provided by this plugin (see [Page Frames](#page-frames))       |
 
 ### Plugin Template Structure
 
@@ -645,7 +647,7 @@ The layout builder looks up components by:
 1. Deep-clones the hast tree (to preserve the cached version)
 2. Resolves transclusions (see below)
 3. Destructures the layout into Head, header[], beforeBody[], Content, afterBody[], left[], right[], Footer, and frame name
-4. Resolves the frame via `resolveFrame(frameName)` — falls back to `DefaultFrame` if unset
+4. Resolves the frame via `resolveFrame(frameName)` — checks plugin-registered frames (FrameRegistry) first, then built-in frames, then falls back to `DefaultFrame`
 5. Delegates the inner page structure to `frame.render({...all slots...})`
 6. Wraps the frame output in the stable outer shell: `<html>` → `<Head/>` → `<body data-slug>` → `<div id="quartz-root" data-frame={frame.name}>` → `<Body>`
 7. Serializes to HTML string via `preact-render-to-string`
@@ -703,17 +705,26 @@ interface PageFrameProps {
 | Frame              | Name           | Description                                                                                                           | Used By                   |
 | ------------------ | -------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------- |
 | **DefaultFrame**   | `"default"`    | Original three-column layout: left sidebar + center (header, beforeBody, content, afterBody) + right sidebar + footer | All page types by default |
-| **FullWidthFrame** | `"full-width"` | No sidebars. Single center column spanning full width with header, content, afterBody, and footer                     | `canvas-page`             |
+| **FullWidthFrame** | `"full-width"` | No sidebars. Single center column spanning full width with header, content, afterBody, and footer                     | —                         |
 | **MinimalFrame**   | `"minimal"`    | No sidebars, no header/beforeBody chrome. Only content + footer                                                       | `404` page                |
+
+#### Plugin-Provided Frames
+
+Plugins can register their own frames via the Frame Registry. For example, the `canvas-page` plugin provides a `"canvas"` frame:
+
+| Frame           | Name       | Source Plugin | Description                                                  |
+| --------------- | ---------- | ------------- | ------------------------------------------------------------ |
+| **CanvasFrame** | `"canvas"` | `canvas-page` | Fullscreen canvas with togglable left sidebar for navigation |
 
 #### Frame Resolution Priority
 
 Frames are resolved in the `PageTypeDispatcher.resolveLayout()` function with this priority chain:
 
 ```
-1. YAML config override:  layout.byPageType.<name>.template
-2. Page type declaration: pageType.frame (in plugin source)
-3. Default:               "default"
+1. YAML config override:    layout.byPageType.<name>.template
+2. Plugin-registered frame:  FrameRegistry (loaded from plugin ./frames exports)
+3. Built-in frame:           builtinFrames map in quartz/components/frames/index.ts
+4. Default:                  "default"
 ```
 
 This means site authors can override any page type's frame via configuration without touching plugin code:
@@ -727,10 +738,33 @@ layout:
 
 #### Creating Custom Frames
 
-New frames are added in `quartz/components/frames/`:
+There are two ways to add custom frames:
+
+**1. Plugin-provided frames** (recommended for reusable, distributable frames):
+
+Plugins can ship frames by exporting them from a `./frames` subpath and declaring them in the `package.json` manifest under `"quartz"."frames"`. The config loader calls `loadFramesFromPackage()` during plugin initialization, which imports the frame and registers it in the `FrameRegistry`.
+
+```json title="package.json (excerpt)"
+{
+  "exports": {
+    "./frames": {
+      "import": "./dist/frames/index.js"
+    }
+  },
+  "quartz": {
+    "frames": {
+      "CanvasFrame": { "exportName": "CanvasFrame" }
+    }
+  }
+}
+```
+
+**2. Core frames** (for project-specific frames):
+
+New frames can be added in `quartz/components/frames/`:
 
 1. Create a new `.tsx` file implementing the `PageFrame` interface
-2. Register it in `quartz/components/frames/index.ts` → `builtinFrames` registry
+2. Register it in `quartz/components/frames/index.ts` → `builtinFrames` map
 3. Reference it by name in page type plugins or YAML config
 
 ```typescript
@@ -781,13 +815,15 @@ Frame changes between pages are SPA-safe because:
 
 #### Source Files
 
-| File                                          | Purpose                                     |
-| --------------------------------------------- | ------------------------------------------- |
-| `quartz/components/frames/types.ts`           | `PageFrame` and `PageFrameProps` interfaces |
-| `quartz/components/frames/DefaultFrame.tsx`   | Default three-column layout                 |
-| `quartz/components/frames/FullWidthFrame.tsx` | Full-width single-column layout             |
-| `quartz/components/frames/MinimalFrame.tsx`   | Minimal content-only layout                 |
-| `quartz/components/frames/index.ts`           | Frame registry and `resolveFrame()`         |
+| File                                          | Purpose                                                |
+| --------------------------------------------- | ------------------------------------------------------ |
+| `quartz/components/frames/types.ts`           | `PageFrame` and `PageFrameProps` interfaces            |
+| `quartz/components/frames/DefaultFrame.tsx`   | Default three-column layout                            |
+| `quartz/components/frames/FullWidthFrame.tsx` | Full-width single-column layout                        |
+| `quartz/components/frames/MinimalFrame.tsx`   | Minimal content-only layout                            |
+| `quartz/components/frames/registry.ts`        | `FrameRegistry` singleton for plugin-registered frames |
+| `quartz/components/frames/index.ts`           | `resolveFrame()` and built-in frame map                |
+| `quartz/plugins/loader/frameLoader.ts`        | Loads frames from plugin `./frames` exports            |
 
 ### Transclusion
 
@@ -989,13 +1025,13 @@ Produce output files (HTML, JSON, XML, images, etc.).
 
 Define how different types of pages are matched, generated, and rendered. All PageType plugins are dual-category (`pageType` + `component`).
 
-| Plugin           | Match Strategy                           | Generates Virtual Pages?         | Description                                                                            | Repository                                                                        |
-| ---------------- | ---------------------------------------- | -------------------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| **content-page** | `match.all()` (lowest priority fallback) | No                               | Default page type for regular markdown content                                         | [quartz-community/content-page](https://github.com/quartz-community/content-page) |
-| **folder-page**  | Folder index pages                       | Yes (one per folder)             | Renders folder listing pages with file trees                                           | [quartz-community/folder-page](https://github.com/quartz-community/folder-page)   |
-| **tag-page**     | Tag index pages                          | Yes (one per tag + tag index)    | Renders tag listing pages                                                              | [quartz-community/tag-page](https://github.com/quartz-community/tag-page)         |
-| **canvas-page**  | `match.ext(".canvas")`                   | No (reads `.canvas` files)       | Interactive JSON Canvas visualization (pan/zoom)                                       | [quartz-community/canvas-page](https://github.com/quartz-community/canvas-page)   |
-| **bases-page**   | `match.ext(".base")`                     | Yes (view-based aggregate pages) | Extensible view-based pages from `.base` files (table, list, board, gallery, calendar) | [quartz-community/bases-page](https://github.com/quartz-community/bases-page)     |
+| Plugin           | Match Strategy                           | Generates Virtual Pages?         | Description                                                                                                                   | Repository                                                                        |
+| ---------------- | ---------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **content-page** | `match.all()` (lowest priority fallback) | No                               | Default page type for regular markdown content                                                                                | [quartz-community/content-page](https://github.com/quartz-community/content-page) |
+| **folder-page**  | Folder index pages                       | Yes (one per folder)             | Renders folder listing pages with file trees                                                                                  | [quartz-community/folder-page](https://github.com/quartz-community/folder-page)   |
+| **tag-page**     | Tag index pages                          | Yes (one per tag + tag index)    | Renders tag listing pages                                                                                                     | [quartz-community/tag-page](https://github.com/quartz-community/tag-page)         |
+| **canvas-page**  | `match.ext(".canvas")`                   | No (reads `.canvas` files)       | Interactive JSON Canvas visualization (pan/zoom). Provides `"canvas"` page frame with fullscreen layout and togglable sidebar | [quartz-community/canvas-page](https://github.com/quartz-community/canvas-page)   |
+| **bases-page**   | `match.ext(".base")`                     | Yes (view-based aggregate pages) | Extensible view-based pages from `.base` files (table, list, board, gallery, calendar)                                        | [quartz-community/bases-page](https://github.com/quartz-community/bases-page)     |
 
 ### Component Plugins
 

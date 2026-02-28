@@ -42,10 +42,7 @@ export function resolveFrame(name: string | undefined): PageFrame {
   // Fall back to built-in frames
   const frame = builtinFrames[name]
   if (!frame) {
-    const allFrameNames = [
-      ...Object.keys(builtinFrames),
-      ...[...frameRegistry.getAll().keys()],
-    ]
+    const allFrameNames = [...Object.keys(builtinFrames), ...[...frameRegistry.getAll().keys()]]
     console.warn(
       `Unknown page frame "${name}", falling back to "default". Available frames: ${allFrameNames.join(", ")}`,
     )
