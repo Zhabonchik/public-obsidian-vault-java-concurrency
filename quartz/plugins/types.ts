@@ -101,6 +101,8 @@ export interface QuartzPageTypePluginInstance {
   match: PageMatcher
   generate?: PageGenerator
   layout: string
+  /** Optional page frame name (e.g. "default", "full-width", "minimal"). Defaults to "default". */
+  frame?: string
   body: QuartzComponentConstructor
 }
 
@@ -117,5 +119,7 @@ export interface PageTypePluginEntry {
   match: (...args: never[]) => boolean
   generate?: (...args: never[]) => VirtualPage[]
   layout: string
+  /** Optional page frame name (e.g. "default", "full-width", "minimal"). Defaults to "default". */
+  frame?: string
   body: QuartzComponentConstructor
 }

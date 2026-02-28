@@ -101,6 +101,8 @@ export interface FullPageLayout {
   left: QuartzComponent[]
   right: QuartzComponent[]
   footer: QuartzComponent
+  /** Page frame name (e.g. "default", "full-width", "minimal"). Defaults to "default". */
+  frame?: string
 }
 
 export type PageLayout = Pick<FullPageLayout, "beforeBody" | "left" | "right">
