@@ -76,7 +76,13 @@ async function emitPage(
   resources: StaticResources,
 ) {
   const cfg = ctx.cfg.configuration
-  const externalResources = pageResources(pathToRoot(slug), resources)
+  // For the 404 page, use an absolute base path so assets resolve correctly
+  // when the hosting provider serves 404.html from any URL depth
+  const baseDir =
+    slug === "404"
+      ? (new URL(`https://${cfg.baseUrl ?? "example.com"}`).pathname as FullSlug)
+      : pathToRoot(slug)
+  const externalResources = pageResources(baseDir, resources)
   const componentData: QuartzComponentProps = {
     ctx,
     fileData,
