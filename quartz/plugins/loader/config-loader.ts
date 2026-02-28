@@ -15,6 +15,7 @@ import {
 } from "./types"
 import { parsePluginSource, installPlugin, getPluginEntryPoint, toFileUrl } from "./gitLoader"
 import { loadComponentsFromPackage } from "./componentLoader"
+import { loadFramesFromPackage } from "./frameLoader"
 import { componentRegistry } from "../../components/registry"
 import { getCondition } from "./conditions"
 
@@ -190,6 +191,7 @@ async function readManifestFromPackageJson(source: string): Promise<PluginManife
       defaultOptions: q.defaultOptions,
       configSchema: q.configSchema,
       components: q.components,
+      frames: q.frames,
     }
   } catch {
     return null
@@ -297,6 +299,9 @@ export async function loadQuartzConfig(
           if (manifest?.components && Object.keys(manifest.components).length > 0) {
             await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
           }
+          if (manifest?.frames && Object.keys(manifest.frames).length > 0) {
+            await loadFramesFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+          }
           break
         }
         const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
@@ -313,6 +318,9 @@ export async function loadQuartzConfig(
             target.push({ entry, manifest })
           } else if (manifest?.components && Object.keys(manifest.components).length > 0) {
             await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+            if (manifest?.frames && Object.keys(manifest.frames).length > 0) {
+              await loadFramesFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+            }
           } else {
             console.warn(
               styleText("yellow", `⚠`) +
@@ -320,9 +328,15 @@ export async function loadQuartzConfig(
             )
           }
         } catch {
-          if (manifest?.components && Object.keys(manifest.components).length > 0) {
+          const hasComponents = manifest?.components && Object.keys(manifest.components).length > 0
+          const hasFrames = manifest?.frames && Object.keys(manifest.frames).length > 0
+          if (hasComponents) {
             await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
-          } else {
+          }
+          if (hasFrames) {
+            await loadFramesFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+          }
+          if (!hasComponents && !hasFrames) {
             console.warn(
               styleText("yellow", `⚠`) +
                 ` Could not load plugin "${extractPluginName(entry.source)}" to detect category. Skipping.`,
@@ -361,6 +375,9 @@ export async function loadQuartzConfig(
         const module = await import(toFileUrl(entryPoint))
         if (manifest?.components && Object.keys(manifest.components).length > 0) {
           await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+        }
+        if (manifest?.frames && Object.keys(manifest.frames).length > 0) {
+          await loadFramesFromPackage(gitSpec.name, manifest, gitSpec.subdir)
         }
 
         const factory = findFactory(module, expectedCategory)

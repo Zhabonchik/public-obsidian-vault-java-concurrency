@@ -63,6 +63,8 @@ export interface PluginManifest {
   configSchema?: object
   /** Components provided by this plugin, keyed by component export name */
   components?: Record<string, ComponentManifest & ComponentLayoutDefaults>
+  /** Page frames provided by this plugin, keyed by export name. Each entry maps to a PageFrame object. */
+  frames?: Record<string, { exportName: string }>
 }
 
 /**
