@@ -349,23 +349,29 @@ export const ContentPage: QuartzEmitterPlugin = () => {
 }
 ```
 
-### Page Types
-
-Page types define how a category of pages is rendered. They are configured in the `pageTypes` array in `quartz.config.yaml`.
+Page types define how a category of pages is rendered. They are the primary way to add support for new file types or virtual pages in Quartz.
 
 ```ts
-export type QuartzPageTypePluginInstance = {
+export interface QuartzPageTypePluginInstance {
   name: string
-  pageType: string // e.g. "content", "folder", "tag"
-  getQuartzComponents(ctx: BuildCtx): QuartzComponent[]
-  emit(
-    ctx: BuildCtx,
-    content: ProcessedContent[],
-    resources: StaticResources,
-    layout: FullPageLayout,
-  ): Promise<FilePath[]> | AsyncGenerator<FilePath>
+  priority?: number
+  fileExtensions?: string[]
+  match: PageMatcher
+  generate?: PageGenerator
+  layout: string
+  frame?: string
+  body: QuartzComponentConstructor
 }
 ```
+
+- `name`: A unique identifier for this page type.
+- `priority`: Controls matching order when multiple page types could match a slug. Higher priority page types are checked first. Default: `0`.
+- `fileExtensions`: Array of file extensions this page type handles (e.g. `[".canvas"]`, `[".base"]`). Content files (`.md`) are handled by the default content page type.
+- `match`: A function that determines whether a given slug/file should be rendered by this page type.
+- `generate`: An optional function that produces virtual pages (pages not backed by files on disk, such as folder listings or tag indices).
+- `layout`: The layout configuration key (e.g. `"content"`, `"folder"`, `"tag"`). This determines which `byPageType` entry in `quartz.config.yaml` provides the layout overrides for this page type.
+- `frame`: The [[layout#Page Frames|page frame]] to use for this page type. Controls the overall HTML structure (e.g. `"default"`, `"full-width"`, `"minimal"`). If not set, defaults to `"default"`. Can be overridden per-page-type via `layout.byPageType.<name>.template` in `quartz.config.yaml`.
+- `body`: The Quartz component constructor that renders the page body content.
 
 ## Building and Testing
 

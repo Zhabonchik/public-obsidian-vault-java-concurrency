@@ -4,7 +4,7 @@ tags:
   - plugin/pageType
 ---
 
-This plugin is a page type plugin that generates index pages for folders, creating a listing page for each folder that contains multiple content files. See [[folder and tag listings]] for more information.
+This plugin is a page type plugin that generates index pages for folders, creating a listing page for each folder that contains multiple content files. It uses the `default` [[layout#Page Frames|page frame]] (three-column layout with sidebars). See [[folder and tag listings]] for more information.
 
 Example: [[advanced/|Advanced]]
 

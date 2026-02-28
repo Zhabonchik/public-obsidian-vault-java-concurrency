@@ -99,7 +99,18 @@ Plugins are categorized by their type (transformer, filter, emitter, pageType) b
 - [[tags/plugin/transformer|Transformers]] **map** over content (e.g. parsing frontmatter, generating a description)
 - [[tags/plugin/filter|Filters]] **filter** content (e.g. filtering out drafts)
 - [[tags/plugin/emitter|Emitters]] **reduce** over content (e.g. creating an RSS feed or pages that list all files with a specific tag)
-- **Page Types** define how different types of pages are rendered (content pages, folder listings, tag listings)
+- **Page Types** define how different types of pages are rendered (content pages, folder listings, tag listings). Each page type can use a different [[layout#Page Frames|page frame]] to control its overall HTML structure.
+
+The `layout.byPageType` section in `quartz.config.yaml` can also set a `template` field to override the page frame for a specific page type:
+
+```yaml title="quartz.config.yaml"
+layout:
+  byPageType:
+    canvas:
+      template: minimal # Override the page frame for canvas pages
+```
+
+See [[layout#Page Frames]] for details on available frames and how frame resolution works.
 
 ### Internal vs External Plugins
 

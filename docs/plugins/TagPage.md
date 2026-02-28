@@ -4,7 +4,7 @@ tags:
   - plugin/pageType
 ---
 
-This plugin is a page type plugin that emits dedicated pages for each tag used in the content. See [[folder and tag listings]] for more information.
+This plugin is a page type plugin that emits dedicated pages for each tag used in the content. It uses the `default` [[layout#Page Frames|page frame]] (three-column layout with sidebars). See [[folder and tag listings]] for more information.
 
 > [!note]
 > For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.

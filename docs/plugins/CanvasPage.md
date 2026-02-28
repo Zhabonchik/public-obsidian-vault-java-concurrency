@@ -4,7 +4,7 @@ tags:
   - plugin/pageType
 ---
 
-This plugin is a page type plugin that renders [JSON Canvas](https://jsoncanvas.org) (`.canvas`) files as interactive, pannable and zoomable canvas pages. It supports the full [JSON Canvas 1.0 spec](https://jsoncanvas.org/spec/1.0/), including text nodes with Markdown rendering, file nodes that link to other pages in your vault, link nodes for external URLs, and group nodes for visual organization. Edges between nodes are rendered as SVG paths with optional labels, arrow markers, and colors.
+This plugin is a page type plugin that renders [JSON Canvas](https://jsoncanvas.org) (`.canvas`) files as interactive, pannable and zoomable canvas pages. It uses the `full-width` [[layout#Page Frames|page frame]] (no sidebars, single column spanning the full width) to give the canvas maximum screen space. It supports the full [JSON Canvas 1.0 spec](https://jsoncanvas.org/spec/1.0/), including text nodes with Markdown rendering, file nodes that link to other pages in your vault, link nodes for external URLs, and group nodes for visual organization. Edges between nodes are rendered as SVG paths with optional labels, arrow markers, and colors.
 
 > [!note]
 > For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.

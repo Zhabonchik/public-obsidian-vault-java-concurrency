@@ -89,3 +89,25 @@ Each community plugin repository contains:
 - `package.json` — Declares dependencies on `@quartz-community/types` and `@quartz-community/utils`
 
 The architecture and design of the plugin system was intentionally left pretty vague here as this is described in much more depth in the guide on [[making plugins|creating plugins]].
+
+## Page Frames
+
+Page frames control the inner HTML structure of each page. While the outer shell (`<html>`, `<head>`, `<body>`, `#quartz-root`) is always the same (required for [[SPA Routing]]), the frame determines how layout slots are arranged inside the page.
+
+The frame system lives in `quartz/components/frames/` and consists of:
+
+- `types.ts` — Defines the `PageFrame` and `PageFrameProps` interfaces
+- `DefaultFrame.tsx` — Three-column layout (left sidebar, center, right sidebar, footer)
+- `FullWidthFrame.tsx` — No sidebars, single center column
+- `MinimalFrame.tsx` — No sidebars, no header/beforeBody, just content and footer
+- `index.ts` — Registry and `resolveFrame()` function
+
+The rendering pipeline in `quartz/components/renderPage.tsx` delegates to the resolved frame's `render()` function. Frame resolution happens in the `PageTypeDispatcher` emitter (`quartz/plugins/pageTypes/dispatcher.ts`) using this priority:
+
+1. YAML config: `layout.byPageType.<name>.template`
+2. Page type plugin: `frame` property
+3. Fallback: `"default"`
+
+The active frame name is set as a `data-frame` attribute on the `.page` element, enabling frame-specific CSS overrides in `quartz/styles/base.scss`.
+
+See [[layout#Page Frames]] for user-facing documentation and [[making plugins#Page Types]] for how to set frames in page type plugins.

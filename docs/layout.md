@@ -7,7 +7,7 @@ Certain emitters may also output [HTML](https://developer.mozilla.org/en-US/docs
 In v5, the layout is defined in `quartz.config.yaml` using a `defaults` + `byPageType` structure.
 
 - `defaults` contains layout components shared across ALL page types (head, header, afterBody, footer).
-- `byPageType` contains per-page-type overrides (content, folder, tag, 404) for beforeBody, left, and right sections.
+- `byPageType` contains per-page-type overrides (content, folder, tag, 404) for beforeBody, left, right sections, and optionally a `template` to control the page's [[#Page Frames|page frame]].
 
 Each page is composed of multiple different sections which contain `QuartzComponents`. The following code snippet lists all of the valid sections that you can add components to:
 
@@ -135,6 +135,47 @@ Fields defined in `defaults` can be overridden by specific entries in `byPageTyp
 Community component plugins are installed via `npx quartz plugin add github:quartz-community/<name>`. See [[layout-components]] for built-in layout utilities (Flex, MobileOnly, DesktopOnly, etc.).
 
 You can also checkout the guide on [[creating components]] if you're interested in further customizing the behaviour of Quartz.
+
+### Page Frames
+
+Page frames control the overall HTML structure of a page — specifically, how the layout slots (sidebars, header, content, footer) are arranged inside the page shell. Different page types can use different frames to produce fundamentally different layouts.
+
+Quartz ships with three built-in frames:
+
+| Frame        | Description                                                                                                                                                    | Used by                                     |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `default`    | Three-column layout with left sidebar, center content (header, beforeBody, content, afterBody), right sidebar, and footer. This is the standard Quartz layout. | ContentPage, FolderPage, TagPage, BasesPage |
+| `full-width` | No sidebars. Single center column spanning the full width with header, content, afterBody, and footer.                                                         | CanvasPage                                  |
+| `minimal`    | No sidebars, no header or beforeBody chrome. Only content and footer.                                                                                          | NotFoundPage (404)                          |
+
+#### How frames are resolved
+
+Each page type can declare a default frame in its plugin source code via the `frame` property. The resolution order is:
+
+1. **YAML config override**: `layout.byPageType.<name>.template` in `quartz.config.yaml`
+2. **Plugin declaration**: The `frame` property set in the page type plugin's source code
+3. **Fallback**: `"default"`
+
+For example, to override canvas pages to use the minimal frame:
+
+```yaml title="quartz.config.yaml"
+layout:
+  byPageType:
+    canvas:
+      template: minimal
+```
+
+#### Custom frames
+
+You can create custom frames by adding a new `.tsx` file in `quartz/components/frames/` that implements the `PageFrame` interface, then registering it in `quartz/components/frames/index.ts`. See the [[advanced/architecture|architecture overview]] for the full `PageFrame` interface.
+
+Frames are applied as a `data-frame` attribute on the `.page` element, which you can target in CSS:
+
+```scss
+.page[data-frame="my-frame"] > #quartz-body {
+  /* custom grid layout */
+}
+```
 
 ### Layout breakpoints
 
