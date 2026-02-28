@@ -20,7 +20,7 @@ export async function loadFramesFromPackage(
       framesModule = await import(`${pluginName}/frames`)
     }
 
-    for (const [exportName, frameMeta] of Object.entries(manifest.frames)) {
+    for (const [exportName, _frameMeta] of Object.entries(manifest.frames)) {
       const frame = framesModule[exportName]
       if (!frame) {
         console.warn(
