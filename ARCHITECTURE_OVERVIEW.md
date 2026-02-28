@@ -26,6 +26,7 @@ This document provides a bird's-eye view of the Quartz v5 rework for maintainer 
   - [QuartzComponent](#quartzcomponent)
   - [Component Registry](#component-registry)
   - [Page Rendering](#page-rendering)
+  - [Page Frames](#page-frames)
   - [Transclusion](#transclusion)
 - [Configuration](#configuration)
   - [quartz.config.yaml](#quartzconfigyaml)
@@ -304,6 +305,7 @@ interface QuartzPageTypePluginInstance {
   match: PageMatcher // Determines if this page type handles a given page
   generate?: PageGenerator // Produces virtual pages (tag listings, folder pages, etc.)
   layout: string // Layout key (used for per-page-type overrides)
+  frame?: string // PageFrame name (e.g. "full-width", "minimal") — defaults to "default"
   body: QuartzComponentConstructor // The Body component for rendering page content
 }
 ```
@@ -642,9 +644,149 @@ The layout builder looks up components by:
 
 1. Deep-clones the hast tree (to preserve the cached version)
 2. Resolves transclusions (see below)
-3. Destructures the layout into Head, header[], beforeBody[], Content, afterBody[], left[], right[], Footer
-4. Renders the full HTML document as a Preact JSX tree
-5. Serializes to HTML string via `preact-render-to-string`
+3. Destructures the layout into Head, header[], beforeBody[], Content, afterBody[], left[], right[], Footer, and frame name
+4. Resolves the frame via `resolveFrame(frameName)` — falls back to `DefaultFrame` if unset
+5. Delegates the inner page structure to `frame.render({...all slots...})`
+6. Wraps the frame output in the stable outer shell: `<html>` → `<Head/>` → `<body data-slug>` → `<div id="quartz-root" data-frame={frame.name}>` → `<Body>`
+7. Serializes to HTML string via `preact-render-to-string`
+
+The `data-frame` attribute on `#quartz-root` enables CSS targeting per-frame (see [Page Frames](#page-frames)).
+### Page Frames
+
+The PageFrame system allows page types to optionally define completely different inner HTML structures (e.g. with/without sidebars, horizontal layouts, minimal chrome) while the outer shell remains stable for SPA navigation.
+
+#### Architecture
+
+```
+┌──────────────────────────────────────────────────┐
+│ <html>                                           │  Stable outer shell
+│   <head />                                       │  (never changes)
+│   <body data-slug="...">                         │
+│     <div id="quartz-root" data-frame="...">      │
+│       <Body>                                     │
+│         ┌──────────────────────────────────┐     │
+│         │     PageFrame.render()            │     │  ← Frame controls this
+│         │  (sidebars, header, content, etc.)│     │
+│         └──────────────────────────────────┘     │
+│       </Body>                                    │
+│     </div>                                       │
+│   </body>                                        │
+│ </html>                                          │
+└──────────────────────────────────────────────────┘
+```
+
+#### Interfaces
+
+```typescript
+interface PageFrame {
+  name: string                                     // e.g. "default", "full-width", "minimal"
+  render: (props: PageFrameProps) => JSX.Element   // Renders the inner page structure
+  css?: string                                     // Optional frame-specific CSS
+}
+
+interface PageFrameProps {
+  componentData: QuartzComponentProps   // Shared props for all components
+  head: QuartzComponent                 // Head component (for completeness)
+  header: QuartzComponent[]             // Header slot
+  beforeBody: QuartzComponent[]         // Before-body slot
+  pageBody: QuartzComponent             // Content component (from PageType)
+  afterBody: QuartzComponent[]          // After-body slot
+  left: QuartzComponent[]               // Left sidebar components
+  right: QuartzComponent[]              // Right sidebar components
+  footer: QuartzComponent               // Footer component
+}
+```
+
+#### Built-in Frames
+
+| Frame | Name | Description | Used By |
+| --- | --- | --- | --- |
+| **DefaultFrame** | `"default"` | Original three-column layout: left sidebar + center (header, beforeBody, content, afterBody) + right sidebar + footer | All page types by default |
+| **FullWidthFrame** | `"full-width"` | No sidebars. Single center column spanning full width with header, content, afterBody, and footer | `canvas-page` |
+| **MinimalFrame** | `"minimal"` | No sidebars, no header/beforeBody chrome. Only content + footer | `404` page |
+
+#### Frame Resolution Priority
+
+Frames are resolved in the `PageTypeDispatcher.resolveLayout()` function with this priority chain:
+
+```
+1. YAML config override:  layout.byPageType.<name>.template
+2. Page type declaration: pageType.frame (in plugin source)
+3. Default:               "default"
+```
+
+This means site authors can override any page type's frame via configuration without touching plugin code:
+
+```yaml
+layout:
+  byPageType:
+    canvas:
+      template: minimal   # Override canvas pages to use minimal frame
+```
+
+#### Creating Custom Frames
+
+New frames are added in `quartz/components/frames/`:
+
+1. Create a new `.tsx` file implementing the `PageFrame` interface
+2. Register it in `quartz/components/frames/index.ts` → `builtinFrames` registry
+3. Reference it by name in page type plugins or YAML config
+
+```typescript
+// quartz/components/frames/PresentationFrame.tsx
+import { PageFrame, PageFrameProps } from "./types"
+
+export const PresentationFrame: PageFrame = {
+  name: "presentation",
+  render({ componentData, pageBody: Content, footer: Footer }: PageFrameProps) {
+    return (
+      <>
+        <div class="center presentation">
+          <Content {...componentData} />
+        </div>
+        <Footer {...componentData} />
+      </>
+    )
+  },
+}
+```
+
+#### CSS Targeting
+
+The `data-frame` attribute on `#quartz-root` enables frame-specific CSS without class conflicts:
+
+```scss
+// Full-width: single column, no sidebar grid areas
+.page[data-frame="full-width"] > #quartz-body {
+  grid-template-columns: 1fr;
+  grid-template-areas: "center";
+}
+
+// Minimal: content-only grid
+.page[data-frame="minimal"] > #quartz-body {
+  grid-template-columns: 1fr;
+  grid-template-areas: "center";
+}
+```
+
+#### SPA Safety
+
+Frame changes between pages are SPA-safe because:
+
+1. The SPA router (`micromorph`) morphs `document.body` — it does not hardcode selectors like `.center` or `.sidebar`
+2. The `data-frame` attribute updates naturally during the morph
+3. CSS grid overrides apply immediately based on the new `data-frame` value
+4. `collectComponents()` collects components from ALL slots regardless of frame, ensuring all component resources (CSS/JS) are available globally
+
+#### Source Files
+
+| File | Purpose |
+| --- | --- |
+| `quartz/components/frames/types.ts` | `PageFrame` and `PageFrameProps` interfaces |
+| `quartz/components/frames/DefaultFrame.tsx` | Default three-column layout |
+| `quartz/components/frames/FullWidthFrame.tsx` | Full-width single-column layout |
+| `quartz/components/frames/MinimalFrame.tsx` | Minimal content-only layout |
+| `quartz/components/frames/index.ts` | Frame registry and `resolveFrame()` |
 
 ### Transclusion
 
@@ -913,6 +1055,7 @@ Some plugins span multiple categories:
 | `quartz/plugins/loader/conditions.ts`      | Built-in and custom condition predicates                      |
 | `quartz/components/types.ts`               | `QuartzComponent`, `QuartzComponentProps`                     |
 | `quartz/components/registry.ts`            | `ComponentRegistry` singleton                                 |
-| `quartz/components/renderPage.tsx`         | Page rendering with transclusion resolution                   |
+| `quartz/components/renderPage.tsx`         | Page rendering with frame delegation and transclusion         |
+| `quartz/components/frames/`                | PageFrame system (types, registry, built-in frames)           |
 | `quartz/components/Flex.tsx`               | Flex layout container for grouped components                  |
 | `quartz/components/MobileOnly.tsx`         | Mobile display wrapper                                        |
