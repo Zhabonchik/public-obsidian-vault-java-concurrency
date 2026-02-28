@@ -263,7 +263,7 @@ export function renderPage(
       <body data-slug={slug}>
         <div id="quartz-root" class="page" data-frame={frame.name}>
           <Body {...componentData}>
-            {frame.render({
+            {[frame.render({
               componentData,
               head: Head,
               header,
@@ -273,7 +273,7 @@ export function renderPage(
               left,
               right,
               footer: Footer,
-            })}
+            })]}
           </Body>
         </div>
       </body>
