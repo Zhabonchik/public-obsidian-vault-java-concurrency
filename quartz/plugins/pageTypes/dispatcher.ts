@@ -21,6 +21,8 @@ function resolveLayout(
   byPageType: Record<string, Partial<FullPageLayout>>,
 ): FullPageLayout {
   const overrides = byPageType[pageType.layout] ?? {}
+  // Frame priority: config override > page type declaration > default
+  const frame = overrides.frame ?? pageType.frame ?? "default"
   return {
     head: overrides.head ?? sharedDefaults.head!,
     header: overrides.header ?? sharedDefaults.header ?? [],
@@ -30,6 +32,7 @@ function resolveLayout(
     left: overrides.left ?? sharedDefaults.left ?? [],
     right: overrides.right ?? sharedDefaults.right ?? [],
     footer: overrides.footer ?? sharedDefaults.footer!,
+    frame,
   }
 }
 

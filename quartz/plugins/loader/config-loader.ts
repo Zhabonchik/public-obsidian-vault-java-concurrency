@@ -543,6 +543,11 @@ export async function loadQuartzLayout(layoutOverrides?: {
         }
       }
 
+      // Apply frame template override
+      if (override.template) {
+        ptLayout.frame = override.template
+      }
+
       byPageType[pageType] = ptLayout
     }
   }

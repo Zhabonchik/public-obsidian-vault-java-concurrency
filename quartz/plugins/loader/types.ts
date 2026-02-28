@@ -159,6 +159,8 @@ export interface FlexGroupConfig {
 export interface PageTypeLayoutOverride {
   exclude?: string[]
   positions?: Partial<Record<LayoutPosition, PluginLayoutDeclaration[]>>
+  /** Override the page frame template (e.g. "default", "full-width", "minimal") */
+  template?: string
 }
 
 /** Top-level layout section of quartz.config.yaml */
