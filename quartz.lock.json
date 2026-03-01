@@ -34,8 +34,8 @@
     "canvas-page": {
       "source": "github:quartz-community/canvas-page",
       "resolved": "https://github.com/quartz-community/canvas-page.git",
-      "commit": "08d22af27388ab0fd623974a6b1d9cec89fdc5c7",
-      "installedAt": "2026-02-28T23:28:22.534Z"
+      "commit": "d9cf3d56d54e24c039dbc087a5ee60503c348ad5",
+      "installedAt": "2026-03-01T01:40:14.565Z"
     },
     "citations": {
       "source": "github:quartz-community/citations",
@@ -160,8 +160,8 @@
     "obsidian-flavored-markdown": {
       "source": "github:quartz-community/obsidian-flavored-markdown",
       "resolved": "https://github.com/quartz-community/obsidian-flavored-markdown.git",
-      "commit": "0785abc0b674644f6628b4cb3926d578b40422dd",
-      "installedAt": "2026-02-28T20:09:26.123Z"
+      "commit": "979e9d85421bee57cd3b933d0588ba9c6b9f8845",
+      "installedAt": "2026-03-01T01:40:25.021Z"
     },
     "og-image": {
       "source": "github:quartz-community/og-image",
