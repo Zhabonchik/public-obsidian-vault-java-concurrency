@@ -34,8 +34,8 @@
     "canvas-page": {
       "source": "github:quartz-community/canvas-page",
       "resolved": "https://github.com/quartz-community/canvas-page.git",
-      "commit": "d9cf3d56d54e24c039dbc087a5ee60503c348ad5",
-      "installedAt": "2026-03-01T01:40:14.565Z"
+      "commit": "f5158d9709b53dc7edf14dcab61254ddae6c9117",
+      "installedAt": "2026-03-01T02:12:28.967Z"
     },
     "citations": {
       "source": "github:quartz-community/citations",
