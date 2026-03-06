@@ -17,6 +17,20 @@ export default ((opts?: Options) => {
           {i18n(cfg.locale).components.footer.createdWith}{" "}
           <a href="https://quartz.jzhao.xyz/">Quartz v{version}</a> © {year}
         </p>
+        <p>
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">
+            苏ICP备2026009063号-1
+          </a>
+        </p>
+        <p>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32050502012925"
+            target="_blank"
+            rel="noreferrer"
+          >
+            苏公网安备32050502012925号
+          </a>
+        </p>
         <ul>
           {Object.entries(links).map(([text, link]) => (
             <li>
