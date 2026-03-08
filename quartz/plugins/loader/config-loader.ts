@@ -264,58 +264,54 @@ export async function loadQuartzConfig(
   for (const entry of enabledEntries) {
     const manifest = manifests.get(entry.source)
     const category = manifest?.category
-    // Resolve processing category: for array categories (e.g. ["transformer", "component"]),
-    // find the first processing category. "component" is handled separately via loadComponentsFromPackage.
+    // Resolve processing categories: for array categories (e.g. ["transformer", "pageType", "component"]),
+    // push the plugin into ALL matching processing category buckets.
+    // "component" is handled separately via loadComponentsFromPackage during instantiation.
     const processingCategories = ["transformer", "filter", "emitter", "pageType"] as const
-    let resolvedCategory: string | undefined
-    if (Array.isArray(category)) {
-      resolvedCategory = category.find((c) =>
-        (processingCategories as readonly string[]).includes(c),
-      )
-    } else {
-      resolvedCategory = category
+    const categoryMap: Record<string, typeof transformers> = {
+      transformer: transformers,
+      filter: filters,
+      emitter: emitters,
+      pageType: pageTypes,
     }
 
-    switch (resolvedCategory) {
-      case "transformer":
-        transformers.push({ entry, manifest })
-        break
-      case "filter":
-        filters.push({ entry, manifest })
-        break
-      case "emitter":
-        emitters.push({ entry, manifest })
-        break
-      case "pageType":
-        pageTypes.push({ entry, manifest })
-        break
-      default: {
-        const gitSpec = parsePluginSource(entry.source)
-        const isComponentOnly =
-          resolvedCategory === "component" ||
-          (Array.isArray(category) && category.every((c) => c === "component"))
+    const categories = Array.isArray(category) ? category : category ? [category] : []
+    const matchedProcessing = categories.filter((c) =>
+      (processingCategories as readonly string[]).includes(c),
+    )
 
-        if (isComponentOnly) {
-          if (manifest?.components && Object.keys(manifest.components).length > 0) {
-            await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
-          }
-          if (manifest?.frames && Object.keys(manifest.frames).length > 0) {
-            await loadFramesFromPackage(gitSpec.name, manifest, gitSpec.subdir)
-          }
-          break
+    if (matchedProcessing.length > 0) {
+      for (const cat of matchedProcessing) {
+        categoryMap[cat].push({ entry, manifest })
+      }
+    } else {
+      const gitSpec = parsePluginSource(entry.source)
+      const isComponentOnly =
+        categories.length > 0 && categories.every((c) => c === "component")
+
+      if (isComponentOnly) {
+        // Always import the main entry point for component-only plugins.
+        // Some plugins (e.g. Bases view registrations) rely on side effects
+        // in their index module to register functionality.
+        const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
+        try {
+          await import(toFileUrl(entryPoint))
+        } catch (e) {
+          // Side-effect import failed — continue with manifest-based loading
         }
+        if (manifest?.components && Object.keys(manifest.components).length > 0) {
+          await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+        }
+        if (manifest?.frames && Object.keys(manifest.frames).length > 0) {
+          await loadFramesFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+        }
+      } else {
         const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
         try {
           const module = await import(toFileUrl(entryPoint))
           const detected = detectCategoryFromModule(module)
           if (detected) {
-            const target = {
-              transformer: transformers,
-              filter: filters,
-              emitter: emitters,
-              pageType: pageTypes,
-            }[detected]
-            target.push({ entry, manifest })
+            categoryMap[detected].push({ entry, manifest })
           } else if (manifest?.components && Object.keys(manifest.components).length > 0) {
             await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
             if (manifest?.frames && Object.keys(manifest.frames).length > 0) {

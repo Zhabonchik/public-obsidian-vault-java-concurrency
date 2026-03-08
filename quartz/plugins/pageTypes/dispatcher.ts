@@ -1,4 +1,4 @@
-import { QuartzEmitterPlugin, QuartzPageTypePluginInstance } from "../types"
+import { QuartzEmitterPlugin, QuartzPageTypePluginInstance, TreeTransform } from "../types"
 import { QuartzComponent, QuartzComponentProps } from "../../components/types"
 import { pageResources, renderPage } from "../../components/renderPage"
 import { FullPageLayout } from "../../cfg"
@@ -74,6 +74,7 @@ async function emitPage(
   allFiles: ProcessedContent[1]["data"][],
   layout: FullPageLayout,
   resources: StaticResources,
+  treeTransforms?: TreeTransform[],
 ) {
   const cfg = ctx.cfg.configuration
   // For the 404 page, use an absolute base path so assets resolve correctly
@@ -95,7 +96,7 @@ async function emitPage(
 
   return write({
     ctx,
-    content: renderPage(cfg, slug, componentData, layout, externalResources),
+    content: renderPage(cfg, slug, componentData, layout, externalResources, treeTransforms),
     slug,
     ext: ".html",
   })
@@ -157,6 +158,11 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
       const cfg = ctx.cfg.configuration
       const allFiles = content.map((c) => c[1].data)
 
+      // Collect tree transforms from all page type plugins
+      const treeTransforms: TreeTransform[] = pageTypes.flatMap(
+        (pt) => pt.treeTransforms?.(ctx) ?? [],
+      )
+
       // Ensure trie is available for components that need folder hierarchy (e.g. FolderContent)
       ctx.trie ??= trieFromAllFiles(allFiles)
 
@@ -201,7 +207,7 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
         for (const pt of pageTypes) {
           if (pt.match({ slug, fileData, cfg })) {
             const layout = resolveLayout(pt, defaults, byPageType)
-            yield emitPage(ctx, slug, tree, fileData, allFilesWithVirtual, layout, resources)
+            yield emitPage(ctx, slug, tree, fileData, allFilesWithVirtual, layout, resources, treeTransforms)
             break
           }
         }
@@ -217,6 +223,7 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
           allFilesWithVirtual,
           ve.layout,
           resources,
+          treeTransforms,
         )
       }
     },
@@ -224,6 +231,11 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
       const pageTypes = [...getPageTypes(ctx)].sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
       const cfg = ctx.cfg.configuration
       const allFiles = content.map((c) => c[1].data)
+
+      // Collect tree transforms from all page type plugins
+      const treeTransforms: TreeTransform[] = pageTypes.flatMap(
+        (pt) => pt.treeTransforms?.(ctx) ?? [],
+      )
 
       // Rebuild trie on partial emit to reflect file changes
       ctx.trie = trieFromAllFiles(allFiles)
@@ -278,7 +290,7 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
         for (const pt of pageTypes) {
           if (pt.match({ slug, fileData, cfg })) {
             const layout = resolveLayout(pt, defaults, byPageType)
-            yield emitPage(ctx, slug, tree, fileData, allFilesWithVirtual, layout, resources)
+            yield emitPage(ctx, slug, tree, fileData, allFilesWithVirtual, layout, resources, treeTransforms)
             break
           }
         }
@@ -294,6 +306,7 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
           allFilesWithVirtual,
           ve.layout,
           resources,
+          treeTransforms,
         )
       }
     },

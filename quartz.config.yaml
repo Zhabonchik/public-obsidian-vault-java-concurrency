@@ -241,6 +241,10 @@ plugins:
       position: beforeBody
       priority: 15
       display: all
+  - source: github:quartz-community/external-quartz-leaflet-map-plugin
+    enabled: true
+    options: {}
+    order: 50
 layout:
   groups:
     toolbar:

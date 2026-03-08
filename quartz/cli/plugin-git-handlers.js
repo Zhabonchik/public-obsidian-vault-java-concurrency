@@ -23,6 +23,13 @@ function buildPlugin(pluginDir, name) {
     execSync("npm install", { cwd: pluginDir, stdio: "ignore" })
     console.log(styleText("cyan", `  → ${name}: building...`))
     execSync("npm run build", { cwd: pluginDir, stdio: "ignore" })
+    // Remove devDependencies after build — they are no longer needed and their
+    // presence can cause duplicate-singleton issues when a plugin ships its own
+    // copy of a shared dependency (e.g. bases-page's ViewRegistry).
+    execSync("npm prune --omit=dev", { cwd: pluginDir, stdio: "ignore" })
+    // Symlink any peerDependencies that are co-installed Quartz plugins so that
+    // Node's module resolution finds the host copy instead of a stale nested one.
+    linkPeerPlugins(pluginDir)
     return true
   } catch (error) {
     console.log(styleText("red", `  ✗ ${name}: build failed`))
@@ -33,6 +40,66 @@ function buildPlugin(pluginDir, name) {
 function needsBuild(pluginDir) {
   const distDir = path.join(pluginDir, "dist")
   return !fs.existsSync(distDir)
+}
+
+/**
+ * After pruning devDependencies, peerDependencies that reference other Quartz
+ * plugins (e.g. @quartz-community/bases-page) won't be installed as npm
+ * packages — they're loaded by v5 as sibling plugins. To make Node's module
+ * resolution work, we symlink those peers to the co-installed plugin directory.
+ */
+function linkPeerPlugins(pluginDir) {
+  const pkgPath = path.join(pluginDir, "package.json")
+  if (!fs.existsSync(pkgPath)) return
+
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"))
+  const peers = pkg.peerDependencies ?? {}
+
+  for (const peerName of Object.keys(peers)) {
+    // Only handle @quartz-community scoped packages — those are Quartz plugins
+    if (!peerName.startsWith("@quartz-community/")) continue
+
+    // Check if this peer is already satisfied (e.g. installed as a regular dep)
+    const peerNodeModulesPath = path.join(pluginDir, "node_modules", ...peerName.split("/"))
+    if (fs.existsSync(peerNodeModulesPath)) continue
+
+    // Find the sibling plugin by its npm package name
+    const siblingPlugin = findPluginByPackageName(peerName)
+    if (!siblingPlugin) continue
+
+    // Create the scoped directory if needed
+    const scopeDir = path.join(pluginDir, "node_modules", peerName.split("/")[0])
+    fs.mkdirSync(scopeDir, { recursive: true })
+
+    // Create a relative symlink to the sibling plugin
+    const target = path.relative(scopeDir, siblingPlugin)
+    fs.symlinkSync(target, peerNodeModulesPath, "dir")
+  }
+}
+
+/**
+ * Search installed plugins for one whose package.json "name" matches the given
+ * npm package name (e.g. "@quartz-community/bases-page").
+ */
+function findPluginByPackageName(packageName) {
+  if (!fs.existsSync(PLUGINS_DIR)) return null
+
+  const plugins = fs.readdirSync(PLUGINS_DIR).filter((entry) => {
+    const entryPath = path.join(PLUGINS_DIR, entry)
+    return fs.statSync(entryPath).isDirectory()
+  })
+
+  for (const pluginDirName of plugins) {
+    const pkgPath = path.join(PLUGINS_DIR, pluginDirName, "package.json")
+    if (!fs.existsSync(pkgPath)) continue
+    try {
+      const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"))
+      if (pkg.name === packageName) {
+        return path.join(PLUGINS_DIR, pluginDirName)
+      }
+    } catch {}
+  }
+  return null
 }
 
 function parseExportsFromDts(content) {

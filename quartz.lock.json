@@ -22,8 +22,8 @@
     "bases-page": {
       "source": "github:quartz-community/bases-page",
       "resolved": "https://github.com/quartz-community/bases-page.git",
-      "commit": "7f6439ed711f4aa9d38c5017e88a7a9757cd2d5c",
-      "installedAt": "2026-02-28T20:09:14.396Z"
+      "commit": "c00c56b7d1aef0c07846b8772a3b9303ad03d816",
+      "installedAt": "2026-03-07T23:21:54.535Z"
     },
     "breadcrumbs": {
       "source": "github:quartz-community/breadcrumbs",
@@ -108,6 +108,12 @@
       "resolved": "https://github.com/quartz-community/explorer.git",
       "commit": "b70d50a96c00e4726fb08614dc4fab116b1c5ca9",
       "installedAt": "2026-02-28T20:09:21.150Z"
+    },
+    "external-quartz-leaflet-map-plugin": {
+      "source": "github:quartz-community/external-quartz-leaflet-map-plugin",
+      "resolved": "https://github.com/quartz-community/external-quartz-leaflet-map-plugin.git",
+      "commit": "e77e11ea8948b9cb78a7ec57977325af2a9b6617",
+      "installedAt": "2026-03-07T23:22:48.300Z"
     },
     "favicon": {
       "source": "github:quartz-community/favicon",

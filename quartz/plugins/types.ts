@@ -1,11 +1,12 @@
 import { PluggableList } from "unified"
 import { StaticResources } from "../util/resources"
 import { ProcessedContent, QuartzPluginData } from "./vfile"
-import { QuartzComponent, QuartzComponentConstructor } from "../components/types"
-import { FilePath } from "../util/path"
+import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "../components/types"
+import { FilePath, FullSlug } from "../util/path"
 import { BuildCtx } from "../util/ctx"
 import { GlobalConfiguration } from "../cfg"
 import { VFile } from "vfile"
+import { Root } from "hast"
 
 export interface PluginTypes {
   transformers: QuartzTransformerPluginInstance[]
@@ -90,6 +91,9 @@ export type PageGenerator = (args: {
   [key: string]: unknown
 }) => VirtualPage[]
 
+/** A function that mutates a HAST tree at render time, when allFiles is available. */
+export type TreeTransform = (root: Root, slug: FullSlug, componentData: QuartzComponentProps) => void
+
 export type QuartzPageTypePlugin<Options extends OptionType = undefined> = (
   opts?: Options,
 ) => QuartzPageTypePluginInstance
@@ -104,6 +108,8 @@ export interface QuartzPageTypePluginInstance {
   /** Optional page frame name (e.g. "default", "full-width", "minimal"). Defaults to "default". */
   frame?: string
   body: QuartzComponentConstructor
+  /** Optional render-time HAST tree transforms (e.g. resolving inline codeblocks). */
+  treeTransforms?: (ctx: BuildCtx) => TreeTransform[]
 }
 
 // Structural supertype accepted in plugin configuration arrays.
@@ -122,4 +128,5 @@ export interface PageTypePluginEntry {
   /** Optional page frame name (e.g. "default", "full-width", "minimal"). Defaults to "default". */
   frame?: string
   body: QuartzComponentConstructor
+  treeTransforms?: (...args: never[]) => TreeTransform[]
 }
