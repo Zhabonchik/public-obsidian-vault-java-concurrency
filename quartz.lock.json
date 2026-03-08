@@ -112,8 +112,8 @@
     "external-quartz-leaflet-map-plugin": {
       "source": "github:quartz-community/external-quartz-leaflet-map-plugin",
       "resolved": "https://github.com/quartz-community/external-quartz-leaflet-map-plugin.git",
-      "commit": "dcbf8b0b8898e911ec8e180b533ea72ca8f16c91",
-      "installedAt": "2026-03-08T13:18:11.432Z"
+      "commit": "435ae27b66b6f180c14b5852e6dd9f7641def904",
+      "installedAt": "2026-03-08T20:40:28.921Z"
     },
     "favicon": {
       "source": "github:quartz-community/favicon",
