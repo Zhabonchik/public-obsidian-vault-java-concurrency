@@ -1,7 +1,11 @@
 import { PluggableList } from "unified"
 import { StaticResources } from "../util/resources"
 import { ProcessedContent, QuartzPluginData } from "./vfile"
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "../components/types"
+import {
+  QuartzComponent,
+  QuartzComponentConstructor,
+  QuartzComponentProps,
+} from "../components/types"
 import { FilePath, FullSlug } from "../util/path"
 import { BuildCtx } from "../util/ctx"
 import { GlobalConfiguration } from "../cfg"
@@ -92,7 +96,11 @@ export type PageGenerator = (args: {
 }) => VirtualPage[]
 
 /** A function that mutates a HAST tree at render time, when allFiles is available. */
-export type TreeTransform = (root: Root, slug: FullSlug, componentData: QuartzComponentProps) => void
+export type TreeTransform = (
+  root: Root,
+  slug: FullSlug,
+  componentData: QuartzComponentProps,
+) => void
 
 export type QuartzPageTypePlugin<Options extends OptionType = undefined> = (
   opts?: Options,

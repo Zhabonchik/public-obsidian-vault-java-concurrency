@@ -207,7 +207,16 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
         for (const pt of pageTypes) {
           if (pt.match({ slug, fileData, cfg })) {
             const layout = resolveLayout(pt, defaults, byPageType)
-            yield emitPage(ctx, slug, tree, fileData, allFilesWithVirtual, layout, resources, treeTransforms)
+            yield emitPage(
+              ctx,
+              slug,
+              tree,
+              fileData,
+              allFilesWithVirtual,
+              layout,
+              resources,
+              treeTransforms,
+            )
             break
           }
         }
@@ -290,7 +299,16 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
         for (const pt of pageTypes) {
           if (pt.match({ slug, fileData, cfg })) {
             const layout = resolveLayout(pt, defaults, byPageType)
-            yield emitPage(ctx, slug, tree, fileData, allFilesWithVirtual, layout, resources, treeTransforms)
+            yield emitPage(
+              ctx,
+              slug,
+              tree,
+              fileData,
+              allFilesWithVirtual,
+              layout,
+              resources,
+              treeTransforms,
+            )
             break
           }
         }

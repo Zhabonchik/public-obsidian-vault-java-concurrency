@@ -286,8 +286,7 @@ export async function loadQuartzConfig(
       }
     } else {
       const gitSpec = parsePluginSource(entry.source)
-      const isComponentOnly =
-        categories.length > 0 && categories.every((c) => c === "component")
+      const isComponentOnly = categories.length > 0 && categories.every((c) => c === "component")
 
       if (isComponentOnly) {
         // Always import the main entry point for component-only plugins.
