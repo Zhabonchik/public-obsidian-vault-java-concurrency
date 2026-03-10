@@ -190,8 +190,8 @@
     "quartz-themes": {
       "source": "github:saberzero1/quartz-themes",
       "resolved": "https://github.com/saberzero1/quartz-themes.git",
-      "commit": "9712addb354c810c86ddef397e18dea68695a8b9",
-      "installedAt": "2026-03-10T00:55:23.297Z"
+      "commit": "028bcc7eff36c30452825208cd3b55444d0a04bc",
+      "installedAt": "2026-03-10T20:30:37.184Z"
     },
     "reader-mode": {
       "source": "github:quartz-community/reader-mode",

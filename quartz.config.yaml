@@ -246,8 +246,8 @@ plugins:
     options: {}
     order: 50
   - source: github:saberzero1/quartz-themes
-    enabled: true
-    options: {}
+    enabled: false
+    options: { theme: "its-theme" }
     order: 50
 layout:
   groups:
