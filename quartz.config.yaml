@@ -245,7 +245,7 @@ plugins:
     enabled: true
     options: {}
     order: 50
-  - source: github:saberzero1/quartz-themes/plugin
+  - source: github:saberzero1/quartz-themes
     enabled: true
     options: {}
     order: 50
