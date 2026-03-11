@@ -32,6 +32,11 @@ export const CreateArgv = {
     choices: ["new", "copy", "symlink"],
     describe: "strategy for content folder setup",
   },
+  baseUrl: {
+    string: true,
+    alias: ["b"],
+    describe: "base URL for your Quartz site (e.g. mysite.github.io/quartz)",
+  },
   links: {
     string: true,
     alias: ["l"],

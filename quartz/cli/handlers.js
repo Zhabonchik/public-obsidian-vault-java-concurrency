@@ -35,6 +35,7 @@ import {
   readPluginsJson,
   writePluginsJson,
   extractPluginName,
+  updateGlobalConfig,
 } from "./plugin-data.js"
 import {
   UPSTREAM_NAME,
@@ -68,6 +69,7 @@ export async function handleCreate(argv) {
   let linkResolutionStrategy = argv.links?.toLowerCase()
   const sourceDirectory = argv.source
   let template = argv.template?.toLowerCase()
+  let baseUrl = argv.baseUrl
 
   // If all cmd arguments were provided, check if they're valid
   if (setupStrategy && linkResolutionStrategy) {
@@ -253,6 +255,24 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
     )
   }
 
+  // Base URL prompt
+  if (!baseUrl) {
+    baseUrl = exitIfCancel(
+      await text({
+        message: "Enter the base URL for your Quartz site (e.g. mysite.github.io/quartz)",
+        placeholder: "mysite.github.io",
+        validate(value) {
+          if (!value || value.trim().length === 0) {
+            return "Base URL cannot be empty"
+          }
+        },
+      }),
+    )
+  }
+
+  // Strip protocol prefix if user included it
+  baseUrl = baseUrl.replace(/^https?:\/\//, "").replace(/\/+$/, "")
+
   // Create config if it doesn't exist
   if (!configExists()) {
     if (template && template !== "default") {
@@ -278,6 +298,9 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
       writePluginsJson(json)
     }
   }
+
+  // Update baseUrl in configuration
+  updateGlobalConfig({ baseUrl })
 
   // setup remote
   execSync(`git remote show upstream || git remote add upstream ${QUARTZ_SOURCE_REPO}`, {
