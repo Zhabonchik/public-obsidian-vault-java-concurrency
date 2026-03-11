@@ -14,4 +14,5 @@ This plugin has no configuration options.
 ## API
 
 - Category: Page Type
+- Function name: `Plugin.NotFoundPage()` (internal plugin).
 - Source: [`quartz/plugins/pageTypes/404.ts`](https://github.com/jackyzha0/quartz/blob/v5/quartz/plugins/pageTypes/404.ts)

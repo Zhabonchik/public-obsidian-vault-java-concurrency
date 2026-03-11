@@ -32,10 +32,10 @@ For the TS override approach:
 ```ts title="quartz.ts (override)"
 plugins: {
   transformers: [
-    Plugin.FrontMatter({ delims: "+++", language: "toml" }),
+    ExternalPlugin.FrontMatter({ delims: "+++", language: "toml" }),
     // ...
-    Plugin.OxHugoFlavouredMarkdown(),
-    Plugin.GitHubFlavoredMarkdown(),
+    ExternalPlugin.OxHugoFlavouredMarkdown(),
+    ExternalPlugin.GitHubFlavoredMarkdown(),
     // ...
   ],
 }

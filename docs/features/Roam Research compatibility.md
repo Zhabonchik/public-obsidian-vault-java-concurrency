@@ -25,8 +25,8 @@ For the TS override approach:
 plugins: {
   transformers: [
     // ...
-    Plugin.RoamFlavoredMarkdown(),
-    Plugin.ObsidianFlavoredMarkdown(),
+    ExternalPlugin.RoamFlavoredMarkdown(),
+    ExternalPlugin.ObsidianFlavoredMarkdown(),
     // ...
   ],
 }
@@ -34,9 +34,6 @@ plugins: {
 
 > [!warning]
 > In YAML, plugin execution order is controlled by the `order` field. Ensure `roam` has a lower `order` value than `obsidian-flavored-markdown` so it runs first.
-
-> [!warning]
-> In YAML, plugin execution order is controlled by the `order` field. Ensure the `roam` plugin has a lower `order` value than `obsidian-flavored-markdown` so it runs first.
 
 ## Customization
 

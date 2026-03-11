@@ -34,7 +34,7 @@ plugins:
 For the TS override approach:
 
 ```ts title="quartz.ts (override)"
-Plugin.Breadcrumbs({
+ExternalPlugin.Breadcrumbs({
   spacerSymbol: "❯",
   rootName: "Home",
   resolveFrontmatterTitle: true,

@@ -33,7 +33,7 @@ After entering both your repository and selecting the discussion category, Giscu
 
 ![[giscus-results.png]]
 
-Finally, in `quartz.config.yaml`, edit the `afterBody` field of the `defaults` layout to include the following options but with the values you got from above:
+Finally, in `quartz.config.yaml`, add the comments plugin with the following options (using the values you got from above):
 
 ```yaml title="quartz.config.yaml"
 plugins:
@@ -63,7 +63,7 @@ export default config
 export const layout = await loadQuartzLayout({
   defaults: {
     afterBody: [
-      Plugin.Comments({
+      ExternalPlugin.Comments({
         provider: "giscus",
         options: {
           repo: "jackyzha0/quartz",
@@ -156,7 +156,7 @@ export default config
 export const layout = await loadQuartzLayout({
   defaults: {
     afterBody: [
-      Plugin.Comments({
+      ExternalPlugin.Comments({
         provider: "giscus",
         options: {
           // Other options...
