@@ -21,6 +21,8 @@ import {
   handlePluginDisable,
   handlePluginConfig,
   handlePluginCheck,
+  handlePluginPrune,
+  handlePluginResolve,
 } from "./cli/plugin-git-handlers.js"
 import {
   CommonArgv,
@@ -178,6 +180,36 @@ yargs(hideBin(process.argv))
         .command("check", "Check for plugin updates", CommonArgv, async () => {
           await handlePluginCheck()
         })
+        .command(
+          "prune",
+          "Remove installed plugins no longer referenced in config",
+          {
+            ...CommonArgv,
+            "dry-run": {
+              boolean: true,
+              default: false,
+              describe: "show what would be pruned without making changes",
+            },
+          },
+          async (argv) => {
+            await handlePluginPrune({ dryRun: argv.dryRun })
+          },
+        )
+        .command(
+          "resolve",
+          "Install plugins from config that are not yet in the lockfile",
+          {
+            ...CommonArgv,
+            "dry-run": {
+              boolean: true,
+              default: false,
+              describe: "show what would be resolved without making changes",
+            },
+          },
+          async (argv) => {
+            await handlePluginResolve({ dryRun: argv.dryRun })
+          },
+        )
         .demandCommand(0, "")
     },
     async (argv) => {

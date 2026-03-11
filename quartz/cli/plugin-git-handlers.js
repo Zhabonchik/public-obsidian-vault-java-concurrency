@@ -701,3 +701,170 @@ export async function handlePluginRestore() {
     console.log(styleText("yellow", `⚠ Restored ${installed} plugin(s), ${failed} failed`))
   }
 }
+
+export async function handlePluginPrune({ dryRun = false } = {}) {
+  const lockfile = readLockfile()
+  if (!lockfile || Object.keys(lockfile.plugins).length === 0) {
+    console.log(styleText("gray", "No plugins installed"))
+    return
+  }
+
+  const pluginsJson = readPluginsJson()
+  const configuredNames = new Set(
+    (pluginsJson?.plugins ?? []).map((entry) => extractPluginName(entry.source)),
+  )
+
+  const orphans = Object.keys(lockfile.plugins).filter((name) => !configuredNames.has(name))
+
+  if (orphans.length === 0) {
+    console.log(styleText("green", "✓ No orphaned plugins found — nothing to prune"))
+    return
+  }
+
+  console.log(`Found ${orphans.length} orphaned plugin(s):\n`)
+  for (const name of orphans) {
+    console.log(`  ${styleText("yellow", name)} — in lockfile but not in config`)
+  }
+  console.log()
+
+  if (dryRun) {
+    console.log(styleText("cyan", "Dry run — no changes made. Re-run without --dry-run to prune."))
+    return
+  }
+
+  let removed = 0
+  for (const name of orphans) {
+    const pluginDir = path.join(PLUGINS_DIR, name)
+
+    console.log(styleText("cyan", `→ Removing ${name}...`))
+
+    if (fs.existsSync(pluginDir)) {
+      fs.rmSync(pluginDir, { recursive: true })
+    }
+
+    delete lockfile.plugins[name]
+    console.log(styleText("green", `✓ Removed ${name}`))
+    removed++
+  }
+
+  if (removed > 0) {
+    await regeneratePluginIndex()
+  }
+
+  writeLockfile(lockfile)
+  console.log()
+  console.log(styleText("green", `✓ Pruned ${removed} plugin(s)`))
+  console.log(styleText("gray", "Updated quartz.lock.json"))
+}
+
+export async function handlePluginResolve({ dryRun = false } = {}) {
+  const pluginsJson = readPluginsJson()
+  if (!pluginsJson?.plugins || pluginsJson.plugins.length === 0) {
+    console.log(styleText("gray", "No plugins configured"))
+    return
+  }
+
+  let lockfile = readLockfile()
+  if (!lockfile) {
+    lockfile = { version: "1.0.0", plugins: {} }
+  }
+
+  if (!fs.existsSync(PLUGINS_DIR)) {
+    fs.mkdirSync(PLUGINS_DIR, { recursive: true })
+  }
+
+  // Find config entries whose source is a git-resolvable URL and not yet in lockfile
+  const missing = pluginsJson.plugins.filter((entry) => {
+    const name = extractPluginName(entry.source)
+    if (lockfile.plugins[name]) return false
+    // Only attempt sources that parseGitSource can handle
+    const src = entry.source
+    return src.startsWith("github:") || src.startsWith("git+") || src.startsWith("https://")
+  })
+
+  if (missing.length === 0) {
+    console.log(styleText("green", "✓ All configured plugins are already installed"))
+    return
+  }
+
+  console.log(`Found ${missing.length} uninstalled plugin(s) in config:\n`)
+  for (const entry of missing) {
+    const name = extractPluginName(entry.source)
+    console.log(`  ${styleText("yellow", name)} — ${entry.source}`)
+  }
+  console.log()
+
+  if (dryRun) {
+    console.log(
+      styleText("cyan", "Dry run — no changes made. Re-run without --dry-run to resolve."),
+    )
+    return
+  }
+
+  const installed = []
+  let failed = 0
+
+  for (const entry of missing) {
+    try {
+      const { name, url, ref } = parseGitSource(entry.source)
+      const pluginDir = path.join(PLUGINS_DIR, name)
+
+      if (fs.existsSync(pluginDir)) {
+        console.log(styleText("yellow", `⚠ ${name} directory already exists, updating lockfile`))
+        const commit = getGitCommit(pluginDir)
+        lockfile.plugins[name] = {
+          source: entry.source,
+          resolved: url,
+          commit,
+          installedAt: new Date().toISOString(),
+        }
+        installed.push({ name, pluginDir })
+        continue
+      }
+
+      console.log(styleText("cyan", `→ Cloning ${name} from ${url}...`))
+
+      if (ref) {
+        execSync(`git clone --depth 1 --branch ${ref} ${url} ${pluginDir}`, { stdio: "ignore" })
+      } else {
+        execSync(`git clone --depth 1 ${url} ${pluginDir}`, { stdio: "ignore" })
+      }
+
+      const commit = getGitCommit(pluginDir)
+      lockfile.plugins[name] = {
+        source: entry.source,
+        resolved: url,
+        commit,
+        installedAt: new Date().toISOString(),
+      }
+
+      installed.push({ name, pluginDir })
+      console.log(styleText("green", `✓ Cloned ${name}@${commit.slice(0, 7)}`))
+    } catch (error) {
+      console.log(styleText("red", `✗ Failed to resolve ${entry.source}: ${error}`))
+      failed++
+    }
+  }
+
+  if (installed.length > 0) {
+    console.log()
+    console.log(styleText("cyan", "→ Building plugins..."))
+    for (const { name, pluginDir } of installed) {
+      if (!buildPlugin(pluginDir, name)) {
+        failed++
+      } else {
+        console.log(styleText("green", `  ✓ ${name} built`))
+      }
+    }
+    await regeneratePluginIndex()
+  }
+
+  writeLockfile(lockfile)
+  console.log()
+  if (failed === 0) {
+    console.log(styleText("green", `✓ Resolved ${installed.length} plugin(s)`))
+  } else {
+    console.log(styleText("yellow", `⚠ Resolved ${installed.length} plugin(s), ${failed} failed`))
+  }
+  console.log(styleText("gray", "Updated quartz.lock.json"))
+}
