@@ -8,19 +8,19 @@ You can run the CLI using `npx quartz`.
 
 ## Quick Reference
 
-| Command   | Description                           | Example                  |
-| --------- | ------------------------------------- | ------------------------ |
-| `create`  | Initialize a new Quartz project       | `npx quartz create`      |
-| `build`   | Generate static HTML files            | `npx quartz build`       |
-| `sync`    | Sync content with GitHub              | `npx quartz sync`        |
-| `upgrade` | Upgrade Quartz to the latest version  | `npx quartz upgrade`     |
-| `update`  | Update installed plugins              | `npx quartz update`      |
-| `plugin`  | Manage Quartz plugins                 | `npx quartz plugin list` |
-| `tui`     | Launch the interactive plugin manager | `npx quartz tui`         |
+| Command   | Description                                             | Example                  |
+| --------- | ------------------------------------------------------- | ------------------------ |
+| `create`  | Initialize a new Quartz project with template selection | `npx quartz create`      |
+| `build`   | Generate static HTML files                              | `npx quartz build`       |
+| `sync`    | Sync content with GitHub                                | `npx quartz sync`        |
+| `upgrade` | Upgrade Quartz to the latest version                    | `npx quartz upgrade`     |
+| `update`  | Update installed plugins                                | `npx quartz update`      |
+| `plugin`  | Manage Quartz plugins                                   | `npx quartz plugin list` |
+| `tui`     | Launch the interactive plugin manager                   | `npx quartz tui`         |
 
 ## Commands
 
-- [[cli/create|create]]: Initialize a new Quartz project from scratch or an existing vault.
+- [[cli/create|create]]: Initialize a new Quartz project with a choice of templates (default, obsidian, ttrpg, blog) and base URL configuration.
 - [[cli/build|build]]: Build your Quartz site into static HTML. Includes a development server.
 - [[cli/sync|sync]]: Push and pull changes between your local machine and GitHub.
 - [[cli/upgrade|upgrade]]: Upgrade the Quartz framework to the latest version.

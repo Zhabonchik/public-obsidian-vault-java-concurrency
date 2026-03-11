@@ -18,7 +18,7 @@ npx quartz plugin restore
 npx quartz create
 ```
 
-This will guide you through initializing your Quartz with content. Once you've done so, see how to:
+This will guide you through initializing your Quartz with content, including choosing a [[cli/create#templates|project template]] and configuring your site's base URL. Once you've done so, see how to:
 
 1. [[authoring content|Writing content]] in Quartz
 2. [[configuration|Configure]] Quartz's behaviour
