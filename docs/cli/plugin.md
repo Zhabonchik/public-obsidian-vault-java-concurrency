@@ -86,6 +86,34 @@ Check if any of your installed plugins have updates available.
 npx quartz plugin check
 ```
 
+### prune
+
+Remove installed plugins that are no longer referenced in your `quartz.config.yaml`. This is useful for cleaning up after removing plugin entries from your configuration.
+
+```shell
+npx quartz plugin prune
+```
+
+Use `--dry-run` to preview which plugins would be removed without making changes:
+
+```shell
+npx quartz plugin prune --dry-run
+```
+
+### resolve
+
+Install plugins that are listed in your `quartz.config.yaml` but missing from the lockfile. This is the inverse of `prune` — it ensures your installed plugins match your configuration.
+
+```shell
+npx quartz plugin resolve
+```
+
+Use `--dry-run` to preview which plugins would be installed without making changes:
+
+```shell
+npx quartz plugin resolve --dry-run
+```
+
 ## Common Workflows
 
 ### Adding and Enabling a Plugin
@@ -110,6 +138,25 @@ If you want to change a plugin setting without opening the YAML file:
 ```shell
 npx quartz plugin config explorer --set useSavedState=true
 ```
+
+### Cleaning Up Unused Plugins
+
+If you've removed plugins from your config and want to clean up leftover files:
+
+```shell
+npx quartz plugin prune --dry-run  # preview first
+npx quartz plugin prune            # remove orphaned plugins
+```
+
+### Setting Up from Config
+
+When setting up on a new machine or in CI, resolve any plugins referenced in your config that aren't yet installed:
+
+```shell
+npx quartz plugin resolve
+```
+
+Both `prune` and `resolve` will fall back to `quartz.config.default.yaml` if no `quartz.config.yaml` is present.
 
 ## Interactive Mode
 

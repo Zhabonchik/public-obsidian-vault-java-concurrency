@@ -27,7 +27,7 @@ You can run the CLI using `npx quartz`.
 - [[cli/update|update]]: Update installed plugins to their latest versions.
 - [[cli/restore|restore]]: Recover your content folder from the local cache.
 - [[cli/migrate|migrate]]: Convert older configuration files to the new YAML format.
-- [[cli/plugin|plugin]]: Install, add, remove, and configure plugins from the command line.
+- [[cli/plugin|plugin]]: Install, add, remove, prune, resolve, and configure plugins from the command line.
 - [[cli/tui|tui]]: Use a terminal interface to manage plugins and layout.
 
 ## Help and Versioning
