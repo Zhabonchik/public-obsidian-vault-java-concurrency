@@ -13,7 +13,13 @@ import {
   PluginLayoutDeclaration,
   FlexGroupConfig,
 } from "./types"
-import { parsePluginSource, installPlugin, getPluginEntryPoint, toFileUrl } from "./gitLoader"
+import {
+  parsePluginSource,
+  installPlugin,
+  getPluginEntryPoint,
+  toFileUrl,
+  isLocalSource,
+} from "./gitLoader"
 import { loadComponentsFromPackage } from "./componentLoader"
 import { loadFramesFromPackage } from "./frameLoader"
 import { componentRegistry } from "../../components/registry"
@@ -44,6 +50,10 @@ function readPluginsJson(): QuartzPluginsJson | null {
 }
 
 function extractPluginName(source: string): string {
+  // Local file paths: use directory basename
+  if (isLocalSource(source)) {
+    return path.basename(source.replace(/[\/]+$/, ""))
+  }
   if (source.startsWith("github:")) {
     const withoutPrefix = source.replace("github:", "")
     const [repoPath] = withoutPrefix.split("#")

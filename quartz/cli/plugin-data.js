@@ -83,7 +83,20 @@ export function writeLockfile(lockfile) {
   fs.writeFileSync(LOCKFILE_PATH, JSON.stringify(lockfile, null, 2) + "\n")
 }
 
+export function isLocalSource(source) {
+  if (source.startsWith("./") || source.startsWith("../") || source.startsWith("/")) {
+    return true
+  }
+  // Windows absolute paths (e.g. C:\ or D:/)
+  if (/^[A-Za-z]:[\\/]/.test(source)) {
+    return true
+  }
+  return false
+}
 export function extractPluginName(source) {
+  if (isLocalSource(source)) {
+    return path.basename(source.replace(/[\/]+$/, ""))
+  }
   if (source.startsWith("github:")) {
     const withoutPrefix = source.replace("github:", "")
     const [repoPath] = withoutPrefix.split("#")
@@ -110,6 +123,11 @@ export function readManifestFromPackageJson(pluginDir) {
 }
 
 export function parseGitSource(source) {
+  if (isLocalSource(source)) {
+    const resolved = path.resolve(source)
+    const name = path.basename(resolved)
+    return { name, url: resolved, ref: undefined, local: true }
+  }
   if (source.startsWith("github:")) {
     const [repoPath, ref] = source.replace("github:", "").split("#")
     const [owner, repo] = repoPath.split("/")

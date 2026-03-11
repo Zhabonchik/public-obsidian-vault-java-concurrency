@@ -14,7 +14,13 @@ import {
   QuartzEmitterPlugin,
   QuartzPageTypePlugin,
 } from "../types"
-import { parsePluginSource, installPlugin, getPluginEntryPoint, toFileUrl } from "./gitLoader"
+import {
+  parsePluginSource,
+  installPlugin,
+  getPluginEntryPoint,
+  toFileUrl,
+  isLocalSource,
+} from "./gitLoader"
 
 const MINIMUM_QUARTZ_VERSION = "4.5.0"
 
@@ -115,8 +121,9 @@ function extractPluginFactory(
 }
 
 function isGitSource(source: string): boolean {
-  // Check if it's a Git-based source
+  // Check if it's a Git-based or local file path source
   return (
+    isLocalSource(source) ||
     source.startsWith("github:") ||
     source.startsWith("git+") ||
     source.startsWith("https://github.com/") ||
@@ -267,7 +274,7 @@ async function resolveSinglePlugin(
         plugin: factory,
         manifest: fullManifest,
         type: detectedType,
-        source: `${gitSpec.repo}#${gitSpec.ref}`,
+        source: gitSpec.local ? `local:${gitSpec.repo}` : `${gitSpec.repo}#${gitSpec.ref}`,
       }
 
       if (options.verbose) {

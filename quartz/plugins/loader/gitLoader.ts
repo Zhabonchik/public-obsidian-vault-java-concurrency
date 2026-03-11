@@ -21,12 +21,14 @@ export function toFileUrl(filePath: string): string {
 export interface GitPluginSpec {
   /** Plugin name (used for directory) */
   name: string
-  /** Git repository URL (https://github.com/user/repo.git or just github:user/repo) */
+  /** Git repository URL or absolute local path */
   repo: string
   /** Git ref (branch, tag, or commit hash). Defaults to 'main' */
   ref?: string
   /** Optional subdirectory within the repo if plugin is not at root */
   subdir?: string
+  /** Whether this is a local path source */
+  local?: boolean
 }
 
 export type PluginInstallSource = string | GitPluginSpec
@@ -34,14 +36,37 @@ export type PluginInstallSource = string | GitPluginSpec
 const PLUGINS_CACHE_DIR = path.join(process.cwd(), ".quartz", "plugins")
 
 /**
+ * Check if a source string refers to a local file path.
+ * Local sources start with ./, ../, / or a Windows drive letter (e.g. C:\).
+ */
+export function isLocalSource(source: string): boolean {
+  if (source.startsWith("./") || source.startsWith("../") || source.startsWith("/")) {
+    return true
+  }
+  // Windows absolute paths (e.g. C:\ or D:/)
+  if (/^[A-Za-z]:[\\/]/.test(source)) {
+    return true
+  }
+  return false
+}
+
+/**
  * Parse a plugin source string into a GitPluginSpec
  * Supports:
+ * - "./path/to/plugin" or "/absolute/path" -> local path
  * - "github:user/repo" -> https://github.com/user/repo.git
  * - "github:user/repo#ref" -> https://github.com/user/repo.git with specific ref
  * - "git+https://..." -> direct git URL
  * - "https://github.com/..." -> direct https URL
  */
 export function parsePluginSource(source: string): GitPluginSpec {
+  // Handle local paths
+  if (isLocalSource(source)) {
+    const resolved = path.resolve(source)
+    const name = path.basename(resolved)
+    return { name, repo: resolved, local: true }
+  }
+
   // Handle github shorthand: github:user/repo or github:user/repo#ref
   if (source.startsWith("github:")) {
     const withoutPrefix = source.replace("github:", "")
@@ -94,7 +119,7 @@ function extractRepoName(url: string): string {
 }
 
 /**
- * Install a plugin from a Git repository
+ * Install a plugin from a Git repository, or symlink a local plugin.
  */
 export async function installPlugin(
   spec: GitPluginSpec,
@@ -102,6 +127,57 @@ export async function installPlugin(
 ): Promise<string> {
   const pluginDir = path.join(PLUGINS_CACHE_DIR, spec.name)
 
+  // Local source: symlink instead of clone
+  if (spec.local) {
+    if (!fs.existsSync(spec.repo)) {
+      throw new Error(`Local plugin path does not exist: ${spec.repo}`)
+    }
+
+    if (!options.force && fs.existsSync(pluginDir)) {
+      // Check if existing entry is already a symlink to the right place
+      try {
+        const stat = fs.lstatSync(pluginDir)
+        if (stat.isSymbolicLink() && fs.realpathSync(pluginDir) === fs.realpathSync(spec.repo)) {
+          if (options.verbose) {
+            console.log(styleText("cyan", `→`), `Plugin ${spec.name} already linked`)
+          }
+          return pluginDir
+        }
+      } catch {
+        // stat failed, recreate
+      }
+    }
+
+    // Clean up if force reinstall or existing non-symlink entry
+    if (fs.existsSync(pluginDir)) {
+      const stat = fs.lstatSync(pluginDir)
+      if (stat.isSymbolicLink()) {
+        fs.unlinkSync(pluginDir)
+      } else {
+        fs.rmSync(pluginDir, { recursive: true })
+      }
+    }
+
+    // Ensure parent directory exists
+    const parentDir = path.dirname(pluginDir)
+    if (!fs.existsSync(parentDir)) {
+      fs.mkdirSync(parentDir, { recursive: true })
+    }
+
+    if (options.verbose) {
+      console.log(styleText("cyan", `→`), `Linking ${spec.name} from ${spec.repo}...`)
+    }
+
+    fs.symlinkSync(spec.repo, pluginDir, "dir")
+
+    if (options.verbose) {
+      console.log(styleText("green", `✓`), `Linked ${spec.name}`)
+    }
+
+    return pluginDir
+  }
+
+  // Git source: clone
   // Check if already installed
   if (!options.force && fs.existsSync(pluginDir)) {
     // Check if it's a git repo by trying to resolve HEAD

@@ -13,6 +13,7 @@ import {
   getGitCommit,
   PLUGINS_DIR,
   LOCKFILE_PATH,
+  isLocalSource,
 } from "./plugin-data.js"
 
 const INTERNAL_EXPORTS = new Set(["manifest", "default"])
@@ -187,6 +188,37 @@ export async function handlePluginInstall() {
   for (const [name, entry] of Object.entries(lockfile.plugins)) {
     const pluginDir = path.join(PLUGINS_DIR, name)
 
+    // Local plugin: ensure symlink exists
+    if (entry.commit === "local") {
+      try {
+        if (fs.existsSync(pluginDir)) {
+          const stat = fs.lstatSync(pluginDir)
+          if (stat.isSymbolicLink() && fs.readlinkSync(pluginDir) === entry.resolved) {
+            console.log(styleText("gray", `  ✓ ${name} (local) already linked`))
+            installed++
+            continue
+          }
+          // Wrong target or not a symlink — remove and re-link
+          if (stat.isSymbolicLink()) fs.unlinkSync(pluginDir)
+          else fs.rmSync(pluginDir, { recursive: true })
+        }
+        if (!fs.existsSync(entry.resolved)) {
+          console.log(styleText("red", `  ✗ ${name}: local path missing: ${entry.resolved}`))
+          failed++
+          continue
+        }
+        fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
+        fs.symlinkSync(entry.resolved, pluginDir, "dir")
+        console.log(styleText("green", `  ✓ ${name} (local) linked`))
+        pluginsToBuild.push({ name, pluginDir })
+        installed++
+      } catch {
+        console.log(styleText("red", `  ✗ ${name}: failed to link local path`))
+        failed++
+      }
+      continue
+    }
+
     if (fs.existsSync(pluginDir)) {
       try {
         const currentCommit = getGitCommit(pluginDir)
@@ -270,7 +302,7 @@ export async function handlePluginAdd(sources) {
 
   for (const source of sources) {
     try {
-      const { name, url, ref } = parseGitSource(source)
+      const { name, url, ref, local } = parseGitSource(source)
       const pluginDir = path.join(PLUGINS_DIR, name)
 
       if (fs.existsSync(pluginDir)) {
@@ -278,25 +310,45 @@ export async function handlePluginAdd(sources) {
         continue
       }
 
-      console.log(styleText("cyan", `→ Adding ${name} from ${url}...`))
-
-      if (ref) {
-        execSync(`git clone --depth 1 --branch ${ref} ${url} ${pluginDir}`, { stdio: "ignore" })
+      if (local) {
+        // Local path: create symlink instead of git clone
+        const resolvedPath = path.resolve(url)
+        if (!fs.existsSync(resolvedPath)) {
+          console.log(styleText("red", `✗ Local path does not exist: ${resolvedPath}`))
+          continue
+        }
+        console.log(styleText("cyan", `→ Adding ${name} from local path ${resolvedPath}...`))
+        fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
+        fs.symlinkSync(resolvedPath, pluginDir, "dir")
+        lockfile.plugins[name] = {
+          source,
+          resolved: resolvedPath,
+          commit: "local",
+          installedAt: new Date().toISOString(),
+        }
+        addedPlugins.push({ name, pluginDir, source })
+        console.log(styleText("green", `✓ Added ${name} (local symlink)`))
       } else {
-        execSync(`git clone --depth 1 ${url} ${pluginDir}`, { stdio: "ignore" })
-      }
+        console.log(styleText("cyan", `→ Adding ${name} from ${url}...`))
 
-      const commit = getGitCommit(pluginDir)
-      lockfile.plugins[name] = {
-        source,
-        resolved: url,
-        commit,
-        ...(ref && { ref }),
-        installedAt: new Date().toISOString(),
-      }
+        if (ref) {
+          execSync(`git clone --depth 1 --branch ${ref} ${url} ${pluginDir}`, { stdio: "ignore" })
+        } else {
+          execSync(`git clone --depth 1 ${url} ${pluginDir}`, { stdio: "ignore" })
+        }
 
-      addedPlugins.push({ name, pluginDir, source })
-      console.log(styleText("green", `✓ Added ${name}@${commit.slice(0, 7)}`))
+        const commit = getGitCommit(pluginDir)
+        lockfile.plugins[name] = {
+          source,
+          resolved: url,
+          commit,
+          ...(ref && { ref }),
+          installedAt: new Date().toISOString(),
+        }
+
+        addedPlugins.push({ name, pluginDir, source })
+        console.log(styleText("green", `✓ Added ${name}@${commit.slice(0, 7)}`))
+      }
     } catch (error) {
       console.log(styleText("red", `✗ Failed to add ${source}: ${error}`))
     }
@@ -504,6 +556,17 @@ export async function handlePluginCheck() {
 
   const results = []
   for (const [name, entry] of Object.entries(lockfile.plugins)) {
+    // Local plugins: show "local" status, skip git checks
+    if (entry.commit === "local") {
+      results.push({
+        name,
+        installed: "local",
+        latest: "—",
+        status: "local",
+      })
+      continue
+    }
+
     try {
       const lsRemoteRef = entry.ref ? `refs/heads/${entry.ref}` : "HEAD"
       const latestCommit = execSync(`git ls-remote ${entry.resolved} ${lsRemoteRef}`, {
@@ -536,7 +599,11 @@ export async function handlePluginCheck() {
 
   for (const r of results) {
     const color =
-      r.status === "up to date" ? "green" : r.status === "check failed" ? "red" : "yellow"
+      r.status === "up to date" || r.status === "local"
+        ? "green"
+        : r.status === "check failed"
+          ? "red"
+          : "yellow"
     console.log(
       `${r.name.padEnd(nameWidth)}${r.installed.padEnd(12)}${r.latest.padEnd(12)}${styleText(
         color,
@@ -568,6 +635,13 @@ export async function handlePluginUpdate(names) {
       console.log(
         styleText("yellow", `⚠ ${name} directory missing. Run 'npx quartz plugin install'.`),
       )
+      continue
+    }
+
+    // Local plugins: just rebuild, no git operations
+    if (entry.commit === "local") {
+      console.log(styleText("cyan", `→ Rebuilding local plugin ${name}...`))
+      updatedPlugins.push({ name, pluginDir })
       continue
     }
 
@@ -624,6 +698,20 @@ export async function handlePluginList() {
   for (const [name, entry] of Object.entries(lockfile.plugins)) {
     const pluginDir = path.join(PLUGINS_DIR, name)
     const exists = fs.existsSync(pluginDir)
+
+    // Local plugins: special display
+    if (entry.commit === "local") {
+      const isLinked = exists && fs.lstatSync(pluginDir).isSymbolicLink()
+      const status = isLinked ? styleText("green", "✓") : styleText("red", "✗")
+      console.log(`  ${status} ${styleText("bold", name)}`)
+      console.log(`    Source: ${entry.source}`)
+      console.log(`    Type: local symlink`)
+      console.log(`    Target: ${entry.resolved}`)
+      console.log(`    Installed: ${new Date(entry.installedAt).toLocaleDateString()}`)
+      console.log()
+      continue
+    }
+
     let currentCommit = entry.commit
 
     if (exists) {
@@ -673,6 +761,26 @@ export async function handlePluginRestore() {
 
     if (fs.existsSync(pluginDir)) {
       console.log(styleText("yellow", `⚠ ${name}: directory exists, skipping`))
+      continue
+    }
+
+    // Local plugin: re-symlink
+    if (entry.commit === "local") {
+      try {
+        if (!fs.existsSync(entry.resolved)) {
+          console.log(styleText("red", `  ✗ ${name}: local path missing: ${entry.resolved}`))
+          failed++
+          continue
+        }
+        fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
+        fs.symlinkSync(entry.resolved, pluginDir, "dir")
+        console.log(styleText("green", `✓ ${name} restored (local symlink)`))
+        restoredPlugins.push({ name, pluginDir })
+        installed++
+      } catch {
+        console.log(styleText("red", `✗ ${name}: failed to restore local symlink`))
+        failed++
+      }
       continue
     }
 
@@ -785,13 +893,18 @@ export async function handlePluginResolve({ dryRun = false } = {}) {
     fs.mkdirSync(PLUGINS_DIR, { recursive: true })
   }
 
-  // Find config entries whose source is a git-resolvable URL and not yet in lockfile
+  // Find config entries whose source is a git/local-resolvable URL and not yet in lockfile
   const missing = pluginsJson.plugins.filter((entry) => {
     const name = extractPluginName(entry.source)
     if (lockfile.plugins[name]) return false
-    // Only attempt sources that parseGitSource can handle
+    // Only attempt sources that parseGitSource can handle (git URLs + local paths)
     const src = entry.source
-    return src.startsWith("github:") || src.startsWith("git+") || src.startsWith("https://")
+    return (
+      src.startsWith("github:") ||
+      src.startsWith("git+") ||
+      src.startsWith("https://") ||
+      isLocalSource(src)
+    )
   })
 
   if (missing.length === 0) {
@@ -818,10 +931,21 @@ export async function handlePluginResolve({ dryRun = false } = {}) {
 
   for (const entry of missing) {
     try {
-      const { name, url, ref } = parseGitSource(entry.source)
+      const { name, url, ref, local } = parseGitSource(entry.source)
       const pluginDir = path.join(PLUGINS_DIR, name)
 
       if (fs.existsSync(pluginDir)) {
+        if (local) {
+          console.log(styleText("yellow", `⚠ ${name} directory already exists, updating lockfile`))
+          lockfile.plugins[name] = {
+            source: entry.source,
+            resolved: url,
+            commit: "local",
+            installedAt: new Date().toISOString(),
+          }
+          installed.push({ name, pluginDir })
+          continue
+        }
         console.log(styleText("yellow", `⚠ ${name} directory already exists, updating lockfile`))
         const commit = getGitCommit(pluginDir)
         lockfile.plugins[name] = {
@@ -835,25 +959,46 @@ export async function handlePluginResolve({ dryRun = false } = {}) {
         continue
       }
 
-      console.log(styleText("cyan", `→ Cloning ${name} from ${url}...`))
-
-      if (ref) {
-        execSync(`git clone --depth 1 --branch ${ref} ${url} ${pluginDir}`, { stdio: "ignore" })
+      if (local) {
+        // Local path: symlink
+        const resolvedPath = path.resolve(url)
+        if (!fs.existsSync(resolvedPath)) {
+          console.log(styleText("red", `✗ Local path does not exist: ${resolvedPath}`))
+          failed++
+          continue
+        }
+        console.log(styleText("cyan", `→ Linking ${name} from ${resolvedPath}...`))
+        fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
+        fs.symlinkSync(resolvedPath, pluginDir, "dir")
+        lockfile.plugins[name] = {
+          source: entry.source,
+          resolved: resolvedPath,
+          commit: "local",
+          installedAt: new Date().toISOString(),
+        }
+        installed.push({ name, pluginDir })
+        console.log(styleText("green", `✓ Linked ${name} (local)`))
       } else {
-        execSync(`git clone --depth 1 ${url} ${pluginDir}`, { stdio: "ignore" })
-      }
+        console.log(styleText("cyan", `→ Cloning ${name} from ${url}...`))
 
-      const commit = getGitCommit(pluginDir)
-      lockfile.plugins[name] = {
-        source: entry.source,
-        resolved: url,
-        commit,
-        ...(ref && { ref }),
-        installedAt: new Date().toISOString(),
-      }
+        if (ref) {
+          execSync(`git clone --depth 1 --branch ${ref} ${url} ${pluginDir}`, { stdio: "ignore" })
+        } else {
+          execSync(`git clone --depth 1 ${url} ${pluginDir}`, { stdio: "ignore" })
+        }
 
-      installed.push({ name, pluginDir })
-      console.log(styleText("green", `✓ Cloned ${name}@${commit.slice(0, 7)}`))
+        const commit = getGitCommit(pluginDir)
+        lockfile.plugins[name] = {
+          source: entry.source,
+          resolved: url,
+          commit,
+          ...(ref && { ref }),
+          installedAt: new Date().toISOString(),
+        }
+
+        installed.push({ name, pluginDir })
+        console.log(styleText("green", `✓ Cloned ${name}@${commit.slice(0, 7)}`))
+      }
     } catch (error) {
       console.log(styleText("red", `✗ Failed to resolve ${entry.source}: ${error}`))
       failed++
