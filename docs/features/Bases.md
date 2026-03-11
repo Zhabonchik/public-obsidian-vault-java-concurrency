@@ -13,7 +13,7 @@ Bases support is provided by the [[BasesPage]] plugin. See the plugin page for c
 
 ## Demo
 
-![[navigation.base]]
+![[Base.base]]
 
 ## Customization
 
