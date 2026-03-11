@@ -32,6 +32,16 @@ npx quartz plugin add git+https://github.com/username/repo.git#my-branch
 npx quartz plugin add https://github.com/username/repo.git#my-branch
 ```
 
+You can also add a plugin from a local directory. This is useful for local development or airgapped environments:
+
+```shell
+npx quartz plugin add ./path/to/my-plugin
+npx quartz plugin add ../sibling-plugin
+npx quartz plugin add /absolute/path/to/plugin
+```
+
+Local plugins are symlinked into `.quartz/plugins/`, so any changes you make to the source directory are reflected immediately without re-installing.
+
 When a branch is specified, it is stored in the lockfile. All subsequent commands (`install`, `update`, `restore`, `check`, `resolve`) will respect that branch automatically.
 
 ### remove
@@ -182,6 +192,23 @@ npx quartz plugin add github:username/repo
 The branch ref is tracked in `quartz.lock.json`, so `update` and `check` will continue to follow the specified branch until the plugin is re-added without one.
 
 Both `prune` and `resolve` will fall back to `quartz.config.default.yaml` if no `quartz.config.yaml` is present.
+
+### Local Plugin Development
+
+For local plugin development or airgapped environments, you can add a plugin from a local directory:
+
+```shell
+npx quartz plugin add ./my-local-plugin
+```
+
+Local plugins are symlinked into `.quartz/plugins/`, so changes reflect immediately. When you run `update`, local plugins are rebuilt (npm install + npm run build) without any git operations. The `check` command will show local plugins with a "local" status instead of checking for remote updates.
+
+To switch a local plugin back to a git source:
+
+```shell
+npx quartz plugin remove my-local-plugin
+npx quartz plugin add github:username/my-local-plugin
+```
 
 ## Interactive Mode
 
