@@ -267,7 +267,17 @@ Key changes:
 
 #### 4. Update CI/CD
 
-Add `npx quartz plugin restore` to your build pipeline, before `npx quartz build`. See [[ci-cd]] for detailed examples.
+Add `npx quartz plugin restore` to your build pipeline, before `npx quartz build`. This installs plugins from the lockfile at their pinned versions.
+
+If your CI uses `quartz.config.default.yaml` (or contributors may add plugins to config without updating the lockfile), also run `npx quartz plugin resolve` to install any config-referenced plugins that are missing from the lockfile:
+
+```shell
+npx quartz plugin restore  # install pinned plugins from lockfile
+npx quartz plugin resolve  # install any config-referenced plugins not yet in lockfile
+npx quartz build
+```
+
+See [[hosting]] for detailed CI/CD examples and [[ci-cd]] for advanced configuration.
 
 #### 5. Commit and Deploy
 
@@ -275,6 +285,9 @@ Add `npx quartz plugin restore` to your build pipeline, before `npx quartz build
 git add quartz.config.yaml quartz.lock.json
 git commit -m "chore: migrate to Quartz 5 plugin system"
 ```
+
+> [!tip] Cleaning up leftover plugins
+> After migrating, you may have plugins installed from v4 that are no longer in your v5 config. Run `npx quartz plugin prune` to remove them. Use `--dry-run` first to preview what would be removed.
 
 ### Plugin Reference Table
 

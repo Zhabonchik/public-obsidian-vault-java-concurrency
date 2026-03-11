@@ -12,6 +12,9 @@ However, if you'd like to publish your site to the world, you need a way to host
 > [!hint]
 > Some Quartz features (like [[RSS Feed]] and sitemap generation) require `baseUrl` to be configured properly in your [[configuration]] to work properly. Make sure you set this before deploying!
 
+> [!tip] Keeping plugins in sync
+> All hosting examples below use `npx quartz plugin restore` to install plugins from the lockfile. If contributors may add plugins to `quartz.config.yaml` without updating the lockfile, add `npx quartz plugin resolve` after `restore` in your build command to install any missing plugins. See [[cli/plugin#resolve|plugin resolve]] for details.
+
 ## Cloudflare Pages
 
 1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.

@@ -482,7 +482,7 @@ npx tsup
 npx quartz plugin add github:your-username/my-plugin
 ```
 
-Then add the plugin to your `quartz.config.yaml`:
+This clones the plugin, builds it, and adds it to both `quartz.config.yaml` and `quartz.lock.json`. You can then configure it in your config:
 
 ```yaml title="quartz.config.yaml"
 plugins:
@@ -497,6 +497,41 @@ import * as ExternalPlugin from "./.quartz/plugins"
 // ...
 transformers: [ExternalPlugin.MyPlugin()]
 ```
+
+### Development Workflow
+
+During plugin development, you'll frequently install and uninstall your plugin to test changes. The following commands help manage this cycle:
+
+```shell
+# Remove your plugin and clean up
+npx quartz plugin remove my-plugin
+
+# Re-add after making changes
+npx quartz plugin add github:your-username/my-plugin
+```
+
+If you've updated your `quartz.config.yaml` to reference a plugin that isn't installed yet, you can install it without manually running `add`:
+
+```shell
+# Install all config-referenced plugins missing from the lockfile
+npx quartz plugin resolve
+
+# Preview first without making changes
+npx quartz plugin resolve --dry-run
+```
+
+To clean up plugins that are installed but no longer referenced in your config:
+
+```shell
+# Remove orphaned plugins
+npx quartz plugin prune
+
+# Preview first without making changes
+npx quartz plugin prune --dry-run
+```
+
+> [!tip]
+> Both `resolve` and `prune` fall back to `quartz.config.default.yaml` if no `quartz.config.yaml` is present. This is useful for CI environments where the default config is the source of truth. See [[cli/plugin#prune|prune]] and [[cli/plugin#resolve|resolve]] for full details.
 
 ## Component Plugins
 

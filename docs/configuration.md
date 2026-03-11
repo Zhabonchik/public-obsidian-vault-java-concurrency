@@ -143,6 +143,20 @@ npx quartz plugin add github:quartz-community/explorer
 
 This adds the plugin to `quartz.config.yaml` and installs it to `.quartz/plugins/`.
 
+To install all plugins referenced in your config that aren't yet installed (useful when cloning a project or setting up CI):
+
+```shell
+npx quartz plugin resolve
+```
+
+To remove installed plugins that are no longer in your config:
+
+```shell
+npx quartz plugin prune
+```
+
+Both commands support `--dry-run` to preview changes. See [[cli/plugin|the plugin CLI reference]] for full details.
+
 ### Usage
 
 You can customize the behaviour of Quartz by adding, removing and reordering plugins in `quartz.config.yaml`. Each plugin entry specifies its source, whether it's enabled, execution order, and any options:

@@ -27,3 +27,14 @@ npx quartz update
 ```
 
 See the [[cli/update|CLI reference for update]] and [[cli/upgrade|CLI reference for upgrade]] for more details on available flags.
+
+### Cleaning Up Unused Plugins
+
+If you've removed plugins from your configuration during an upgrade, you can clean up the leftover files:
+
+```bash
+npx quartz plugin prune --dry-run  # preview what would be removed
+npx quartz plugin prune            # remove orphaned plugins
+```
+
+See the [[cli/plugin#prune|plugin prune reference]] for more details.
