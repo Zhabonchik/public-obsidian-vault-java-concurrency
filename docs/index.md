@@ -27,9 +27,6 @@ This will guide you through initializing your Quartz with content, including cho
 5. Sync your changes with [[setting up your GitHub repository|GitHub]]
 6. [[hosting|Host]] Quartz online
 
-If you prefer instructions in a video format you can try following Nicole van der Hoeven's
-[video guide on how to set up Quartz!](https://www.youtube.com/watch?v=6s6DT1yN4dw&t=227s)
-
 ## 🔧 Features
 
 - [[Obsidian compatibility]], [[full-text search]], [[graph view]], [[wikilinks|wikilinks, transclusions]], [[backlinks]], [[features/Latex|Latex]], [[syntax highlighting]], [[popover previews]], [[Docker Support]], [[i18n|internationalization]], [[comments]] and [many more](./features/) right out of the box
