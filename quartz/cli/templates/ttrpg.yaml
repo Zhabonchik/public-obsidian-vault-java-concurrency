@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=../../plugins/quartz-plugins.schema.json
-# Template: default
-# A clean Quartz setup with sensible defaults.
+# Template: ttrpg
+# Obsidian-based setup with map plugin and ITS Theme for TTRPG/D&D wikis.
 configuration:
   pageTitle: Quartz 5
   pageTitleSuffix: ""
@@ -76,7 +76,17 @@ plugins:
   - source: github:quartz-community/obsidian-flavored-markdown
     enabled: true
     options:
+      comments: true
+      highlight: true
+      wikilinks: true
+      callouts: true
+      mermaid: true
+      parseTags: true
+      parseArrows: true
+      parseBlockReferences: true
       enableInHtmlEmbed: false
+      enableYouTubeEmbed: true
+      enableVideoEmbed: true
       enableCheckbox: true
     order: 30
   - source: github:quartz-community/github-flavored-markdown
@@ -243,6 +253,14 @@ plugins:
       position: beforeBody
       priority: 15
       display: all
+  # TTRPG-specific plugins
+  - source: github:quartz-community/external-quartz-leaflet-map-plugin
+    enabled: true
+  - source: github:saberzero1/quartz-themes
+    enabled: true
+    options:
+      theme: "its-theme"
+      variation: "ttrpg-dnd"
 layout:
   groups:
     toolbar:

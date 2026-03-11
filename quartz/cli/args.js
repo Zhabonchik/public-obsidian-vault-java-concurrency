@@ -15,6 +15,12 @@ export const CommonArgv = {
 
 export const CreateArgv = {
   ...CommonArgv,
+  template: {
+    string: true,
+    alias: ["t"],
+    choices: ["default", "obsidian", "ttrpg", "blog"],
+    describe: "template to use for initial configuration",
+  },
   source: {
     string: true,
     alias: ["s"],

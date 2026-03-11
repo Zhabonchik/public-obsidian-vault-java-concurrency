@@ -1,4 +1,6 @@
-# yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
+# yaml-language-server: $schema=../../plugins/quartz-plugins.schema.json
+# Template: default
+# A clean Quartz setup with sensible defaults.
 configuration:
   pageTitle: Quartz 5
   pageTitleSuffix: ""
@@ -52,7 +54,7 @@ plugins:
         - aliases
       excludedProperties: []
       hidePropertiesView: false
-      delimiters: ---
+      delimiters: "---"
       language: yaml
     order: 5
   - source: github:quartz-community/created-modified-date
@@ -234,21 +236,13 @@ plugins:
         - aliases
       excludedProperties: []
       hidePropertiesView: false
-      delimiters: ---
+      delimiters: "---"
       language: yaml
     order: 5
     layout:
       position: beforeBody
       priority: 15
       display: all
-  - source: github:quartz-community/external-quartz-leaflet-map-plugin
-    enabled: true
-    options: {}
-    order: 50
-  - source: github:saberzero1/quartz-themes
-    enabled: false
-    options: { theme: "its-theme" }
-    order: 50
 layout:
   groups:
     toolbar:

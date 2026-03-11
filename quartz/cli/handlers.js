@@ -31,6 +31,7 @@ import {
 import {
   configExists,
   createConfigFromDefault,
+  createConfigFromTemplate,
   readPluginsJson,
   writePluginsJson,
   extractPluginName,
@@ -66,6 +67,7 @@ export async function handleCreate(argv) {
   let setupStrategy = argv.strategy?.toLowerCase()
   let linkResolutionStrategy = argv.links?.toLowerCase()
   const sourceDirectory = argv.source
+  let template = argv.template?.toLowerCase()
 
   // If all cmd arguments were provided, check if they're valid
   if (setupStrategy && linkResolutionStrategy) {
@@ -117,6 +119,32 @@ export async function handleCreate(argv) {
     }
   }
 
+  // Template selection
+  if (!template) {
+    template = exitIfCancel(
+      await select({
+        message: "Choose a template for your Quartz configuration",
+        options: [
+          { value: "default", label: "Default", hint: "clean Quartz setup with sensible defaults" },
+          {
+            value: "obsidian",
+            label: "Obsidian",
+            hint: "optimized for Obsidian vaults with full OFM support",
+          },
+          {
+            value: "ttrpg",
+            label: "TTRPG",
+            hint: "Obsidian + map plugin + ITS Theme for D&D/TTRPG wikis",
+          },
+          {
+            value: "blog",
+            label: "Blog",
+            hint: "recent notes and comments enabled for blogging",
+          },
+        ],
+      }),
+    )
+  }
   // Use cli process if cmd args werent provided
   if (!setupStrategy) {
     setupStrategy = exitIfCancel(
@@ -194,6 +222,12 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
     )
   }
 
+  // Obsidian and TTRPG templates auto-set link resolution to "shortest"
+  const skipLinkPrompt = template === "obsidian" || template === "ttrpg"
+  if (skipLinkPrompt) {
+    linkResolutionStrategy = "shortest"
+  }
+
   // Use cli process if cmd args werent provided
   if (!linkResolutionStrategy) {
     // get a preferred link resolution strategy
@@ -219,6 +253,17 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
     )
   }
 
+  // Create config if it doesn't exist
+  if (!configExists()) {
+    if (template && template !== "default") {
+      createConfigFromTemplate(template)
+      console.log(styleText("green", `Created quartz.config.yaml from '${template}' template`))
+    } else {
+      createConfigFromTemplate("default")
+      console.log(styleText("green", "Created quartz.config.yaml from defaults"))
+    }
+  }
+
   // Update markdownLinkResolution in the crawl-links plugin options via YAML config
   const json = readPluginsJson()
   if (json?.plugins) {
@@ -232,11 +277,6 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
       }
       writePluginsJson(json)
     }
-  }
-
-  if (!configExists()) {
-    createConfigFromDefault()
-    console.log(styleText("green", "Created quartz.config.yaml from defaults"))
   }
 
   // setup remote

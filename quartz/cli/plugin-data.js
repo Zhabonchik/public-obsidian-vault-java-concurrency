@@ -7,6 +7,7 @@ const LOCKFILE_PATH = path.join(process.cwd(), "quartz.lock.json")
 const PLUGINS_DIR = path.join(process.cwd(), ".quartz", "plugins")
 const CONFIG_YAML_PATH = path.join(process.cwd(), "quartz.config.yaml")
 const DEFAULT_CONFIG_YAML_PATH = path.join(process.cwd(), "quartz.config.default.yaml")
+const TEMPLATES_DIR = path.join(process.cwd(), "quartz", "cli", "templates")
 
 const LEGACY_PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.json")
 const LEGACY_DEFAULT_PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.default.json")
@@ -305,6 +306,27 @@ export function createConfigFromDefault() {
   }
 
   const { $schema, ...rest } = defaultData
+  writePluginsJson(rest)
+  return rest
+}
+
+const VALID_TEMPLATES = ["default", "obsidian", "ttrpg", "blog"]
+
+export function createConfigFromTemplate(templateName) {
+  if (!VALID_TEMPLATES.includes(templateName)) {
+    throw new Error(
+      `Unknown template: ${templateName}. Valid templates: ${VALID_TEMPLATES.join(", ")}`,
+    )
+  }
+
+  const templatePath = path.join(TEMPLATES_DIR, `${templateName}.yaml`)
+  const templateData = readFileAsData(templatePath)
+  if (!templateData) {
+    // Template file missing — fall back to default config creation
+    return createConfigFromDefault()
+  }
+
+  const { $schema, ...rest } = templateData
   writePluginsJson(rest)
   return rest
 }
