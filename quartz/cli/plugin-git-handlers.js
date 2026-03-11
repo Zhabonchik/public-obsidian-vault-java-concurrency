@@ -199,7 +199,8 @@ export async function handlePluginInstall() {
         }
         if (currentCommit !== entry.commit) {
           console.log(styleText("cyan", `  → ${name}: updating to ${entry.commit.slice(0, 7)}...`))
-          execSync("git fetch --depth 1 origin", { cwd: pluginDir, stdio: "ignore" })
+          const fetchRef = entry.ref ? ` ${entry.ref}` : ""
+          execSync(`git fetch --depth 1 origin${fetchRef}`, { cwd: pluginDir, stdio: "ignore" })
           execSync(`git reset --hard ${entry.commit}`, { cwd: pluginDir, stdio: "ignore" })
         }
         pluginsToBuild.push({ name, pluginDir })
@@ -211,7 +212,10 @@ export async function handlePluginInstall() {
     } else {
       try {
         console.log(styleText("cyan", `  → ${name}: cloning...`))
-        execSync(`git clone --depth 1 ${entry.resolved} ${pluginDir}`, { stdio: "ignore" })
+        const branchArg = entry.ref ? ` --branch ${entry.ref}` : ""
+        execSync(`git clone --depth 1${branchArg} ${entry.resolved} ${pluginDir}`, {
+          stdio: "ignore",
+        })
         if (entry.commit !== "unknown") {
           execSync(`git fetch --depth 1 origin ${entry.commit}`, {
             cwd: pluginDir,
@@ -287,6 +291,7 @@ export async function handlePluginAdd(sources) {
         source,
         resolved: url,
         commit,
+        ...(ref && { ref }),
         installedAt: new Date().toISOString(),
       }
 
@@ -500,7 +505,8 @@ export async function handlePluginCheck() {
   const results = []
   for (const [name, entry] of Object.entries(lockfile.plugins)) {
     try {
-      const latestCommit = execSync(`git ls-remote ${entry.resolved} HEAD`, {
+      const lsRemoteRef = entry.ref ? `refs/heads/${entry.ref}` : "HEAD"
+      const latestCommit = execSync(`git ls-remote ${entry.resolved} ${lsRemoteRef}`, {
         encoding: "utf-8",
       })
         .split("\t")[0]
@@ -567,8 +573,13 @@ export async function handlePluginUpdate(names) {
 
     try {
       console.log(styleText("cyan", `→ Updating ${name}...`))
-      execSync("git fetch --depth 1 origin", { cwd: pluginDir, stdio: "ignore" })
-      execSync("git reset --hard origin/HEAD", { cwd: pluginDir, stdio: "ignore" })
+      const fetchRef = entry.ref || ""
+      const resetTarget = entry.ref ? `origin/${entry.ref}` : "origin/HEAD"
+      execSync(`git fetch --depth 1 origin${fetchRef ? " " + fetchRef : ""}`, {
+        cwd: pluginDir,
+        stdio: "ignore",
+      })
+      execSync(`git reset --hard ${resetTarget}`, { cwd: pluginDir, stdio: "ignore" })
 
       const newCommit = getGitCommit(pluginDir)
       if (newCommit !== entry.commit) {
@@ -669,7 +680,8 @@ export async function handlePluginRestore() {
       console.log(
         styleText("cyan", `→ ${name}: cloning ${entry.resolved}@${entry.commit.slice(0, 7)}...`),
       )
-      execSync(`git clone ${entry.resolved} ${pluginDir}`, { stdio: "ignore" })
+      const branchArg = entry.ref ? ` --branch ${entry.ref}` : ""
+      execSync(`git clone${branchArg} ${entry.resolved} ${pluginDir}`, { stdio: "ignore" })
       execSync(`git checkout ${entry.commit}`, { cwd: pluginDir, stdio: "ignore" })
       console.log(styleText("green", `✓ ${name} restored`))
       restoredPlugins.push({ name, pluginDir })
@@ -816,6 +828,7 @@ export async function handlePluginResolve({ dryRun = false } = {}) {
           source: entry.source,
           resolved: url,
           commit,
+          ...(ref && { ref }),
           installedAt: new Date().toISOString(),
         }
         installed.push({ name, pluginDir })
@@ -835,6 +848,7 @@ export async function handlePluginResolve({ dryRun = false } = {}) {
         source: entry.source,
         resolved: url,
         commit,
+        ...(ref && { ref }),
         installedAt: new Date().toISOString(),
       }
 

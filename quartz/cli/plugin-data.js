@@ -116,13 +116,15 @@ export function parseGitSource(source) {
     return { name: repo, url: `https://github.com/${owner}/${repo}.git`, ref }
   }
   if (source.startsWith("git+")) {
-    const url = source.replace("git+", "")
+    const raw = source.replace("git+", "")
+    const [url, ref] = raw.split("#")
     const name = path.basename(url, ".git")
-    return { name, url }
+    return { name, url, ref }
   }
   if (source.startsWith("https://")) {
-    const name = path.basename(source, ".git")
-    return { name, url: source }
+    const [url, ref] = source.split("#")
+    const name = path.basename(url, ".git")
+    return { name, url, ref }
   }
   throw new Error(`Cannot parse plugin source: ${source}`)
 }

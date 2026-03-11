@@ -192,7 +192,7 @@
         "properties": {
           "source": {
             "type": "string",
-            "description": "Plugin source path or identifier"
+            "description": "Plugin source path or identifier. Supports github:user/repo, git+https://, and https:// URLs. Append #ref to pin to a specific branch or tag (e.g., github:user/repo#my-branch)."
           },
           "enabled": {
             "type": "boolean",

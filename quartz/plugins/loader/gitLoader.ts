@@ -61,15 +61,17 @@ export function parsePluginSource(source: string): GitPluginSpec {
 
   // Handle git+https:// protocol
   if (source.startsWith("git+")) {
-    const url = source.replace("git+", "")
+    const raw = source.replace("git+", "")
+    const [url, ref] = raw.split("#")
     const name = extractRepoName(url)
-    return { name, repo: url, ref: "main" }
+    return { name, repo: url, ref: ref || "main" }
   }
 
   // Handle direct HTTPS URL (GitHub, GitLab, etc.)
   if (source.startsWith("https://")) {
-    const name = extractRepoName(source)
-    return { name, repo: source, ref: "main" }
+    const [url, ref] = source.split("#")
+    const name = extractRepoName(url)
+    return { name, repo: url, ref: ref || "main" }
   }
 
   // Assume it's a plain repo name and try github
