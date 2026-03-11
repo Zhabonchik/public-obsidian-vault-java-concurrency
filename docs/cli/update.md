@@ -20,7 +20,7 @@ npx quartz update my-plugin another-plugin
 
 ## How it Works
 
-For each plugin, `update` fetches the latest commit from the plugin's remote repository and rebuilds it. The lockfile (`quartz.lock.json`) is updated with the new commit hashes.
+For each plugin, `update` fetches the latest commit from the plugin's remote repository and rebuilds it. If a plugin was installed from a specific branch (e.g., `github:user/repo#my-branch`), updates will track that branch instead of the default branch. The lockfile (`quartz.lock.json`) is updated with the new commit hashes.
 
 This is functionally identical to running:
 

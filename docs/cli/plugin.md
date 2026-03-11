@@ -24,6 +24,16 @@ Add a new plugin from a Git repository.
 npx quartz plugin add github:username/repo
 ```
 
+To install from a specific branch or ref, append `#ref` to the source:
+
+```shell
+npx quartz plugin add github:username/repo#my-branch
+npx quartz plugin add git+https://github.com/username/repo.git#my-branch
+npx quartz plugin add https://github.com/username/repo.git#my-branch
+```
+
+When a branch is specified, it is stored in the lockfile. All subsequent commands (`install`, `update`, `restore`, `check`, `resolve`) will respect that branch automatically.
+
 ### remove
 
 Remove an installed plugin.
@@ -155,6 +165,21 @@ When setting up on a new machine or in CI, resolve any plugins referenced in you
 ```shell
 npx quartz plugin resolve
 ```
+
+### Testing with Branches
+
+If a plugin author has a fix or feature on a separate branch, you can install it directly without waiting for a release to the default branch:
+
+```shell
+# Install from a feature branch
+npx quartz plugin add github:username/repo#fix/some-bug
+
+# Later, switch back to the default branch by re-adding without a ref
+npx quartz plugin remove repo
+npx quartz plugin add github:username/repo
+```
+
+The branch ref is tracked in `quartz.lock.json`, so `update` and `check` will continue to follow the specified branch until the plugin is re-added without one.
 
 Both `prune` and `resolve` will fall back to `quartz.config.default.yaml` if no `quartz.config.yaml` is present.
 
