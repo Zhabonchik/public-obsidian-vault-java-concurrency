@@ -7,6 +7,9 @@ tags:
 
 Password-protected encrypted pages. Encrypts page content at build time using AES-256-GCM and decrypts client-side with the Web Crypto API. Passwords are set per-page via frontmatter.
 
+> [!example] Live demo
+> Try it yourself: [[EncryptedPages Demo]]. The password is `quartz`.
+
 > [!note]
 > For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
 
