@@ -44,19 +44,6 @@ configuration:
         highlight: rgba(143, 159, 169, 0.15)
         textHighlight: "#b3aa0288"
 plugins:
-  - source: github:quartz-community/note-properties
-    enabled: true
-    options:
-      includeAll: false
-      includedProperties:
-        - description
-        - tags
-        - aliases
-      excludedProperties: []
-      hidePropertiesView: false
-      delimiters: "---"
-      language: yaml
-    order: 5
   - source: github:quartz-community/created-modified-date
     enabled: true
     options:
@@ -140,8 +127,6 @@ plugins:
   - source: github:quartz-community/cname
     enabled: true
   - source: github:quartz-community/canvas-page
-    enabled: true
-  - source: github:quartz-community/bases-page
     enabled: true
   - source: github:quartz-community/content-page
     enabled: true
