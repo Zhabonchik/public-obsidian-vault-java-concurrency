@@ -237,6 +237,8 @@ plugins:
       position: body
       priority: 100
       display: all
+  - source: github:quartz-community/stacked-pages
+    enabled: true
 layout:
   groups:
     toolbar:
