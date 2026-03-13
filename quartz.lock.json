@@ -226,8 +226,8 @@
     "stacked-pages": {
       "source": "github:quartz-community/stacked-pages",
       "resolved": "https://github.com/quartz-community/stacked-pages.git",
-      "commit": "7344a7b9ffe5d4dfcee30025046523cc5704dc6c",
-      "installedAt": "2026-03-13T18:19:53.430Z"
+      "commit": "2d853d361d84211adda38e2c86973e706f265f9b",
+      "installedAt": "2026-03-13T23:15:30.401Z"
     },
     "syntax-highlighting": {
       "source": "github:quartz-community/syntax-highlighting",

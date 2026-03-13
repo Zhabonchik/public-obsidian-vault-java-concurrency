@@ -105,6 +105,10 @@ plugins:
     enabled: true
   - source: github:quartz-community/stacked-pages
     enabled: false
+    layout:
+      position: afterBody
+      priority: 50
+      display: all
   - source: github:quartz-community/alias-redirects
     enabled: true
   - source: github:quartz-community/content-index

@@ -38,6 +38,10 @@ This plugin accepts the following configuration options:
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/stacked-pages
   enabled: true
+  layout:
+    position: afterBody
+    priority: 50
+    display: all
   options:
     paneWidth: 640
     maxPanes: 5
