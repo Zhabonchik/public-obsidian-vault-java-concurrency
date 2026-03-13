@@ -223,6 +223,12 @@
       "commit": "90e2f22e238ccccd5d2c38e6a236ccd2adbd9636",
       "installedAt": "2026-03-11T18:23:14.251Z"
     },
+    "stacked-pages": {
+      "source": "github:quartz-community/stacked-pages",
+      "resolved": "https://github.com/quartz-community/stacked-pages.git",
+      "commit": "7344a7b9ffe5d4dfcee30025046523cc5704dc6c",
+      "installedAt": "2026-03-13T18:19:53.430Z"
+    },
     "syntax-highlighting": {
       "source": "github:quartz-community/syntax-highlighting",
       "resolved": "https://github.com/quartz-community/syntax-highlighting.git",
