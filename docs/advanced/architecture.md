@@ -48,6 +48,7 @@ This question is best answered by tracing what happens when a user (you!) runs `
 3. Once the page is done loading, the page will then dispatch a custom synthetic browser event `"nav"`. This is used so client-side scripts declared by components can 'setup' anything that requires access to the page DOM.
    1. If the [[SPA Routing|enableSPA option]] is enabled in the [[configuration]], this `"nav"` event is also fired on any client-navigation to allow for components to unregister and reregister any event handlers and state.
    2. If it's not, we wire up the `"nav"` event to just be fired a single time after page load to allow for consistency across how state is setup across both SPA and non-SPA contexts.
+   3. A separate `"render"` event can be dispatched when the DOM is updated in-place without a full navigation (e.g. after content decryption). Components that attach listeners to content elements should listen for both `"nav"` and `"render"`.
 
 ## Plugin System
 

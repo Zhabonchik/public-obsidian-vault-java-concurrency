@@ -131,6 +131,21 @@ document.addEventListener("nav", () => {
 
 You can also use the `"prenav"` event, which fires before the page is replaced during SPA navigation.
 
+The `"render"` event fires when the DOM has been updated in-place without a full navigation — for example, after content decryption or dynamic DOM modifications by other plugins. If your component attaches event listeners to content elements, listen for `"render"` in addition to `"nav"` to ensure re-initialization:
+
+```ts
+function setupMyComponent() {
+  const elements = document.querySelectorAll(".my-interactive")
+  for (const el of elements) {
+    el.addEventListener("click", handleClick)
+    window.addCleanup(() => el.removeEventListener("click", handleClick))
+  }
+}
+
+document.addEventListener("nav", setupMyComponent)
+document.addEventListener("render", setupMyComponent)
+```
+
 It is best practice to track any event handlers via `window.addCleanup` to prevent memory leaks during SPA navigation.
 
 #### Importing Code

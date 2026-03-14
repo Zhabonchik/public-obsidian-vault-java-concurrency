@@ -29,6 +29,8 @@ Quartz comes with a wide variety of features out of the box. Most features are p
 - [[folder and tag listings]] — Browse notes by folder or tag
 - [[recent notes]] — Display recently modified notes
 - [[popover previews]] — Hover previews for internal links
+- [[StackedPages|stacked pages]] — Andy Matuschak-style stacked sliding panes for tracing note connections
+- [[EncryptedPages|encrypted pages]] — Password-protect individual pages with client-side encryption
 
 ## Appearance & Reading
 

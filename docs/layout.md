@@ -4,10 +4,10 @@ title: Layout
 
 Certain emitters may also output [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) files. To enable easy customization, these emitters allow you to fully rearrange the layout of the page.
 
-In v5, the layout is defined in `quartz.config.yaml` using a `defaults` + `byPageType` structure.
+In v5, the layout is defined in `quartz.config.yaml`. Each plugin controls its own layout position via `layout.position` and `layout.priority` fields. The top-level `layout` section provides two additional mechanisms:
 
-- `defaults` contains layout components shared across ALL page types (head, header, afterBody, footer).
-- `byPageType` contains per-page-type overrides (content, folder, tag, 404) for beforeBody, left, right sections, and optionally a `template` to control the page's [[#Page Frames|page frame]].
+- `layout.groups` defines flex containers (like `toolbar`) that group multiple components into a single row or column. See [[layout-components]] for details.
+- `layout.byPageType` contains per-page-type overrides (content, folder, tag, 404) for beforeBody, left, right sections, and optionally a `template` to control the page's [[#Page Frames|page frame]].
 
 Each page is composed of multiple different sections which contain `QuartzComponents`. The following code snippet lists all of the valid sections that you can add components to:
 

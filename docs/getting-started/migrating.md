@@ -17,60 +17,47 @@ Quartz 5 introduces a community plugin system that fundamentally changes how plu
 
 - **Plugin system**: Plugins are now standalone Git repositories, installed via `npx quartz plugin add`
 - **Import pattern**: Community plugins use `ExternalPlugin.X()` (from `.quartz/plugins`) instead of `Plugin.X()` (from `./quartz/plugins`)
-- **Layout structure**: `quartz.config.yaml` now uses `defaults` + `byPageType` instead of `sharedPageComponents` + per-layout objects
+- **Layout structure**: `quartz.layout.ts` is gone — layout position is now a per-plugin property in `quartz.config.yaml`, with `layout.groups` for flex containers (e.g. toolbar) and `layout.byPageType` for per-page-type overrides
 - **Page Types**: A new plugin category for page rendering (content, folder, tag pages)
 - **Component references**: In layout files, community components use `Plugin.X()` (from `.quartz/plugins`) instead of `Component.X()` (from `./quartz/components`)
 
 ### Step-by-Step Migration
 
-#### 1. Install Community Plugins
+#### 1. Set Up Quartz 5 with a Template
 
-Run the following commands to install the default set of community plugins:
-
-```shell
-npx quartz plugin add github:quartz-community/explorer
-npx quartz plugin add github:quartz-community/graph
-npx quartz plugin add github:quartz-community/search
-npx quartz plugin add github:quartz-community/backlinks
-npx quartz plugin add github:quartz-community/table-of-contents
-npx quartz plugin add github:quartz-community/article-title
-npx quartz plugin add github:quartz-community/tag-list
-npx quartz plugin add github:quartz-community/page-title
-npx quartz plugin add github:quartz-community/darkmode
-npx quartz plugin add github:quartz-community/content-meta
-npx quartz plugin add github:quartz-community/footer
-npx quartz plugin add github:quartz-community/content-page
-npx quartz plugin add github:quartz-community/folder-page
-npx quartz plugin add github:quartz-community/tag-page
-npx quartz plugin add github:quartz-community/created-modified-date
-npx quartz plugin add github:quartz-community/syntax-highlighting
-npx quartz plugin add github:quartz-community/obsidian-flavored-markdown
-npx quartz plugin add github:quartz-community/github-flavored-markdown
-npx quartz plugin add github:quartz-community/crawl-links
-npx quartz plugin add github:quartz-community/description
-npx quartz plugin add github:quartz-community/latex
-npx quartz plugin add github:quartz-community/remove-draft
-npx quartz plugin add github:quartz-community/alias-redirects
-npx quartz plugin add github:quartz-community/content-index
-npx quartz plugin add github:quartz-community/favicon
-npx quartz plugin add github:quartz-community/og-image
-npx quartz plugin add github:quartz-community/cname
-```
-
-Also install any optional plugins you were using:
+The easiest way to migrate is to use `npx quartz create`, which generates a complete `quartz.config.yaml` from a template with all default plugins pre-configured:
 
 ```shell
-# Only if you used these in v4:
-npx quartz plugin add github:quartz-community/comments
-npx quartz plugin add github:quartz-community/reader-mode
-npx quartz plugin add github:quartz-community/breadcrumbs
-npx quartz plugin add github:quartz-community/recent-notes
-npx quartz plugin add github:quartz-community/hard-line-breaks
-npx quartz plugin add github:quartz-community/citations
-npx quartz plugin add github:quartz-community/ox-hugo
-npx quartz plugin add github:quartz-community/roam
-npx quartz plugin add github:quartz-community/explicit-publish
+npx quartz create --template default --strategy copy --source /path/to/your/content
 ```
+
+Available templates: `default`, `obsidian`, `ttrpg`, `blog`. Pick the one closest to your setup — `obsidian` is recommended if you use an Obsidian vault.
+
+> [!tip] Choosing a template
+> Each template comes with all 30+ default plugins pre-configured. The main differences are content strategy (OFM support, link resolution) and optional plugins (comments, maps). You can customize everything in `quartz.config.yaml` afterward.
+
+After running `create`, install all the plugins referenced in the generated config:
+
+```shell
+npx quartz plugin resolve
+```
+
+This reads your `quartz.config.yaml` and installs every plugin listed in it. No need to run 30 individual `npx quartz plugin add` commands.
+
+> [!note] Custom or optional plugins
+> If you used optional plugins in v4 (comments, reader-mode, breadcrumbs, recent-notes, citations, etc.), add them after the initial setup:
+>
+> ```shell
+> npx quartz plugin add github:quartz-community/comments
+> npx quartz plugin add github:quartz-community/reader-mode
+> npx quartz plugin add github:quartz-community/breadcrumbs
+> npx quartz plugin add github:quartz-community/recent-notes
+> ```
+>
+> See [[plugins/index|Plugins]] for the full list of available community plugins.
+
+> [!info] Alternative: Use `npx quartz migrate`
+> If you have an existing `quartz.config.ts` and `quartz.layout.ts` from v4, you can run `npx quartz migrate` instead. This reads your old config files and generates `quartz.config.yaml` with your existing settings. You'll still need to run `npx quartz plugin resolve` afterward to install the plugins. See [[cli/migrate|quartz migrate]] for details.
 
 #### 2. Update quartz.config.yaml
 
@@ -332,13 +319,14 @@ Component layout mapping:
 
 ## Migrating from Quartz 3
 
-As you already have Quartz locally, you don't need to fork or clone it again. Simply just checkout the v4 branch, install the dependencies, and import your old vault. Then follow the [Quartz 4 migration steps above](#migrating-from-quartz-4) to get to v5.
+As you already have Quartz locally, you don't need to fork or clone it again. Simply just checkout the v4 branch, install the dependencies, restore plugins, and import your old vault. Then follow the [Quartz 4 migration steps above](#migrating-from-quartz-4) to get to v5.
 
 ```bash
 git fetch
 git checkout v4
 git pull upstream v4
 npm i
+npx quartz plugin restore
 npx quartz create
 ```
 
