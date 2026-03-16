@@ -20,8 +20,8 @@ Plugin.ObsidianHighlight()
 
 ## Options
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
+| Option           | Type     | Default            | Description                          |
+| ---------------- | -------- | ------------------ | ------------------------------------ |
 | `highlightClass` | `string` | `"text-highlight"` | CSS class for the highlight `<span>` |
 
 ## Example

@@ -68,7 +68,11 @@ export const ObsidianHighlight: QuartzTransformerPlugin<Partial<Options>> = (use
       // Case 2: == at start/end with elements between (e.g. ==***text***==)
       // First, split any "==" suffix/prefix from text nodes into separate nodes
       // so that all "==" markers are standalone text nodes
-      if (child.type === "text" && (child as Text).value.endsWith("==") && (child as Text).value.trim() !== "==") {
+      if (
+        child.type === "text" &&
+        (child as Text).value.endsWith("==") &&
+        (child as Text).value.trim() !== "=="
+      ) {
         const val = (child as Text).value
         const prefix = val.slice(0, -2)
         const parts: RootContent[] = []
@@ -80,7 +84,11 @@ export const ObsidianHighlight: QuartzTransformerPlugin<Partial<Options>> = (use
       }
       // Split "==text" prefix (e.g. "==text" at end of content before emphasis)
       // This handles the case where text before emphasis starts with "=="
-      if (child.type === "text" && (child as Text).value.startsWith("==") && (child as Text).value.trim() !== "==") {
+      if (
+        child.type === "text" &&
+        (child as Text).value.startsWith("==") &&
+        (child as Text).value.trim() !== "=="
+      ) {
         const val = (child as Text).value
         const suffix = val.slice(2)
         const parts: RootContent[] = []
