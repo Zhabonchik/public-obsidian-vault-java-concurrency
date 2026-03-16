@@ -38,7 +38,7 @@ The output uses the `--textHighlight` CSS variable defined in `quartz.config.ts`
 ```ts
 // quartz.config.ts
 colors: {
-  lightMode: { textHighlight: "#84a59d88" },
-  darkMode: { textHighlight: "#84a59d88" },
+  lightMode: { textHighlight: "#fff23688" },
+  darkMode: { textHighlight: "#b3aa0288" },
 }
 ```
