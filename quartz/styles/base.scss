@@ -639,3 +639,9 @@ iframe.pdf {
   transition: width 0.2s ease;
   z-index: 9999;
 }
+
+.lucide {
+  /* render Lucide icons proportional to font size */
+  width: 1em;
+  height: 1em;
+}
