@@ -142,7 +142,6 @@ interface Language {
 
 interface AwardItem {
   title: string
-  issuer?: string
   logo: string
   description: string
 }
@@ -283,7 +282,6 @@ const HomeProfile: QuartzComponent = () => {
                 </span>
                 <div class="home-award-text">
                   <span class="home-award-title">{item.title}</span>
-                  {item.issuer && <span class="home-award-issuer">{item.issuer}</span>}
                   <p class="home-award-desc">{item.description}</p>
                 </div>
               </div>
