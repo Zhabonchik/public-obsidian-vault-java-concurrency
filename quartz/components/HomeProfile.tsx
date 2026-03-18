@@ -195,7 +195,7 @@ const awards: AwardItem[] = [
     title: "MEXT Undergraduate Full Scholarship",
     logo: "/static/logos/mext.svg",
     description:
-      "Through Embassy Recommendation, this scholarship is provided by the Japanese Government and covers full tuition, living expenses, and travel support for undergraduate studies in Japan.",
+      "Through embassy recommendation, this scholarship is provided by the Japanese Government and covers full tuition, living expenses, and travel support for undergraduate studies in Japan.",
   },
 ]
 
