@@ -1,4 +1,5 @@
 ---
+title: Understanding the Orthodox Canonical Class Form
 date: 2024-08-15
 ---
 

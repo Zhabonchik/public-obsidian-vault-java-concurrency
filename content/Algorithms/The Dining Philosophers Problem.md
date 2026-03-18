@@ -1,4 +1,5 @@
 ---
+title: The Dining Philosophers Problem
 date: 2024-02-17
 ---
 

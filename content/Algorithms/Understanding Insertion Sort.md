@@ -1,4 +1,5 @@
 ---
+title: Understanding Insertion Sort
 date: 2024-12-22
 ---
 # Understanding Insertion Sort

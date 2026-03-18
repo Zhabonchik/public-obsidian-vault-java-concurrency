@@ -1,4 +1,5 @@
 ---
+title: Building a Mandarin Dictionary
 date: 2025-11-17
 ---
 

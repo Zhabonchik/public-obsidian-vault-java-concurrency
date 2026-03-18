@@ -1,4 +1,5 @@
 ---
+title: The XOR Swap
 date: 02-05-2024
 ---
 
