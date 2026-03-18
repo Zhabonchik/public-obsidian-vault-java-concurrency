@@ -44,6 +44,36 @@
   stroke: var(--gray);
 }
 
+.meta-icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  stroke: currentColor;
+  overflow: visible;
+}
+
+.meta-icon-pin {
+  transform: translateY(-0.5px);
+}
+
+.home-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+  color: var(--gray);
+}
+
+.home-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
 // ── External links ─────────────────────────────────────────────────────────
 
 .home-ext-link {
@@ -112,9 +142,7 @@
 }
 
 .home-exp-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
+  margin-top: 0.15rem;
 }
 
 .home-exp-role {
@@ -129,18 +157,6 @@
   font-size: 0.95rem;
   line-height: 1.4;
   color: var(--darkgray);
-}
-
-.home-exp-period {
-  font-size: 0.8rem;
-  color: var(--gray);
-  white-space: nowrap;
-}
-
-.home-exp-location {
-  font-size: 0.78rem;
-  color: var(--gray);
-  white-space: nowrap;
 }
 
 .home-exp-body {
@@ -215,10 +231,8 @@
   color: var(--darkgray);
 }
 
-.home-edu-period {
-  font-size: 0.8rem;
-  color: var(--gray);
-  white-space: nowrap;
+.home-edu-meta {
+  margin-top: 0.15rem;
 }
 
 // ── Languages ──────────────────────────────────────────────────────────────

@@ -67,33 +67,36 @@
 .home-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 0.2rem;
   margin-top: 0.75rem;
 }
 
 .home-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.85rem;
+  display: inline-grid;
+  place-items: center;
   color: var(--secondary);
   text-decoration: none;
-  border: 1px solid var(--lightgray);
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
   transition:
-    border-color 0.15s ease,
-    color 0.15s ease;
+    color 0.15s ease,
+    background-color 0.15s ease,
+    transform 0.15s ease;
   background-color: transparent;
 
   &:hover {
-    border-color: var(--secondary);
+    background-color: var(--light);
     color: var(--secondary);
+    transform: translateY(-1px);
   }
 }
 
 .home-link-icon {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
+  pointer-events: none;
 }

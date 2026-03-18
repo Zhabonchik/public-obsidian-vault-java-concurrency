@@ -51,6 +51,52 @@ const GlobeIcon = () => (
   </svg>
 )
 
+const CalendarIcon = () => (
+  <svg class="meta-icon" viewBox="-1 -1 26 26" fill="currentColor" stroke="none">
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M6 2C6 1.44772 6.44772 1 7 1C7.55228 1 8 1.44772 8 2V3H16V2C16 1.44772 16.4477 1 17 1C17.5523 1 18 1.44772 18 2V3H19C20.6569 3 22 4.34315 22 6V20C22 21.6569 20.6569 23 19 23H5C3.34315 23 2 21.6569 2 20V6C2 4.34315 3.34315 3 5 3H6V2ZM16 5V6C16 6.55228 16.4477 7 17 7C17.5523 7 18 6.55228 18 6V5H19C19.5523 5 20 5.44772 20 6V9H4V6C4 5.44772 4.44772 5 5 5H6V6C6 6.55228 6.44772 7 7 7C7.55228 7 8 6.55228 8 6V5H16ZM4 11V20C4 20.5523 4.44772 21 5 21H19C19.5523 21 20 20.5523 20 20V11H4Z"
+    />
+  </svg>
+)
+
+const LocationIcon = () => (
+  <svg
+    class="meta-icon meta-icon-pin"
+    viewBox="-1 -1 18 18"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M2 6V6.29266C2 7.72154 2.4863 9.10788 3.37892 10.2236L8 16L12.6211 10.2236C13.5137 9.10788 14 7.72154 14 6.29266V6C14 2.68629 11.3137 0 8 0C4.68629 0 2 2.68629 2 6ZM8 8C9.10457 8 10 7.10457 10 6C10 4.89543 9.10457 4 8 4C6.89543 4 6 4.89543 6 6C6 7.10457 6.89543 8 8 8Z"
+    />
+  </svg>
+)
+
+interface MetaRowProps {
+  period: string
+  location: string
+}
+
+const MetaRow = ({ period, location }: MetaRowProps) => (
+  <div class="home-meta-row">
+    <span class="home-meta-item">
+      <CalendarIcon />
+      <span>{period}</span>
+    </span>
+    <span class="home-meta-item">
+      <LocationIcon />
+      <span>{location}</span>
+    </span>
+  </div>
+)
+
 // ── Data ───────────────────────────────────────────────────────────────────
 
 interface ExperienceItem {
@@ -70,6 +116,7 @@ interface EducationItem {
   institutionUrl: string
   logo: string
   period: string
+  location: string
 }
 
 interface Language {
@@ -84,7 +131,7 @@ const experience: ExperienceItem[] = [
     company: "MIXI, Inc",
     companyUrl: "https://mixi.co.jp",
     logo: "/static/logos/mixi.svg",
-    period: "Jan 2026 – Present",
+    period: "January 2026 – April 2026",
     location: "Tokyo, Japan",
     description:
       "Building and optimizing iOS features for FamilyAlbum, a photo-sharing platform with 27M+ users across 175 countries, used by 60% of parents in Japan.",
@@ -98,7 +145,7 @@ const experience: ExperienceItem[] = [
     period: "Aug 2025 – Feb 2026",
     location: "Tokyo, Japan",
     description:
-      "Collaborated with Google Japan to bridge AI and university students — exploring practical Gemini use cases and promoting responsible AI integration on campus.",
+      "Collaborated directly with Google Japan to bridge the gap between AI and university students, exploring actionable use cases for Gemini and promoting responsible AI integration on campus.",
     tags: ["AI", "Gemini"],
   },
 ]
@@ -110,22 +157,24 @@ const education: EducationItem[] = [
     institutionUrl: "https://www.tufs.ac.jp/english/",
     logo: "/static/logos/Logo_tufs-cropped.svg",
     period: "2024 – 2028",
+    location: "Tokyo, Japan",
   },
   {
     degree: "Computer Software Engineering",
-    institution: "42 Network (Paris / São Paulo / Tokyo)",
+    institution: "École 42",
     institutionUrl: "https://42.fr",
     logo: "/static/logos/42.svg",
     period: "2022 – 2025",
+    location: "Paris / São Paulo / Tokyo / Seoul",
   },
 ]
 
 const languages: Language[] = [
   { flag: "🇧🇷", name: "Portuguese", level: "Native" },
-  { flag: "🇺🇸", name: "English", level: "Bilingual · TOEIC 945" },
-  { flag: "🇯🇵", name: "Japanese", level: "Native · JLPT N1" },
+  { flag: "🇺🇸", name: "English", level: "Bilingual" },
+  { flag: "🇯🇵", name: "Japanese", level: "Bilingual" },
   { flag: "🇪🇸", name: "Spanish", level: "Professional" },
-  { flag: "🇨🇳", name: "Mandarin", level: "Working · HSK 3 · TBCL 4" },
+  { flag: "🇨🇳", name: "Mandarin", level: "Conversational" },
 ]
 
 // ── Component ──────────────────────────────────────────────────────────────
@@ -150,8 +199,7 @@ const HomeProfile: QuartzComponent = () => {
                   <span class="home-exp-role">{item.role}</span>
                   <span class="home-exp-company">{item.company}</span>
                   <div class="home-exp-meta">
-                    <span class="home-exp-period">{item.period}</span>
-                    <span class="home-exp-location">{item.location}</span>
+                    <MetaRow period={item.period} location={item.location} />
                   </div>
                 </div>
               </div>
@@ -180,7 +228,9 @@ const HomeProfile: QuartzComponent = () => {
               <div class="home-edu-text">
                 <span class="home-edu-institution">{item.institution}</span>
                 <span class="home-edu-degree">{item.degree}</span>
-                <span class="home-edu-period">{item.period}</span>
+                <div class="home-edu-meta">
+                  <MetaRow period={item.period} location={item.location} />
+                </div>
               </div>
             </div>
           ))}
