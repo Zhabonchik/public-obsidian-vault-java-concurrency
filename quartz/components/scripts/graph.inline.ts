@@ -68,6 +68,17 @@ type TweenNode = {
   stop: () => void
 }
 
+function getGraphDimensions(graph: HTMLElement) {
+  const parent = graph.parentElement
+  const graphRect = graph.getBoundingClientRect()
+  const parentRect = parent?.getBoundingClientRect()
+
+  return {
+    width: Math.max(Math.round(graphRect.width), Math.round(parentRect?.width ?? 0)),
+    height: Math.max(Math.round(graphRect.height), Math.round(parentRect?.height ?? 0), 250),
+  }
+}
+
 async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   const slug = simplifySlug(fullSlug)
   const visited = getVisited()
@@ -83,17 +94,18 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     linkDistance,
     fontSize,
     opacityScale,
+    removeSlugs,
     removeTags,
     showTags,
     focusOnHover,
     enableRadial,
   } = JSON.parse(graph.dataset["cfg"]!) as D3Config
 
+  const hiddenSlugs = new Set(removeSlugs.map((slug) => simplifySlug(slug as FullSlug)))
   const data: Map<SimpleSlug, ContentDetails> = new Map(
-    Object.entries<ContentDetails>(await fetchData).map(([k, v]) => [
-      simplifySlug(k as FullSlug),
-      v,
-    ]),
+    Object.entries<ContentDetails>(await fetchData)
+      .map(([k, v]) => [simplifySlug(k as FullSlug), v] as const)
+      .filter(([slug]) => !hiddenSlugs.has(slug)),
   )
   const links: SimpleLinkData[] = []
   const tags: SimpleSlug[] = []
@@ -123,7 +135,7 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   }
 
   const neighbourhood = new Set<SimpleSlug>()
-  const wl: (SimpleSlug | "__SENTINEL")[] = [slug, "__SENTINEL"]
+  const wl: (SimpleSlug | "__SENTINEL")[] = validLinks.has(slug) ? [slug, "__SENTINEL"] : []
   if (depth >= 0) {
     while (depth >= 0 && wl.length > 0) {
       // compute neighbours
@@ -161,8 +173,7 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
       })),
   }
 
-  const width = graph.offsetWidth
-  const height = Math.max(graph.offsetHeight, 250)
+  const { width, height } = getGraphDimensions(graph)
 
   // we virtualize the simulation and use pixi to actually render it
   const simulation: Simulation<NodeData, LinkData> = forceSimulation<NodeData>(graphData.nodes)
@@ -556,6 +567,57 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   }
 }
 
+async function mountGraph(graph: HTMLElement, fullSlug: FullSlug) {
+  let cleanup = () => {}
+  let isRendering = false
+  let pendingRender = false
+  let lastWidth = 0
+  let lastHeight = 0
+
+  const render = async (force = false) => {
+    if (isRendering) {
+      pendingRender = true
+      return
+    }
+
+    const { width, height } = getGraphDimensions(graph)
+    if (!force && width === lastWidth && height === lastHeight) {
+      return
+    }
+
+    isRendering = true
+    cleanup()
+
+    try {
+      cleanup = await renderGraph(graph, fullSlug)
+      lastWidth = width
+      lastHeight = height
+    } finally {
+      isRendering = false
+      if (pendingRender) {
+        pendingRender = false
+        void render()
+      }
+    }
+  }
+
+  await render(true)
+
+  const resizeObserver = new ResizeObserver(() => {
+    void render()
+  })
+
+  resizeObserver.observe(graph)
+  if (graph.parentElement) {
+    resizeObserver.observe(graph.parentElement)
+  }
+
+  return () => {
+    resizeObserver.disconnect()
+    cleanup()
+  }
+}
+
 let localGraphCleanups: (() => void)[] = []
 let globalGraphCleanups: (() => void)[] = []
 
@@ -581,7 +643,7 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
     cleanupLocalGraphs()
     const localGraphContainers = document.getElementsByClassName("graph-container")
     for (const container of localGraphContainers) {
-      localGraphCleanups.push(await renderGraph(container as HTMLElement, slug))
+      localGraphCleanups.push(await mountGraph(container as HTMLElement, slug))
     }
   }
 
@@ -608,7 +670,7 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
       const graphContainer = container.querySelector(".global-graph-container") as HTMLElement
       registerEscapeHandler(container, hideGlobalGraph)
       if (graphContainer) {
-        globalGraphCleanups.push(await renderGraph(graphContainer, slug))
+        globalGraphCleanups.push(await mountGraph(graphContainer, slug))
       }
     }
   }

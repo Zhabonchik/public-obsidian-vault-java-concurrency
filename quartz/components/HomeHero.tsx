@@ -31,7 +31,7 @@ const HomeHero: QuartzComponent = () => {
           <p class="home-bio">
             Software engineer and linguist. Interning at MIXI, Inc building iOS features for
             FamilyAlbum. MEXT Scholar at Tokyo University of Foreign Studies. 42 Network alumnus.
-            Native in English, Japanese, and Portuguese — also speak Spanish and Mandarin.
+            Native in Japanese and Portuguese, bilingual in English, and also speak Spanish and Mandarin.
           </p>
           <div class="home-links">
             <a href="mailto:riceset@icloud.com" class="home-link">

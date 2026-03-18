@@ -84,7 +84,7 @@ const education: EducationItem[] = [
     degree: "B.A. Language and Area Studies",
     institution: "Tokyo University of Foreign Studies",
     institutionUrl: "https://www.tufs.ac.jp/english/",
-    logo: "/static/logos/tufs.svg",
+    logo: "/static/logos/Logo_tufs-cropped.svg",
     period: "2024 – 2028",
   },
   {
@@ -98,10 +98,10 @@ const education: EducationItem[] = [
 
 const languages: Language[] = [
   { flag: "🇧🇷", name: "Portuguese", level: "Native" },
-  { flag: "🇺🇸", name: "English", level: "Native" },
+  { flag: "🇺🇸", name: "English", level: "Bilingual · TOEIC 945" },
   { flag: "🇯🇵", name: "Japanese", level: "Native · JLPT N1" },
-  { flag: "🇪🇸", name: "Spanish", level: "Professional · TOEIC 945" },
-  { flag: "🇨🇳", name: "Mandarin", level: "Working · HSK 3 · TOCFL 4" },
+  { flag: "🇪🇸", name: "Spanish", level: "Professional" },
+  { flag: "🇨🇳", name: "Mandarin", level: "Working · HSK 3 · TBCL 4" },
 ]
 
 // ── Component ──────────────────────────────────────────────────────────────
