@@ -7,8 +7,7 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   afterBody: [],
   footer: Component.Footer({
-    links: {
-    },
+    links: {},
   }),
 }
 
@@ -39,36 +38,23 @@ export const defaultContentPageLayout: PageLayout = {
     }),
     Component.Darkmode(),
     Component.ConditionalRender({
-      component: Component.DesktopOnly(Component.LinksList({
-        links: {
-          "E-Mail": "mailto:riceset@icloud.com",
-          GitHub: "https://github.com/riceset",
-          LinkedIn: "https://www.linkedin.com/in/riceset/",
-        },
-      })),
-      condition: (props) => props.fileData.slug !== "index",
-    }),
-    Component.ConditionalRender({
-      component: Component.Explorer(),
+      component: Component.DesktopOnly(
+        Component.RecentNotes({
+          title: "Latest Articles",
+          limit: 8,
+          showTags: false,
+        }),
+      ),
       condition: (props) => props.fileData.slug !== "index",
     }),
   ],
   right: [
     Component.ConditionalRender({
-      component: Component.DesktopOnly(Component.RecentNotes({ title: "Latest", limit: 8 })),
+      component: Component.DesktopOnly(Component.TableOfContents()),
       condition: (props) => props.fileData.slug !== "index",
     }),
     Component.ConditionalRender({
-      component: Component.MobileOnly(Component.RecentNotes({ title: "Latest", limit: 1 })),
-      condition: (props) => props.fileData.slug !== "index",
-    }),
-    Component.ConditionalRender({
-      component: Component.MobileOnly(Component.LinksList({
-        links: {
-          GitHub: "https://github.com/riceset",
-          LinkedIn: "https://www.linkedin.com/in/riceset/",
-        },
-      })),
+      component: Component.MobileOnly(Component.TableOfContents()),
       condition: (props) => props.fileData.slug !== "index",
     }),
   ],
@@ -82,29 +68,20 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     //Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.LinksList({
-        links: {
-            "E-Mail": "mailto:riceset@icloud.com",
-            GitHub: "https://github.com/riceset",
-            LinkedIn: "https://www.linkedin.com/in/riceset/",
-        }
-    })),
     Component.Explorer(),
   ],
   right: [
-    Component.DesktopOnly(Component.RecentNotes({
+    Component.DesktopOnly(
+      Component.RecentNotes({
         title: "Latest",
-        limit: 8
-    })),
-    Component.MobileOnly(Component.RecentNotes({
+        limit: 8,
+      }),
+    ),
+    Component.MobileOnly(
+      Component.RecentNotes({
         title: "Latest",
-        limit: 1
-    })),
-    Component.MobileOnly(Component.LinksList({
-        links: {
-            GitHub: "https://github.com/riceset",
-            LinkedIn: "https://www.linkedin.com/in/riceset/",
-        }
-    }))
+        limit: 1,
+      }),
+    ),
   ],
 }

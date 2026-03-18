@@ -120,7 +120,9 @@ const HomeProfile: QuartzComponent = () => {
           {experience.map((item) => (
             <div class="home-exp-item">
               <div class="home-exp-row">
-                <img class="home-org-logo" src={item.logo} alt={item.company} />
+                <span class="home-org-logo-badge">
+                  <img class="home-org-logo" src={item.logo} alt={item.company} />
+                </span>
                 <div class="home-exp-header">
                   <div class="home-exp-text">
                     <span class="home-exp-role">{item.role}</span>
@@ -151,7 +153,9 @@ const HomeProfile: QuartzComponent = () => {
         <div class="home-edu-list">
           {education.map((item) => (
             <div class="home-edu-item">
-              <img class="home-org-logo" src={item.logo} alt={item.institution} />
+              <span class="home-org-logo-badge">
+                <img class="home-org-logo" src={item.logo} alt={item.institution} />
+              </span>
               <div class="home-edu-text">
                 <span class="home-edu-institution">{item.institution}</span>
                 <span class="home-edu-degree">{item.degree}</span>
