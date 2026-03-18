@@ -126,17 +126,15 @@ export default ((userOpts?: Partial<Options>) => {
 
     // JSON data island: all items as compact JSON for progressive client-side injection.
     // Links are pre-resolved server-side since the client cannot call resolveRelative.
-    // The `i` field records each item's index in this array for deduplication tracking.
     const allItemsJson = JSON.stringify(
-      filtered.map((item, idx) => ({
-        i: idx,
-        t: item.title,
-        l: resolveRelative(fileData.slug!, item.link),
-        d: item.date.getTime(),
-        c: item.createdDate.getTime(),
-        k: item.type,
-        ...(opts.showExcerpt && item.excerpt ? { e: item.excerpt } : {}),
-        ...(opts.showTags && item.tags?.length ? { g: item.tags } : {}),
+      filtered.map((item) => ({
+        title: item.title,
+        link: resolveRelative(fileData.slug!, item.link),
+        date: item.date.getTime(),
+        created: item.createdDate.getTime(),
+        type: item.type,
+        ...(opts.showExcerpt && item.excerpt ? { excerpt: item.excerpt } : {}),
+        ...(opts.showTags && item.tags?.length ? { tags: item.tags } : {}),
       })),
     ).replace(/<\//g, "<\\/")
 

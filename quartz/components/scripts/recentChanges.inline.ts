@@ -19,14 +19,13 @@ function formatRelativeDate(date: Date, locale: string): string {
 }
 
 interface RcItemJson {
-  i: number
-  t: string
-  l: string
-  d: number // most-recent-activity timestamp
-  c: number // creation date timestamp
-  k: "created" | "modified"
-  e?: string
-  g?: string[]
+  title: string
+  link: string
+  date: number // most-recent-activity timestamp (ms)
+  created: number // creation date timestamp (ms)
+  type: "created" | "modified"
+  excerpt?: string
+  tags?: string[]
 }
 
 interface RcI18n {
@@ -83,9 +82,9 @@ function setupRecentChanges() {
     //   "created"  → ALL notes by creation date (the "New" tab)
     //   "modified" → only modified notes by modification date
     const sortedArrays: Record<string, RcItemJson[]> = {
-      all: [...allData].sort((a, b) => b.d - a.d),
-      created: [...allData].sort((a, b) => b.c - a.c),
-      modified: allData.filter((x) => x.k === "modified").sort((a, b) => b.d - a.d),
+      all: [...allData].sort((a, b) => b.date - a.date),
+      created: [...allData].sort((a, b) => b.created - a.created),
+      modified: allData.filter((x) => x.type === "modified").sort((a, b) => b.date - a.date),
     }
 
     // Human-readable descriptions for each tab
@@ -102,15 +101,15 @@ function setupRecentChanges() {
 
     function createItemEl(item: RcItemJson, filter: string): HTMLLIElement {
       const li = document.createElement("li")
-      li.className = `recent-change-item ${item.k}`
-      li.dataset.type = item.k
+      li.className = `recent-change-item ${item.type}`
+      li.dataset.type = item.type
 
       const a = document.createElement("a")
-      a.href = item.l
+      a.href = item.link
       a.className = "recent-change-link internal"
       const titleSpan = document.createElement("span")
       titleSpan.className = "recent-change-title"
-      titleSpan.textContent = item.t
+      titleSpan.textContent = item.title
       a.appendChild(titleSpan)
       li.appendChild(a)
 
@@ -120,11 +119,11 @@ function setupRecentChanges() {
       const typeSpan = document.createElement("span")
       typeSpan.className = "recent-change-type"
       typeSpan.textContent =
-        item.k === "created" ? (i18nData.badgeNew ?? "New") : (i18nData.badgeUpdated ?? "Edited")
+        item.type === "created" ? (i18nData.badgeNew ?? "New") : (i18nData.badgeUpdated ?? "Edited")
       meta.appendChild(typeSpan)
 
       // Use creation timestamp for the "New" tab, activity timestamp otherwise
-      const ts = filter === "created" ? item.c : item.d
+      const ts = filter === "created" ? item.created : item.date
       const dateSpan = document.createElement("span")
       dateSpan.className = "recent-change-date"
       dateSpan.dataset.timestamp = ts.toString()
@@ -133,17 +132,17 @@ function setupRecentChanges() {
 
       li.appendChild(meta)
 
-      if (isDetailed && showExcerpt && item.e) {
+      if (isDetailed && showExcerpt && item.excerpt) {
         const p = document.createElement("p")
         p.className = "recent-change-excerpt"
-        p.textContent = item.e
+        p.textContent = item.excerpt
         li.appendChild(p)
       }
 
-      if (isDetailed && showTags && item.g?.length) {
+      if (isDetailed && showTags && item.tags?.length) {
         const tagsDiv = document.createElement("div")
         tagsDiv.className = "recent-change-tags"
-        item.g.forEach((tag) => {
+        item.tags.forEach((tag) => {
           const tagSpan = document.createElement("span")
           tagSpan.className = "recent-change-tag"
           tagSpan.textContent = tag
