@@ -357,8 +357,14 @@ thead {
   margin-bottom: 0;
 
   article > & > a[role="anchor"] {
-    color: var(--dark);
+    color: inherit;
     background-color: transparent;
+    font-weight: inherit;
+    text-decoration: none;
+  }
+
+  article > & > a[role="anchor"]:hover {
+    color: inherit;
   }
 }
 
@@ -368,17 +374,13 @@ h3,
 h4,
 h5,
 h6 {
-  &[id] > a[href^="#"] {
-    margin: 0 0.5rem;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    transform: translateY(-0.1rem);
-    font-family: var(--codeFont);
-    user-select: none;
-  }
-
-  &[id]:hover > a {
+  &[id] > a[role="anchor"] {
+    display: inline;
+    margin: 0;
     opacity: 1;
+    transform: none;
+    font-family: inherit;
+    user-select: text;
   }
 
   &:not([id]) > a[role="anchor"] {
