@@ -142,7 +142,7 @@ interface Language {
 
 interface AwardItem {
   title: string
-  issuer: string
+  issuer?: string
   logo: string
   description: string
 }
@@ -153,7 +153,7 @@ const experience: ExperienceItem[] = [
     company: "MIXI, Inc",
     companyUrl: "https://mixi.co.jp",
     logo: "/static/logos/mixi.svg",
-    period: "January 2026 – April 2026",
+    period: "Jan 2026 – Apr 2026",
     location: "Tokyo, Japan",
     description:
       "Building and optimizing iOS features for FamilyAlbum, a photo-sharing platform with 27M+ users across 175 countries, used by 60% of parents in Japan.",
@@ -194,7 +194,6 @@ const education: EducationItem[] = [
 const awards: AwardItem[] = [
   {
     title: "MEXT Undergraduate Full Scholarship",
-    issuer: "Japan Ministry of Education, Culture, Sports, Science and Technology",
     logo: "/static/logos/mext.svg",
     description:
       "Through Embassy Recommendation, this scholarship is provided by the Japanese Government and covers full tuition, living expenses, and travel support for undergraduate studies in Japan.",
@@ -284,11 +283,9 @@ const HomeProfile: QuartzComponent = () => {
                 </span>
                 <div class="home-award-text">
                   <span class="home-award-title">{item.title}</span>
-                  <span class="home-award-issuer">{item.issuer}</span>
+                  {item.issuer && <span class="home-award-issuer">{item.issuer}</span>}
+                  <p class="home-award-desc">{item.description}</p>
                 </div>
-              </div>
-              <div class="home-award-body">
-                <p class="home-award-desc">{item.description}</p>
               </div>
             </div>
           ))}
