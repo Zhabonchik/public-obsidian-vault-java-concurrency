@@ -1,0 +1,75 @@
+@use "../../styles/variables.scss" as *;
+
+.home-articles {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--lightgray);
+}
+
+.home-articles-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--headerFont);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray);
+  margin: 0 0 1.25rem;
+}
+
+.section-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: var(--gray);
+}
+
+.home-articles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-article-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.4rem 0;
+
+  @media all and ($mobile) {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}
+
+.home-article-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--dark);
+  text-decoration: none;
+  background-color: transparent !important;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    color: var(--secondary);
+  }
+
+  @media all and ($mobile) {
+    white-space: normal;
+  }
+}
+
+.home-article-date {
+  font-size: 0.8rem;
+  color: var(--gray);
+  flex-shrink: 0;
+  white-space: nowrap;
+}

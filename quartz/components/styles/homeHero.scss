@@ -1,0 +1,97 @@
+@use "../../styles/variables.scss" as *;
+
+.home-hero {
+  padding: 3rem 0 2rem;
+
+  @media all and ($mobile) {
+    padding: 2rem 0 1.5rem;
+  }
+}
+
+.home-hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+
+  @media all and ($mobile) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+}
+
+.home-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--lightgray);
+
+  @media all and ($mobile) {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.home-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.home-name {
+  font-family: var(--headerFont);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.home-title {
+  font-family: var(--headerFont);
+  font-size: 1rem;
+  color: var(--gray);
+  margin: 0;
+}
+
+.home-bio {
+  font-size: 0.9rem;
+  color: var(--darkgray);
+  margin: 0.5rem 0 0;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+.home-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--secondary);
+  text-decoration: none;
+  border: 1px solid var(--lightgray);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+  background-color: transparent;
+
+  &:hover {
+    border-color: var(--secondary);
+    color: var(--secondary);
+  }
+}
+
+.home-link-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}

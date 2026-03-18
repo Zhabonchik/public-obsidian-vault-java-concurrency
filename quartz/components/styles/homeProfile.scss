@@ -1,0 +1,263 @@
+@use "../../styles/variables.scss" as *;
+
+.home-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+// ── Shared section chrome ──────────────────────────────────────────────────
+
+.home-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--lightgray);
+}
+
+.home-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--headerFont);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray);
+  margin: 0 0 1.25rem;
+}
+
+.section-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: var(--gray);
+}
+
+// ── External links ─────────────────────────────────────────────────────────
+
+.home-ext-link {
+  font-size: inherit;
+  color: var(--secondary);
+  text-decoration: none;
+  background-color: transparent !important;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ── Org logo ───────────────────────────────────────────────────────────────
+
+.home-org-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--lightgray);
+  border: 1px solid var(--lightgray);
+  flex-shrink: 0;
+  display: block;
+}
+
+// ── Experience ─────────────────────────────────────────────────────────────
+
+.home-exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.home-exp-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.home-exp-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.home-exp-header {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  min-width: 0;
+
+  @media all and ($mobile) {
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+}
+
+.home-exp-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.home-exp-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  flex-shrink: 0;
+
+  @media all and ($mobile) {
+    align-items: flex-start;
+  }
+}
+
+.home-exp-role {
+  font-family: var(--headerFont);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--dark);
+}
+
+.home-exp-company {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--secondary);
+}
+
+.home-exp-period {
+  font-size: 0.8rem;
+  color: var(--gray);
+  white-space: nowrap;
+}
+
+.home-exp-location {
+  font-size: 0.78rem;
+  color: var(--gray);
+  white-space: nowrap;
+}
+
+.home-exp-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: calc(2.5rem + 0.75rem);
+
+  @media all and ($mobile) {
+    padding-left: 0;
+  }
+}
+
+.home-exp-desc {
+  font-size: 0.85rem;
+  color: var(--darkgray);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 580px;
+}
+
+.home-exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.home-exp-tag {
+  font-size: 0.75rem;
+  color: var(--secondary);
+  background-color: var(--highlight);
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+}
+
+// ── Education ──────────────────────────────────────────────────────────────
+
+.home-edu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.home-edu-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+
+  @media all and ($mobile) {
+    flex-wrap: wrap;
+  }
+}
+
+.home-edu-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.home-edu-institution {
+  font-family: var(--headerFont);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--dark);
+}
+
+.home-edu-degree {
+  font-family: var(--headerFont);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--darkgray);
+}
+
+.home-edu-period {
+  font-size: 0.8rem;
+  color: var(--gray);
+  flex-shrink: 0;
+  white-space: nowrap;
+
+  @media all and ($mobile) {
+    margin-top: 0;
+  }
+}
+
+// ── Languages ──────────────────────────────────────────────────────────────
+
+.home-lang-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.home-lang-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.25rem 0;
+}
+
+.home-lang-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dark);
+}
+
+.home-lang-flag {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.home-lang-level {
+  font-size: 0.8rem;
+  color: var(--gray);
+  text-align: right;
+}
