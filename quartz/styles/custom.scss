@@ -1,7 +1,8 @@
 @use "./base.scss";
+@use "./variables.scss" as *;
 
 // Center the right sidebar content ONLY on mobile devices
-@media (max-width: 800px) {
+@media all and ($mobile) {
   .right.sidebar {
     text-align: center;
 
@@ -22,7 +23,7 @@
 }
 
 // Keep everything left-aligned on desktop
-@media (min-width: 801px) {
+@media all and ($desktop) {
   .right.sidebar {
     text-align: left;
     display: flex !important;

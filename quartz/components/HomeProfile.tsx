@@ -123,15 +123,13 @@ const HomeProfile: QuartzComponent = () => {
                 <span class="home-org-logo-badge">
                   <img class="home-org-logo" src={item.logo} alt={item.company} />
                 </span>
-                <div class="home-exp-header">
-                  <div class="home-exp-text">
-                    <span class="home-exp-role">{item.role}</span>
-                    <span class="home-exp-company">{item.company}</span>
-                  </div>
-                  <div class="home-exp-right">
-                    <span class="home-exp-period">{item.period}</span>
-                    <span class="home-exp-location">{item.location}</span>
-                  </div>
+                <div class="home-exp-text">
+                  <span class="home-exp-role">{item.role}</span>
+                  <span class="home-exp-company">{item.company}</span>
+                </div>
+                <div class="home-exp-right">
+                  <span class="home-exp-period">{item.period}</span>
+                  <span class="home-exp-location">{item.location}</span>
                 </div>
               </div>
               {item.description && (

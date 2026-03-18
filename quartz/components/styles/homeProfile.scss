@@ -97,36 +97,22 @@
   }
 }
 
-.home-exp-header {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-  min-width: 0;
-
-  @media all and ($mobile) {
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-}
-
 .home-exp-text {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
+  min-width: 0;
 }
 
 .home-exp-right {
   display: flex;
   flex-direction: column;
+  margin-left: auto;
   align-items: flex-end;
+  text-align: right;
   gap: 0.1rem;
   flex-shrink: 0;
-
-  @media all and ($mobile) {
-    align-items: flex-start;
-  }
 }
 
 .home-exp-role {

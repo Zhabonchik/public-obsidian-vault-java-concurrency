@@ -393,7 +393,7 @@ h1 {
   margin-bottom: 1rem;
 }
 
-@media (max-width: 800px) {
+@media all and ($mobile) {
   h1 {
     margin-top: 0;
   }
