@@ -172,11 +172,9 @@ export default ((userOpts?: Partial<Options>) => {
       >
         <h3>
           {opts.linkToMore ? (
-            <a href={resolveRelative(fileData.slug!, opts.linkToMore)}>
-              {opts.title ?? t.title}
-            </a>
+            <a href={resolveRelative(fileData.slug!, opts.linkToMore)}>{opts.title ?? t.title}</a>
           ) : (
-            opts.title ?? t.title
+            (opts.title ?? t.title)
           )}
         </h3>
 
@@ -213,10 +211,7 @@ export default ((userOpts?: Partial<Options>) => {
                   <span class="recent-change-type">
                     {item.type === "created" ? t.badgeNew : t.badgeUpdated}
                   </span>
-                  <span
-                    class="recent-change-date"
-                    data-timestamp={item.date.getTime().toString()}
-                  >
+                  <span class="recent-change-date" data-timestamp={item.date.getTime().toString()}>
                     {formatRelativeDate(item.date, cfg.locale)}
                   </span>
                 </div>
