@@ -45,6 +45,16 @@ export default {
       title: "Notas recentes",
       seeRemainingMore: ({ remaining }) => `Veja mais ${remaining} →`,
     },
+    recentChanges: {
+      title: "Recent Changes",
+      filterAll: "All",
+      filterNew: "New",
+      filterUpdated: "Updated",
+      loadMoreTemplate: "Load {count} more · {remaining} remaining",
+      noChanges: "No recent changes found.",
+      badgeNew: "New",
+      badgeUpdated: "Edited",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `Transcrever de ${targetSlug}`,
       linkToOriginal: "Link ao original",

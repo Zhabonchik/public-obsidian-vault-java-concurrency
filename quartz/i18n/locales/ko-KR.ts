@@ -45,6 +45,16 @@ export default {
       title: "최근 게시글",
       seeRemainingMore: ({ remaining }) => `${remaining}건 더보기 →`,
     },
+    recentChanges: {
+      title: "Recent Changes",
+      filterAll: "All",
+      filterNew: "New",
+      filterUpdated: "Updated",
+      loadMoreTemplate: "Load {count} more · {remaining} remaining",
+      noChanges: "No recent changes found.",
+      badgeNew: "New",
+      badgeUpdated: "Edited",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `${targetSlug}의 포함`,
       linkToOriginal: "원본 링크",

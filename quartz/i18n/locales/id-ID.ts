@@ -45,6 +45,16 @@ export default {
       title: "Catatan Terbaru",
       seeRemainingMore: ({ remaining }) => `Lihat ${remaining} lagi →`,
     },
+    recentChanges: {
+      title: "Recent Changes",
+      filterAll: "All",
+      filterNew: "New",
+      filterUpdated: "Updated",
+      loadMoreTemplate: "Load {count} more · {remaining} remaining",
+      noChanges: "No recent changes found.",
+      badgeNew: "New",
+      badgeUpdated: "Edited",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `Transklusi dari ${targetSlug}`,
       linkToOriginal: "Tautan ke asli",

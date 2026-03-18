@@ -45,6 +45,16 @@ export default {
       title: "Соңғы жазбалар",
       seeRemainingMore: ({ remaining }) => `Тағы ${remaining} жазбаны қарау →`,
     },
+    recentChanges: {
+      title: "Recent Changes",
+      filterAll: "All",
+      filterNew: "New",
+      filterUpdated: "Updated",
+      loadMoreTemplate: "Load {count} more · {remaining} remaining",
+      noChanges: "No recent changes found.",
+      badgeNew: "New",
+      badgeUpdated: "Edited",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `${targetSlug} кірістіру`,
       linkToOriginal: "Бастапқыға сілтеме",

@@ -45,6 +45,16 @@ export default {
       title: "Viimeisimmät muistiinpanot",
       seeRemainingMore: ({ remaining }) => `Näytä ${remaining} lisää →`,
     },
+    recentChanges: {
+      title: "Recent Changes",
+      filterAll: "All",
+      filterNew: "New",
+      filterUpdated: "Updated",
+      loadMoreTemplate: "Load {count} more · {remaining} remaining",
+      noChanges: "No recent changes found.",
+      badgeNew: "New",
+      badgeUpdated: "Edited",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `Upote kohteesta ${targetSlug}`,
       linkToOriginal: "Linkki alkuperäiseen",

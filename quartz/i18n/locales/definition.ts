@@ -48,6 +48,16 @@ export interface Translation {
       title: string
       seeRemainingMore: (variables: { remaining: number }) => string
     }
+    recentChanges: {
+      title: string
+      filterAll: string
+      filterNew: string
+      filterUpdated: string
+      loadMoreTemplate: string
+      noChanges: string
+      badgeNew: string
+      badgeUpdated: string
+    }
     transcludes: {
       transcludeOf: (variables: { targetSlug: FullSlug }) => string
       linkToOriginal: string

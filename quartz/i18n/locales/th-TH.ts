@@ -45,6 +45,16 @@ export default {
       title: "บันทึกล่าสุด",
       seeRemainingMore: ({ remaining }) => `ดูเพิ่มอีก ${remaining} รายการ →`,
     },
+    recentChanges: {
+      title: "Recent Changes",
+      filterAll: "All",
+      filterNew: "New",
+      filterUpdated: "Updated",
+      loadMoreTemplate: "Load {count} more · {remaining} remaining",
+      noChanges: "No recent changes found.",
+      badgeNew: "New",
+      badgeUpdated: "Edited",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `รวมข้ามเนื้อหาจาก ${targetSlug}`,
       linkToOriginal: "ดูหน้าต้นทาง",

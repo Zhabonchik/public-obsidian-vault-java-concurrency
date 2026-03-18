@@ -46,6 +46,16 @@ export default {
       seeRemainingMore: ({ remaining }) =>
         remaining === 1 ? "Vedi 1 altra →" : `Vedi altre ${remaining} →`,
     },
+    recentChanges: {
+      title: "Recent Changes",
+      filterAll: "All",
+      filterNew: "New",
+      filterUpdated: "Updated",
+      loadMoreTemplate: "Load {count} more · {remaining} remaining",
+      noChanges: "No recent changes found.",
+      badgeNew: "New",
+      badgeUpdated: "Edited",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `Inclusione di ${targetSlug}`,
       linkToOriginal: "Link all'originale",

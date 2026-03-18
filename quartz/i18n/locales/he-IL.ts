@@ -46,6 +46,16 @@ export default {
       title: "הערות אחרונות",
       seeRemainingMore: ({ remaining }) => `עיין ב ${remaining} נוספים →`,
     },
+    recentChanges: {
+      title: "Recent Changes",
+      filterAll: "All",
+      filterNew: "New",
+      filterUpdated: "Updated",
+      loadMoreTemplate: "Load {count} more · {remaining} remaining",
+      noChanges: "No recent changes found.",
+      badgeNew: "New",
+      badgeUpdated: "Edited",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `מצוטט מ ${targetSlug}`,
       linkToOriginal: "קישור למקורי",

@@ -45,6 +45,16 @@ export default {
       title: "最近的笔记",
       seeRemainingMore: ({ remaining }) => `查看更多${remaining}篇笔记 →`,
     },
+    recentChanges: {
+      title: "Recent Changes",
+      filterAll: "All",
+      filterNew: "New",
+      filterUpdated: "Updated",
+      loadMoreTemplate: "Load {count} more · {remaining} remaining",
+      noChanges: "No recent changes found.",
+      badgeNew: "New",
+      badgeUpdated: "Edited",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `包含${targetSlug}`,
       linkToOriginal: "指向原始笔记的链接",
