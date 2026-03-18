@@ -51,6 +51,21 @@ const GlobeIcon = () => (
   </svg>
 )
 
+const AwardIcon = () => (
+  <svg
+    class="section-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="12" cy="8" r="4" />
+    <path d="m8.5 12.5-1 8 4.5-2.5 4.5 2.5-1-8" />
+  </svg>
+)
+
 const CalendarIcon = () => (
   <svg class="meta-icon" viewBox="-1 -1 26 26" fill="currentColor" stroke="none">
     <path
@@ -125,6 +140,13 @@ interface Language {
   level: string
 }
 
+interface AwardItem {
+  title: string
+  issuer: string
+  logo: string
+  description: string
+}
+
 const experience: ExperienceItem[] = [
   {
     role: "Product Development Engineer",
@@ -166,6 +188,16 @@ const education: EducationItem[] = [
     logo: "/static/logos/42.svg",
     period: "2022 – 2025",
     location: "Tokyo, Japan",
+  },
+]
+
+const awards: AwardItem[] = [
+  {
+    title: "MEXT Undergraduate Full Scholarship",
+    issuer: "Japan Ministry of Education, Culture, Sports, Science and Technology",
+    logo: "/static/logos/mext.svg",
+    description:
+      "Through Embassy Recommendation, this scholarship is provided by the Japanese Government and covers full tuition, living expenses, and travel support for undergraduate studies in Japan.",
   },
 ]
 
@@ -231,6 +263,32 @@ const HomeProfile: QuartzComponent = () => {
                 <div class="home-edu-meta">
                   <MetaRow period={item.period} location={item.location} />
                 </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Awards */}
+      <section class="home-section">
+        <h2 class="home-section-heading">
+          <AwardIcon />
+          Awards
+        </h2>
+        <div class="home-award-list">
+          {awards.map((item) => (
+            <div class="home-award-item">
+              <div class="home-award-row">
+                <span class="home-org-logo-badge">
+                  <img class="home-org-logo" src={item.logo} alt={item.title} />
+                </span>
+                <div class="home-award-text">
+                  <span class="home-award-title">{item.title}</span>
+                  <span class="home-award-issuer">{item.issuer}</span>
+                </div>
+              </div>
+              <div class="home-award-body">
+                <p class="home-award-desc">{item.description}</p>
               </div>
             </div>
           ))}

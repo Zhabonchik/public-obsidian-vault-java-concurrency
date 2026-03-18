@@ -1,6 +1,8 @@
 ---
 title: Understanding Casts in C++
 date: 2024-09-07
+tags:
+  - c++
 ---
 
 # Understanding Casts in C++

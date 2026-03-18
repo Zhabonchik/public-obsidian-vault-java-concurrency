@@ -1,6 +1,8 @@
 ---
 title: Understanding Binary Insertion Sort
 date: 2024-12-24
+tags:
+  - algorithms
 ---
 # Understanding Binary Insertion Sort
 Binary Insertion Sort is a sorting algorithm that combines [[Insertion Sort]] with Binary Search for finding the location where an element should be inserted.

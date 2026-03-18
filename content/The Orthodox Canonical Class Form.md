@@ -1,6 +1,8 @@
 ---
 title: Understanding the Orthodox Canonical Class Form
 date: 2024-08-15
+tags:
+  - c++
 ---
 
 # Understanding the Orthodox Canonical Class Form

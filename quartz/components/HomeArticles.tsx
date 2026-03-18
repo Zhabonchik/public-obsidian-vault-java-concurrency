@@ -13,7 +13,7 @@ const BookIcon = () => (
 
 const HomeArticles: QuartzComponent = ({ allFiles, fileData, cfg }: QuartzComponentProps) => {
   const pages = allFiles
-    .filter((page) => page.slug !== "index")
+    .filter((page) => page.slug !== "index" && !page.slug?.startsWith("notes/"))
     .sort(byDateAndAlphabetical(cfg))
 
   if (pages.length === 0) return null

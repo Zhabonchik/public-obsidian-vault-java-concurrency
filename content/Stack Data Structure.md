@@ -1,6 +1,8 @@
 ---
 title: Understanding the stack data structure
 date: 2022-08-23
+tags:
+  - data-structures
 ---
 
 # Understanding the stack data structure

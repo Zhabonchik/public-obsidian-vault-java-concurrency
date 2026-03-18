@@ -1,6 +1,8 @@
 ---
 title: Building a Mandarin Dictionary
 date: 2025-11-17
+tags:
+  - swift
 ---
 
 # Building a Mandarin Dictionary

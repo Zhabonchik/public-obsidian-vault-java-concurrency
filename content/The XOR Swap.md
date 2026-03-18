@@ -1,6 +1,8 @@
 ---
 title: The XOR Swap
 date: 02-05-2024
+tags:
+  - bit-manipulation
 ---
 
 # The XOR Swap

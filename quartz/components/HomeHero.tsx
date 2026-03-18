@@ -39,10 +39,8 @@ const HomeHero: QuartzComponent = () => {
           <h1 class="home-name">Komeno</h1>
           <p class="home-title">Software Engineer</p>
           <p class="home-bio">
-            Software engineer and linguist. Interning at MIXI, Inc building iOS features for
-            FamilyAlbum. MEXT Scholar at Tokyo University of Foreign Studies. École 42 alumnus.
-            Native in Portuguese, bilingual in Japanese and English, and also speak Spanish and
-            conversational Mandarin.
+            I build software and navigate across languages and cultures. Building iOS products at
+            MIXI, Inc. MEXT Scholar at Tokyo University of Foreign Studies and École 42 graduate.
           </p>
           <div class="home-links">
             <a href="mailto:riceset@icloud.com" class="home-link" aria-label="Email" title="Email">

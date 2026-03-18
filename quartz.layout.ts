@@ -53,6 +53,7 @@ export const defaultContentPageLayout: PageLayout = {
           title: "Latest Articles",
           limit: 8,
           showTags: false,
+          filter: (page) => !page.slug?.startsWith("notes/"),
         }),
       ),
       condition: (props) => props.fileData.slug !== "index",
@@ -85,12 +86,14 @@ export const defaultListPageLayout: PageLayout = {
       Component.RecentNotes({
         title: "Latest",
         limit: 8,
+        filter: (page) => !page.slug?.startsWith("notes/"),
       }),
     ),
     Component.MobileOnly(
       Component.RecentNotes({
         title: "Latest",
         limit: 1,
+        filter: (page) => !page.slug?.startsWith("notes/"),
       }),
     ),
   ],

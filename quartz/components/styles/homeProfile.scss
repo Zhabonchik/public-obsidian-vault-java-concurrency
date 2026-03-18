@@ -130,7 +130,7 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .home-exp-text {
@@ -163,7 +163,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding-left: calc(var(--home-org-badge-size) + 0.75rem);
+  padding-left: calc(var(--home-org-badge-size) + 1rem);
 
   @media all and ($mobile) {
     padding-left: 0;
@@ -197,14 +197,14 @@
 .home-edu-list {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 1.4rem;
 }
 
 .home-edu-item {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .home-edu-text {
@@ -224,15 +224,76 @@
 }
 
 .home-edu-degree {
-  font-family: var(--headerFont);
   font-size: 0.95rem;
   font-weight: 400;
   line-height: 1.4;
-  color: var(--darkgray);
+  color: color-mix(in srgb, var(--dark) 82%, var(--light) 18%);
 }
 
 .home-edu-meta {
   margin-top: 0.15rem;
+}
+
+// ── Honors & Awards ────────────────────────────────────────────────────────
+
+.home-award-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.home-award-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.home-award-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.home-award-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.home-award-title {
+  font-family: var(--headerFont);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--dark);
+}
+
+.home-award-issuer {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--darkgray);
+}
+
+.home-award-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: calc(var(--home-org-badge-size) + 1rem);
+
+  @media all and ($mobile) {
+    padding-left: 0;
+  }
+}
+
+.home-award-desc {
+  font-size: 0.85rem;
+  color: var(--darkgray);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 620px;
 }
 
 // ── Languages ──────────────────────────────────────────────────────────────

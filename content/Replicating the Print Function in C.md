@@ -1,6 +1,8 @@
 ---
 title: Replicating the Print Function in C
 date: 2024-02-17
+tags:
+  - c
 ---
 
 # Replicating the Print Function in C
