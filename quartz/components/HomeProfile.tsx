@@ -4,7 +4,15 @@ import style from "./styles/homeProfile.scss"
 // ── Icons ──────────────────────────────────────────────────────────────────
 
 const BriefcaseIcon = () => (
-  <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg
+    class="section-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
     <rect x="2" y="7" width="20" height="14" rx="2" />
     <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
     <line x1="12" y1="12" x2="12" y2="12.01" />
@@ -13,14 +21,30 @@ const BriefcaseIcon = () => (
 )
 
 const GraduationCapIcon = () => (
-  <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg
+    class="section-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
     <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
     <path d="M6 12v5c3 3 9 3 12 0v-5" />
   </svg>
 )
 
 const GlobeIcon = () => (
-  <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg
+    class="section-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
     <circle cx="12" cy="12" r="10" />
     <line x1="2" y1="12" x2="22" y2="12" />
     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
@@ -109,7 +133,6 @@ const languages: Language[] = [
 const HomeProfile: QuartzComponent = () => {
   return (
     <div class="home-profile">
-
       {/* Experience */}
       <section class="home-section">
         <h2 class="home-section-heading">
@@ -126,10 +149,10 @@ const HomeProfile: QuartzComponent = () => {
                 <div class="home-exp-text">
                   <span class="home-exp-role">{item.role}</span>
                   <span class="home-exp-company">{item.company}</span>
-                </div>
-                <div class="home-exp-right">
-                  <span class="home-exp-period">{item.period}</span>
-                  <span class="home-exp-location">{item.location}</span>
+                  <div class="home-exp-meta">
+                    <span class="home-exp-period">{item.period}</span>
+                    <span class="home-exp-location">{item.location}</span>
+                  </div>
                 </div>
               </div>
               {item.description && (
@@ -157,8 +180,8 @@ const HomeProfile: QuartzComponent = () => {
               <div class="home-edu-text">
                 <span class="home-edu-institution">{item.institution}</span>
                 <span class="home-edu-degree">{item.degree}</span>
+                <span class="home-edu-period">{item.period}</span>
               </div>
-              <span class="home-edu-period">{item.period}</span>
             </div>
           ))}
         </div>
@@ -182,7 +205,6 @@ const HomeProfile: QuartzComponent = () => {
           ))}
         </div>
       </section>
-
     </div>
   )
 }
