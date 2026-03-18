@@ -1,0 +1,56 @@
+@use "../../styles/variables.scss" as *;
+
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+
+  & > h3 {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+  }
+}
+
+.links-list-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.links-list-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--secondary);
+  text-decoration: none;
+  border: 1px solid var(--lightgray);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  background-color: transparent !important;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    border-color: var(--secondary);
+    color: var(--secondary);
+  }
+}
+
+.links-list-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+@media all and ($mobile) {
+  .links-list.mobile-only {
+    align-items: center;
+    text-align: center;
+  }
+
+  .links-list.mobile-only .links-list-grid {
+    justify-content: center;
+  }
+}

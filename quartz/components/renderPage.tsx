@@ -288,7 +288,7 @@ export function renderPage(
               </div>
             </div>
             {RightComponent}
-            {slug !== "index" && <Footer {...componentData} />}
+            <Footer {...componentData} />
           </Body>
         </div>
       </body>

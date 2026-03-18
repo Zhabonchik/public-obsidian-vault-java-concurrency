@@ -1,56 +1,37 @@
 @use "./base.scss";
+@use "./variables.scss" as *;
 
 // Center the right sidebar content ONLY on mobile devices
-@media (max-width: 800px) {
+@media all and ($mobile) {
   .right.sidebar {
     text-align: center;
-    
+
     h3 {
       text-align: center;
     }
-    
+
     ul {
       list-style: none;
       padding-left: 0;
       text-align: center;
     }
-    
+
     li {
       text-align: center;
     }
   }
 }
 
-// Hide right sidebar on tablet view (801px to 1199px)
-@media (min-width: 801px) and (max-width: 1199px) {
-  #quartz-body {
-    .sidebar.right {
-      display: none !important;
-    }
-  }
-  
-  // Also hide if it appears as a direct child
-  .right.sidebar {
-    display: none !important;
-  }
-  
-  // Target any element with grid-area set to grid-sidebar-right
-  [style*="grid-area: grid-sidebar-right"],
-  *[class*="right"] {
-    display: none !important;
-  }
-}
-
 // Keep everything left-aligned on desktop
-@media (min-width: 1200px) {
+@media all and ($desktop) {
   .right.sidebar {
     text-align: left;
     display: flex !important;
-    
+
     h3 {
       text-align: left;
     }
-    
+
     ul {
       text-align: left;
       list-style: none;
@@ -58,4 +39,3 @@
     }
   }
 }
-

@@ -1,4 +1,5 @@
 ---
+title: Understanding Binary Insertion Sort
 date: 2024-12-24
 ---
 # Understanding Binary Insertion Sort

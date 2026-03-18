@@ -3,6 +3,9 @@ import TagContent from "./pages/TagContent"
 import FolderContent from "./pages/FolderContent"
 import NotFound from "./pages/404"
 import ArticleTitle from "./ArticleTitle"
+import HomeHero from "./HomeHero"
+import HomeProfile from "./HomeProfile"
+import HomeArticles from "./HomeArticles"
 import Darkmode from "./Darkmode"
 import ReaderMode from "./ReaderMode"
 import Head from "./Head"
@@ -27,6 +30,9 @@ import LinksList from "./LinksList"
 
 export {
   ArticleTitle,
+  HomeHero,
+  HomeProfile,
+  HomeArticles,
   Content,
   TagContent,
   FolderContent,

@@ -5,46 +5,68 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [
+    Component.ConditionalRender({
+      component: Component.Graph({
+        globalOnly: true,
+        globalGraph: {
+          removeSlugs: ["index"],
+        },
+      }),
+      condition: (props) => props.fileData.slug === "index",
+    }),
+  ],
   footer: Component.Footer({
-    links: {
-    },
+    links: {},
   }),
 }
 
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
+    Component.ConditionalRender({
+      component: Component.HomeHero(),
+      condition: (props) => props.fileData.slug === "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.HomeProfile(),
+      condition: (props) => props.fileData.slug === "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.HomeArticles(),
+      condition: (props) => props.fileData.slug === "index",
+    }),
   ],
   left: [
-    Component.PageTitle(),
-    Component.MobileOnly(Component.Spacer()),
-    //Component.Search(),
+    Component.ConditionalRender({
+      component: Component.PageTitle(),
+      condition: (props) => props.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.MobileOnly(Component.Spacer()),
+      condition: (props) => props.fileData.slug !== "index",
+    }),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.LinksList({
-        links: {
-            "E-Mail": "mailto:riceset@icloud.com",
-            GitHub: "https://github.com/riceset",
-            LinkedIn: "https://www.linkedin.com/in/riceset/",
-        }
-    })),
-    Component.Explorer(),
+    Component.ConditionalRender({
+      component: Component.DesktopOnly(
+        Component.RecentNotes({
+          title: "Latest Articles",
+          limit: 8,
+          showTags: false,
+        }),
+      ),
+      condition: (props) => props.fileData.slug !== "index",
+    }),
   ],
   right: [
-    Component.DesktopOnly(Component.RecentNotes({
-        title: "Latest",
-        limit: 8
-    })),
-    Component.MobileOnly(Component.RecentNotes({
-        title: "Latest",
-        limit: 1
-    })),
-    Component.MobileOnly(Component.LinksList({
-        links: {
-            GitHub: "https://github.com/riceset",
-            LinkedIn: "https://www.linkedin.com/in/riceset/",
-        }
-    }))
+    Component.ConditionalRender({
+      component: Component.DesktopOnly(Component.TableOfContents()),
+      condition: (props) => props.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.MobileOnly(Component.TableOfContents()),
+      condition: (props) => props.fileData.slug !== "index",
+    }),
   ],
 }
 
@@ -56,29 +78,20 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     //Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.LinksList({
-        links: {
-            "E-Mail": "mailto:riceset@icloud.com",
-            GitHub: "https://github.com/riceset",
-            LinkedIn: "https://www.linkedin.com/in/riceset/",
-        }
-    })),
     Component.Explorer(),
   ],
   right: [
-    Component.DesktopOnly(Component.RecentNotes({
+    Component.DesktopOnly(
+      Component.RecentNotes({
         title: "Latest",
-        limit: 8
-    })),
-    Component.MobileOnly(Component.RecentNotes({
+        limit: 8,
+      }),
+    ),
+    Component.MobileOnly(
+      Component.RecentNotes({
         title: "Latest",
-        limit: 1
-    })),
-    Component.MobileOnly(Component.LinksList({
-        links: {
-            GitHub: "https://github.com/riceset",
-            LinkedIn: "https://www.linkedin.com/in/riceset/",
-        }
-    }))
+        limit: 1,
+      }),
+    ),
   ],
 }

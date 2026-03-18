@@ -6,6 +6,41 @@
     margin: 0;
   }
 
+  &.global-only {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--lightgray);
+  }
+
+  & .graph-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--headerFont);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray);
+    margin: 0 0 1.25rem;
+  }
+
+  & .section-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    stroke: var(--gray);
+  }
+
+  &.global-only > .graph-outer {
+    height: 420px;
+    margin: 0;
+
+    @media all and ($mobile) {
+      height: 320px;
+    }
+  }
+
   & > .graph-outer {
     border-radius: 5px;
     border: 1px solid var(--lightgray);
@@ -14,6 +49,17 @@
     margin: 0.5em 0;
     position: relative;
     overflow: hidden;
+
+    & > .graph-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    & canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
 
     & > .global-graph-icon {
       cursor: pointer;

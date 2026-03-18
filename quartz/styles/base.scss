@@ -196,13 +196,6 @@ a {
     row-gap: #{map.get($desktopGrid, rowGap)};
     grid-template-areas: #{map.get($desktopGrid, templateAreas)};
 
-    @media all and ($tablet) {
-      grid-template-columns: #{map.get($tabletGrid, templateColumns)};
-      grid-template-rows: #{map.get($tabletGrid, templateRows)};
-      column-gap: #{map.get($tabletGrid, columnGap)};
-      row-gap: #{map.get($tabletGrid, rowGap)};
-      grid-template-areas: #{map.get($tabletGrid, templateAreas)};
-    }
     @media all and ($mobile) {
       grid-template-columns: #{map.get($mobileGrid, templateColumns)};
       grid-template-rows: #{map.get($mobileGrid, templateRows)};
@@ -211,7 +204,7 @@ a {
       grid-template-areas: #{map.get($mobileGrid, templateAreas)};
     }
 
-    @media all and not ($desktop) {
+    @media all and ($mobile) {
       padding: 0 1rem;
     }
     @media all and ($mobile) {
@@ -253,7 +246,7 @@ a {
         margin-left: inherit;
         margin-right: inherit;
       }
-      @media all and not ($desktop) {
+      @media all and ($mobile) {
         position: initial;
         height: unset;
         width: 100%;
@@ -296,9 +289,6 @@ a {
       min-width: 100%;
       margin-left: auto;
       margin-right: auto;
-      @media all and ($tablet) {
-        margin-right: 0;
-      }
       @media all and ($mobile) {
         margin-right: 0;
         margin-left: 0;
@@ -403,7 +393,7 @@ h1 {
   margin-bottom: 1rem;
 }
 
-@media (max-width: 800px) {
+@media all and ($mobile) {
   h1 {
     margin-top: 0;
   }
