@@ -77,10 +77,6 @@ export const defaultContentPageLayout: PageLayout = {
       component: Component.DesktopOnly(Component.TableOfContents()),
       condition: (props) => props.fileData.slug !== "index",
     }),
-    Component.ConditionalRender({
-      component: Component.MobileOnly(Component.TableOfContents()),
-      condition: (props) => props.fileData.slug !== "index",
-    }),
   ],
 }
 
