@@ -64,7 +64,7 @@ const HomeArticles: QuartzComponent = (props: QuartzComponentProps) => {
           )
         })}
       </ul>
-      <HomeSearch {...props} />
+      {/* <HomeSearch {...props} /> */}
     </section>
   )
 }
