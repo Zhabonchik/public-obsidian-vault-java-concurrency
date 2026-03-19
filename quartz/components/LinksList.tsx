@@ -28,8 +28,96 @@ const GitHubIcon = () => (
 )
 
 const LinkedInIcon = () => (
-  <svg class="links-list-icon" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  <svg
+    class="links-list-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <circle cx="8" cy="8" r="0.9" fill="currentColor" stroke="none" />
+    <path d="M8 11v5" />
+    <path d="M12 16v-2.75a2.25 2.25 0 0 1 4.5 0V16" />
+  </svg>
+)
+
+const YouTubeIcon = () => (
+  <svg
+    class="links-list-icon links-list-icon-youtube"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect x="3" y="6" width="18" height="12" rx="3.5" />
+    <path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none" />
+  </svg>
+)
+
+const RssIcon = () => (
+  <svg
+    class="links-list-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M5 18h.01" />
+    <path d="M4 11a9 9 0 0 1 9 9" />
+    <path d="M4 6a14 14 0 0 1 14 14" />
+  </svg>
+)
+
+const InstagramIcon = () => (
+  <svg
+    class="links-list-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17" cy="7" r="0.9" fill="currentColor" stroke="none" />
+  </svg>
+)
+
+const XIcon = () => (
+  <svg
+    class="links-list-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M5 4h3l11 16h-3z" />
+    <path d="M19 4 5 20" />
+  </svg>
+)
+
+const MastodonIcon = () => (
+  <svg
+    class="links-list-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect x="4" y="4" width="16" height="16" rx="5" />
+    <path d="M8 16v-4.5a2.5 2.5 0 0 1 4.38-1.66A2.5 2.5 0 0 1 16 11.5V16" />
   </svg>
 )
 
@@ -62,6 +150,42 @@ const getLinkIcon = (text: string, link: string) => {
 
   if (normalizedText.includes("linkedin") || normalizedLink.includes("linkedin.com")) {
     return LinkedInIcon
+  }
+
+  if (normalizedText.includes("youtube") || normalizedLink.includes("youtube.com") || normalizedLink.includes("youtu.be")) {
+    return YouTubeIcon
+  }
+
+  if (
+    normalizedText.includes("instagram") ||
+    normalizedLink.includes("instagram.com")
+  ) {
+    return InstagramIcon
+  }
+
+  if (
+    normalizedText === "x" ||
+    normalizedText.includes("twitter") ||
+    normalizedLink.includes("x.com") ||
+    normalizedLink.includes("twitter.com")
+  ) {
+    return XIcon
+  }
+
+  if (
+    normalizedText.includes("mastodon") ||
+    normalizedLink.includes("mastodon")
+  ) {
+    return MastodonIcon
+  }
+
+  if (
+    normalizedText.includes("rss") ||
+    normalizedLink.endsWith(".xml") ||
+    normalizedLink.includes("/rss") ||
+    normalizedLink.includes("/feed")
+  ) {
+    return RssIcon
   }
 
   return LinkIcon

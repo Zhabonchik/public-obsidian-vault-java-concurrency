@@ -22,7 +22,7 @@ const BriefcaseIcon = () => (
 
 const GraduationCapIcon = () => (
   <svg
-    class="section-icon"
+    class="section-icon section-icon-education"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -53,7 +53,7 @@ const GlobeIcon = () => (
 
 const AwardIcon = () => (
   <svg
-    class="section-icon"
+    class="section-icon section-icon-award"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"

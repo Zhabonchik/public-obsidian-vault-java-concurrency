@@ -24,11 +24,141 @@ const GitHubIcon = () => (
 )
 
 const LinkedInIcon = () => (
-  <svg class="home-link-icon" viewBox="0 0 512 512" fill="currentColor">
-    <path d="M116.504 500.219V170.654H6.975v329.564h109.529ZM61.751 125.674c38.183 0 61.968-25.328 61.968-56.953-.722-32.328-23.785-56.941-61.252-56.941C24.994 11.781.5 36.394.5 68.722c0 31.625 23.772 56.953 60.53 56.953h.721Z" />
-    <path d="M177.124 500.219s1.437-298.643 0-329.564H286.67v47.794h-.727c14.404-22.49 40.354-55.533 99.44-55.533 72.085 0 126.116 47.103 126.116 148.333v188.971H401.971V323.912c0-44.301-15.848-74.531-55.497-74.531-30.254 0-48.284 20.38-56.202 40.08-2.897 7.012-3.602 16.861-3.602 26.711v184.047H177.124Z" />
+  <svg
+    class="home-link-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <circle cx="8" cy="8" r="0.9" fill="currentColor" stroke="none" />
+    <path d="M8 11v5" />
+    <path d="M12 16v-2.75a2.25 2.25 0 0 1 4.5 0V16" />
   </svg>
 )
+
+const YouTubeIcon = () => (
+  <svg
+    class="home-link-icon home-link-icon-youtube"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect x="3" y="6" width="18" height="12" rx="3.5" />
+    <path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none" />
+  </svg>
+)
+
+const RssIcon = () => (
+  <svg
+    class="home-link-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M5 18h.01" />
+    <path d="M4 11a9 9 0 0 1 9 9" />
+    <path d="M4 6a14 14 0 0 1 14 14" />
+  </svg>
+)
+
+const InstagramIcon = () => (
+  <svg
+    class="home-link-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17" cy="7" r="0.9" fill="currentColor" stroke="none" />
+  </svg>
+)
+
+const XIcon = () => (
+  <svg
+    class="home-link-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M5 4h3l11 16h-3z" />
+    <path d="M19 4 5 20" />
+  </svg>
+)
+
+const MastodonIcon = () => (
+  <svg
+    class="home-link-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <rect x="4" y="4" width="16" height="16" rx="5" />
+    <path d="M8 16v-4.5a2.5 2.5 0 0 1 4.38-1.66A2.5 2.5 0 0 1 16 11.5V16" />
+  </svg>
+)
+
+const homeLinks = [
+  {
+    href: "mailto:riceset@icloud.com",
+    label: "Email",
+    Icon: MailIcon,
+  },
+  {
+    href: "https://github.com/riceset",
+    label: "GitHub",
+    Icon: GitHubIcon,
+  },
+  {
+    href: "https://www.linkedin.com/in/riceset/",
+    label: "LinkedIn",
+    Icon: LinkedInIcon,
+  },
+  {
+    href: "https://www.youtube.com/@riceset",
+    label: "YouTube",
+    Icon: YouTubeIcon,
+  },
+  {
+    href: "https://www.instagram.com/riceset/",
+    label: "Instagram",
+    Icon: InstagramIcon,
+  },
+  {
+    href: "https://x.com/riceset",
+    label: "X",
+    Icon: XIcon,
+  },
+  {
+    href: "https://mastodon.social/@riceset",
+    label: "Mastodon",
+    Icon: MastodonIcon,
+  },
+  {
+    href: "/index.xml",
+    label: "RSS",
+    Icon: RssIcon,
+  },
+] as const
 
 const HomeHero: QuartzComponent = () => {
   return (
@@ -43,29 +173,22 @@ const HomeHero: QuartzComponent = () => {
             MIXI, Inc. MEXT Scholar at Tokyo University of Foreign Studies and École 42 graduate.
           </p>
           <div class="home-links">
-            <a href="mailto:riceset@icloud.com" class="home-link" aria-label="Email" title="Email">
-              <MailIcon />
-            </a>
-            <a
-              href="https://github.com/riceset"
-              class="home-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              title="GitHub"
-            >
-              <GitHubIcon />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/riceset/"
-              class="home-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              title="LinkedIn"
-            >
-              <LinkedInIcon />
-            </a>
+            {homeLinks.map(({ href, label, Icon }) => {
+              const isExternal = href.startsWith("http://") || href.startsWith("https://")
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  class="home-link"
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  aria-label={label}
+                  title={label}
+                >
+                  <Icon />
+                </a>
+              )
+            })}
           </div>
         </div>
       </div>
