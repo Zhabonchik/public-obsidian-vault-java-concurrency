@@ -2,16 +2,33 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { resolveRelative } from "../util/path"
 import { byDateAndAlphabetical } from "./PageList"
 import { Date, getDate } from "./Date"
+import Search from "./Search"
 import style from "./styles/homeArticles.scss"
+import { concatenateResources } from "../util/resources"
 
 const BookIcon = () => (
-  <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg
+    class="section-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
     <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
     <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
   </svg>
 )
 
-const HomeArticles: QuartzComponent = ({ allFiles, fileData, cfg }: QuartzComponentProps) => {
+const HomeSearch = Search({
+  buttonText: "search for articles or tags",
+  searchPlaceholder: "search for articles or tags",
+  variant: "home-inline",
+})
+
+const HomeArticles: QuartzComponent = (props: QuartzComponentProps) => {
+  const { allFiles, fileData, cfg } = props
   const pages = allFiles
     .filter((page) => page.slug !== "index" && !page.slug?.startsWith("notes/"))
     .sort(byDateAndAlphabetical(cfg))
@@ -46,9 +63,11 @@ const HomeArticles: QuartzComponent = ({ allFiles, fileData, cfg }: QuartzCompon
           )
         })}
       </ul>
+      <HomeSearch {...props} />
     </section>
   )
 }
 
-HomeArticles.css = style
+HomeArticles.css = concatenateResources(style, HomeSearch.css)
+HomeArticles.afterDOMLoaded = HomeSearch.afterDOMLoaded
 export default (() => HomeArticles) satisfies QuartzComponentConstructor

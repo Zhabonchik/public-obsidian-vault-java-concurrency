@@ -240,3 +240,102 @@
     }
   }
 }
+
+.search-home-inline {
+  width: 100%;
+  max-width: none;
+  margin-top: 1.25rem;
+
+  & > .search-button {
+    width: 100%;
+    height: 3rem;
+    padding: 0 1.1rem;
+    border-radius: 999px;
+    border-color: color-mix(in srgb, var(--lightgray) 80%, var(--gray) 20%);
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--light) 94%, white 6%) 0%,
+        color-mix(in srgb, var(--light) 88%, var(--highlight) 12%) 100%
+      );
+    box-shadow:
+      0 10px 24px rgba(27, 33, 48, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    justify-content: flex-start;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--secondary) 28%, var(--lightgray) 72%);
+      box-shadow:
+        0 14px 32px rgba(27, 33, 48, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      transform: translateY(-1px);
+    }
+
+    & > p {
+      color: color-mix(in srgb, var(--darkgray) 82%, var(--gray) 18%);
+      font-size: 0.94rem;
+      letter-spacing: 0.01em;
+    }
+
+    & svg {
+      margin-left: 0;
+      margin-right: 0.7rem;
+
+      .search-path {
+        stroke: color-mix(in srgb, var(--secondary) 72%, var(--darkgray) 28%);
+      }
+    }
+  }
+}
+
+.search-page-corner {
+  margin-left: auto;
+  width: auto;
+  max-width: none;
+
+  & > .search-button {
+    width: auto;
+    height: 2.25rem;
+    padding: 0 0.95rem 0 0.8rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--light) 92%, var(--lightgray) 8%);
+    border-color: color-mix(in srgb, var(--lightgray) 72%, var(--gray) 28%);
+    box-shadow: 0 6px 18px rgba(27, 33, 48, 0.04);
+
+    & > p {
+      color: var(--darkgray);
+      font-size: 0.88rem;
+    }
+
+    & svg {
+      margin-right: 0.45rem;
+      margin-left: 0;
+    }
+  }
+}
+
+header:has(.search-page-corner) {
+  margin: 0 0 1rem;
+}
+
+@media all and ($mobile) {
+  .search-page-corner {
+    & > .search-button {
+      width: 2.25rem;
+      padding: 0;
+      justify-content: center;
+
+      & > p {
+        display: none;
+      }
+
+      & svg {
+        margin: 0;
+      }
+    }
+  }
+}
