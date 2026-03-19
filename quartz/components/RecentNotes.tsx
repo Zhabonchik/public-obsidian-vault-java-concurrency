@@ -7,12 +7,14 @@ import { Date, getDate } from "./Date"
 import { GlobalConfiguration } from "../cfg"
 import { i18n } from "../i18n"
 import { classNames } from "../util/lang"
+import OverflowListFactory from "./OverflowList"
 
 interface Options {
   title?: string
-  limit: number
+  limit: number | false
   linkToMore: SimpleSlug | false
   showTags: boolean
+  scrollable: boolean
   filter: (f: QuartzPluginData) => boolean
   sort: (f1: QuartzPluginData, f2: QuartzPluginData) => number
 }
@@ -21,11 +23,13 @@ const defaultOptions = (cfg: GlobalConfiguration): Options => ({
   limit: 3,
   linkToMore: false,
   showTags: true,
+  scrollable: false,
   filter: () => true,
   sort: byDateAndAlphabetical(cfg),
 })
 
 export default ((userOpts?: Partial<Options>) => {
+  const { OverflowList, overflowListAfterDOMLoaded } = OverflowListFactory()
   const RecentNotes: QuartzComponent = ({
     allFiles,
     fileData,
@@ -34,12 +38,14 @@ export default ((userOpts?: Partial<Options>) => {
   }: QuartzComponentProps) => {
     const opts = { ...defaultOptions(cfg), ...userOpts }
     const pages = allFiles.filter((page) => page.slug !== "index").filter(opts.filter).sort(opts.sort)
-    const remaining = Math.max(0, pages.length - opts.limit)
+    const displayedPages = opts.limit === false ? pages : pages.slice(0, opts.limit)
+    const remaining = opts.limit === false ? 0 : Math.max(0, pages.length - opts.limit)
+    const ListTag = opts.scrollable ? OverflowList : "ul"
     return (
-      <div class={classNames(displayClass, "recent-notes")}>
+      <div class={classNames(displayClass, "recent-notes", opts.scrollable && "scrollable")}>
         <h3>{opts.title ?? i18n(cfg.locale).components.recentNotes.title}</h3>
-        <ul class="recent-ul">
-          {pages.slice(0, opts.limit).map((page) => {
+        <ListTag class="recent-ul">
+          {displayedPages.map((page) => {
             const title = page.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title
             const tags = page.frontmatter?.tags ?? []
 
@@ -74,9 +80,9 @@ export default ((userOpts?: Partial<Options>) => {
                   )}
                 </div>
               </li>
-            )
-          })}
-        </ul>
+              )
+            })}
+        </ListTag>
         {opts.linkToMore && remaining > 0 && (
           <p>
             <a href={resolveRelative(fileData.slug!, opts.linkToMore)}>
@@ -89,5 +95,6 @@ export default ((userOpts?: Partial<Options>) => {
   }
 
   RecentNotes.css = style
+  RecentNotes.afterDOMLoaded = (userOpts?.scrollable ?? false) ? overflowListAfterDOMLoaded : undefined
   return RecentNotes
 }) satisfies QuartzComponentConstructor

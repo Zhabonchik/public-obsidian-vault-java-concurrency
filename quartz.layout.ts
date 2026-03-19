@@ -63,8 +63,9 @@ export const defaultContentPageLayout: PageLayout = {
       component: Component.DesktopOnly(
         Component.RecentNotes({
           title: "Latest Articles",
-          limit: 8,
+          limit: false,
           showTags: false,
+          scrollable: true,
           filter: (page) => !page.slug?.startsWith("notes/"),
         }),
       ),

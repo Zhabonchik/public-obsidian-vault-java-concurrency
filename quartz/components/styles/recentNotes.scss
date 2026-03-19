@@ -1,4 +1,6 @@
 .recent-notes {
+  min-height: 0;
+
   & > h3 {
     margin: 0.5rem 0 0 0;
     font-size: 1rem;
@@ -20,5 +22,21 @@
         opacity: 0.6;
       }
     }
+  }
+}
+
+.recent-notes.scrollable {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  flex: 1 1 auto;
+
+  & > ul.recent-ul.overflow {
+    margin: 0.5rem 0 0;
+    max-height: 100%;
+    overscroll-behavior: contain;
+    overflow-x: hidden;
+    padding-right: 0.35rem;
   }
 }
