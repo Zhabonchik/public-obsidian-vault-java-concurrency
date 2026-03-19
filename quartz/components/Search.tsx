@@ -7,19 +7,25 @@ import { i18n } from "../i18n"
 
 export interface SearchOptions {
   enablePreview: boolean
+  variant: "default" | "home-inline" | "page-corner"
+  buttonText?: string
+  searchPlaceholder?: string
 }
 
 const defaultOptions: SearchOptions = {
   enablePreview: true,
+  variant: "default",
 }
 
 export default ((userOpts?: Partial<SearchOptions>) => {
   const Search: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
     const opts = { ...defaultOptions, ...userOpts }
-    const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder
+    const searchPlaceholder =
+      opts.searchPlaceholder ?? i18n(cfg.locale).components.search.searchBarPlaceholder
+    const buttonText = opts.buttonText ?? i18n(cfg.locale).components.search.title
     return (
-      <div class={classNames(displayClass, "search")}>
-        <button class="search-button">
+      <div class={classNames(displayClass, "search", `search-${opts.variant}`)}>
+        <button class="search-button" aria-label={buttonText}>
           <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7">
             <title>Search</title>
             <g class="search-path" fill="none">
@@ -27,7 +33,7 @@ export default ((userOpts?: Partial<SearchOptions>) => {
               <circle cx="8" cy="8" r="7" />
             </g>
           </svg>
-          <p>{i18n(cfg.locale).components.search.title}</p>
+          <p>{buttonText}</p>
         </button>
         <div class="search-container">
           <div class="search-space">

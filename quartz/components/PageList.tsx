@@ -55,13 +55,47 @@ export function byDateAndAlphabeticalFolderFirst(cfg: GlobalConfiguration): Sort
 type Props = {
   limit?: number
   sort?: SortFn
+  showTags?: boolean
+  variant?: "default" | "home"
 } & QuartzComponentProps
 
-export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
+export const PageList: QuartzComponent = ({
+  cfg,
+  fileData,
+  allFiles,
+  limit,
+  sort,
+  showTags = true,
+  variant = "default",
+}: Props) => {
   const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
   let list = allFiles.sort(sorter)
   if (limit) {
     list = list.slice(0, limit)
+  }
+
+  if (variant === "home") {
+    return (
+      <ul class="page-list-home">
+        {list.map((page) => {
+          const title = page.frontmatter?.title ?? "Untitled"
+          const date = page.dates ? getDate(cfg, page) : null
+
+          return (
+            <li class="page-list-home-item">
+              <a href={resolveRelative(fileData.slug!, page.slug!)} class="page-list-home-title internal">
+                {title}
+              </a>
+              {date && (
+                <span class="page-list-home-date">
+                  <Date date={date} locale={cfg.locale} />
+                </span>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    )
   }
 
   return (
@@ -72,7 +106,7 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
 
         return (
           <li class="section-li">
-            <div class="section">
+            <div class={showTags ? "section" : "section no-tags"}>
               <p class="meta">
                 {page.dates && <Date date={getDate(cfg, page)!} locale={cfg.locale} />}
               </p>
@@ -83,18 +117,20 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
                   </a>
                 </h3>
               </div>
-              <ul class="tags">
-                {tags.map((tag) => (
-                  <li>
-                    <a
-                      class="internal tag-link"
-                      href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
-                    >
-                      {tag}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {showTags && (
+                <ul class="tags">
+                  {tags.map((tag) => (
+                    <li>
+                      <a
+                        class="internal tag-link"
+                        href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
+                      >
+                        {tag}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </li>
         )
@@ -104,11 +140,65 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
 }
 
 PageList.css = `
+.page-list-home {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-list-home-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.4rem 0;
+}
+
+.page-list-home-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--dark);
+  text-decoration: none;
+  background-color: transparent !important;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.page-list-home-title:hover {
+  color: var(--secondary);
+}
+
+.page-list-home-date {
+  font-size: 0.8rem;
+  color: var(--gray);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 1199px) {
+  .page-list-home-item {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .page-list-home-title {
+    white-space: normal;
+  }
+}
+
 .section h3 {
   margin: 0;
 }
 
 .section > .tags {
   margin: 0;
+}
+
+.section.no-tags {
+  grid-template-columns: fit-content(8em) 1fr;
 }
 `
