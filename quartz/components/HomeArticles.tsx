@@ -22,8 +22,9 @@ const BookIcon = () => (
 )
 
 const HomeSearch = Search({
+  enablePreview: false,
   buttonText: "search for articles or tags",
-  searchPlaceholder: "search for articles or tags",
+  searchPlaceholder: "",
   variant: "home-inline",
 })
 

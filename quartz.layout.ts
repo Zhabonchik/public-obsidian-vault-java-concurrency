@@ -1,24 +1,10 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
-const PageSearchTrigger = Component.Search({
-  buttonText: "Search",
-  searchPlaceholder: "search for articles or tags",
-  variant: "page-corner",
-})
-
-const isSearchablePage = (slug?: string) =>
-  slug !== undefined && slug !== "index" && slug !== "404" && !slug.endsWith("/index")
-
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [
-    Component.ConditionalRender({
-      component: PageSearchTrigger,
-      condition: (props) => isSearchablePage(props.fileData.slug),
-    }),
-  ],
+  header: [],
   afterBody: [
     Component.ConditionalRender({
       component: Component.Graph({

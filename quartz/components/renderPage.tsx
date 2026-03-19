@@ -218,6 +218,7 @@ export function renderPage(
   componentData: QuartzComponentProps,
   components: RenderComponents,
   pageResources: StaticResources,
+  pageType: string = "content",
 ): string {
   // make a deep copy of the tree so we don't remove the transclusion references
   // for the file cached in contentMap in build.ts
@@ -262,7 +263,7 @@ export function renderPage(
   const doc = (
     <html lang={lang} dir={direction}>
       <Head {...componentData} />
-      <body data-slug={slug}>
+      <body data-slug={slug} data-page-type={pageType}>
         <div id="quartz-root" class="page">
           <Body {...componentData}>
             {LeftComponent}

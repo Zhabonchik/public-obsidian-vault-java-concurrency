@@ -53,7 +53,7 @@ export const NotFoundPage: QuartzEmitterPlugin = () => {
 
       yield write({
         ctx,
-        content: renderPage(cfg, slug, componentData, opts, externalResources),
+        content: renderPage(cfg, slug, componentData, opts, externalResources, "404"),
         slug,
         ext: ".html",
       })

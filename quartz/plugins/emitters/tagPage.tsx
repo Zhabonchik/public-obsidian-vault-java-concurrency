@@ -84,7 +84,7 @@ async function processTagPage(
     allFiles,
   }
 
-  const content = renderPage(cfg, slug, componentData, opts, externalResources)
+  const content = renderPage(cfg, slug, componentData, opts, externalResources, "tag")
   return write({
     ctx,
     content,

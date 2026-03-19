@@ -7,9 +7,26 @@
   }
 
   &.global-only {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--lightgray);
+    margin-top: 2.25rem;
+    padding-top: 0;
+    border-top: 0;
+    position: relative;
+
+    &::before {
+      content: "";
+      display: block;
+      width: min(100%, 10rem);
+      height: 1px;
+      margin: 0 auto 1.4rem;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 0%,
+        color-mix(in srgb, var(--lightgray) 88%, var(--gray) 12%) 22%,
+        color-mix(in srgb, var(--lightgray) 76%, var(--gray) 24%) 50%,
+        color-mix(in srgb, var(--lightgray) 88%, var(--gray) 12%) 78%,
+        rgba(0, 0, 0, 0) 100%
+      );
+    }
   }
 
   & .graph-section-heading {

@@ -36,7 +36,8 @@ async function processContent(
     allFiles,
   }
 
-  const content = renderPage(cfg, slug, componentData, opts, externalResources)
+  const pageType = slug === "index" ? "home" : "content"
+  const content = renderPage(cfg, slug, componentData, opts, externalResources, pageType)
   return write({
     ctx,
     content,
