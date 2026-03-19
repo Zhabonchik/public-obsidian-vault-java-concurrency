@@ -91,6 +91,14 @@
       transform: translateY(-1px);
     }
   }
+
+  @media all and ($mobile) {
+    &:hover {
+      background-color: transparent;
+      color: var(--secondary);
+      transform: none;
+    }
+  }
 }
 
 .home-links-separator {
@@ -121,6 +129,16 @@
       background-color: var(--light);
       color: var(--secondary);
       transform: translateY(-1px);
+    }
+  }
+
+  @media all and ($mobile) {
+    transition: none;
+
+    &:hover {
+      background-color: transparent;
+      color: var(--secondary);
+      transform: none;
     }
   }
 }
