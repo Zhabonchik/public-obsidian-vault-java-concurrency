@@ -1,5 +1,9 @@
-import { QuartzComponent, QuartzComponentConstructor } from "./types"
+import DarkmodeConstructor from "./Darkmode"
+import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import { concatenateResources } from "../util/resources"
 import style from "./styles/homeHero.scss"
+
+const HomeDarkmode = DarkmodeConstructor()
 
 const MailIcon = () => (
   <svg
@@ -160,7 +164,7 @@ const homeLinks = [
   },
 ] as const
 
-const HomeHero: QuartzComponent = () => {
+const HomeHero: QuartzComponent = (props: QuartzComponentProps) => {
   return (
     <section class="home-hero">
       <div class="home-hero-inner">
@@ -173,6 +177,8 @@ const HomeHero: QuartzComponent = () => {
             MIXI, Inc. MEXT Scholar at Tokyo University of Foreign Studies and École 42 graduate.
           </p>
           <div class="home-links">
+            <HomeDarkmode {...props} />
+            <span class="home-links-separator" aria-hidden="true"></span>
             {homeLinks.map(({ href, label, Icon }) => {
               const isExternal = href.startsWith("http://") || href.startsWith("https://")
               return (
@@ -196,5 +202,6 @@ const HomeHero: QuartzComponent = () => {
   )
 }
 
-HomeHero.css = style
+HomeHero.beforeDOMLoaded = HomeDarkmode.beforeDOMLoaded
+HomeHero.css = concatenateResources(style, HomeDarkmode.css)
 export default (() => HomeHero) satisfies QuartzComponentConstructor

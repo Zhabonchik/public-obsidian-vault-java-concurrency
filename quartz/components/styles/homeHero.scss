@@ -72,6 +72,33 @@
   margin-top: 0.75rem;
 }
 
+.home-links .darkmode {
+  width: 2rem;
+  height: 2rem;
+  color: var(--secondary);
+
+  & svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+  }
+
+  &:hover {
+    background-color: var(--light);
+    color: var(--secondary);
+    transform: translateY(-1px);
+  }
+}
+
+.home-links-separator {
+  width: 1px;
+  height: 1.15rem;
+  margin: 0 0.25rem 0 0.15rem;
+  background-color: var(--lightgray);
+  flex-shrink: 0;
+}
+
 .home-link {
   display: inline-grid;
   place-items: center;

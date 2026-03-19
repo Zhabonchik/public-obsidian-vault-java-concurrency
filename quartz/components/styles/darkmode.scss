@@ -14,12 +14,14 @@
   margin: 0;
   text-align: inherit;
   flex-shrink: 0;
+  color: var(--darkgray);
 
   & svg {
     position: static;
     width: var(--toolbar-icon-size, 20px);
     height: var(--toolbar-icon-size, 20px);
-    fill: var(--darkgray);
+    fill: none;
+    stroke: currentColor;
     transition: opacity 0.1s ease;
   }
 }
