@@ -154,9 +154,9 @@ a {
   }
   @media all and ($mobile) {
     &.flex-component {
-      display: flex;
+      display: flex !important;
     }
-    display: initial;
+    display: initial !important;
   }
 }
 
