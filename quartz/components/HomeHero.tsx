@@ -175,8 +175,8 @@ const HomeHero: QuartzComponent = (props: QuartzComponentProps) => {
             米野ティアゴ
           </p>
           <p class="home-bio">
-            I am a Japanese-Brazilian software developer moving between languages and cultures.
-            Away from the screen, I'm usually reading books or exploring coffee shops around Tokyo.
+            Japanese-Brazilian software developer shaped by languages and cultures. Away from the
+            screen, I usually read books or explore coffee shops around Tokyo.
           </p>
           <div class="home-links">
             <HomeDarkmode {...props} />
