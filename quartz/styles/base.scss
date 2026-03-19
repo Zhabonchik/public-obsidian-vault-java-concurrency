@@ -140,16 +140,17 @@ a {
   }
   @media all and ($mobile) {
     &.flex-component {
-      display: none;
+      display: none !important;
     }
-    display: none;
+    // Hidden utility classes need to beat component-level display rules.
+    display: none !important;
   }
 }
 
 .mobile-only {
-  display: none;
+  display: none !important;
   &.flex-component {
-    display: none;
+    display: none !important;
   }
   @media all and ($mobile) {
     &.flex-component {
