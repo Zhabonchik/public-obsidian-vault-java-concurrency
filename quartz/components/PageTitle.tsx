@@ -20,22 +20,11 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
 }
 
 PageTitle.css = `
-/* Default (light mode) */
-:root {
-  --primary-color: black;
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary-color: white;
-  }
-}
-
 .page-title {
   font-size: 1.5rem;
   margin: 0;
-  color: var(--primary-color);
+  color: var(--dark);
+  transition: color 0.2s ease;
 }
 
 .page-title a {

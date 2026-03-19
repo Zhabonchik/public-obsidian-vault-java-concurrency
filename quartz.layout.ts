@@ -46,7 +46,19 @@ export const defaultContentPageLayout: PageLayout = {
       component: Component.MobileOnly(Component.Spacer()),
       condition: (props) => props.fileData.slug !== "index",
     }),
-    Component.Darkmode(),
+    Component.ConditionalRender({
+      component: Component.MobileOnly(Component.Darkmode()),
+      condition: (props) => props.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.MobileOnly(
+        Component.Search({
+          enablePreview: false,
+          variant: "page-corner",
+        }),
+      ),
+      condition: (props) => props.fileData.slug !== "index",
+    }),
     Component.ConditionalRender({
       component: Component.DesktopOnly(
         Component.RecentNotes({
@@ -77,8 +89,6 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    //Component.Search(),
-    Component.Darkmode(),
     Component.Explorer(),
   ],
   right: [

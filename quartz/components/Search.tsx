@@ -66,14 +66,17 @@ export default ((userOpts?: Partial<SearchOptions>) => {
         </button>
         <div class="search-container">
           <div class="search-space">
-            <input
-              autocomplete="off"
-              class="search-bar"
-              name="search"
-              type="search"
-              aria-label={searchAriaLabel}
-              placeholder={searchPlaceholder || undefined}
-            />
+            <label class="search-modal-shell">
+              {searchIcon}
+              <input
+                autocomplete="off"
+                class="search-bar"
+                name="search"
+                type="search"
+                aria-label={searchAriaLabel}
+                placeholder={searchPlaceholder || undefined}
+              />
+            </label>
             <div class="search-layout" data-preview={opts.enablePreview}></div>
           </div>
         </div>
