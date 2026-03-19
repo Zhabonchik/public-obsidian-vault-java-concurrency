@@ -84,10 +84,12 @@
     stroke: currentColor;
   }
 
-  &:hover {
-    background-color: var(--light);
-    color: var(--secondary);
-    transform: translateY(-1px);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: var(--light);
+      color: var(--secondary);
+      transform: translateY(-1px);
+    }
   }
 }
 
@@ -114,10 +116,12 @@
     transform 0.15s ease;
   background-color: transparent;
 
-  &:hover {
-    background-color: var(--light);
-    color: var(--secondary);
-    transform: translateY(-1px);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: var(--light);
+      color: var(--secondary);
+      transform: translateY(-1px);
+    }
   }
 }
 
