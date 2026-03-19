@@ -145,6 +145,7 @@ export function joinStyles(theme: Theme, ...stylesheet: string[]) {
 ${stylesheet.join("\n\n")}
 
 :root {
+  color-scheme: light;
   --light: ${theme.colors.lightMode.light};
   --lightgray: ${theme.colors.lightMode.lightgray};
   --gray: ${theme.colors.lightMode.gray};
@@ -162,6 +163,7 @@ ${stylesheet.join("\n\n")}
 }
 
 :root[saved-theme="dark"] {
+  color-scheme: dark;
   --light: ${theme.colors.darkMode.light};
   --lightgray: ${theme.colors.darkMode.lightgray};
   --gray: ${theme.colors.darkMode.gray};
