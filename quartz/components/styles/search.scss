@@ -25,6 +25,9 @@
   }
 
   & > .search-button {
+    appearance: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
     background-color: transparent;
     border: 1px var(--lightgray) solid;
     border-radius: 4px;
@@ -38,6 +41,17 @@
     cursor: pointer;
     white-space: nowrap;
     width: 100%;
+    outline: none;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--tertiary);
+      outline-offset: 2px;
+    }
 
     & > p {
       display: inline;

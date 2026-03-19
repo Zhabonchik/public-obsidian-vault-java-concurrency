@@ -244,7 +244,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     searchBar.blur()
   }
 
-  function hideSearch() {
+  function hideSearch({ restoreButtonFocus = false }: { restoreButtonFocus?: boolean } = {}) {
     if (!isInlineSearch) {
       container.classList.remove("active")
     } else {
@@ -260,9 +260,10 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     searchType = "basic" // reset search type after closing
     currentSearchTerm = ""
     currentHover = null
-    if (searchButton) {
+    if (restoreButtonFocus && searchButton) {
       searchButton.focus()
     } else {
+      searchButton?.blur()
       searchBar.blur()
     }
   }
@@ -281,13 +282,13 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     if (e.key === "k" && (e.ctrlKey || e.metaKey) && !e.shiftKey) {
       e.preventDefault()
       const searchBarOpen = isSearchActive()
-      searchBarOpen ? hideSearch() : showSearch("basic")
+      searchBarOpen ? hideSearch({ restoreButtonFocus: true }) : showSearch("basic")
       return
     } else if (e.shiftKey && (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
       // Hotkey to open tag search
       e.preventDefault()
       const searchBarOpen = isSearchActive()
-      searchBarOpen ? hideSearch() : showSearch("tags")
+      searchBarOpen ? hideSearch({ restoreButtonFocus: true }) : showSearch("tags")
 
       // add "#" prefix for tag search
       searchBar.value = "#"
@@ -542,7 +543,10 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
   document.addEventListener("keydown", shortcutHandler)
   window.addCleanup(() => document.removeEventListener("keydown", shortcutHandler))
-  const openSearch = () => showSearch("basic")
+  const openSearch = () => {
+    showSearch("basic")
+    searchButton?.blur()
+  }
   if (searchButton) {
     searchButton.addEventListener("click", openSearch)
     window.addCleanup(() => searchButton.removeEventListener("click", openSearch))
@@ -569,7 +573,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     window.addCleanup(() => document.removeEventListener("pointerdown", onPointerDown))
   }
 
-  registerEscapeHandler(container, hideSearch)
+  registerEscapeHandler(container, () => hideSearch({ restoreButtonFocus: true }))
   await fillDocument(data)
 }
 
