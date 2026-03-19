@@ -82,7 +82,7 @@ const LocationIcon = () => (
     viewBox="-1 -1 18 18"
     fill="none"
     stroke="currentColor"
-    stroke-width="1.5"
+    stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
   >
