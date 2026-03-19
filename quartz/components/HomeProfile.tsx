@@ -231,13 +231,13 @@ const HomeProfile: QuartzComponent = () => {
                   <div class="home-exp-meta">
                     <MetaRow period={item.period} location={item.location} />
                   </div>
+                  {item.description && (
+                    <div class="home-exp-body">
+                      <p class="home-exp-desc">{item.description}</p>
+                    </div>
+                  )}
                 </div>
               </div>
-              {item.description && (
-                <div class="home-exp-body">
-                  <p class="home-exp-desc">{item.description}</p>
-                </div>
-              )}
             </div>
           ))}
         </div>

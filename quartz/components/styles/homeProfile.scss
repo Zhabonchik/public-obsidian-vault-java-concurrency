@@ -163,11 +163,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding-left: calc(var(--home-org-badge-size) + 1rem);
-
-  @media all and ($mobile) {
-    padding-left: 0;
-  }
+  margin-top: 0.35rem;
 }
 
 .home-exp-desc {
