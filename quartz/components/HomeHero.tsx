@@ -174,8 +174,8 @@ const HomeHero: QuartzComponent = (props: QuartzComponentProps) => {
             Komeno<span class="home-title home-title-japanese home-name-japanese" lang="ja">米野</span>
           </h1>
           <p class="home-bio">
-            Japanese-Brazilian software developer shaped by languages and cultures. Away from the
-            screen, I usually read books or explore coffee shops around Tokyo.
+            Japanese-Brazilian software developer shaped by languages and cultures. Usually at a
+            coffee shop somewhere in Tokyo.
           </p>
           <div class="home-links">
             <HomeDarkmode {...props} />
