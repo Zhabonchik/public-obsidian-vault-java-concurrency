@@ -152,11 +152,11 @@ const homeLinks = [
     label: "X",
     Icon: XIcon,
   },
-  {
-    href: "https://mastodon.social/@riceset",
-    label: "Mastodon",
-    Icon: MastodonIcon,
-  },
+  // {
+  //   href: "https://mastodon.social/@riceset",
+  //   label: "Mastodon",
+  //   Icon: MastodonIcon,
+  // },
   {
     href: "/index.xml",
     label: "RSS",
