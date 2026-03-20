@@ -168,12 +168,11 @@ const HomeHero: QuartzComponent = (props: QuartzComponentProps) => {
   return (
     <section class="home-hero">
       <div class="home-hero-inner">
-        <img class="home-avatar" src="/media/index/icon.png" alt="Thiago Komeno" />
+        <img class="home-avatar" src="/media/index/icon.png" alt="Komeno" />
         <div class="home-hero-text">
-          <h1 class="home-name">Thiago Komeno</h1>
-          <p class="home-title home-title-japanese" lang="ja">
-            米野ティアゴ
-          </p>
+          <h1 class="home-name">
+            Komeno<span class="home-title home-title-japanese home-name-japanese" lang="ja">米野</span>
+          </h1>
           <p class="home-bio">
             Japanese-Brazilian software developer shaped by languages and cultures. Away from the
             screen, I usually read books or explore coffee shops around Tokyo.

@@ -61,6 +61,17 @@
   letter-spacing: 0.02em;
 }
 
+.home-name-japanese {
+  display: inline-block;
+  font-size: 0.5em;
+  line-height: inherit;
+  vertical-align: 0.12em;
+  font-weight: 500;
+  margin-left: 0.48rem;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
 .home-bio {
   font-size: 0.9rem;
   color: var(--darkgray);
