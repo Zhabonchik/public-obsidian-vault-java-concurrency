@@ -166,7 +166,7 @@ const experience: ExperienceItem[] = [
     period: "Aug 2025 – Feb 2026",
     location: "Tokyo, Japan",
     description:
-      "Collaborated directly with Google Japan to bridge the gap between AI and university students, exploring actionable use cases for Gemini and promoting responsible AI integration on campus.",
+      "Participated in Google Japan's ambassador program to promote responsible and effective AI use among university students.",
     tags: ["AI", "Gemini"],
   },
 ]
@@ -195,7 +195,7 @@ const awards: AwardItem[] = [
     title: "MEXT Undergraduate Full Scholarship",
     logo: "/static/logos/mext.svg",
     description:
-      "Through embassy recommendation, this scholarship is provided by the Japanese Government and covers full tuition, living expenses, and travel support for undergraduate studies in Japan.",
+      "Awarded by the Japanese Government through embassy recommendation for undergraduate studies in Japan.",
   },
 ]
 
