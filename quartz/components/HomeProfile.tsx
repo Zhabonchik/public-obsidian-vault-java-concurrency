@@ -192,7 +192,7 @@ const education: EducationItem[] = [
 
 const awards: AwardItem[] = [
   {
-    title: "MEXT Undergraduate Full Scholarship",
+    title: "MEXT Undergraduate Scholarship",
     logo: "/static/logos/mext.svg",
     description:
       "Awarded by the Japanese Government through embassy recommendation for undergraduate studies in Japan.",
