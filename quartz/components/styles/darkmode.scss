@@ -1,3 +1,5 @@
+@use "../../styles/variables.scss" as *;
+
 .darkmode {
   cursor: pointer;
   padding: 0;
@@ -35,6 +37,14 @@
     fill: none;
     stroke: currentColor;
     transition: opacity 0.1s ease;
+  }
+}
+
+@media all and ($mobile) {
+  .darkmode.mobile-only {
+    width: auto;
+    min-width: var(--toolbar-icon-size, 20px);
+    height: var(--toolbar-control-size, 2rem);
   }
 }
 
