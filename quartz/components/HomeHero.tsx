@@ -168,7 +168,7 @@ const HomeHero: QuartzComponent = (props: QuartzComponentProps) => {
   return (
     <section class="home-hero">
       <div class="home-hero-inner">
-        <img class="home-avatar" src="/media/index/icon.png" alt="Komeno" />
+        <img class="home-avatar" src="/media/index/icon.jpg" alt="Komeno" />
         <div class="home-hero-text">
           <h1 class="home-name">
             Komeno<span class="home-title home-title-japanese home-name-japanese" lang="ja">米野</span>
