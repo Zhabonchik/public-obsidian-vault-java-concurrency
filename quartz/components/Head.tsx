@@ -35,6 +35,14 @@ export default (() => {
       (e) => e.name === CustomOgImagesEmitterName,
     )
     const ogImageDefaultPath = `https://${cfg.baseUrl}/static/og-image.png`
+    const isHomePage = fileData.slug === "index" || fileData.slug === ""
+    const websiteSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Komeno",
+      alternateName: ["riceset", "riceset.com"],
+      url: `https://${cfg.baseUrl}/`,
+    }
 
     return (
       <head>
@@ -90,6 +98,9 @@ export default (() => {
         <link rel="icon" href={iconPath} />
         <meta name="description" content={description} />
         <meta name="generator" content="Quartz" />
+        {isHomePage && (
+          <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
+        )}
 
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
         {js

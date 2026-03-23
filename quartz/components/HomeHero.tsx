@@ -171,9 +171,16 @@ const HomeHero: QuartzComponent = (props: QuartzComponentProps) => {
         <img class="home-avatar" src="/media/index/icon.jpg" alt="Komeno" />
         <div class="home-hero-text">
           <h1 class="home-name">
-            Komeno<span class="home-title home-title-japanese home-name-japanese" lang="ja">米野</span>
+            Komeno
+            <span
+              class="home-title home-title-japanese home-name-japanese"
+              lang="ja"
+              data-nosnippet
+            >
+              米野
+            </span>
           </h1>
-          <p class="home-bio">
+          <p class="home-bio" data-nosnippet>
             Japanese-Brazilian software developer shaped by languages and cultures. Usually at a
             coffee shop somewhere in Tokyo.
           </p>
