@@ -613,7 +613,7 @@ struct TabViewSearch: View {
 
 For the home view, I just implemented a dummy view for the moment:
 
-![Home](https://github.com/user-attachments/assets/ae0109a7-28d8-4248-afaf-cb166a4e4fcb)
+![Home](/media/dictionary/home.png)
 
 Let's start building the `SearchView()` for searching by stroke count. Here, we are going to use a pattern of having one main view switching between different states. Let's start by defining some [[@State]] variables:
 
@@ -682,7 +682,7 @@ graph TD
 
 ### State 1: No search input
 
-![Empty](https://github.com/user-attachments/assets/02bdbe03-1257-4c58-b7ad-948533ab9b74)
+![Empty](/media/dictionary/empty.png)
 
 ```swift
 if searchText.isEmpty {
@@ -707,7 +707,7 @@ struct EmptySearchStateView: View {
 
 ### State 2: Database query in progress
 
-![Loading](https://github.com/user-attachments/assets/899aa047-c0c1-44c8-a7d6-b25cb75d7de5)
+![Loading](/media/dictionary/loading.png)
 
 ```swift
 else if model.isLoading {
@@ -728,7 +728,7 @@ struct LoadingStateView: View {
 
 ### State 3: An error occurred
 
-![Error](https://github.com/user-attachments/assets/c0e775fa-488c-4bdf-af18-1f03231fda40)
+![Error](/media/dictionary/error.png)
 
 ```swift
 else if let error = model.errorMessage {
@@ -752,7 +752,7 @@ struct ErrorStateView: View {
 
 ### State 4: Search completed but no results found
 
-![No results](https://github.com/user-attachments/assets/95a9cfa3-cb98-4743-b548-ef27837711e2)
+![No results](/media/dictionary/no-results.png)
 
 ```swift
 else if model.entries.isEmpty {
@@ -776,7 +776,7 @@ struct NoResultsStateView: View {
 
 ### State 5: Search completed with results
 
-![Results](https://github.com/user-attachments/assets/40942f92-1573-4774-800b-9e9f8ff154ba)
+![Results](/media/dictionary/results.png)
 
 ```swift
 else {
@@ -830,7 +830,7 @@ struct CharacterListRow: View {
 
 ### The character detail view
 
-![Details](https://github.com/user-attachments/assets/56e0832e-b703-419a-9a67-4a2a38e81a83)
+![Details](/media/dictionary/details.png)
 
 Here, the `GroupBox` is used to create a section in the view that visually groups some content.
 

@@ -39,7 +39,7 @@ export default (() => {
     const websiteSchema = {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      name: "Komeno",
+      name: cfg.pageTitle,
       alternateName: ["riceset", "riceset.com"],
       url: `https://${cfg.baseUrl}/`,
     }

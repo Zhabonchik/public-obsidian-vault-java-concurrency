@@ -51,15 +51,6 @@ export const defaultContentPageLayout: PageLayout = {
       condition: (props) => props.fileData.slug !== "index",
     }),
     Component.ConditionalRender({
-      component: Component.MobileOnly(
-        Component.Search({
-          enablePreview: false,
-          variant: "page-corner",
-        }),
-      ),
-      condition: (props) => props.fileData.slug !== "index",
-    }),
-    Component.ConditionalRender({
       component: Component.DesktopOnly(
         Component.RecentNotes({
           title: "Latest Articles",

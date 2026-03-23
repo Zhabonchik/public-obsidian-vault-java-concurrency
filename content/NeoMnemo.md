@@ -23,27 +23,27 @@ I’m currently a freshman at Tokyo University of Foreign Studies. As a Japanese
 
 After watching last yearʼs WWDC, where the Image Playground was introduced, I immediately thought of integrating the Image Playground API into an app to create visual mnemonics as our brains tend to remember pictures better than words.
 
-![image](https://github.com/user-attachments/assets/5911fe22-c628-4999-b64e-91e19d3f14b1)
+![image](/media/neomnemo/concept.png)
 
 ### Branding and Design
 
 The name “**NeoMnemo**” reflects a new approach to mnemonics by turning stories into images. The icon, designed with Freeform, Figma and Illustrator features a card displaying a Macaw, a bird renowned for its strong memory in the Brazilian Amazon. Its colorful feathers symbolize NeoMnemo's abilities to generate a diverse range of images. The card is encased in a bubble, emphasizing its integration with Image Playground.
 
-![image](https://github.com/user-attachments/assets/e6bfe258-66ed-4718-b1a7-105339b5a9fd)
+![image](/media/neomnemo/branding.png)
 
 ### User Experience
 
 When users first open the app, they see a screen that explains NeoMnemoʼs core features. These include creating custom flashcards by pairing concepts with creative stories for smarter learning, generating visual mnemonics by transforming stories into vivid and memorable images, and learning with engaging visuals that make complex concepts easier to recall. This introduction was inspired by Appleʼs native apps, such as [Numbers](https://www.apple.com/in/numbers/), which highlight core features on the first launch.
 
-![image](https://github.com/user-attachments/assets/2e2af520-605d-4af7-87d7-f564af12d9a4)
+![image](/media/neomnemo/onboarding.png)
 
 After the introduction, users arrive at the main screen, which displays a flashcard grid featuring sample flashcards that showcase the variety of topics NeoMnemo can cover. In the card review section, I added smooth animations to create a more intuitive and enjoyable experience. Users can tap a card to flip it and reveal the answer, then swipe left or right to navigate through the deck. Once all cards have been reviewed, a congratulatory screen with a confetti effect appears, delivering positive reinforcement by celebrating progress and inspiring continued learning.
 
-![image](https://github.com/user-attachments/assets/c4d6f6c8-2cd4-4ab7-ba70-ac81981fe955)
+![image](/media/neomnemo/review.png)
 
 For the add/edit card screen, I focused on input validation to ensure a seamless user experience. Each field includes placeholder text with sample content for the story, concept, and notes, guiding users on where to insert each element. As users type, labels update to indicate which fields are required or optional for generating an image and adding a card. I also implemented a word count limit in the story field, with a smooth animation updating the count as users type. This limit ensures that the Image Playground API can generate accurate images from the stories.
 
-![image](https://github.com/user-attachments/assets/d6634b9d-64ae-4a1f-a11f-33f5c482aeb3)
+![image](/media/neomnemo/card-form.png)
 
 ## Development
 
@@ -91,7 +91,7 @@ private var concept: ImagePlaygroundConcept {
 
 The resulting initial views looked like this:
 
-![image](https://github.com/user-attachments/assets/50a29a8e-12fe-4724-b216-ddfe42ffc8e2)
+![image](/media/neomnemo/prototype.png)
 
 ### Managing Data
 
@@ -168,7 +168,7 @@ if let url = imageURL {
 
 To test whether my data was stored correctly, I created a simple view that displays the retrieved elements, both images and text. I also experimented with a blurred background for the card's back, but eventually discarded that idea to keep the information clear and concise.
 
-![image](https://github.com/user-attachments/assets/3c62789e-794e-4e2f-9744-e5d1a7a6d86e)
+![image](/media/neomnemo/card-view.png)
 
 ### Animating the Card
 
@@ -292,17 +292,17 @@ cardView
 
 The resulting grid view looked like this:
 
-![image](https://github.com/user-attachments/assets/79c36715-9a0f-477d-a3e4-d33ce3d035cd)
+![image](/media/neomnemo/grid.png)
 
 After that, I experimented with several card sizes and spacing to produce a symmetrical spacing and size to the cards. I also added a view for when the user has no mnemonic cards available:
 
-![image](https://github.com/user-attachments/assets/4c03455a-1e42-461b-a384-eee3df9f687c)
+![image](/media/neomnemo/empty-grid.png)
 
 ### Landscape Card View
 
 I also implemented a different design for when the card is displayed in landscape mode:
 
-![image](https://github.com/user-attachments/assets/51e298e3-126b-48b4-af07-048467095aad)
+![image](/media/neomnemo/landscape-early.png)
 
 To identify landscape mode, I used `GeometryReader` to compare the screen's width and height:
 
@@ -336,11 +336,11 @@ private func isWideLayout(_ geometry: GeometryProxy) -> Bool {
 
 The final version looked like this in landscape mode:
 
-![image](https://github.com/user-attachments/assets/221b43c4-05ba-4895-9252-442939fd9c67)
+![image](/media/neomnemo/landscape-final.png)
 
 and this in portrait mode:
 
-![image](https://github.com/user-attachments/assets/ccd9ad41-bdbe-42ad-a79e-88d60c6f9075)
+![image](/media/neomnemo/portrait-final.png)
 
 ### Input Validation
 
@@ -384,8 +384,8 @@ Text("Remaining: \(remainingWords)")
 
 I also decided to change the labels as the user types. This helps guide them on what to enter for each field. Once they start typing, the labels switch to indicate which fields are required and which are optional:
 
-![image](https://github.com/user-attachments/assets/2cb67501-781c-4e6e-b9ed-b37b7ddadb0a)
-![image](https://github.com/user-attachments/assets/db128d0f-a2f3-4059-b16b-97a6a87a6b86)
+![image](/media/neomnemo/validation-empty.png)
+![image](/media/neomnemo/validation-filled.png)
 
 ### Building Adaptive Layouts
 
@@ -432,17 +432,17 @@ let screenWidth = UIScreen.main.bounds.width
 
 In landscape mode:
 
-![image](https://github.com/user-attachments/assets/ae566dbd-38bf-44e2-8040-d96a8e1f6213)
+![image](/media/neomnemo/adaptive-landscape-1.png)
 
-![image](https://github.com/user-attachments/assets/90d68b6e-9438-410e-bdc1-c3ad81636a12)
+![image](/media/neomnemo/adaptive-landscape-2.png)
 
-![image](https://github.com/user-attachments/assets/0ae42c4e-e9b5-41ff-9d40-e0c06e10d0e2)
+![image](/media/neomnemo/adaptive-landscape-3.png)
 
-![image](https://github.com/user-attachments/assets/4c8b7ddb-7b4d-4a52-8d3d-11aadc1cbd4a)
+![image](/media/neomnemo/adaptive-landscape-4.png)
 
 In portrait mode:
 
-![image](https://github.com/user-attachments/assets/88b41f24-cae6-4834-8445-517e7fcc3f9c)
+![image](/media/neomnemo/adaptive-portrait.png)
 
 ## Conclusion
 
