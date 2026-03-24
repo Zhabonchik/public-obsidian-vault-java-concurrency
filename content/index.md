@@ -1,5 +1,5 @@
 ---
 title: "Komeno"
-description: "Japanese-Brazilian software developer in Tokyo writing about iOS, language, and culture."
-socialDescription: "Japanese-Brazilian software developer in Tokyo writing about iOS, language, and culture."
+description: "Japanese-Brazilian software developer. Usually at a coffee shop somewhere in Tokyo."
+socialDescription: "Japanese-Brazilian software developer. Usually at a coffee shop somewhere in Tokyo."
 ---
