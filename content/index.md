@@ -1,5 +1,5 @@
 ---
 title: "Komeno"
-description: "Software Developer"
-socialDescription: "Software Developer"
+description: "Japanese‑Brazilian software developer based in Tokyo"
+socialDescription: "Japanese‑Brazilian software developer based in Tokyo"
 ---
