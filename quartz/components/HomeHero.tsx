@@ -181,7 +181,7 @@ const HomeHero: QuartzComponent = (props: QuartzComponentProps) => {
             </span>
           </h1>
           <p class="home-bio" data-nosnippet>
-            Software Developer
+            Japanese‑Brazilian software developer based in Tokyo
           </p>
           <div class="home-links">
             <HomeDarkmode {...props} />
