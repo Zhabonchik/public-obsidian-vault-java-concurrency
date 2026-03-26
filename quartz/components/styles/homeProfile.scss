@@ -17,11 +17,6 @@
 
 .home-section:first-child {
   margin-top: 0;
-  padding-top: 1.75rem;
-
-  @media all and ($mobile) {
-    padding-top: 1.25rem;
-  }
 }
 
 .home-section-heading {
