@@ -194,20 +194,20 @@ const education: EducationItem[] = [
 
 const awards: AwardItem[] = [
   {
-    title: "2026 Swift Student Challenge Winner",
+    title: "Swift Student Challenge Winner",
     logo: "/static/logos/apple.svg",
     logoClass: "home-org-logo-apple",
     institution: "Apple Inc.",
     description:
-      "Selected by Apple as a Swift Student Challenge winner for an app that impressed and inspired the judges with its creativity, technical skill, and thoughtful design.",
+      "Selected in 2026 for an app that impressed and inspired Apple judges with its creativity, technical skill, and thoughtful design.",
   },
   {
-    title: "MEXT Undergraduate Full Scholarship",
+    title: "MEXT Undergraduate Scholarship",
     logo: "/static/logos/mext.svg",
     logoClass: "home-org-logo-mext",
     institution: "Japanese Government",
     description:
-      "Through embassy recommendation, this scholarship is provided by the Japanese Government and covers full tuition, living expenses, and travel support for undergraduate studies in Japan.",
+      "Awarded through embassy recommendation, covering full tuition, living expenses, and travel for undergraduate studies in Japan.",
   },
 ]
 
