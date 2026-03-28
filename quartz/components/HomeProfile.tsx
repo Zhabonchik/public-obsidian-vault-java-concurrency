@@ -204,6 +204,7 @@ const awards: AwardItem[] = [
   {
     title: "MEXT Undergraduate Full Scholarship",
     logo: "/static/logos/mext.svg",
+    logoClass: "home-org-logo-mext",
     institution: "Japanese Government",
     description:
       "Through embassy recommendation, this scholarship is provided by the Japanese Government and covers full tuition, living expenses, and travel support for undergraduate studies in Japan.",

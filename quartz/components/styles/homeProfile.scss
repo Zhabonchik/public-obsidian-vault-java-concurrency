@@ -118,8 +118,16 @@
 }
 
 .home-org-logo-apple {
-  width: 84%;
-  height: 84%;
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  transform: translate(-4%, -2%);
+  object-position: center center;
+}
+
+.home-org-logo-mext {
+  width: 90%;
+  height: 90%;
   margin: auto;
   transform: none;
   object-position: center center;
