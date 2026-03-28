@@ -117,6 +117,14 @@
   display: block;
 }
 
+.home-org-logo-apple {
+  width: 84%;
+  height: 84%;
+  margin: auto;
+  transform: none;
+  object-position: center center;
+}
+
 // ── Experience ─────────────────────────────────────────────────────────────
 
 .home-exp-list {
@@ -272,12 +280,18 @@
   color: var(--dark);
 }
 
+.home-award-institution {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--darkgray);
+}
+
 .home-award-desc {
   font-size: 0.85rem;
   color: var(--darkgray);
   line-height: 1.6;
   margin: 0;
-  max-width: 620px;
+  max-width: 580px;
 }
 
 // ── Languages ──────────────────────────────────────────────────────────────

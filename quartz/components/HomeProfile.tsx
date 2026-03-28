@@ -143,6 +143,8 @@ interface Language {
 interface AwardItem {
   title: string
   logo: string
+  logoClass?: string
+  institution: string
   description: string
 }
 
@@ -192,8 +194,17 @@ const education: EducationItem[] = [
 
 const awards: AwardItem[] = [
   {
+    title: "2026 Swift Student Challenge Winner",
+    logo: "/static/logos/apple.svg",
+    logoClass: "home-org-logo-apple",
+    institution: "Apple Inc.",
+    description:
+      "Selected by Apple as a Swift Student Challenge winner for an app that impressed and inspired the judges with its creativity, technical skill, and thoughtful design.",
+  },
+  {
     title: "MEXT Undergraduate Scholarship",
     logo: "/static/logos/mext.svg",
+    institution: "Japanese Government",
     description:
       "Awarded by the Japanese Government through embassy recommendation for undergraduate studies in Japan.",
   },
@@ -278,10 +289,15 @@ const HomeProfile: QuartzComponent = () => {
             <div class="home-award-item">
               <div class="home-award-row">
                 <span class="home-org-logo-badge">
-                  <img class="home-org-logo" src={item.logo} alt={item.title} />
+                  <img
+                    class={["home-org-logo", item.logoClass].filter(Boolean).join(" ")}
+                    src={item.logo}
+                    alt={item.title}
+                  />
                 </span>
                 <div class="home-award-text">
                   <span class="home-award-title">{item.title}</span>
+                  <span class="home-award-institution">{item.institution}</span>
                   <p class="home-award-desc">{item.description}</p>
                 </div>
               </div>
