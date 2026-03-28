@@ -207,7 +207,7 @@ const awards: AwardItem[] = [
     logoClass: "home-org-logo-mext",
     institution: "Japanese Government",
     description:
-      "Awarded through embassy recommendation, covering full tuition, living expenses, and travel for undergraduate studies in Japan.",
+      "Scholarship awarded through embassy recommendation, covering full tuition, living expenses, and travel for undergraduate studies in Japan.",
   },
 ]
 
