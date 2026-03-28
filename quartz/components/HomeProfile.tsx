@@ -188,7 +188,7 @@ const education: EducationItem[] = [
     institutionUrl: "https://42.fr",
     logo: "/static/logos/42.svg",
     period: "2022 – 2025",
-    location: "Tokyo, Japan",
+    location: "Paris, France",
   },
 ]
 
