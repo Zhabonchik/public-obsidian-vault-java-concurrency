@@ -151,7 +151,7 @@ interface AwardItem {
 const experience: ExperienceItem[] = [
   {
     role: "Product Development Engineer",
-    company: "MIXI, Inc",
+    company: "MIXI Inc.",
     companyUrl: "https://mixi.co.jp",
     logo: "/static/logos/mixi.svg",
     period: "Jan 2026 – Apr 2026",
@@ -202,11 +202,11 @@ const awards: AwardItem[] = [
       "Selected by Apple as a Swift Student Challenge winner for an app that impressed and inspired the judges with its creativity, technical skill, and thoughtful design.",
   },
   {
-    title: "MEXT Undergraduate Scholarship",
+    title: "MEXT Undergraduate Full Scholarship",
     logo: "/static/logos/mext.svg",
     institution: "Japanese Government",
     description:
-      "Awarded by the Japanese Government through embassy recommendation for undergraduate studies in Japan.",
+      "Through embassy recommendation, this scholarship is provided by the Japanese Government and covers full tuition, living expenses, and travel support for undergraduate studies in Japan.",
   },
 ]
 

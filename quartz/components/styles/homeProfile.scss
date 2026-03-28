@@ -169,7 +169,7 @@
 .home-exp-company {
   font-size: 0.95rem;
   line-height: 1.4;
-  color: var(--darkgray);
+  color: color-mix(in srgb, var(--darkgray) 78%, var(--secondary) 22%);
 }
 
 .home-exp-body {
@@ -236,7 +236,7 @@
   font-size: 0.95rem;
   font-weight: 400;
   line-height: 1.4;
-  color: color-mix(in srgb, var(--dark) 82%, var(--light) 18%);
+  color: color-mix(in srgb, var(--darkgray) 78%, var(--secondary) 22%);
 }
 
 .home-edu-meta {
@@ -283,7 +283,7 @@
 .home-award-institution {
   font-size: 0.95rem;
   line-height: 1.4;
-  color: var(--darkgray);
+  color: color-mix(in srgb, var(--darkgray) 78%, var(--secondary) 22%);
 }
 
 .home-award-desc {
