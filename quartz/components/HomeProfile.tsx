@@ -199,7 +199,7 @@ const awards: AwardItem[] = [
     logoClass: "home-org-logo-apple",
     institution: "Apple Inc.",
     description:
-      "Selected in 2026 for an app that impressed and inspired Apple judges with its creativity, technical skill, and thoughtful design.",
+      "Selected in 2026 for an app that impressed and inspired Apple with its creativity, technical skill, and thoughtful design.",
   },
   {
     title: "MEXT Undergraduate Scholarship",
