@@ -25,11 +25,13 @@ image: lin-yung-chang-wood-firing.webp
 > [!tip] **戰鬥節奏備忘**
 > 點擊賽事名稱可查看官方規格（重量、尺寸、照片要求）。
 
-| 期間 | 賽事官方全稱 (Official Name) | 目前進度 | 規格備忘 |
-| :--- | :--- | :--- | :--- |
-| **03-04月** | **[[notes/open-call/huangsi-art-exhibition|Huang-Si Art Exhibition]]** | 準備報名 | 新作對位 (113年後) |
-| **05/31止** | **[[notes/open-call/yushan-fine-arts-award|Nantou County Yushan Fine Arts Award]]** | 進行中 | 實體照片 (5x7吋) |
-| **06月預計** | **[[notes/open-call/golden-teapot-award|Taiwan International Golden Teapot Award]]** | 關注中 | 機能與柴燒論述 |
+| 期間           | 賽事官方全稱 (Official Name)                                                                | 中文名     | 規格備忘 |              |     |
+| :----------- | :------------------------------------------------------------------------------------ | :------ | :--- | ------------ | --- |
+| **03-04月**   | **[[notes/open-call/huangsi-art-exhibition\|Huang-Si Art Exhibition]]**               | 磺溪美展    | 關注中  | 新作對位 (113年後) |     |
+| **04/01-15** | **[[notes/open-call/da-dun-fine-arts-exhibition\|Da Dun Fine Arts Exhibition]]**      | 臺中市大墩美展 | 關注中  |              |     |
+| **05/31止**   | **[[notes/open-call/yushan-fine-arts-award\|Nantou County Yushan Fine Arts Award]]**  | 南投玉山獎   | 進行中  | 實體照片 (5x7吋)  |     |
+| **06月預計**    | **[[notes/open-call/golden-teapot-award\|Taiwan International Golden Teapot Award]]** | 金壺獎     | 關注中  | 機能與柴燒論述      |     |
+|              |                                                                                       |         |      |              |     |
 
 👉 [查看完整徵件資訊目錄與簡章存檔 →](notes/open-call/index)
 
