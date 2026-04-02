@@ -1,6 +1,6 @@
 ---
-title: "Gallop in Motion | 2026 南投縣陶藝學會聯展"
-description: "2026 南投縣陶藝學會年度會員聯展《躍馬奔騰》，於臺中市葫蘆墩文化中心展出。"
+title: 2026 南投縣陶藝學會聯展 | Gallop in Motion
+description: 2026 南投縣陶藝學會年度會員聯展《躍馬奔騰》，於臺中市葫蘆墩文化中心展出。
 tags:
   - 南投縣陶藝學會
   - 葫蘆墩文化中心
