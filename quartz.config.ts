@@ -20,7 +20,7 @@ const config: QuartzConfig = {
     locale: "zh-TW",
     baseUrl: "vcdvcd.com",
     ignorePatterns: ["private", "templates", ".obsidian"],
-    defaultDateType: "published",
+    defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
