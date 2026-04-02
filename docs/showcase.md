@@ -6,6 +6,7 @@ Want to see what Quartz can do? Here are some cool community gardens:
 
 - [Quartz Documentation (this site!)](https://quartz.jzhao.xyz/)
 - [Jacky Zhao's Garden](https://jzhao.xyz/)
+- [Alex's Scrapbook](https://alexislearning.me/scrapbook/)
 - [Aaron Pham's Garden](https://aarnphm.xyz/)
 - [The Pond](https://turntrout.com/welcome)
 - [Eilleen's Everything Notebook](https://quartz.eilleeenz.com/)
