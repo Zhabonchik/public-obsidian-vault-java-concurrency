@@ -86,13 +86,21 @@ export default ((opts?: Partial<FolderContentOptions>) => {
               },
             }
           }
+
+          return undefined
         })
-        .filter((page) => page !== undefined) ?? []
+        .filter((page): page is QuartzPluginData => page !== undefined) ?? []
+
     const cssClasses: string[] = fileData.frontmatter?.cssclasses ?? []
     const classes = cssClasses.join(" ")
+
     const listProps = {
       ...props,
-      sort: options.sort,
+      sort: (a: QuartzPluginData, b: QuartzPluginData) => {
+        const aDate = a.dates?.published ?? a.dates?.modified ?? a.dates?.created ?? new Date(0)
+        const bDate = b.dates?.published ?? b.dates?.modified ?? b.dates?.created ?? new Date(0)
+        return bDate.getTime() - aDate.getTime()
+      },
       allFiles: allPagesInFolder,
     }
 
