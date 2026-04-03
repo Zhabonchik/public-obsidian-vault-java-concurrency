@@ -143,9 +143,11 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
           // remove description and from content index as nothing downstream
           // actually uses it. we only keep it in the index as we need it
           // for the RSS feed
-          delete content.description
-          delete content.date
-          return [slug, content]
+          // Assigning temp allows ensuring mutation doesn't occur
+          const temp = { ...content }
+          delete temp.description
+          delete temp.date
+          return [slug, temp]
         }),
       )
 
