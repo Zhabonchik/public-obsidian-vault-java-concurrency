@@ -44,9 +44,11 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Graph({
       localGraph: {
         showLabels: true,
+        excludePaths: ["01 Sessions", "_templates", "CLAUDE"],
       },
       globalGraph: {
         showLabels: true,
+        excludePaths: ["01 Sessions", "_templates", "CLAUDE"],
       },
     }),
     Component.DesktopOnly(Component.TableOfContents()),
