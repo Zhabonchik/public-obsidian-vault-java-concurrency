@@ -20,6 +20,7 @@ export interface D3Config {
   focusOnHover?: boolean
   enableRadial?: boolean
   excludePaths?: string[]
+  showLabels?: boolean
 }
 
 interface GraphOptions {
