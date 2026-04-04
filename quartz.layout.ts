@@ -44,10 +44,12 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Graph({
       localGraph: {
         showLabels: true,
+        showTags: false,
         excludePaths: ["01 Sessions", "_templates", "CLAUDE"],
       },
       globalGraph: {
         showLabels: true,
+        showTags: false,
         excludePaths: ["01 Sessions", "_templates", "CLAUDE"],
       },
     }),
