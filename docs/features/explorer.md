@@ -64,6 +64,7 @@ class FileTrieNode {
 export type ContentDetails = {
   slug: FullSlug
   title: string
+  order?: number
   links: SimpleSlug[]
   tags: string[]
   content: string
@@ -73,24 +74,28 @@ export type ContentDetails = {
 Every function you can pass is optional. By default, only a `sort` function will be used:
 
 ```ts title="Default sort function"
-// Sort order: folders first, then files. Sort folders and files alphabetically
 Component.Explorer({
   sortFn: (a, b) => {
-    if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
-      return a.displayName.localeCompare(b.displayName, undefined, {
-        numeric: true,
-        sensitivity: "base",
-      })
+    if (a.isFolder !== b.isFolder) {
+      return a.isFolder ? -1 : 1
     }
 
-    if (!a.isFolder && b.isFolder) {
-      return 1
-    } else {
-      return -1
+    const aOrder = typeof a.data?.order === "number" ? a.data.order : Number.POSITIVE_INFINITY
+    const bOrder = typeof b.data?.order === "number" ? b.data.order : Number.POSITIVE_INFINITY
+
+    if (aOrder !== bOrder) {
+      return aOrder - bOrder
     }
+
+    return a.displayName.localeCompare(b.displayName, undefined, {
+      numeric: true,
+      sensitivity: "base",
+    })
   },
 })
 ```
+
+If a file or folder `index.md` defines frontmatter `order`, the default sorter will use that numeric value before falling back to alphabetical sorting by `displayName`.
 
 ---
 
