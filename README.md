@@ -1,17 +1,19 @@
-# Quartz v4
+# Apennine Sector
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+Traveller RPG campaign notes for the Apennine Sector, published as a static site via [Quartz](https://quartz.jzhao.xyz/).
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+🔗 **Live site:** https://riccjohn.github.io/apennine-sector-notes/
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+## Development
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+Requires Node >= 22.
 
-## Sponsors
+```bash
+npx quartz build --serve
+```
 
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+Site is served at `http://localhost:8080`.
+
+## Deployment
+
+Pushes to `main` automatically deploy to GitHub Pages via the workflow in `.github/workflows/deploy.yml`.
