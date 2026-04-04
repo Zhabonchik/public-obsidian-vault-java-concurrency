@@ -95,7 +95,10 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     Object.entries<ContentDetails>(await fetchData)
       .filter(([k]) => {
         if (!excludePaths || excludePaths.length === 0) return true
-        return !excludePaths.some((p) => k.startsWith(p) || k.includes(p))
+        return !excludePaths.some((p) => {
+          const slugified = p.replace(/\s/g, "-")
+          return k.startsWith(slugified) || k.includes(slugified)
+        })
       })
       .map(([k, v]) => [simplifySlug(k as FullSlug), v]),
   )
@@ -145,6 +148,13 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   } else {
     validLinks.forEach((id) => neighbourhood.add(id))
     if (showTags) tags.forEach((tag) => neighbourhood.add(tag))
+  }
+
+  // Remove nodes that were excluded from data (e.g. via excludePaths)
+  for (const id of neighbourhood) {
+    if (!data.has(id) && !id.startsWith("tags/")) {
+      neighbourhood.delete(id)
+    }
   }
 
   const nodes = [...neighbourhood].map((url) => {
