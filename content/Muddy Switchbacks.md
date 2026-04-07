@@ -9,8 +9,6 @@ alignment:
 
 ## Description
 
-Capital of [[Nazca]]
-
 ## Notable Features
 
 ## Connections

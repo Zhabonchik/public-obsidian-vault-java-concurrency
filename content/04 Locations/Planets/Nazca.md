@@ -53,7 +53,7 @@ Caste of nobility
 Planet is a Civil Bureaucracy
 
 [[Gene Stitchers]] have base here - [[Stitcher's Guild Hall]]
-[[11-5-9 Commune]]
+[[11-5-9 Commune - San Lorenzo]]
 
 ## Connections
 [[Keenan Dougal]] lives here

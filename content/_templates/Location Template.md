@@ -1,12 +1,16 @@
 ---
-tags: [location]
+tags:
+  - location
 system:
 planet:
 uwp:
+alignment:
 ---
 
-**Description:**
+## Description
 
-**Notable Features:**
+## Notable Features
 
-**Connections:**
+## Connections
+
+

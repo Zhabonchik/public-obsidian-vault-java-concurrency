@@ -1,5 +1,6 @@
 ---
-tags: [npc]
+tags:
+  - npc
 status: alive
 affiliation:
 first-seen:

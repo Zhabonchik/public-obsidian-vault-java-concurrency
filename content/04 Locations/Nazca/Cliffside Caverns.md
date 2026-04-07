@@ -4,12 +4,10 @@ tags:
 system:
 planet: "[[Nazca]]"
 uwp:
-alignment:
+alignment: Hostile
 ---
 
 ## Description
-
-Capital of [[Nazca]]
 
 ## Notable Features
 

@@ -2,7 +2,7 @@
 tags:
   - location
 system:
-planet:
+planet: "[[Nazca]]"
 uwp:
 ---
 
