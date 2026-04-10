@@ -17,12 +17,11 @@ tags:
 ![[2024-source-of-life-awakening-frequency-1775790563664.webp|500]]
 
 ### 🏺 作品規格 (Specifications)
-- **作品編號**：2026-Huludun-01
 - **創作年代**：2024
 - **媒材**：瓷土 (Porcelain)
 - **釉藥與工法**：鈷釉、柴燒 (Cobalt Glaze, Wood-fired)
 - **尺寸**：18 × 18 × 19 cm
-- **現況**：參與 2026 南投縣陶藝學會聯展《躍馬奔騰》
+- **現況**：參與 [[2026-huludun-nantou-pottery|2026 南投縣陶藝學會聯展《躍馬奔騰》]]
 
 ---
 

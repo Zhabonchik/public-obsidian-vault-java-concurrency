@@ -1,5 +1,5 @@
 ---
-title: Incubation 孵
+title: Incubation | 孵
 date: 2015-08-16
 tags:
   - 作品
