@@ -14,7 +14,7 @@ tags:
 
 > 「瓷土細膩的白與鈷釉深邃的藍，在柴窯的火光中，碰撞出生命甦醒的頻率。」
 
-![[2024-source-of-life-awakening-frequency-1775790563664.webp|653x621]]
+![[2024-source-of-life-awakening-frequency-1775790563664.webp|500]]
 
 ### 🏺 作品規格 (Specifications)
 - **作品編號**：2026-Huludun-01
@@ -29,10 +29,10 @@ tags:
 ### 🔍 作品細節 (Visual Details)
 
 > [!multi-column]
-> > ![[2024-source-of-life-awakening-frequency-1775790546722.webp|653x576]]
+> > ![[2024-source-of-life-awakening-frequency-1775790546722.webp|500]]
 > > **俯視視角**：蓋鈕的螺旋動態與器身的鱗片紋飾，形成由中心向外擴散的生命張力。
 >
-> > ![[2024-source-of-life-awakening-frequency-1775790551104.webp|653x621]]
+> > ![[2024-source-of-life-awakening-frequency-1775790551104.webp|500]]
 > > **表面肌理**：密集堆疊的瓷土薄片，在側面光影下展現出細緻的色階變化。
 
 ---
@@ -44,11 +44,11 @@ tags:
 在釉藥選擇上，大膽使用**鈷釉**，並送入**柴窯**進行長時燒製。瓷土的細膩承載了落灰的自然沉澱，使鈷釉在藍綠之間產生了層次深邃的變化。這種隨機產生的火痕與落灰，象徵了生命在自然環境中不斷調整、甦醒並找到自身頻率的過程。
 
 > [!multi-column]
-> >![[2024-source-of-life-awakening-frequency-1775790570153.webp|653x601]]
+> >![[2024-source-of-life-awakening-frequency-1775790570153.webp|500]]
 >
-> > ![[2024-source-of-life-awakening-frequency-1775790573881.webp|653x644]]
+> > ![[2024-source-of-life-awakening-frequency-1775790573881.webp|500]]
 >
-> > ![[2024-source-of-life-awakening-frequency-1775790579848.webp|653x635]]
+> > ![[2024-source-of-life-awakening-frequency-1775790579848.webp|500]]
 
 ---
 
