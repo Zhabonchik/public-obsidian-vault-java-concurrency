@@ -7,6 +7,8 @@ tags:
 
 # My Internship Experience at MIXI
 
+![image](/media/IMG_0370.JPG)
+
 ## Introduction
 
 In January 2026, I joined MIXI through its Dive into MIXI internship program and worked on the DAD team, where I contributed to iOS development for FamilyAlbum (Mitene in Japanese). This was my first internship and my first experience working in a real product team. Because most of my previous development experience had been in solo projects or small teams of three or four people, I quickly realized that contributing in this environment required much more than technical ability alone.
