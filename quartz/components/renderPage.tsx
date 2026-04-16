@@ -70,7 +70,9 @@ export function getSiteRoot(cfg: GlobalConfiguration): FullSlug {
     return "/" as FullSlug
   }
 
-  return pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) as FullSlug : pathname as FullSlug
+  return pathname.endsWith("/") && pathname !== "/"
+    ? (pathname.slice(0, -1) as FullSlug)
+    : (pathname as FullSlug)
 }
 
 function renderTranscludes(

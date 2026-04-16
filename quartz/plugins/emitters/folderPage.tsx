@@ -6,13 +6,7 @@ import { getSiteRoot, pageResources, renderPage } from "../../components/renderP
 import { ProcessedContent, QuartzPluginData, defaultProcessedContent } from "../vfile"
 import { FullPageLayout } from "../../cfg"
 import path from "path"
-import {
-  FullSlug,
-  SimpleSlug,
-  stripSlashes,
-  joinSegments,
-  simplifySlug,
-} from "../../util/path"
+import { FullSlug, SimpleSlug, stripSlashes, joinSegments, simplifySlug } from "../../util/path"
 import { defaultListPageLayout, sharedPageComponents } from "../../../quartz.layout"
 import { FolderContent } from "../../components"
 import { write } from "./helpers"
