@@ -4,7 +4,13 @@ aliases:
   - "setting up your GitHub repository"
 ---
 
-First, make sure you have Quartz [[index#🪴 Get Started|cloned and setup locally]].
+First, make sure you have Quartz cloned and set up locally.
+
+```
+git clone -b v5 https://github.com/jackyzha0/quartz.git
+cd quartz
+npx quartz create
+```
 
 Then, create a new repository on GitHub.com. Do **not** initialize the new repository with `README`, license, or `gitignore` files.
 
