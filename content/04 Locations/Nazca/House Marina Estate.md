@@ -2,7 +2,7 @@
 tags:
   - location
 system:
-planet:
+planet: "[[Nazca]]"
 uwp:
 alignment:
 population:
@@ -13,5 +13,6 @@ population:
 ## Notable Features
 
 ## Connections
+[[House Marina]]
 
 

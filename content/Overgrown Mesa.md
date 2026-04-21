@@ -2,13 +2,15 @@
 tags:
   - location
 system:
-planet:
+planet: "[[Nazca]]"
 uwp:
 alignment:
 population:
 ---
 
 ## Description
+
+Located on [[Isle Garganta]]
 
 ## Notable Features
 

@@ -2,14 +2,14 @@
 tags:
   - location
 system:
-planet:
+planet: "[[Nazca]]"
 uwp:
-alignment:
-population:
+alignment: Hostile
 ---
 
 ## Description
 
+Fishing town on [[Isle Garganta]] on planet [[Nazca]]
 ## Notable Features
 
 ## Connections
