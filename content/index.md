@@ -29,9 +29,14 @@ image: lin-yung-chang-wood-firing.webp
 | :----------- | :------------------------------------------------------------------------------------ | :------ | :--- | ------------ | --- |
 | **03-04月**   | **[[notes/open-call/huangsi-art-exhibition\|Huang-Si Art Exhibition]]**               | 磺溪美展    | 關注中  | 新作對位 (113年後) |     |
 | **04/01-15** | **[[notes/open-call/da-dun-fine-arts-exhibition\|Da Dun Fine Arts Exhibition]]**      | 臺中市大墩美展 | 關注中  |              |     |
+| 5/15         | [[hsinchu-art-exhibition\|Hsinchu Art Exhibition]]                                    | 新竹美展    |      |              |     |
 | 05/19止       | **[[taiwan-green-craft\|Taiwan Green Craft]]**                                        | 臺灣綠工藝   | 關注中  |              |     |
+| 5/29         | [[pingtung-awards\|PingTung Awards]]                                                  | 屏東獎     |      |              |     |
 | **05/31止**   | **[[notes/open-call/yushan-fine-arts-award\|Nantou County Yushan Fine Arts Award]]**  | 南投玉山獎   | 進行中  | 實體照片 (5x7吋)  |     |
+| 5/31         | [[chiayi-art-exhibition\|The Art Exhibition Of Chiayi City]]                          | 嘉義桃城美展  |      |              |     |
 | **06月預計**    | **[[notes/open-call/golden-teapot-award\|Taiwan International Golden Teapot Award]]** | 金壺獎     | 關注中  | 機能與柴燒論述      |     |
+| 06/30        | [[nanying-award\|Nanying Award]]                                                      | 南瀛獎     |      |              |     |
+|              |                                                                                       |         |      |              |     |
 |              |                                                                                       |         |      |              |     |
 
 👉 [查看完整徵件資訊目錄與簡章存檔 →](notes/open-call/index)
