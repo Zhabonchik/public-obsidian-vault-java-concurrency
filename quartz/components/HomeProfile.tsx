@@ -157,7 +157,7 @@ const experience: ExperienceItem[] = [
     period: "Jan 2026 – Apr 2026",
     location: "Tokyo, Japan",
     description:
-      "Building and optimizing iOS features for FamilyAlbum, a photo-sharing platform with 27M+ users across 175 countries, used by 60% of parents in Japan.",
+      "Built and optimized iOS features for FamilyAlbum, a photo-sharing platform with 27M+ users across 175 countries, used by 60% of parents in Japan.",
     tags: ["Swift", "iOS", "Agile"],
   },
   {
