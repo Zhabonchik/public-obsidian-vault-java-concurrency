@@ -251,6 +251,25 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
 
       document.head.appendChild(rybbitScript);
     `)
+  } else if (cfg.analytics?.provider === "gizmo") {
+    const gizmoHost = cfg.analytics.host ?? "https://gizmoanalytics.io"
+    componentResources.afterDOMLoaded.push(`
+      const gizmoScript = document.createElement('script');
+      gizmoScript.src = '${gizmoHost}/script.js';
+      gizmoScript.setAttribute('data-key', '${cfg.analytics.dataKey}');
+      gizmoScript.defer = true;
+      gizmoScript.onload = () => {
+        // Quartz dispatches a 'nav' event for SPA navigation rather
+        // than History.pushState, so Gizmo's built-in History hooks
+        // don't fire on internal nav. Wire the nav event to the
+        // public window.gizmo() API to record those pageviews.
+        document.addEventListener('nav', () => {
+          if (window.gizmo) window.gizmo('pageview');
+        });
+      };
+
+      document.head.appendChild(gizmoScript);
+    `)
   }
 
   if (cfg.enableSPA) {

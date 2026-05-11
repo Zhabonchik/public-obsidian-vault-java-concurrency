@@ -55,6 +55,14 @@ export type Analytics =
       siteId: string
       host?: string
     }
+  | {
+      provider: "gizmo"
+      // Public key for ingest. Created at /dashboard/keys; safe to inline
+      // in browser-shipped source (write-only, can't read analytics).
+      dataKey: string
+      // Optional self-hosted origin. Defaults to https://gizmoanalytics.io.
+      host?: string
+    }
 
 export interface GlobalConfiguration {
   pageTitle: string
