@@ -45,6 +45,8 @@ Most of my team worked remotely, but I still decided to go to the office every d
 
 Another reason I enjoyed going to the office was the environment itself. The office made it easy to balance communication and focused work depending on what I needed that day. When I wanted to concentrate deeply on a task, I could use the Deep Zone, a dark room designed for quiet, focused work. At the same time, the building had convenience stores, coffee shops, and restaurants, which made it easy to spend the whole day there. The view over Tokyo from Shibuya Scramble Square also made the office feel like a special place to work.
 
+![image](/media/IMG_1856.jpg)
+
 ## Growing Through Team Workflow
 
 ### Defining My Goals
