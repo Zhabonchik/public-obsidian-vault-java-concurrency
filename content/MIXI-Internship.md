@@ -74,3 +74,5 @@ I also worked on a small UI refactor in which I changed a description field to d
 ## Conclusion
 
 More than anything, this internship changed the way I think about software development. Before joining MIXI, I focused mainly on implementation, but through this experience I learned that contributing in a real team also means communicating clearly, asking good questions, sharing your thinking, and moving work forward proactively. I also learned that I do not need to understand everything at once in order to contribute. What matters more is being able to prioritize, find the right information, and improve through feedback. Looking back, the most valuable part of the internship was learning how to become a more proactive and collaborative teammate in a real development team.
+
+![image](/media/IMG_1494.jpg)
