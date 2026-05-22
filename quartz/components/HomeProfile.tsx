@@ -162,7 +162,7 @@ const experience: ExperienceItem[] = [
     tags: ["TypeScript", "React", "Node.js", "LLM"],
   },
   {
-    role: "iOS Product Development Engineer",
+    role: "iOS Product Development Engineer Intern",
     company: "MIXI Inc.",
     companyUrl: "https://mixi.co.jp",
     logo: "/static/logos/mixi.svg",
