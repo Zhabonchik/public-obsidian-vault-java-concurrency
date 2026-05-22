@@ -119,6 +119,7 @@ interface ExperienceItem {
   company: string
   companyUrl: string
   logo: string
+  logoClass?: string
   period: string
   location: string
   description: string
@@ -150,7 +151,18 @@ interface AwardItem {
 
 const experience: ExperienceItem[] = [
   {
-    role: "Product Development Engineer",
+    role: "Full-Stack Product Development Engineer",
+    company: "BaseMe Inc.",
+    companyUrl: "https://baseme.app",
+    logo: "/static/logos/baseme.svg",
+    logoClass: "home-org-logo-baseme",
+    period: "May 2026 – Present",
+    location: "Tokyo, Japan",
+    description: "",
+    tags: ["TypeScript", "React", "Node.js", "LLM"],
+  },
+  {
+    role: "iOS Product Development Engineer",
     company: "MIXI Inc.",
     companyUrl: "https://mixi.co.jp",
     logo: "/static/logos/mixi.svg",
@@ -235,7 +247,7 @@ const HomeProfile: QuartzComponent = () => {
             <div class="home-exp-item">
               <div class="home-exp-row">
                 <span class="home-org-logo-badge">
-                  <img class="home-org-logo" src={item.logo} alt={item.company} />
+                  <img class={["home-org-logo", item.logoClass].filter(Boolean).join(" ")} src={item.logo} alt={item.company} />
                 </span>
                 <div class="home-exp-text">
                   <span class="home-exp-role">{item.role}</span>
