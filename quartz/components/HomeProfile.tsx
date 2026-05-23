@@ -151,7 +151,7 @@ interface AwardItem {
 
 const experience: ExperienceItem[] = [
   {
-    role: "Full-Stack Product Development Engineer",
+    role: "Full-Stack Software Engineer",
     company: "BaseMe Inc.",
     companyUrl: "https://baseme.app",
     logo: "/static/logos/baseme.svg",
@@ -162,7 +162,7 @@ const experience: ExperienceItem[] = [
     tags: ["TypeScript", "React", "Node.js", "LLM"],
   },
   {
-    role: "iOS Product Development Engineer Intern",
+    role: "iOS Software Engineer",
     company: "MIXI Inc.",
     companyUrl: "https://mixi.co.jp",
     logo: "/static/logos/mixi.svg",
@@ -173,7 +173,7 @@ const experience: ExperienceItem[] = [
     tags: ["Swift", "iOS", "Agile"],
   },
   {
-    role: "Google Student Ambassador",
+    role: "Student Ambassador",
     company: "Google Japan",
     companyUrl: "https://about.google/intl/ALL_jp/",
     logo: "/static/logos/google.svg",
