@@ -123,7 +123,7 @@ const MastodonIcon = () => (
 
 const homeLinks = [
   {
-    href: "mailto:riceset@icloud.com",
+    href: "mailto:komeno@riceset.com",
     label: "Email",
     Icon: MailIcon,
   },
