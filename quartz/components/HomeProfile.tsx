@@ -158,7 +158,7 @@ const experience: ExperienceItem[] = [
     logoClass: "home-org-logo-baseme",
     period: "May 2026 – Present",
     location: "Tokyo, Japan",
-    description: "",
+    description: "Building an AI-powered career agent used by job-seeking students in Japan. Focused on retention-driven UX improvements, LLM implementation, and mobile-web parity.",
     tags: ["TypeScript", "React", "Node.js", "LLM"],
   },
   {
