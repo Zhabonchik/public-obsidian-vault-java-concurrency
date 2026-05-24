@@ -173,7 +173,7 @@ const experience: ExperienceItem[] = [
     tags: ["Swift", "iOS", "Agile"],
   },
   {
-    role: "AI Student Ambassador",
+    role: "Google Student Ambassador",
     company: "Google Japan",
     companyUrl: "https://about.google/intl/ALL_jp/",
     logo: "/static/logos/google.svg",
