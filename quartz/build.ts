@@ -2,6 +2,7 @@ import sourceMapSupport from "source-map-support"
 sourceMapSupport.install(options)
 import path from "path"
 import { PerfTimer } from "./util/perf"
+import { promises as fsPromises, realpathSync } from "fs"
 import { rm } from "fs/promises"
 import { GlobbyFilterFunction, isGitIgnored } from "globby"
 import { styleText } from "util"
@@ -79,8 +80,21 @@ async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
   await rm(output, { recursive: true, force: true })
   console.log(`Cleaned output directory \`${output}\` in ${perf.timeSince("clean")}`)
 
+  // Resolve argv.directory to absolute path so that Windows junction/symlink
+  // targets are correctly followed by globby. Using realpathSync() resolves
+  // the junction to its actual target directory (e.g. content -> _posts/).
+  // path.resolve() alone is insufficient because it doesn't follow junctions.
+  let contentDir = path.isAbsolute(argv.directory)
+    ? argv.directory
+    : path.resolve(argv.directory)
+  try {
+    contentDir = realpathSync(contentDir)
+  } catch {
+    // realpathSync fails if the directory doesn't exist; fall back to original path
+  }
+
   perf.addEvent("glob")
-  const allFiles = await glob("**/*.*", argv.directory, cfg.configuration.ignorePatterns)
+  const allFiles = await glob("**/*.*", contentDir, cfg.configuration.ignorePatterns)
   const markdownPaths = allFiles.filter((fp) => fp.endsWith(".md")).sort()
   console.log(
     `Found ${markdownPaths.length} input files from \`${argv.directory}\` in ${perf.timeSince("glob")}`,
