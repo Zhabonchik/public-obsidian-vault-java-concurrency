@@ -14,4 +14,5 @@ Fork of jackyzha0/quartz. Serves an Obsidian vault as a static site via a k3s Cr
 - Config is `quartz.config.default.yaml` (YAML), not a TypeScript file
 - `Dockerfile` has no `CMD` — the CronJob provides the build command (`npx quartz build --output /site`)
 - TS errors in `Head.tsx` on cold checkout are expected; they resolve after `npm install` + a build (missing generated `.quartz/plugins` module)
-- `baseUrl` is a placeholder (`vault.home`) — update to actual Tailscale hostname once known
+- `pageTitle` and `baseUrl` in the config use `${QUARTZ_PAGE_TITLE}` / `${QUARTZ_BASE_URL}` placeholders — substituted at container startup via `docker-entrypoint.sh` using `envsubst`; defaults are set as `ENV` in the Dockerfile; override via CronJob env vars
+- `baseUrl` default is `vault.home` — override with actual Tailscale hostname once known
