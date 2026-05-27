@@ -158,7 +158,12 @@ export const CustomOgImages: QuartzEmitterPlugin<Partial<SocialImageOptions>> = 
               : undefined
             const defaultOgImagePath = `https://${baseUrl}/static/og-image.png`
             const ogImagePath = userDefinedOgImagePath ?? generatedOgImagePath ?? defaultOgImagePath
-            const ogImageMimeType = `image/${getFileExtension(ogImagePath) ?? "png"}`
+            // getFileExtension returns the match including the leading dot
+            // (e.g., ".png"), so strip it before interpolation — otherwise
+            // og:image:type emits "image/.png" and some social-preview
+            // parsers reject it as an invalid MIME type.
+            const ogImageExt = getFileExtension(ogImagePath)?.replace(/^\./, "") ?? "png"
+            const ogImageMimeType = `image/${ogImageExt}`
             return (
               <>
                 {!userDefinedOgImagePath && (
