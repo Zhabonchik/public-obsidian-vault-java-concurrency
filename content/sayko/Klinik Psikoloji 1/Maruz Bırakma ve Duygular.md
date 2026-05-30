@@ -1,0 +1,2 @@
+# Maruz Bırakma ve Duygular
+

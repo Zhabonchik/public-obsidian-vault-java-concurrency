@@ -1,0 +1,2 @@
+# Veri Toplama Yöntemleri I
+

@@ -1,0 +1,2 @@
+# Sosyal Algı ve Atıf
+

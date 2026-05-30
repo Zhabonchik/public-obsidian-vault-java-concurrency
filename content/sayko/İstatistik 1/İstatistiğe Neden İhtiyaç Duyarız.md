@@ -1,0 +1,2 @@
+# İstatistiğe Neden İhtiyaç Duyarız
+

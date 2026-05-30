@@ -1,0 +1,2 @@
+# Motivasyon ve Eylem Düzenlemesi
+

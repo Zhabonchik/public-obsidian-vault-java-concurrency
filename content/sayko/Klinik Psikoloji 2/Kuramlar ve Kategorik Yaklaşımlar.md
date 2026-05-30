@@ -1,0 +1,2 @@
+# Kuramlar ve Kategorik Yaklaşımlar
+

@@ -1,3 +1,0 @@
-
-# Hoşgeldin...
-Adam olun.
