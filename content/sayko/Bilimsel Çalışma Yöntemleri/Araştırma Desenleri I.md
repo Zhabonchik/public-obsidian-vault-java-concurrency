@@ -1,2 +1,0 @@
-# Araştırma Desenleri I
-
