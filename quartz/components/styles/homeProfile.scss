@@ -82,7 +82,6 @@
 // ── External links ─────────────────────────────────────────────────────────
 
 .home-ext-link {
-  font-size: inherit;
   color: var(--secondary);
   text-decoration: none;
   background-color: transparent !important;
@@ -131,6 +130,25 @@
   height: 90%;
   margin: auto;
   object-position: center center;
+}
+
+.home-org-logo-harvard {
+  width: 85%;
+  height: 85%;
+  margin: auto;
+}
+
+.home-org-logo-innovationacademy {
+  width: 90%;
+  height: 90%;
+  margin: auto;
+  object-fit: contain;
+}
+
+.home-org-logo-mercari {
+  width: 85%;
+  height: 85%;
+  margin: auto;
 }
 
 .home-org-logo-baseme {

@@ -66,6 +66,57 @@ const AwardIcon = () => (
   </svg>
 )
 
+const CertificationIcon = () => (
+  <svg
+    class="section-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z" />
+    <polyline points="9 12 11 14 15 10" />
+  </svg>
+)
+
+const HackathonIcon = () => (
+  <svg
+    class="section-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+    <path d="M4 22h16" />
+    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+    <path d="M18 2H6v7a6 6 0 0 0 12 0V2z" />
+  </svg>
+)
+
+const MicIcon = () => (
+  <svg
+    class="section-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+    <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+    <line x1="12" y1="19" x2="12" y2="22" />
+    <line x1="8" y1="22" x2="16" y2="22" />
+  </svg>
+)
+
 const CalendarIcon = () => (
   <svg class="meta-icon" viewBox="-1 -1 26 26" fill="currentColor" stroke="none">
     <path
@@ -96,7 +147,7 @@ const LocationIcon = () => (
 
 interface MetaRowProps {
   period: string
-  location: string
+  location?: string
 }
 
 const MetaRow = ({ period, location }: MetaRowProps) => (
@@ -105,10 +156,12 @@ const MetaRow = ({ period, location }: MetaRowProps) => (
       <CalendarIcon />
       <span>{period}</span>
     </span>
-    <span class="home-meta-item">
-      <LocationIcon />
-      <span>{location}</span>
-    </span>
+    {location && (
+      <span class="home-meta-item">
+        <LocationIcon />
+        <span>{location}</span>
+      </span>
+    )}
   </div>
 )
 
@@ -149,6 +202,34 @@ interface AwardItem {
   description: string
 }
 
+interface CertificationItem {
+  title: string
+  issuer: string
+  logo?: string
+  logoClass?: string
+  date: string
+  certUrl?: string
+}
+
+interface HackathonItem {
+  title: string
+  organizer: string
+  logo?: string
+  logoClass?: string
+  date: string
+  location: string
+}
+
+interface SpeakingItem {
+  role: string
+  organization: string
+  logo?: string
+  logoClass?: string
+  description: string
+  date: string
+  location: string
+}
+
 const experience: ExperienceItem[] = [
   {
     role: "Full-Stack Software Engineer",
@@ -158,7 +239,8 @@ const experience: ExperienceItem[] = [
     logoClass: "home-org-logo-baseme",
     period: "May 2026 – Present",
     location: "Tokyo, Japan",
-    description: "Building an AI-powered career agent for job-seeking students in Japan, focused on retention-driven UX improvements, LLM implementation, and mobile-web parity.",
+    description:
+      "Building an AI-powered career agent for job-seeking students in Japan, focused on retention-driven UX improvements, LLM implementation, and mobile-web parity.",
     tags: ["TypeScript", "React", "Node.js", "LLM"],
   },
   {
@@ -217,9 +299,76 @@ const awards: AwardItem[] = [
     title: "MEXT Undergraduate Scholarship",
     logo: "/static/logos/mext.svg",
     logoClass: "home-org-logo-mext",
-    institution: "The Government of Japan",
+    institution: "Ministry of Education of Japan",
     description:
       "Scholarship awarded through embassy recommendation, covering full tuition, living expenses, and travel for undergraduate studies in Japan.",
+  },
+]
+
+const certifications: CertificationItem[] = [
+  {
+    title: "Introduction to Computer Science",
+    issuer: "Harvard University",
+    logo: "/static/logos/harvard.svg",
+    logoClass: "home-org-logo-harvard",
+    date: "Jul 2021",
+    certUrl: "https://cs50.harvard.edu/certificates/bd575551-1159-49e7-a81b-672d2526b34c",
+  },
+]
+
+const hackathons: HackathonItem[] = [
+  {
+    title: "try! Swift Tokyo Hackathon Winner",
+    organizer: "Mercari Inc.",
+    logo: "/static/logos/tryswift.svg",
+    logoClass: "home-org-logo-mercari",
+    date: "Apr 2026",
+    location: "Tokyo, Japan",
+  },
+  {
+    title: "Mistral Worldwide Hackathon",
+    organizer: "Mistral AI",
+    logo: "/static/logos/mistral.svg",
+    date: "Feb 2026",
+    location: "Tokyo, Japan",
+  },
+  {
+    title: "24-Hour Hackathon by 42 Asia: 2nd Place",
+    organizer: "Singapore University of Technology and Design",
+    logo: "/static/logos/sutd.svg",
+    date: "Sep 2024",
+    location: "Seoul, Korea",
+  },
+]
+
+const speaking: SpeakingItem[] = [
+  {
+    role: "Guest Speaker",
+    organization: "Ministry of Foreign Affairs of Japan",
+    logo: "/static/logos/mofa.svg",
+    description:
+      "Spoke at a Consulate-General of Japan in São Paulo webinar, sharing my MEXT scholarship experience with prospective students.",
+    date: "Apr 2026",
+    location: "Tokyo, Japan",
+  },
+  {
+    role: "Guest Speaker",
+    organization: "이노베이션 아카데미",
+    logo: "/static/logos/innovationacademy_cropped.jpg",
+    logoClass: "home-org-logo-innovationacademy",
+    description:
+      "Joined a cross-campus podcast between Innovation Academy and 42 Tokyo, exchanging perspectives on the 42 Network with Korean students.",
+    date: "Jan 2024",
+    location: "Seoul, Korea",
+  },
+  {
+    role: "Educational Content Creator",
+    organization: "École 42",
+    logo: "/static/logos/42.svg",
+    description:
+      "Produced a Vim tutorial video in Brazilian Portuguese for the school's YouTube channel, teaching beginners the basics.",
+    date: "Apr 2023",
+    location: "São Paulo, Brazil",
   },
 ]
 
@@ -247,7 +396,11 @@ const HomeProfile: QuartzComponent = () => {
             <div class="home-exp-item">
               <div class="home-exp-row">
                 <span class="home-org-logo-badge">
-                  <img class={["home-org-logo", item.logoClass].filter(Boolean).join(" ")} src={item.logo} alt={item.company} />
+                  <img
+                    class={["home-org-logo", item.logoClass].filter(Boolean).join(" ")}
+                    src={item.logo}
+                    alt={item.company}
+                  />
                 </span>
                 <div class="home-exp-text">
                   <span class="home-exp-role">{item.role}</span>
@@ -291,6 +444,36 @@ const HomeProfile: QuartzComponent = () => {
         </div>
       </section>
 
+      {/* Hackathons */}
+      <section class="home-section">
+        <h2 class="home-section-heading">
+          <HackathonIcon />
+          Hackathons
+        </h2>
+        <div class="home-award-list">
+          {hackathons.map((item) => (
+            <div class="home-award-item">
+              <div class="home-award-row">
+                {item.logo && (
+                  <span class="home-org-logo-badge">
+                    <img
+                      class={["home-org-logo", item.logoClass].filter(Boolean).join(" ")}
+                      src={item.logo}
+                      alt={item.organizer}
+                    />
+                  </span>
+                )}
+                <div class="home-award-text">
+                  <span class="home-award-title">{item.title}</span>
+                  <span class="home-award-institution">{item.organizer}</span>
+                  <MetaRow period={item.date} location={item.location} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Awards */}
       <section class="home-section">
         <h2 class="home-section-heading">
@@ -312,6 +495,94 @@ const HomeProfile: QuartzComponent = () => {
                   <span class="home-award-title">{item.title}</span>
                   <span class="home-award-institution">{item.institution}</span>
                   <p class="home-award-desc">{item.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Speaking */}
+      <section class="home-section">
+        <h2 class="home-section-heading">
+          <MicIcon />
+          Talks
+        </h2>
+        <div class="home-exp-list">
+          {speaking.map((item) => (
+            <div class="home-exp-item">
+              <div class="home-exp-row">
+                {item.logo && (
+                  <span class="home-org-logo-badge">
+                    <img
+                      class={["home-org-logo", item.logoClass].filter(Boolean).join(" ")}
+                      src={item.logo}
+                      alt={item.organization}
+                    />
+                  </span>
+                )}
+                <div class="home-exp-text">
+                  <span class="home-exp-role">{item.organization}</span>
+                  <div class="home-exp-meta">
+                    <MetaRow period={item.date} location={item.location} />
+                  </div>
+                  <div class="home-exp-body">
+                    <p class="home-exp-desc">{item.description}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Certifications */}
+      <section class="home-section">
+        <h2 class="home-section-heading">
+          <CertificationIcon />
+          Certifications
+        </h2>
+        <div class="home-award-list">
+          {certifications.map((item) => (
+            <div class="home-award-item">
+              <div class="home-award-row">
+                {item.logo && (
+                  <span class="home-org-logo-badge">
+                    <img
+                      class={["home-org-logo", item.logoClass].filter(Boolean).join(" ")}
+                      src={item.logo}
+                      alt={item.issuer}
+                    />
+                  </span>
+                )}
+                <div class="home-award-text">
+                  <span class="home-award-title">{item.title}</span>
+                  <span class="home-award-institution">{item.issuer}</span>
+                  <div class="home-meta-row">
+                    {item.certUrl && (
+                      <a
+                        class="home-meta-item home-ext-link"
+                        href={item.certUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <svg
+                          class="meta-icon"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                        <span>See Credential</span>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
