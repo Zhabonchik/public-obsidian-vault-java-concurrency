@@ -360,7 +360,7 @@ const languages: Language[] = [
   { flag: "🇧🇷", name: "Portuguese", level: "Native" },
   { flag: "🇯🇵", name: "Japanese", level: "Bilingual" },
   { flag: "🇺🇸", name: "English", level: "Bilingual" },
-  { flag: "🇪🇸", name: "Spanish", level: "Professional" },
+  { flag: "🇪🇸", name: "Spanish", level: "Conversational" },
   { flag: "🇨🇳", name: "Mandarin", level: "Conversational" },
 ]
 
