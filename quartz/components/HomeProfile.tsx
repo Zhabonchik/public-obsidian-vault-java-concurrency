@@ -326,13 +326,6 @@ const hackathons: HackathonItem[] = [
     location: "Tokyo, Japan",
   },
   {
-    title: "Mistral Worldwide Hackathon",
-    organizer: "Mistral AI",
-    logo: "/static/logos/mistral.svg",
-    date: "Feb 2026",
-    location: "Tokyo, Japan",
-  },
-  {
     title: "24-Hour Hackathon by 42 Asia: 2nd Place",
     organizer: "Singapore University of Technology and Design",
     logo: "/static/logos/sutd.svg",
@@ -360,15 +353,6 @@ const speaking: SpeakingItem[] = [
       "Joined a cross-campus podcast between Innovation Academy and 42 Tokyo, exchanging perspectives on the 42 Network with Korean students.",
     date: "Jan 2024",
     location: "Seoul, Korea",
-  },
-  {
-    role: "Educational Content Creator",
-    organization: "École 42",
-    logo: "/static/logos/42.svg",
-    description:
-      "Produced a Vim tutorial video in Brazilian Portuguese for the school's YouTube channel, teaching beginners the basics.",
-    date: "Apr 2023",
-    location: "São Paulo, Brazil",
   },
 ]
 
@@ -444,36 +428,6 @@ const HomeProfile: QuartzComponent = () => {
         </div>
       </section>
 
-      {/* Hackathons */}
-      <section class="home-section">
-        <h2 class="home-section-heading">
-          <HackathonIcon />
-          Hackathons
-        </h2>
-        <div class="home-award-list">
-          {hackathons.map((item) => (
-            <div class="home-award-item">
-              <div class="home-award-row">
-                {item.logo && (
-                  <span class="home-org-logo-badge">
-                    <img
-                      class={["home-org-logo", item.logoClass].filter(Boolean).join(" ")}
-                      src={item.logo}
-                      alt={item.organizer}
-                    />
-                  </span>
-                )}
-                <div class="home-award-text">
-                  <span class="home-award-title">{item.title}</span>
-                  <span class="home-award-institution">{item.organizer}</span>
-                  <MetaRow period={item.date} location={item.location} />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Awards */}
       <section class="home-section">
         <h2 class="home-section-heading">
@@ -529,6 +483,36 @@ const HomeProfile: QuartzComponent = () => {
                   <div class="home-exp-body">
                     <p class="home-exp-desc">{item.description}</p>
                   </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Hackathons */}
+      <section class="home-section">
+        <h2 class="home-section-heading">
+          <HackathonIcon />
+          Hackathons
+        </h2>
+        <div class="home-award-list">
+          {hackathons.map((item) => (
+            <div class="home-award-item">
+              <div class="home-award-row">
+                {item.logo && (
+                  <span class="home-org-logo-badge">
+                    <img
+                      class={["home-org-logo", item.logoClass].filter(Boolean).join(" ")}
+                      src={item.logo}
+                      alt={item.organizer}
+                    />
+                  </span>
+                )}
+                <div class="home-award-text">
+                  <span class="home-award-title">{item.title}</span>
+                  <span class="home-award-institution">{item.organizer}</span>
+                  <MetaRow period={item.date} location={item.location} />
                 </div>
               </div>
             </div>
