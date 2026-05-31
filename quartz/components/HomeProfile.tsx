@@ -229,7 +229,6 @@ const languages: Language[] = [
   { flag: "🇺🇸", name: "English", level: "Bilingual" },
   { flag: "🇪🇸", name: "Spanish", level: "Professional" },
   { flag: "🇨🇳", name: "Mandarin", level: "Conversational" },
-  { flag: "🇫🇷", name: "French", level: "Elementary" },
 ]
 
 // ── Component ──────────────────────────────────────────────────────────────
