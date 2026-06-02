@@ -112,7 +112,6 @@ Looking at where some words fall:
 - Rank ~1: 的
 - Rank ~130: 爱
 - Rank ~3000: 地铁, 女朋友, 尴尬
-- Rank ~41000: 钻空子
 
 I settled on a window of **1500 to 15000**. The lower bound removes the ultra-high-frequency words that any beginner already knows. The upper bound removes words that would rarely come up in real conversation.
 
