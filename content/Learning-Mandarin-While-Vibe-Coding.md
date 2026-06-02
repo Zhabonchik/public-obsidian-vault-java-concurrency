@@ -8,6 +8,8 @@ tags:
 
 # Learning Mandarin While Vibe Coding
 
+![image](/media/Learning Mandarin While Vibe Coding.png)
+
 I have been studying Mandarin for a while now. I recently came across [this article on Zenn](https://zenn.dev/acompany/articles/3ba7eb3308dad6) where the author uses Claude Code's `spinnerVerbs` feature to display English conversation phrases while waiting for Claude to process. The idea is simple: instead of staring at a spinner doing nothing, you get a flashcard. I thought it would be interesting to do something similar for Mandarin.
 
 I found a dataset on GitHub called [complete-hsk-vocabulary](https://github.com/drkameleon/complete-hsk-vocabulary) by drkameleon. It compiles the full HSK 2.0 and 3.0 vocabulary lists into a single JSON file with pinyin, part-of-speech tags, frequency rankings, and CC-CEDICT definitions for each entry. The minified version has over 10,000 entries, but before using it I needed to clean it up. Surnames, place names, cross-references, obscure words, and verbose definitions were all mixed in with the useful vocabulary.
