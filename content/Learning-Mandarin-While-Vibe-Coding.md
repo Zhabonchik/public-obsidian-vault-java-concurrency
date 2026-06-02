@@ -315,5 +315,3 @@ Some examples from the output:
 When simplified and traditional are the same, only one form is shown. When they differ, both appear separated by a slash.
 
 The two constants `RANK_MIN` and `RANK_MAX` at the top are easy to tune. Lowering `RANK_MIN` to 500 brings back the common basics. Raising `RANK_MAX` to 20000 adds more advanced vocabulary.
-
-I will link to the GitHub repository containing the Python script and the generated JSON file in case you want to use it directly without running the script yourself.
