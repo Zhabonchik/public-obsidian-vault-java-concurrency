@@ -8,7 +8,7 @@ tags:
 
 # Learning Mandarin While Vibe Coding
 
-![image](/media/Learning Mandarin While Vibe Coding.png)
+![image](/media/LearningMandarinWhileVibeCoding.png)
 
 I have been studying Mandarin for a while now. I recently came across [this article on Zenn](https://zenn.dev/acompany/articles/3ba7eb3308dad6) where the author uses Claude Code's `spinnerVerbs` feature to display English conversation phrases while waiting for Claude to process. The idea is simple: instead of staring at a spinner doing nothing, you get a flashcard. I thought it would be interesting to do something similar for Mandarin.
 
