@@ -1,4 +1,4 @@
-# Giriş: [Gelişim Psikolojisi]nin Konusu ve Görevleri
+# Giriş: Gelişim Psikolojisinin Konusu ve Görevleri
 
 
 >Gelişim nedir? 

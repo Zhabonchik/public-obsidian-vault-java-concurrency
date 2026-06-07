@@ -34,7 +34,7 @@ Bu durumu açıklayan 2 model ailesi var.
 
 Bu modele göre herkes aynı lineer çizgi üzerinde bi yerlerde. Çizginin bir ucunda "aklıma **hiç** gelmiyor" diğer uçta "yıllardır yapıyorum".
 Kişiyi o çizgide ileriye ya da geriye iten şey bilişsel ve duygusal değişkenler: 
-- **riski ne kadar ciddiye alıyorsun?
+- **riski ne kadar ciddiye alıyorsun?**
 - **başarabileceğine inanıyor musun?**
 - **sonuç senin için önemli mi?**
 Tüm bu değişkenlerin kombinasyonu davranış *olasılığını* belirliyor. 
@@ -70,13 +70,13 @@ Albert Bandura (1925-2021), 1977'de bir teori ortaya koyuyor ve psikoloji bir da
 Sosyal Bilişsel Teori bugün hâlâ her psikoloji alanında temel referans. 
 Teorinin tamamı epey geniş ama sağlık açısından kritik 2 kavram var:
 
->- ***öz-yeterlilik beklentileri
->- eylem sonucu beklentileri
+>- ***öz-yeterlilik beklentileri***
+>***- eylem sonucu beklentileri***
 
 *Bandura'ya gröre bilişsel, motivasyonel, duygusal ve eylemsel süreçlerin hepsi öznel beklentiler tarafından yönlendiriliyor.
 Yani kafandaki hesap, davranışlarını şekillendiriyor.*
 
-***Önce hesap: Sonuç beklentileri
+***Önce hesap: Sonuç beklentileri***
 
 Düşün, bir kalp hastası diyeni değiştirmeyi düşünüyor. Aklında **otomatik bir terazi** kurulur: bir tarafta "az yağlı beslenirse kalp krizi riskini düşürür", diğer tarafta "ama o zaman yemek artık lezzetli olmaz."
 İşte bu **tartma** süreci eylem sonucu beklentileridir, yani beklenen davranış sonuçlarının zihinsel değerlendirilmesi. **Pazarlık** aşaması: olumlu beklentiler baskınsa hedef oluşur, olumsuzlar baskınsa değişim başlamaz. 
@@ -84,7 +84,7 @@ Düşün, bir kalp hastası diyeni değiştirmeyi düşünüyor. Aklında **otom
 ***Burdaki kritik nokta: sonuçların ne olacağını bilmek, o sonuçlara ulaşabileceğini düşünmek demek değildir. Bu ikisi tamamen bağımsız.***
 
 
-***Asıl olay: Öz-yeterlilik
+***Asıl olay: Öz-yeterlilik***
 
 Kişinin zor durumlarda dahi belirli bi davranışı gerçekleştirebileceğine dair kendi kapasitesine ilişkin inancı. 
 >"Ben bunu yapabilir miyim?"
@@ -258,7 +258,7 @@ Normatif inançlar X "boyun eğme isteği"
 ```
 "Kankam Abidin daha çok spor yapmamı istiyor"
 X
-"Kankam Abidin'in sözünü ne kadar kaale alırım?"
+"Kankam Abidin'i ne kadar kaale alırım?"
 ```
 
 *Sosyal etkinin bu kadar açık ele alınması, bu teorinin ortaya çıktığı dönem için bir özgünlüktü. İşin tuhaf tarafı, sosyal etkileri bu kadar açıkça hesaba katsalar da, yapılan çalışmalarda subjektif norm niyetin hep **en zayıf tahminci**si çıkar.
@@ -303,3 +303,4 @@ Bize nehri gerçekten geçtirecek, tutum ile davranış arasındaki köprü olac
 ## Korkunun Ecele Faydası
 *Koruma Motivasyonu Teorisi (PMT - Protection Motivation Theory)*
 
+bunu da yarın falan yazarım.
