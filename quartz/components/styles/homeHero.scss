@@ -97,7 +97,7 @@ $hero-mobile: "(max-width: 767px)";
 
 @media (prefers-color-scheme: dark) {
   .home-avatar {
-    border-color: rgb(22, 22, 24);
+    border-color: #000;
     outline-color: var(--lightgray);
   }
 }
