@@ -165,6 +165,7 @@ $hero-mobile: "(max-width: 767px)";
 .home-links .darkmode {
   width: 2rem;
   height: 2rem;
+  margin-left: calc((2rem - 18px) / -2);
   color: var(--secondary);
 
   & svg {
