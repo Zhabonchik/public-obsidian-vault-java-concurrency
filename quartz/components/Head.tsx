@@ -26,6 +26,8 @@ export default (() => {
     const path = url.pathname as FullSlug
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
     const iconPath = joinSegments(baseDir, "static/icon.png")
+    const faviconLightPath = joinSegments(baseDir, "static/logo-light.svg")
+    const faviconDarkPath = joinSegments(baseDir, "static/logo-dark.svg")
 
     // Url of current page
     const socialUrl =
@@ -95,12 +97,12 @@ export default (() => {
           </>
         )}
 
+        <link rel="icon" href={faviconLightPath} media="(prefers-color-scheme: light)" />
+        <link rel="icon" href={faviconDarkPath} media="(prefers-color-scheme: dark)" />
         <link rel="icon" href={iconPath} />
         <meta name="description" content={description} />
         <meta name="generator" content="Quartz" />
-        {isHomePage && (
-          <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
-        )}
+        {isHomePage && <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>}
 
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
         {js
