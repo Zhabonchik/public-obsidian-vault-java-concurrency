@@ -107,6 +107,11 @@ $hero-mobile: "(max-width: 767px)";
   outline-color: var(--lightgray);
 }
 
+:root[saved-theme="light"] .home-avatar {
+  border-color: var(--light);
+  outline-color: var(--lightgray);
+}
+
 .home-hero-text {
   display: flex;
   flex-direction: column;
