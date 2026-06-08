@@ -44,7 +44,7 @@ PageTitle.css = `
 .page-title-link {
   display: flex;
   align-items: center;
-  gap: 0.4em;
+  gap: 0.2em;
   text-decoration: none;
   color: inherit;
 }
