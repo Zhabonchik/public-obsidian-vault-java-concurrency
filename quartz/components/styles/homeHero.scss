@@ -1,10 +1,67 @@
 @use "../../styles/variables.scss" as *;
 
 .home-hero {
-  padding: 1.75rem 0;
+  padding-bottom: 1.75rem;
 
   @media all and ($mobile) {
-    padding: 1.25rem 0;
+    padding-bottom: 1.25rem;
+  }
+}
+
+.home-banner {
+  width: 100%;
+  height: 120px;
+  background: var(--lightgray);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  overflow: hidden;
+
+  @media all and ($mobile) {
+    height: 90px;
+    gap: 0.6rem;
+  }
+}
+
+.home-banner-logo {
+  height: 2.8rem;
+  width: auto;
+
+  @media all and ($mobile) {
+    height: 2rem;
+  }
+}
+
+.home-banner-logo-dark {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .home-banner-logo-light {
+    display: none;
+  }
+  .home-banner-logo-dark {
+    display: block;
+  }
+}
+
+:root[saved-theme="dark"] .home-banner-logo-light { display: none; }
+:root[saved-theme="dark"] .home-banner-logo-dark { display: block; }
+:root[saved-theme="light"] .home-banner-logo-light { display: block; }
+:root[saved-theme="light"] .home-banner-logo-dark { display: none; }
+
+.home-banner-wordmark {
+  font-family: var(--headerFont);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.02em;
+  line-height: 1;
+
+  @media all and ($mobile) {
+    font-size: 1.6rem;
   }
 }
 
@@ -12,25 +69,29 @@
   display: flex;
   align-items: flex-start;
   gap: 1.5rem;
+  margin-top: -44px;
+  padding: 0 1rem;
 
   @media all and ($mobile) {
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
+    margin-top: -36px;
   }
 }
 
 .home-avatar {
-  width: 100px;
-  height: 100px;
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  border: 2px solid var(--lightgray);
+  border: 3px solid var(--light);
+  outline: 2px solid var(--lightgray);
 
   @media all and ($mobile) {
-    width: 80px;
-    height: 80px;
+    width: 72px;
+    height: 72px;
   }
 }
 

@@ -167,6 +167,11 @@ const homeLinks = [
 const HomeHero: QuartzComponent = (props: QuartzComponentProps) => {
   return (
     <section class="home-hero">
+      <div class="home-banner" aria-hidden="true">
+        <img src="/static/logo-light.svg" alt="" class="home-banner-logo home-banner-logo-light" />
+        <img src="/static/logo-dark.svg" alt="" class="home-banner-logo home-banner-logo-dark" />
+        <span class="home-banner-wordmark">riceset</span>
+      </div>
       <div class="home-hero-inner">
         <img class="home-avatar" src="/media/index/icon.jpg" alt="Komeno" />
         <div class="home-hero-text">
