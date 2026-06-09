@@ -20,7 +20,7 @@ const logoPaths = [
 ]
 
 const FONT_SIZE = 130
-const GAP = 28
+const GAP = FONT_SIZE * 0.2
 const EST_TEXT_W = 430
 const GROUP_W = LOGO_SIZE + GAP + EST_TEXT_W
 const GROUP_X = (W - GROUP_W) / 2
