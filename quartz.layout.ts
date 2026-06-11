@@ -58,29 +58,8 @@ export const defaultContentPageLayout: PageLayout = {
       ),
       condition: (props) => props.fileData.slug !== "index",
     }),
-    Component.ConditionalRender({
-      component: Component.MobileOnly(Component.Search({ variant: "page-corner" })),
-      condition: (props) => props.fileData.slug !== "index",
-    }),
-    Component.ConditionalRender({
-      component: Component.MobileOnly(Component.Darkmode()),
-      condition: (props) => props.fileData.slug !== "index",
-    }),
   ],
   right: [
-    Component.ConditionalRender({
-      component: Component.DesktopOnly(
-        Component.Flex({
-          components: [
-            { Component: Component.Search({ variant: "page-corner" }) },
-            { Component: Component.Darkmode() },
-          ],
-          direction: "row",
-          gap: "0.5rem",
-        }),
-      ),
-      condition: (props) => props.fileData.slug !== "index",
-    }),
     Component.ConditionalRender({
       component: Component.DesktopOnly(Component.TableOfContents()),
       condition: (props) => props.fileData.slug !== "index",
