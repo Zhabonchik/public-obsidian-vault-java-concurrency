@@ -35,7 +35,7 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
 
 PageTitle.css = `
 .page-title {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   margin: 0;
   color: var(--dark);
   transition: color 0.2s ease;
@@ -85,6 +85,36 @@ PageTitle.css = `
 }
 :root[saved-theme="light"] .site-logo-dark {
   display: none;
+}
+
+@media (min-width: 1200px) {
+  .sidebar.left > .page-title {
+    position: relative;
+    padding-bottom: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .sidebar.left > .page-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0.5rem;
+    bottom: 0;
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--lightgray) 95%, transparent) 0%,
+      color-mix(in srgb, var(--lightgray) 60%, transparent) 75%,
+      transparent 100%
+    );
+  }
+}
+
+@media (max-width: 1199px) {
+  .sidebar.left > .page-title {
+    font-size: 1.35rem;
+    padding-left: 0.25rem;
+  }
 }
 `
 
