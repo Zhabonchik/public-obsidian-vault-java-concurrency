@@ -1,6 +1,28 @@
 @use "./base.scss";
 @use "./variables.scss" as *;
 
+// Center the logo + title inside the mobile floating top bar wherever it
+// appears. The Spacer that used to push controls right is collapsed since
+// the bar has no other controls.
+@media all and ($mobile) {
+  body[data-page-type="content"] .sidebar.left,
+  body[data-page-type="tag"] .sidebar.left {
+    justify-content: center;
+
+    // `.mobile-only` sets display:initial !important on mobile, so we need
+    // !important here to hide the now-unused spacer.
+    & > .spacer {
+      display: none !important;
+    }
+
+    // Drop PageTitle's mobile padding-left so the logo + text sit on the
+    // visual center, not 0.25rem off.
+    & > .page-title {
+      padding-left: 0;
+    }
+  }
+}
+
 // Center the right sidebar content ONLY on mobile devices
 @media all and ($mobile) {
   .right.sidebar {
