@@ -1,6 +1,17 @@
 @use "./base.scss";
 @use "./variables.scss" as *;
 
+// Keep the PageTitle link color stable across hover / visited / active /
+// focus. Global `a:hover` switches to var(--tertiary); the title should not
+// recolor when the user hovers or clicks the home link in the floating bar.
+.page-title-link,
+.page-title-link:hover,
+.page-title-link:visited,
+.page-title-link:active,
+.page-title-link:focus {
+  color: var(--dark);
+}
+
 // Center the logo + title inside the mobile floating top bar wherever it
 // appears. The Spacer that used to push controls right is collapsed since
 // the bar has no other controls.
@@ -61,4 +72,3 @@
     }
   }
 }
-
