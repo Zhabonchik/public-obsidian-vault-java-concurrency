@@ -300,7 +300,381 @@ Bize nehri gerçekten geçtirecek, tutum ile davranış arasındaki köprü olac
 
 
 
-## Korkunun Ecele Faydası
-*Koruma Motivasyonu Teorisi (PMT - Protection Motivation Theory)*
+## Korkunun Ecele Faydası (var mı?)
+*Koruma Motivasyonu Teorisi (PMT - Protection Motivation Theory
 
-bunu da yarın falan yazarım.
+>Niyet etmek neden yetmez? 
+>Korku mesajları gerçekten işe yarıyor mu?
+
+*PMT korku mesajlarının etkisin incelemek için geliştirildi.*
+
+1975'de Rogers, şunu merak etti: sigara paketlerine "Bu ürün sizi öldürür" yazsan, insanlara yeterince korkunç görüntüler göstersen, bu gerçekten de davranışı değiştirir mi? 
+
+*Sigara paketindeki fotoğraf sizi korkutabilir, ama "zaten bırakamam" diyorsanız, o korku sadece kaygı üretiyor, **niyet**  üretmiyor.*
+
+Kişi sağlıkla ilgili bir bilgiyle karşılaştığında iki paralel değerlendirme başlatır: *tehdit değerlendirmesi **ve** başa çıkma değerlendirmesi.*
+
+Yani, "***bu şey ne kadar ciddi ve ben ne kadar risk altındayım"*** ile ***"bunu atlatabilir miyim ve beni ne kadar zorlar?"*** 
+
+Bu iki süreç koruyucu niyeti oluşturur. 
+
+
+**Yani: Sigara paketinde rezalet bi enfekte olmuş ayak fotoğrafı görünce, beyin 2 şeyi aynı anda soruyor: "bu beni ne kadar etkiler?" ve "bırakmak ne kadar mümkün?".***
+Eğer ikinci soruya "yapabilirim" cevabı gelmiyorsa, ilk sorunun cevabı *ne kadar yüksek olursa olsun*, **sigarayı bırakmak için niyet oluşmuyor**. 
+
+>Bu yüzden korku mesajları tek başına pek bi işe yaramıyor. Kişinin "***ben bunu yapabilirim***" demesi ***şart.***
+
+Araştırmalara göre niyet, o davranışın gerçekten sergilenmesini sağlamaya yetmiyor. 
+Bir insanın bir eylemi gerçekleştirip gerçekleştirmemesinde rol oynayan onlarca farklı faktör vardır ve **niyet** bu faktörlerin sadece 20-30% kısmını kapsıyor. 
+
+
+
+***Niyet-Davranış Uçurumu için örnek:*** Her yılbaşı verilen sözleri düşün: "bu yıl hiç ekmek yemeyeceğim", "bu yıl her gün spor yapcam".
+Motivasyon **tam**. 
+Ama Ocak sonu o motivasyonun çoğu **biter.**
+***Niyet oluşturmada hiç bi sorun yok. Uygulamada var.***
+
+
+
+*Bir tehdidin ciddiyeti ve kişinin savunmasızlığı, bunlar işin "maliyet" tarafı.*
+
+"Maliyet" kalemlerinin karşısında da, *mevcut davranışın sağladığı içsel (örn. sigaranın rahatlatıcı etkisi) ve dışsal (örn. arkadaş grubunun onayı)"ödüller" var.*
+
+Kişi bunların arasında bilinçli ya da bilinçsiz bir denge kurar. 
+
+Heckhausen'e motivasyon, niyet oluşana kadar süren *süreçtir.*
+Niyet oluştuğunda ***volisyon*** fazı başlar. 
+***Artık soru "Yapacak mıyım?" değil, "Nasıl yapacağım?"dır. 
+
+Bunu Julius Sezar'ın Rubikon nehrini geçmesine benzetti. 
+```
+M.Ö. 49 yılında henüz general olan Julius Sezar, ordusuyla birlikte Roma Cumhuriyeti'nin kuzey sınırını oluşturan Rubikon nehrinin kıyısına gelmişti. 
+Roma yasalarına göre bir generalin, senato izni olmadan bu nehri geçip güneye yani Roma topraklarına girmesi kesinlikle yasaktı ve doğrudan "vatana ihanet" sayılırdı. 
+
+Sezar nehrin kıyısında durup uzun uzun düşündü. Riskleri tarttı. Çünkü nehri geçtiği andan itibaren geri dönüş olmayacaktı. 
+
+Sonunda meşhur kararını verdi, nehri geçti ve tarihe geçen o sözü söyledi : "Alea iacta est..." (Ok yaydan çıktı../Zarlar atıldı..).
+
+```
+
+Heinz Heckhausen işte bu andan ilham alarak insan eylemlerini iki *keskin* faza ayırıyor:
+
+>Rubikon öncesi (Motivasyon)
+
+*Sezar'ın nehrin kıyısında durup uzun uzun düşünmesidir. Riskleri ve kazançları tartmasıdır. "Geçersem ne olur, geçmezsem ne olur?" 
+Karar öncesi aşama. 
+
+>Rubikon sonrası (Volisyon)
+
+*Nehre **ilk** adımın atıldığı, kararın kesinleştiği ve geri dönüşün artık **imkansız** olduğu aşama. Artık "geçsem mi ya?" diye düşünülmez, "hedefe nasıl ulaşırım?" **planı** yapılır. 
+
+Niyet Rubikon'u geçmek, ama nehri geçtikten sonra Roma'ya yürümek ayrı bi hikaye. 
+
+***Niyet edersin tamam ama, ettiğin niyeti eyleme dönüştürüp sürdürmek niyet etmekle daha az alakalı ve başka bir durum.***
+
+#### Plan yapmayı denedin mi?
+
+Niyet-davranış uçurumunu kapatmanın en kanıtlı yolu somut If/Then (Eğer/O zaman) planları yapmaktır. 
+*"Ne yapacağım" değil, "ne zaman, nerede, nasıl yapacağım" ve "yapamayacak olursam ne yapacağım". 
+Bu hem harekete geçişi hem de sürekliliği güçlendiriyor. 
+
+>"Düzenli spor yapacağım!"
+
+bu niyet. 
+
+>"Pazartesi ve Çarşamba akşamları işten çıkınca, eve gitmeden spor salonuna gitcem."
+
+bu somut plan. 
+
+***Fark şu: ikinci cümlede durum ve davranış zihinsel olarak iç içe geçmiş durumda. Yani beyin o durum geldiğince "şimdi napıyorduk?" diye düşünmek zorunda kalmıyor. Otopilota geçiyor.***
+
+Buna bir katman daha Sniehotta ve ark. ekledi. Engeller. 
+Yorgunsundur, hava berbattır, canın istemez..
+"*Başa etme planlaması*" bunlar için önceden plan yapmaktır. 
+*"Eğer gitmek istemiyorsam, sadece 20 dakika giderim."*
+Bu da bir Eğer/O zaman planı, engel senaryosu için. 
+
+**94 araştırmayı kapsayan bir meta-analiz boş söylemiyor: 
+>planlayan insanlar hem daha sık hem daha hızlı hedeflerine ulaşıyor.**
+
+*Basit bir araç ama pek çok pahalı müdahaleden daha etkili.*
+
+### HAPA
+*Sağlık Eylem Süreci Yaklaşım Modeli - (Health Action Process Approach)*
+
+HAPA, sağlık davranışlarını "niyet oluşturma" ile *bitmiş* bir süreç olarak görmez; davranışı başlatmak, devam ettirmek ve tökezleme durumunda toparlanmak birbirinden psikolojik olarak farklı süreçlerdir ve her biri kendi özgüvenini, planlamasını ve kontrolünü gerektirir. 
+
+Yani iş niyetten sonra başlıyor. Ve o "sonrası" tek bir blok değil, *her aşamanın kendi dinamiği var.*
+
+Diğer modellerin büyük çoğunluğu motivasyon, yani niyet, ile ilgilenirken, HAPA volisyonla ilgilenir ve niyeti davranışa dönüştürme sürecini ele alır. 
+
+>Volisyonel fazın 3 adımı: 
+
+*1) Kasıt sonrası - eylem öncesi *
+**Niyet oluştu ama davranış henüz başlamadı. Planlama burada gerçekleşiyor.**
+
+*2) Kasıt sonrası - eylem anı*
+**Davranış başladı ve sürdürülüyor. 
+
+*3) Kasıt sonrası - eylem sonrası*
+**Olası geri düşüşlerden sonra davranışı yeniden kazanma ya da hedeften tamamen vazgeçme.** 
+
+*Aynı zamanda motivasyon da kişinin kendi savunmasızlığını ve hastalığının ciddiyetini değerlendirmesi, davranışın değişikliğinin olası sonuçlarının tartılması ve davranışı gerçekleştirebileceğine dair özgüvene bağlıdır.*
+
+HAPA'ya göre engel senaryolarına hazırlıklı olmak (her akşam spora giderim ve bu akşam fırtına olması), kendi gözlemlerinle niyetinin farkında olmak ve çeşitli öz-yeterlilik türleri, davranışın sürdürülmesini sağlıyor. 
+
+***Yani:***
+*Doktor sana "kolesterolün çıldırmış vaziyette, beslenme alışlkanlıklarını gözden geçirmenin vakti geldi"* diyor. 
+Risk algısı devreye girdi. 
+Sonuçları tartıyorsun ve "yapabilirim" diyorsun. Niyet oluştu. 
+
+**Hapa burada bitmez. Sonraki sorular:
+
+**-plan var mı?**
+**- Zor günlerde ne yapacaksın?**
+**- Aksatırsan nasıl geri döneceksin?**
+
+Niyet ettin, hatta başladın bile, tamam. Ama başlamak bir adım ise, başladıktan sonraki gelen her devam etme durumu da bir adım atmaktır. Daha yeni başlıyoruz. 
+
+### "Haftaya sigarayı bırakıyorum" Yalanının Arkasındaki *6* Aşama
+*(Transteorik Model - TTM - Transtheoretical Model)*
+
+>*"Değişmek bir eylem değil, bir bayrak yarışıdır."*
+
+Birinin bilerek ve isteyerek kendine zarar vermeye devam etmesi (o son sigarayı yakması, burnunu çeke çeke toz soluması ya da haftada tek bir meyve bile yememesi)  iradesizlik mi "zamanlama" hatası mı?
+
+Prochaska ve DiClemente "Sakin ol ***champ***, sadece doğru aşamada değilsin" diyor. 
+
+1983 yılında ilk önce sigara bırakma alanı için geliştirilen TTM kullanılan en yaygın aşamalı/adımlı modeldir. 
+Birden fazla teorinin yapıları entegre. 
+
+**Yani** TTM, davranışın değişimini tek bir "yapacak mısın/yapmayacak mısın" kararı olarak değil de, 6 niteliksel olarak farklı aşamadan geçen ve geri düşüşlerle ilerlenen bir süreç olarak ele alır. 
+*Etkili müdahalenin anahtarı kişinin hangi aşamada olduğunu doğru tespit etmek ve o aşamaya uygun stratejiyle yaklaşmaktır.*
+
+Prochaska ve DiClemente şunu fark etti: sigara bırakmaya çalışan insanlara bakıldığında, hepsinin aynı noktada olmadığını görüyorsun. Biri "sorun yok, devam" diyorken, başka biri bir yıldır içmiyor. 
+**Bunları aynı müdahaleyle hedeflemek anlamsız.** *TTM bu gözlemden doğdu: değişim bir "an" değil, bir süreç . Ve o sürecin **tanımlanabilir** aşamaları var.*
+
+---
+
+#### ***Değişimin 6 Aşaması***
+
+>1 - *Gaflet Uykusu...*
+
+*Zihniyet:* 
+- "Benim bi problemim yok ki?!"
+- "Sigara mı? Ben zaten *az* içiyorum, dert değil."
+*Zaman:*
+**Sonraki 6 ay içinde hayatında hiçbir şeyi değiştirmeye niyeti falan yok. Sorunu ***tamamen*** **inkar ediyor.**
+
+***
+
+>2 - *Flört Aşaması*
+
+*Zihniyet:*
+- "Ya aslında bıraksam fena olmaz.."
+- "Bi ara bırakmam lazım.."
+*Zaman:*
+**Gelecek 6 ay içinde değişimi düşünüyor. Ama önündeki 30 gün için niyet yok. 
+
+---
+
+>3 - *Savaş Hazırlığı*
+
+*Zihniyet:*
+- *"Tamam ya, bu iş bu ay bitiyor."*
+- "Geçen sene 3 hafta bırakmıştım.. Önümüzdeki ay tekrar denicem."
+*Zaman:*
+**Niyet var, gelecek 30 gün içinde harekete geçmeye kesin niyetli. Mikro adımlar bu evrede başlar.**
+
+***
+
+> 4 - *Savaş Alanı*
+
+*Zihniyet:*
+- "Olm ciddi ciddi 3 ay içmiyorum!"
+- "Yapıyorum ulan!"
+
+*Zaman:*
+**Hedef davranışı aktif olarak uyguladığı ilk 6 ay. *En tehlikeli, iradenin en çok kırıldığı ve tetiklenme seviyesinin pik yaptığı yer...***
+
+---
+
+> 5 - *Kaleyi Koruma*
+
+*Zihniyet:*
+- "Artık zorlamıyor, ama tetikteyim."
+- "2 yıldır içmiyorum, ama bazen canım çekmiyor değil..."
+
+*Zaman:*
+**Başarılı eylemin 6. ayından 5. yılına kadar olan süreç. İlk başlardaki o yırtıcı çaba azalmıştır ama geri düşüşü engellemek için defans devam eder. Daha az çaba.
+
+***
+
+> 6 - *Mutlak Alışkanlık (Terminasyon)*
+
+*Zihniyet:*
+- "Eski ben kimdi hatırlamıyorum bile.."
+- "Sigara mı? O ne? Yeniyor mu?......."
+
+*Zaman:*
+**5 yıldan uzun süren başarı. Öz-etkililik 100%, eski alışkanlığa dönme dürtüsü 0%. Yeni davranış artık karaktere dönüşmüştür.**
+
+---
+> ***Sürecin ille de yukarıdan aşağıya sıralı bi şekilde gitmesine gerek yok. Düşüşler ve sıçramalar normaldir. Bir kişi 4. aşamadan 2. aşamaya düşebilir, ya da tam tersi. Bu başarısızlık değil, sürecin kendisi. 
+---
+
+Tabi TTM sadece aşamalardan ibaret değil.. Aşamaları başlatan ve birbirine bağlayan mekanizma olmadan insan şurdan şuraya gidemez. 
+
+##### Arka Plandaki Motor
+
+***1) "Terazi"***
+"Karar dengesi" de diyebileceğimiz bu terazi, kafamızda sürekli dönen bir "kâr/zarar" simülasyonudur. 
+Daha yolun başındayken, eski kötü alışkanlığın konforu ve değişimin getireceği zorluklar (zarar) gözünde çok büyür.. 
+
+Kırılma anında ise terazinin dengesi aniden değişir. Değişimin getireceği "kâr" ağır basmaya başlar. ***Terazinin dengesi değişmeden eylem başlamaz.***
+
+Bu terazini dengesinin "şaşmasını" sağlayan şeylerden biri de, Bandura'dan alacağımız öz-yeterlilik. Yani: "Geri düşmeyeceğime ne kadar inanıyorum?" sorusuna verdiğin puan/güven. 
+
+
+***2) Davranış Kaldıraçları***
+
+Kafamızda teraziyi kurduk. Tamam. Özgüveni de yükselttik. O da tamam. E peki şimdi bi aşamadan diğerine nasıl zıplıcaz?
+Bunu sağlayan iki mekanizma var: 
+
+1) Yazılımsal kaldıraçlar (Bilişsel)
+Değişimin henüz **ilk** 3 aşamasında (yani daha fiziksel olarak bi şey yapmıyorken, sadece kafada kuruyorken) devreye giren farkındalık ve duygusallık "yamaları."
+Farkındalık ile *problem hakkında bilgi toplarsın.*
+*Korku ya da rahatlama gibi **güçlü** duygular tetiklenir. 
+
+Yani bir nevi cephaneye hem bilgi hem de duyguları alırız ki neyle ve nasıl savaştığımızın hatları belli olsun. 
+
+2) Donanımsal kaldıraçlar (Davranışsal/Fiziksel)
+Değişimin **son** 3 aşamasında devreye girerler. Fizikseller.
+
+Seni eski alışkanlığa dair tetikleyen ne varsa hayatından temizlersin veya başka bi şeyle değiştirirsin. Mesela masaya oturmadan önce küllüğü, çakmağı çöpe atmak.. 
+*Böylece seni uyaran şeyleri kontrol altına almış olursun.*
+
+Ayrıca kendini başarılı adımların için ödüllendirirsin. Mesela 3 gün içmezsem gidip kendime elit lüks ve premium diye tabir edilen bir kahve alcam. Ödül. 
+
+
+***Yani***
+Yazılımsal kaldıraçları çalıştırmaya başladıkça, kafandaki "terazi" yön değiştirmeya başlıyor. 
+Bi noktadan sonra terazi "artılar daha fazla" dediği an, özgüven/öz-yeterlilik ibren yukarı fırlar ve seni *eylem* aşamasına taşır. 
+
+Eyleme geçtiğin an ise donanımsal/davranışsal süreçleri devreye sokarsın. Bu da hem kaleyi korumanı sağlar hem de son aşama olan terminasyon/mutlak alışkanlık noktasına kadar götürür. 
+Yani davranışın değiştirmenin arkasında yatan mental/fiziksel motor budur. 
+
+>*Zor bi anda eski alışkanlığa geri dönme isteğinin **şiddeti** (buna TTM'de "ayartma dürtüsü deniyor), aşamalar ilerledikçe azalıyor..*
+
+###### TTM'nin "çatlakları"..
+
+Tabi psikolojide neredeyse her şeyde olduğu gibi, bu teoride de akla *tam* olarak yatmayan şeyler **var**:
+
+- Neden 6 ay? 
+*İnsan psikoljisi İsviçre saati mi ki tam 6. ayda vites değiştirsin? Bu sürelerin bilimsel bir temeli yok. Zaman konusunda biraz sakat.*
+
+- *Sigarayı bırakmak için tıkır tıkır çalışan bu model, spor ve beslenmeye falan gelince patlıyor. Çünkü insanlar spor yaparken **her** aşamada **tüm** stretejileri **aynı anda** kullanıyor.*
+
+
+
+### PAPM 
+*'Bilmiyordum' ile 'biliyorum ve umursamıyorum' arasındaki fark.*
+
+PAPM, yani, Precaution Adoption Process Model, yani, Önleyici Eylem Süreç Modeli, Weinstein ve Sandman tarafından, sağlık tehlikesinin bireysel önemi yeterince teorize edilmediği gerekçesiyle geliştirildi. 
+
+PAPM, TTM'nin gözden kaçırdığı iki gerçeği modele katar: insanlar bir tehditten hiç haberdar olmayabilirler ve **bile isteye "hayır"** diyebilirler. 
+>Bu iki grup farklı müdahale gerektirir ve TTM'deki gibi hepsini aynı sepete koymaz. 
+
+
+***Yani TTM'nin görmezden geldiği tamamen cahil olmak ve "yapmıyorum ulan!" restini ciddiye alıyor ve aynı zamanda TTM'nin katı kriterlerindeki zaman değişkenini kaldırıyor ve yerine tamamen psikolojik dönüm noktalarını koyuyor. 
+
+*PAPM*, bir insanın tehlikeyi fark edip önlem alana kadar tam 7 niteliklsel aşamadan i söyler. Burada süre sınırları yok. Zaman ile olmuyor değişimler. Tamamen kafa yapısı (zihniyet) ile oluşan bir süreç:
+
+##### 1) Mutlak Cahillik
+*Zihniyet:* "O ne demek kanka? İlk defa duyuyorum valla.."
+***Olayı***: Kişi tehlikenin ve yapması gereken sağlık davranışlarının farkında bile değildir. 
+Mesela evindeki radyoaktif radon gazının kanser yaptığından bihaber olan birisi.
+
+---
+##### 2) Kulaktan Dolma Bilgi / Kişisel Bağ Kurmama 
+*Zihniyet:* "Öyle bi şey varmış aynen.. Ama beni bağlamaz."
+***Olayı:*** Tehlikeyi duymuştur. Ama üzerine hiç düşünmez. Zaman sınırı yoktur.
+
+---
+###### 3) Karar Masası
+*Zihniyet:* "Hmmmm... Acaba bu konuda bi şey yapsam mı lan?!"
+***Olayı:*** Mesele artık kişiselleşmiştir. Kişi artık *aktif* olarak bir karar vermeye çalışıyordur.
+**Burası yol ayrımıdır. 
+
+Buradan iki farklı aşamaya zıplayabilir:
+
+---
+###### SOLA DÖNÜŞ
+##### 4) Bilinçli "hayır" kararı 
+*Zihniyet:* "Düşündüm. Taşındım.. ***VE*** yapmamaya karar verdim..... Konu kilit. Konu kapanmıştır.."
+***Olayı:*** Eylem sekansı burada biter, durum sabittir. Kişi düşündü ve bilinçli bir karar verdi. 
+
+
+###### SAĞA DÖNÜŞ
+#### 5) Bilinçli "evet" kararı
+*Zihniyet:* "Tamam ya. Bu işi yapıyorum. Kararımı verdim."
+***Olayı:*** Kişi eyleme geçmeye niyetlenmiştir. Kararsızlık bitmiştir. Şimdi sadece *ilk* adımı atmak (initiation) kalmıştır. 
+
+---
+#### 6) Savaş Alanı
+*Zihniyet:* "Şu an bizzat uyguluyorum. Şu an bu işin İÇİNDEYİM dostum."
+***Olayı:*** Davranışı ilk defa hayata geçirme anıdır. TTM'deki Action aşamasıyla aynı. 
+
+---
+
+#### 7) İstikrar
+*Zihniyet:* "Bu olay artık hayatımın bir parçası kanka..."
+***Olayı:*** Davranışın kalıcılaşması ve sürdürülmesi. 
+
+
+
+```
+Geri düşüş (relapse) kuralı:
+
+İnsanlar bu modelde de eski aşamalara geri düşebilirler. 
+Ama ASLA 1. adım olan MUTLAK CAHİLLİĞE geri düşemezler. Bir kere duyup öğrendiğin bir tehlikeyi beyninden silemezsin öyle..
+```
+
+
+***Altın Kural:  Kişiye Özel Müdahale***
+PAPM'in en büyük iddiası şudur: *"Her aşamadaki insana aynı yaklaşımı uygulayamazsın."*
+
+>**Radon Çalışması**
+```
+1897 katılımcıyla yapılan randomize, boylamsal çalışmada iki müdahale test edildi: 
+*Yüksek risk bilgisi* **ve** *düşük efor*. 
+
+Radon, toprakta doğal olarak bulunan uranyumun bozunmasıyla oluşan radyoaktif bir gazdır. Sigaradan sonra akciğer kanserinin ikinci en yaygın nedeni. 
+
+Görünmez ve kokusuz olduğu için insanlar genelde varlığından haberdar değil. 
+
+Weinstein ve arkadaşları 1998'de radon gazını PAPM'ı test etmek için kullandılar. 
+
+Birinci grup hiç bi şey almadı. (kontrol grubu)
+İkinci gruba "evinde radon olma ihtimali yüksek" bilgisi verildi. 
+Üçüncü gruba direkt bir test sipariş formu gönderildi, yani "ölçmek" için gereken çabayı azalttılar. 
+Dördüncü grup da ikisini birden aldı, hem bilgi hem sipariş formu. 
+
+Sonuç:
+katılımcıların 71%'i zaten "yapacağım" kararını vermiş durumdaydı, 5. aşama. 
+29%'u hâlâ kararsızdı, 3. aşama. 
+"Risk yüksek" bilgisi, kararsızları kararlı hale getirmede işe yaradı. Ama zaten kararlı olanları harekete geçirmedi. 
+"Test formu gönderme" efor azaltma ise tam tersini yaptı: zaten kararlı olanları eyleme geçirdi, ama kararsızları etkilemedi.
+
+Yani iki farklı müdahale, iki farklı gruba farklı şekilde işledi. Bu da PAPM'ın temel iddiasını destekliyor: insanların değişim sürecinin neresinde olduğunu bilmeden yapılan müdahale boşuna gidiyor...
+
+```
+
+
+
+#### PAPM'ın Çatlakları
+1) Kanıt eksikliği: Çalışmaların çoğu enine kesitsel. Yani anlık fotoğraf çekiyorlar. Bir insanın 1'den 7'ye gerçekten bu sırayla geçip geçmediğini kanıtlayacak boylamsal tam bir test hala yapılmış değil. 
+2) Uygulama zorluğu: Gerçek hayatta bir sağlık bakanlığının veya kliniğin, toplumdaki her bireyin 7 aşamadan tam olarak neresinde olduğunu tek tek tespit edip ona göre "biçilmiş" reklam/kamu spotu üretmesi lojistik olarak tam bir cehennemdir. 
+*Ama imkansız değildir.*
+
+
