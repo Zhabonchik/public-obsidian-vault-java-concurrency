@@ -1,0 +1,96 @@
+// Custom morph theme toggle.
+// Sun ⇆ moon transition implemented as:
+//   - <g class="theme-toggle__rays">  : 8 sun rays that scale + rotate to 0 in dark mode
+//   - <circle class="theme-toggle__body"> : the disk; in dark mode it grows slightly
+//   - <circle class="theme-toggle__bite"> : a same-color circle inside an SVG <mask>
+//                                            that slides over the body to carve a crescent
+
+.theme-toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  margin: 0;
+  border-radius: 999px;
+  color: var(--dark);
+  flex: 0 0 auto;
+  transition:
+    transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.2s ease;
+
+  &:hover {
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &:focus-visible {
+    outline: 2px solid color-mix(in srgb, currentColor 35%, transparent);
+    outline-offset: 2px;
+  }
+
+  & .theme-toggle__svg {
+    width: 1.75rem;
+    height: 1.75rem;
+    overflow: visible;
+  }
+
+  & .theme-toggle__body {
+    cx: 12;
+    cy: 12;
+    r: 5;
+    transition:
+      r 0.55s cubic-bezier(0.34, 1.36, 0.64, 1),
+      transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+    transform-origin: 12px 12px;
+  }
+
+  & .theme-toggle__bite {
+    cx: 30;
+    cy: -3;
+    r: 7;
+    transition:
+      cx 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+      cy 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  // All rays animate together, scaling toward the sun's center. Slow enough
+  // that the morph is clearly watchable (group transform on the wrapping
+  // <g> animates reliably across browsers, unlike per-<line> transforms).
+  & .theme-toggle__rays {
+    transform-origin: 12px 12px;
+    transform: scale(1) rotate(0deg);
+    transition: transform 0.85s cubic-bezier(0.34, 1.2, 0.64, 1);
+  }
+}
+
+:root[saved-theme="dark"] {
+  & .theme-toggle__body {
+    r: 9;
+    transform: rotate(-25deg);
+    transition:
+      r 0.85s cubic-bezier(0.34, 1.36, 0.64, 1),
+      transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  & .theme-toggle__bite {
+    cx: 19;
+    cy: 5;
+    transition:
+      cx 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.35s,
+      cy 0.7s cubic-bezier(0.65, 0, 0.35, 1) 0.35s;
+  }
+
+  & .theme-toggle__rays {
+    transform: scale(0) rotate(60deg);
+  }
+}
