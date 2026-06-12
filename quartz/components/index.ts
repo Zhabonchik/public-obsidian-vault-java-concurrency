@@ -8,6 +8,7 @@ import HomeProfile from "./HomeProfile"
 import HomeArticles from "./HomeArticles"
 import Darkmode from "./Darkmode"
 import ThemeToggle from "./ThemeToggle"
+import Socials from "./Socials"
 import ReaderMode from "./ReaderMode"
 import Head from "./Head"
 import PageTitle from "./PageTitle"
@@ -39,6 +40,7 @@ export {
   FolderContent,
   Darkmode,
   ThemeToggle,
+  Socials,
   ReaderMode,
   Head,
   PageTitle,
