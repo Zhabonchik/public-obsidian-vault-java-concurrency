@@ -47,48 +47,25 @@ export const defaultContentPageLayout: PageLayout = {
       condition: (props) => props.fileData.slug !== "index",
     }),
     Component.ConditionalRender({
-      component: Component.DesktopOnly(
-        Component.RecentNotes({
-          title: "Latest Articles",
-          limit: false,
-          showTags: false,
-          scrollable: true,
-          filter: (page) => !page.slug?.startsWith("notes/"),
-        }),
-      ),
+      component: Component.ThemeToggle(),
       condition: (props) => props.fileData.slug !== "index",
     }),
-  ],
-  right: [
     Component.ConditionalRender({
-      component: Component.DesktopOnly(Component.TableOfContents()),
+      component: Component.DesktopOnly(Component.Socials()),
       condition: (props) => props.fileData.slug !== "index",
     }),
   ],
+  right: [],
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [],
-  left: [Component.PageTitle(), Component.MobileOnly(Component.Spacer()), Component.Explorer()],
-  right: [
-    Component.DesktopOnly(
-      Component.RecentNotes({
-        title: "Latest",
-        limit: 8,
-        filter: (page) => !page.slug?.startsWith("notes/"),
-      }),
-    ),
-    Component.ConditionalRender({
-      component: Component.MobileOnly(
-        Component.RecentNotes({
-          title: "Latest",
-          limit: 1,
-          filter: (page) => !page.slug?.startsWith("notes/"),
-        }),
-      ),
-      condition: (props) =>
-        props.fileData.slug !== "tags" && !props.fileData.slug?.startsWith("tags/"),
-    }),
+  left: [
+    Component.PageTitle(),
+    Component.MobileOnly(Component.Spacer()),
+    Component.ThemeToggle(),
+    Component.DesktopOnly(Component.Socials()),
   ],
+  right: [],
 }
