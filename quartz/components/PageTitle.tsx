@@ -13,7 +13,7 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
         rel="stylesheet"
       />
       <h2 class={classNames(displayClass, "page-title")}>
-        <a href={baseDir} class="page-title-link">
+        <a href={baseDir} class="page-title-link" title={title} aria-label={title}>
           <img
             src={`${baseDir}/static/logo-light.svg`}
             alt=""
