@@ -1,0 +1,89 @@
+// Vertical typewriter under the logo. Each character occupies its own
+// line; a blinking underscore cursor anchors the typing position. The
+// container reserves enough vertical room for the longest pattern so the
+// layout never shifts as characters type or erase.
+
+.rail-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3em;
+
+  width: 100%;
+  // Tall enough for "ｒｉｃｅｓｅｔ" (7 chars + cursor + gaps ≈ 10.1em).
+  min-height: 11em;
+
+  // Monospace stack with full Japanese coverage. M PLUS 1 Code is a modern
+  // Japanese monospace coding font (loaded from Google Fonts in RailName.tsx)
+  // — uniform widths for both Latin (full-width variants) and CJK.
+  font-family:
+    "M PLUS 1 Code",
+    ui-monospace,
+    SFMono-Regular,
+    "SF Mono",
+    Menlo,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  // Font-size dialled back so the visible glyph cap-height matches the
+  // rendered SVG logo (1.75rem box ≈ 1.35rem font visually).
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1;
+  // Belt-and-suspenders: also request the full-width OpenType variant for
+  // any chars that have one in the font (works alongside the explicit
+  // full-width Unicode chars in PATTERNS).
+  font-variant-east-asian: full-width;
+  letter-spacing: 0;
+  color: var(--dark);
+  text-align: center;
+  user-select: none;
+}
+
+.rail-name__char {
+  display: block;
+  width: 100%;
+  min-height: 1em;
+  text-align: center;
+  // Preserve literal whitespace so a space character renders as a real
+  // empty row instead of being collapsed by the default `white-space: normal`.
+  white-space: pre;
+  // Each newly typed character fades + slides in from above for a soft
+  // typewriter-strike feel without making the existing characters re-animate.
+  animation: rail-name-char-in 0.22s cubic-bezier(0.34, 1.36, 0.64, 1) both;
+}
+
+@keyframes rail-name-char-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rail-name__cursor {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  line-height: 1;
+  animation: rail-name-cursor-blink 1.05s steps(2) infinite;
+}
+
+@keyframes rail-name-cursor-blink {
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail-name__char {
+    animation: none;
+  }
+  .rail-name__cursor {
+    animation: none;
+  }
+}

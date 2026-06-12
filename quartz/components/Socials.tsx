@@ -1,4 +1,5 @@
-import { QuartzComponent, QuartzComponentConstructor } from "./types"
+import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import { classNames } from "../util/lang"
 
 const MailIcon = () => (
   <svg
@@ -117,9 +118,9 @@ const links = [
   { href: "/index.xml", label: "RSS", Icon: RssIcon },
 ] as const
 
-const Socials: QuartzComponent = () => {
+const Socials: QuartzComponent = ({ displayClass }: QuartzComponentProps) => {
   return (
-    <div class="rail-socials">
+    <div class={classNames(displayClass, "rail-socials")}>
       {links.map(({ href, label, Icon }) => {
         const external = href.startsWith("http")
         return (

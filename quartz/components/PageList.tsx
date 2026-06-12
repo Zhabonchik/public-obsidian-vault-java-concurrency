@@ -83,7 +83,10 @@ export const PageList: QuartzComponent = ({
 
           return (
             <li class="page-list-home-item">
-              <a href={resolveRelative(fileData.slug!, page.slug!)} class="page-list-home-title internal">
+              <a
+                href={resolveRelative(fileData.slug!, page.slug!)}
+                class="page-list-home-title internal"
+              >
                 {title}
               </a>
               {date && (
