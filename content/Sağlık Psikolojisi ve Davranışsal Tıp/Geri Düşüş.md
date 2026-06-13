@@ -1,0 +1,95 @@
+### Ortak Düşman: Geri Düşüş (Relapse)
+
+*Tüm modellerin kesiştiği bir konu var: **insanlar kazandıkları davranışı neden ve nasıl kaybediyor?**
+
+Geri Düşüş, bir insanın yeni edindiği sağlıklı davranışı (sigarayı bırakmak, düzenli spor...)
+aniden kesip, o eski konforlu ve tehlikeli **riske geri dönmesi** durumudur. 
+
+Sağlık psikolojisi modellerinin en çok zorlandığı, çünkü insan iradesinin en **irrasyonel ve kaotik** olduğu yer burasıdır. 
+
+Bir modeli ***"gerçek"*** yapan şey, insanı yukarı taşımaktan ziyade, *düştüğünde* sistemin bunu nasıl modellediğidir. 
+
+*Yani: sağlık davranışı kazanmak bir şey. Onu korumak başka bir şey.*
+
+Geri düşüş, relapse, kelimesinin hangi modele göre ne anlama geldiğinin değişmesi: 
+*1 yudum alkol bazı modellere göre tam bir geri düşüş, bazılarına göre sadece bir *"ayak kayması/denge kaybı"*. 
+
+Bu yüzden rol oynayan şey, kullanılan bozukluk modeli. 
+*Hastalık modeli sadece iki durum tanır: **tamamen uzak** veya geri **düşmüş.**
+
+Marlatt ve Gordon (1985) ise sosyal-kognitif pencereden bakarak süreci detaylandırır: "ayak kayması" öğrenme sürecinin **normal**  bir hatasıdır ve henüz gerçek anlamda **Geri Düşüş** sayılmaz. 
+Bu teoride "Geri Düşüş" riskli davranışa ***kalıcı*** geri dönüşü temsil eder. 
+
+***Sosyal-kognitif perspektif temsilcileri, alkolizmin bir hastalık olduğu düşüncesinin kişinin sadece sorumluluğunu değil, aynı zamanda kontrolünü de elinden aldığını savunuyor.***
+
+>*20. yüzyıl başında popüler olan "ahlaki model"e göre çok içen kişiler iradesiz ve karakter zayıflığına sahip insanlardı....
+
+>1960'da Jellinek bağımlılığı bir hastalık olarak ele alana kadar bunu tamamen kişinin kontrolünde olduğu inancı hakimdi. 
+
+*Paradigmadaki bu değişim, dönemin etkilenen kişileri (dönemin bağımlıları) için **iradesizlik** damgasından kurtulma anlamına geldiği için büyük bir rahatlama sağladı.*
+
+---
+
+>**AA (Anonim Alkolikler) gibi Hastalık Modeli temsilcilerine göre kişi ömür boyu alkoliktir ve tek çözüm tam perhizidr, "iyileşme" diye bi şey yoktur. Bi kere alkoliksen ömür boyu alkoliksin ve tek kadeh şarap = "Geri Düşüş"tür.**
+>*"Bağımlılık senin iradenle değil, genetikle ilgili bir hastalıktır. Bir kez "hastalandıysan" hayatın boyunca hastasındır ve ASLA iyileşmezsin."
+>
+>*Buna rağmen AA'nın diğer tedavilerden daha başarılı olduğu kanıtlanmış değil. 
+
+---
+
+#### ***Perhiz İhlali Etkisi***
+*(AVE - Abstinenz-Verletzungs-Effekt)*
+Yine Marlatt ve Gordon (1985) tarafından tanımlanan AVE, perhizde olan bir kişinin küçük bir kaymadan sonra kendini **kötü** ve **suçlu** hissetmesi ve bunun nedenini internal, stabil ve global şekilde atfetmesidir: *"Ben iradesizim!"* veya *"Ben alkolik bir hastayım!"*. 
+Bu iki *atıf* da tam olarak bir geri düşüş olasılığını artırıyor. Hem kişi bu *olumsuz duygulardan kaçmak için* yeniden içmeye yönelebilir (kısır döngü) hemde bu olumsuz atıf *doğrudan kontrol kaybına yol açıyor*: insanlar başından beri kontrol edilemez olduğuna inandıkları bir şeyi kontrol etmeye çalışmazlar, "Zaten artık değiştiremem."
+
+>**Yani tek bir hatadan sonra beynimizin bize oynadığı "Battı balık yan gider.." oyununun arkasındaki bilimsel şey bu.**
+
+***Bu perhiz ihlali etkisinin mekanizması da tıkır tıkır çalışıyor: ***
+
+Anlık bir hata / İlk yudum
+↓
+Ağır suçluluk/utanç..
+↓
+"Ben zaten hastayım..."
+↓
+Kontrolün tam kaybı "E madem kontrol da edemiyorum, zaten değiştiremem!"
+↓
+Kısırdöngü
+↓
+Vahşi ve TAM bir geri düşüş
+
+
+
+
+**Yani:** hastalık modelinin o katı ve dogmatik "tek yudum içersen yandın" bakış açısı, aslında AVE'yi bizzat kendi elleriyle besleyen ve insanı bilerek **tam** bir geri düşüşe sürükleyen tehlikeli bir kehanete dönüşüyor.
+*Kontrolün kendisinde olmadığına, ve hiçbir zaman olamayacağına inanan birisi zaten davranışı kontrol etmeyi çalışmayı bırakır.*
+
+***Tökezlemek normaldir. Hatayı bir "hastalık patlaması" olarak değil de, bir "öğrenme kazası" olarak yorumlamak hem kısırdöngüyü kırmak için hem de TAM teşekküllü bir geri düşüş yaşamamak için daha mantıklıdır.***
+
+
+### Geri Düşüşün Anatomisi
+>*Bağımlılık genetik bir ceza değil. Yanlış öğrenilmiş bir alışkanlıktır. Ve her alışkanlık gibi, doğru stratejiyle hacklenebilir.*
+
+
+Marlatt diyor ki: *"Seni geriye düşüren şey zayıf karakterin değil, karşına çıkan "Yüksek Risk Durumu" (Hochrisikosituation) karşısında verdiğin tepkidir."*
+
+Bağımlılık = öğrenilmiş, alışkanlık haline gelmiş bir davranış.
+O halde, öğrenilmiş bi şey yine bir öğrenme süreci ile *değiştirilebilir*.
+Kişi, kendi içme/kullanma davranışının koşullarını ***tanımayı*** ve bunlarla baş etmeyi öğrenir. 
+
+
+***Marlatt, inanı o eski leş alışkanlığına döndüren tetikleyicileri iki ana gruba ayırıyor:***
+
+***A) İçsel Tetikleyiciler
+- *Negatif Duygusal Durumlar*
+Kaygı, öfke, depresiflik, can sıkıntısı.. En çok kurbanı bu grup alır. 
+- *Pozitif Duygular & İrade Testi*
+Aşırı neşeliyken "ulan şu şişeyi diksem ne olur ki?" diyerek kendi sınırlarını **kaşımak** ve spesifik aşırı istek. 
+
+***B) Sosyal Tetikleyiciler***
+- *Sosyal Baskı*
+Ortamdaki herkesin hunharca içiyor oluşu. 
+- *Negatif Sosyal Durumlar*
+Aile içi olaylar, bitmeyen tartışmalar, ilişkisel çatışmalar. 
+
+
