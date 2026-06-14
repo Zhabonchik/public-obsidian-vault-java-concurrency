@@ -78,7 +78,7 @@ O halde, öğrenilmiş bi şey yine bir öğrenme süreci ile *değiştirilebili
 Kişi, kendi içme/kullanma davranışının koşullarını ***tanımayı*** ve bunlarla baş etmeyi öğrenir. 
 
 
-***Marlatt, inanı o eski leş alışkanlığına döndüren tetikleyicileri iki ana gruba ayırıyor:***
+***Marlatt, insanı o eski leş alışkanlığına döndüren tetikleyicileri iki ana gruba ayırıyor:***
 
 ***A) İçsel Tetikleyiciler
 - *Negatif Duygusal Durumlar*
@@ -91,5 +91,33 @@ Aşırı neşeliyken "ulan şu şişeyi diksem ne olur ki?" diyerek kendi sını
 Ortamdaki herkesin hunharca içiyor oluşu. 
 - *Negatif Sosyal Durumlar*
 Aile içi olaylar, bitmeyen tartışmalar, ilişkisel çatışmalar. 
+
+Aynı zamanda Görünüşte Alakasız Kararlar, ya da orijinal dilinde Apparently Irrelevant Decisions (AIDS), var. Bunlar gizli ön koşullar gibi. 
+*Bir bağımlı, bilinci açıkken direkt gidip o maddeyi almıyorken bile beyni ona görünüşte **çok mantıklı ve bağımlılıkla alakasız** görünen kararlar aldırır. Bağımlılık davranışıyla ilgisiz görünen bu davranışlar aslında direkt olarak onu mümkün kılan kararlardır. 
+
+***Örnek:***
+*Alkolü bırakan birinin "ya haftaya arkadaşlar falan gelir, ne olur ne olmaz, evde bulunsun...." diyerek eve alkol alması. Görünüşte kankalıktır, misafirperverliktir.. Ama arka planda zihin o maddeyi bir nebze daha kolay **ulaşılabilir** kılarak olası bir kriz anında **bodoslama** geri düşüşün zeminini kendisi hazırlar.
+
+
+#### Sonuç
+*Meta-analizler Marlat'ın modeline dayanan terapilerin özellikle alkol ve çoklu madde bağımlılıklarında çok iyi çalıştığını, hastaların refahını uçurduğunu gösteriyor. 
+**İlginç** bir şekilde, sigara bırakma ve kokain senaryolarında etkisi biraz daha zayıf. 
+Model ayrıca depresyon, panik atak ve obezite gibi klinik durumlarda da işe yarıyor ve kullanılıyor.*
+
+---
+Modeli eleştirenler (Longabaug ve ark. 1996) unsurların çok katı ve hiyerarşik sıralandığını söylüyordu. 
+Witkiewitz ve Marlatt (2004) modeli güncelleyerek bu hiyerarşiyi yıktı. 
+Yeni **dinamik modelde** her şey birbiriyle anlık etkileşimde: 
+
+***Krizi yönetme şeklin madde kullanımını, madde kullanımın da bir sonraki kriz yönetimini anlık olarak değiştiriyor.***
+
+*Sistem aşırı kompleksleştiği için deneysel olarak kanıtlanması şu an tam bir lojistik cehennem.*
+
+
+
+
+
+
+
 
 
