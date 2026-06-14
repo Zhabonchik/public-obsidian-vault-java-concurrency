@@ -1,6 +1,6 @@
 ### Ortak Düşman: Geri Düşüş (Relapse)
 
-*Tüm modellerin kesiştiği bir konu var: **insanlar kazandıkları davranışı neden ve nasıl kaybediyor?**
+*Tüm modellerin kesiştiği bir konu var:* **insanlar kazandıkları davranışı neden ve nasıl kaybediyor?**
 
 Geri Düşüş, bir insanın yeni edindiği sağlıklı davranışı (sigarayı bırakmak, düzenli spor...)
 aniden kesip, o eski konforlu ve tehlikeli **riske geri dönmesi** durumudur. 
@@ -22,7 +22,7 @@ Bu teoride "Geri Düşüş" riskli davranışa ***kalıcı*** geri dönüşü te
 
 ***Sosyal-kognitif perspektif temsilcileri, alkolizmin bir hastalık olduğu düşüncesinin kişinin sadece sorumluluğunu değil, aynı zamanda kontrolünü de elinden aldığını savunuyor.***
 
->*20. yüzyıl başında popüler olan "ahlaki model"e göre çok içen kişiler iradesiz ve karakter zayıflığına sahip insanlardı....
+>*20. yüzyıl başında popüler olan "ahlaki model"e göre çok içen kişiler iradesiz ve karakter zayıflığına sahip insanlardı....*
 
 >1960'da Jellinek bağımlılığı bir hastalık olarak ele alana kadar bunu tamamen kişinin kontrolünde olduğu inancı hakimdi. 
 
@@ -33,7 +33,7 @@ Bu teoride "Geri Düşüş" riskli davranışa ***kalıcı*** geri dönüşü te
 >**AA (Anonim Alkolikler) gibi Hastalık Modeli temsilcilerine göre kişi ömür boyu alkoliktir ve tek çözüm tam perhizidr, "iyileşme" diye bi şey yoktur. Bi kere alkoliksen ömür boyu alkoliksin ve tek kadeh şarap = "Geri Düşüş"tür.**
 >*"Bağımlılık senin iradenle değil, genetikle ilgili bir hastalıktır. Bir kez "hastalandıysan" hayatın boyunca hastasındır ve ASLA iyileşmezsin."
 >
->*Buna rağmen AA'nın diğer tedavilerden daha başarılı olduğu kanıtlanmış değil. 
+>*Buna rağmen AA'nın diğer tedavilerden daha başarılı olduğu kanıtlanmış değil.* 
 
 ---
 
@@ -44,19 +44,19 @@ Bu iki *atıf* da tam olarak bir geri düşüş olasılığını artırıyor. He
 
 >**Yani tek bir hatadan sonra beynimizin bize oynadığı "Battı balık yan gider.." oyununun arkasındaki bilimsel şey bu.**
 
-***Bu perhiz ihlali etkisinin mekanizması da tıkır tıkır çalışıyor: ***
+***Bu perhiz ihlali etkisinin mekanizması da tıkır tıkır çalışıyor:***
 
-Anlık bir hata / İlk yudum
-↓
-Ağır suçluluk/utanç..
-↓
-"Ben zaten hastayım..."
-↓
-Kontrolün tam kaybı "E madem kontrol da edemiyorum, zaten değiştiremem!"
-↓
-Kısırdöngü
-↓
-Vahşi ve TAM bir geri düşüş
+- Anlık bir hata / İlk yudum
+- ↓
+- Ağır suçluluk/utanç..
+- ↓
+- "Ben zaten hastayım..."
+- ↓
+- Kontrolün tam kaybı "E madem kontrol da edemiyorum, zaten değiştiremem!"
+- ↓
+- Kısırdöngü
+- ↓
+- Vahşi ve TAM bir geri düşüş
 
 
 
@@ -80,7 +80,7 @@ Kişi, kendi içme/kullanma davranışının koşullarını ***tanımayı*** ve 
 
 ***Marlatt, insanı o eski leş alışkanlığına döndüren tetikleyicileri iki ana gruba ayırıyor:***
 
-***A) İçsel Tetikleyiciler
+***A) İçsel Tetikleyiciler***
 - *Negatif Duygusal Durumlar*
 Kaygı, öfke, depresiflik, can sıkıntısı.. En çok kurbanı bu grup alır. 
 - *Pozitif Duygular & İrade Testi*
