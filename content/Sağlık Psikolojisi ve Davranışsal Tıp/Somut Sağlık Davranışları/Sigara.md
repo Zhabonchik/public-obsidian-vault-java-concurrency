@@ -1,7 +1,10 @@
 
 ## Sigaranın Psikolojisi
-*Legal ölüm ürünü. Bu illet neden bırakılamıyor?*
+*Legal ölüm ürünü.*
 
+---
+>Bu illet neden bırakılamıyor?
+---
 
 - Almanya'da yetişkin nüfusun hâlâ 30%'u aktif olarak cigara içiyor. 
 
@@ -65,7 +68,7 @@ Bir sigarayı yakar yakmaz nikotin molekülleri akciğerlerden kana karışıyor
 
 Bu, **eroin enjeksiyonundan** bile hızlı. 
 
-***Bir etki bu kadar hızlı gelirse beyin onu çok güçlü bir şekilde kodluyor ve "bu şey işe yarıyor ha, tekrar et bunu" diyor. 
+***Bir etki bu kadar hızlı gelirse beyin onu çok güçlü bir şekilde kodluyor ve "bu şey işe yarıyor ha, tekrar et bunu" diyor.*** 
 
 ---
 
@@ -76,21 +79,21 @@ Bu, **eroin enjeksiyonundan** bile hızlı.
 5. Nikotin bantları bu reseptörleri besliyor. Ama ritüel, tetikleyiciler ya da psikolojik bağ ile herhangi bi işi olmuyor. 
 
 *Bant nikotini karşılıyor, tamam. Ama beyin kahveyle sigarayı birlikte öğrenmiş. 
-Stresle sigarayı birlikte öğrenmiş. Sohbet, mola, yemek sonrası.. 
+Stresle sigarayı birlikte öğrenmiş. Sohbet, mola, yemek sonrası..* 
 
 Bunlar ayrı ayrı tetikleyiciler ve bandın bunlara dair söyleyecek pek bi şeyi yok. Napsın, **bant sonuçta sadece.**
 
 ---
 Bırakamamanın sebebi iradesizlik değil. 
 
-***İrade yetmez. Çünkü rakip eşit değil.**
+***İrade yetmez. Çünkü rakip eşit değil.***
 
 **Bir tarafta bilinçli "bırakayım" kararı var.** Güzel. 
 
 ***Diğer tarafta yıllarca öğrenilmiş, binlerce defa pekiştirilmiş, beyin devrelerine kazınmış bir refleks.***
 
 ***Yani beyin mağdur değil. Uyum sağlamış. Ve uyum sağlayan bi şey, geri dönebilir. 
-Doğru strateji ile. 
+Doğru strateji ile.*** 
 
 *İlk 3 ay zor. 2024'te yayınlanan araştırmalar, sigara bırakıldıktan yaklaşık **3 ay** sonra beynin dopamin sisteminin yeniden normale döndüğünü gösteriyor.*
 
@@ -100,7 +103,7 @@ Doğru strateji ile.
 
 >1 yılda kalp riskini yarıya indiriyor. 
 
-
->*Beyin zaten napması gerektiğini biliyor. Bazen sadece doğru anda doğru şeyi ***hatırlaması*** yeterli.
+---
+>***Beyin zaten napması gerektiğini biliyor. Bazen sadece doğru anda doğru şeyi hatırlaması yeterli.***
 
 ---
