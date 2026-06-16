@@ -8,7 +8,8 @@ Kondom kullanımı sadece bir HIV/hastalık korkusu ya da soyut bilgi meselesi d
 En başta öz-yeterlilik geliyor. 
 *Kondom kullanabileceğine inanan kişi, kullanıyor. Kendine güven, davranışı öngörüyor.*
 
-*Yanında kondom taşımak, partnerle **önceden** *konuşmak. Niyet yetmez, eylem planı lazım.*
+*Yanında kondom taşımak, partnerle **önceden** konuşmak.*
+**Niyet yetmez, eylem planı lazım.**
 
 
 > [!info] Yani?
@@ -18,7 +19,7 @@ En başta öz-yeterlilik geliyor.
 > Emniyet kemeriyle ilgili her şeyi bilmek ama arabada emniyet kemeri tokalarına "susturucu" takmak gibi. 
 > **Kural ihlali için cehalet şart değil. Erişim ve alışkanlık da bir o kadar kritik.  
 
-**HIV bilgisi ve risk algısı** *gerekli ama yetmiyor. ==Tehdidin farkında olmak harekete geçmeyi garantilemiyor.*==
+**HIV bilgisi ve risk algısı** *gerekli ama yetmiyor. ==Tehdidin farkında olmak harekete geçmeyi garantilemiyor.==
 *Özellikle gençlerde hastalık önlemeden çok istenmeyen hamileliği önleme motivasyonu belirleyici.*
 
 > [!warning] Dikkat...
@@ -39,14 +40,14 @@ En başta öz-yeterlilik geliyor.
 
 **İlişkinin türü ve süresi kondom kullanımını etkiler mi?**
 
-*Uzun süreli ve sabit ilişki içinde olan bireyler kondom kullanmaya daha az eğilimlidir. İşin tehlikeli kısmı, bu kişilerin **yeni partnerlerle** *birlikte olduklarında bile kondom kullanma oranlarının düşük kalmasıdır.*
+*Uzun süreli ve sabit ilişki içinde olan bireyler kondom kullanmaya daha az eğilimlidir. İşin tehlikeli kısmı, bu kişilerin* **yeni partnerlerle** *birlikte olduklarında bile kondom kullanma oranlarının düşük kalmasıdır.*
 
 ---
 Sheeran ve arkadaşlarının (1999) 121 çalışmayı inceleyen meta-analizine göre, daha genç bireyler yaşlılara kıyasla kondom kullanmaya daha yatkındır; erkekler kadınlara göre daha fazla korunduklarını bildirmektedir ve sosyal statü kondom kullanımıyla **pozitif** ilişkilidir.
 
 Tabi insanı laboratuvardaki *rasyonel* bir robot gibi kodlarsak: "planlama yaparsa, öz-yeterliliği varsa, o kondomu takar bu adam.." deriz.
 **Gerçek** hayatta işler pek böyle yürümüyor. 
-Alkol, madde, duygu durumu, redden korkma gibi "irrasyonel" ve durumsal değişkenler bu steril bakış açısında *tamamen* gözardı ediliyor. 
+Alkol, madde, duygu durumu, redden korkma gibi "irrasyonel" ve durumsal değişkenler bu steril bakış açısında *tamamen* göz ardı ediliyor. 
 
 > Yani: Bilişsel planlama, alkollü (mesela) bir beynin karşısında her zaman ayakta kalamaz. Model bunu görmüyor.
 > Bu da demek oluyor ki "**iyi planlanmış davranış**" modelleri durumsal faktörleri *sistematik* bi şekilde dışarda bırakıyor.
