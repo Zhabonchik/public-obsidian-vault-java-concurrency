@@ -1,6 +1,5 @@
 
----
-*Sağlıksız beslenme insanı anında yıkmaz; yarattığı aşırı kilo illüzyonu üzerinden Tip 2 diyabet ve kanser gibi hastalıklara zemin hazırlar.*
+_Sağlıksız beslenme insanı anında yıkmaz; yarattığı aşırı kilo illüzyonu üzerinden Tip 2 diyabet ve kanser gibi hastalıklara zemin hazırlar._
 
 ---
 
