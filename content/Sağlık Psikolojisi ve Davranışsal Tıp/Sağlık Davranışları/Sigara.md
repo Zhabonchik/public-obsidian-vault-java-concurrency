@@ -3,7 +3,7 @@
 *Legal ölüm ürünü.*
 
 ---
->Bu illet neden bırakılamıyor?
+>Bu **bok** neden bırakılamıyor?
 ---
 
 - Almanya'da yetişkin nüfusun hâlâ 30%'u aktif olarak cigara içiyor. 
@@ -50,7 +50,7 @@ Bu da başka konularda olduğu gibi farklı modellerle açıklanmaya çalışıl
 
 Eğer olay sadece **biyolojik nikotin ihtiyacı** olsaydı, piyasadaki nikotin sakızları veya bantları herkesi anında sigaradan kurtarırdı. 
 
-*Demek ki işin içinde çok ağır bi psikolojik bağımlılık bileşeni var. 
+*Demek ki işin içinde çok ağır bi psikolojik bağımlılık bileşeni var.* 
 
 ***Bunu ıskalayan tüm tedaviler patlamaya mahkumdur.***
 
@@ -86,11 +86,11 @@ Bunlar ayrı ayrı tetikleyiciler ve bandın bunlara dair söyleyecek pek bi şe
 ---
 Bırakamamanın sebebi iradesizlik değil. 
 
-***İrade yetmez. Çünkü rakip eşit değil.***
+==***İrade yetmez. Çünkü rakip eşit değil.***==
 
 **Bir tarafta bilinçli "bırakayım" kararı var.** Güzel. 
 
-***Diğer tarafta yıllarca öğrenilmiş, binlerce defa pekiştirilmiş, beyin devrelerine kazınmış bir refleks.***
+==***Diğer tarafta yıllarca öğrenilmiş, binlerce defa pekiştirilmiş, beyin devrelerine kazınmış bir refleks.***==
 
 ***Yani beyin mağdur değil. Uyum sağlamış. Ve uyum sağlayan bi şey, geri dönebilir. 
 Doğru strateji ile.*** 
@@ -104,6 +104,8 @@ Doğru strateji ile.***
 >1 yılda kalp riskini yarıya indiriyor. 
 
 ---
->***Beyin zaten napması gerektiğini biliyor. Bazen sadece doğru anda doğru şeyi hatırlaması yeterli.***
+
+> [!danger] Evet...
+> ***Beyin zaten napması gerektiğini biliyor. Bazen sadece doğru anda doğru şeyi hatırlaması yeterli.***
 
 ---

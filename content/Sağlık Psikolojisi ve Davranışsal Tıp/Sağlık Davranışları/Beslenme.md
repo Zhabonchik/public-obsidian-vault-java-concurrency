@@ -62,53 +62,44 @@ Ayrıca beslenmenin:
 ---
 #### Akademi vs. Sokak
 
----
 
-*Sokak*
 >**"Şeker yemesem zayıflarım" aynen sanki tek sorrun şeker.**
 
-*Bilim*
-==**Aşırı kilo çok faktörlü bir şey: genetik + sağlıksız beslenme + hareketsizlik + alkol.**==
+==** Aşırı kilo çok faktörlü bir şey: genetik + sağlıksız beslenme + hareketsizlik + alkol. **==
 
 ---
 
-*Sokak*
 >**"Yağ yemek şişmanlatır" yağın türü ve miktarı değil, varlığı sorun gibi algılanır.**
 
-*Bilim*
-==**Yağın miktarı (günlük 60-80 g) ve türü (bitkisel) önemli. Sıfır yağ zaten önerilmiyor.**==
+==** Yağın miktarı (günlük 60-80 g) ve türü (bitkisel) önemli. Sıfır yağ zaten önerilmiyor. **==
 
 ---
 
-*Sokak*
+
 >**"Kilolu = tembel", aşırı kilo tamamen irade meselesi sanılır.**
 
-*Bilim*
 ==**Kilonun aşırıya kaçmasını sağlayan çok faktör vardır. Sadece iradeye indirgenmesi bu faktörleri yoketmez.**==
 
 ---
 
-*Sokak*
+
 >**"Benim BMI 27, gayet sağlıklıyım valla", kilo hastalık değil diye ihmal edilir.
 
-*Bilim*
 ==**BMI 25-29.9 henüz hastalık sayılmıyor. Ama >30 (Adopositas) resmi olarak hastalık sınıfında.**==
 
 ---
 
-*Sokak*
 >**"Kankam, benim kilom yerinde, göbek yok, istesem de şişmanlamıyorum. O yüzden istediğim çöpü gömerim. Hiç acımam."
 
-*Bilim*
 ==**Yemezler. Yanlış beslenme normal kilolularda bile gizli hasar ve besin yetersizliği doğurur.**==
 
 ---
 
-*Sokak*
 >**"Ben bu sefer sağlıklı beslenmeyi kafaya çok pis koydum. Yürekten niyetliyim. Kesin yaparım."**
 
-*Bilim*
 ==**Fiyasko. Verilere göre niyet tam olsa bile eyleme dönüşme varyansı düşüyor, tek başına yetmiyor.**==
+
+-
 
 > Povey ve ark. (2000) bunu sayıyla gösterdi: niyet için %57–64 varyans açıklaması. Gerçek davranışa gelince bu oran %19–32'ye çakılıyor. Niyet-davranış uçurumu tam burada.
 
