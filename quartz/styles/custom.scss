@@ -186,6 +186,21 @@ aside {
   border-left: 1px solid var(--br) !important;
 }
 
+// ─── Site slogan (rotating, injected via JS) ─────
+
+.site-slogan {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--fg-3);
+  letter-spacing: 0.03em;
+  margin-top: -0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 0;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
 // ─── Site title ──────────────────────────────────
 
 .page-title,

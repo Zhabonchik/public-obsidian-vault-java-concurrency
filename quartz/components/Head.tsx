@@ -99,6 +99,7 @@ export default (() => {
         {js
           .filter((resource) => resource.loadTime === "beforeDOMReady")
           .map((res) => JSResourceToScriptElement(res, true))}
+        <script dangerouslySetInnerHTML={{__html: `(function(){var s=["Psikoloji: Kitapta durduğu gibi durmaz.","Teori biter, maruz kalma başlar.","İncelemiyoruz, buyuz işte.","Okumuyoruz, maruz kalıyoruz.","Pratikte burdayız, teoride ordayız.","Kitap biter, kafa başlar."];var t=s[Math.floor(Math.random()*s.length)];function i(){var e=document.querySelector('.page-title');if(e&&!document.querySelector('.site-slogan')){var n=document.createElement('p');n.className='site-slogan';n.textContent=t;e.insertAdjacentElement('afterend',n);}}document.addEventListener('DOMContentLoaded',i);document.addEventListener('nav',i);})();`}} />
         {additionalHead.map((resource) => {
           if (typeof resource === "function") {
             return resource(fileData)

@@ -1,12 +1,12 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: SAYKO.ch - Psikolojinin göt deliği...
+  pageTitle: SAYKO.ch
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
   analytics:
     provider: plausible
-  locale: en-US
+  locale: tr-TR
   baseUrl: sayko.ch
   ignorePatterns:
     - private
@@ -87,7 +87,7 @@ plugins:
       renderEngine: katex
     order: 80
   - source: github:quartz-community/citations
-    enabled: false
+    enabled: true
     order: 85
   - source: github:quartz-community/hard-line-breaks
     enabled: false
@@ -196,10 +196,12 @@ plugins:
     enabled: true
     options:
       links:
-        GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
+        sayko.ch: https://sayko.ch
   - source: github:quartz-community/recent-notes
-    enabled: false
+    enabled: true
+    layout:
+      position: right
+      priority: 45
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
