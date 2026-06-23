@@ -740,6 +740,7 @@ function buildLayoutForEntries(
       groupOptions?: PluginLayoutDeclaration["groupOptions"]
     }[]
   > = {
+    header: [],
     left: [],
     right: [],
     beforeBody: [],
