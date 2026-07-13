@@ -1,12 +1,13 @@
 # Quartz v5 配置文件
-# 由 v4 quartz.config.ts 迁移而来（2026-05-20）
+# 个人定制版（2026-07-13）
 
 configuration:
-  pageTitle: "XiaoM-Quartz"
-  pageTitleSuffix: ""
+  pageTitle: "小M-Quartz"
+  pageTitleSuffix: " | 蒙塔理斯"
   enableSPA: true
   enablePopovers: true
-  analytics: null
+  analytics:
+    provider: plausible
   locale: "zh-CN"
   baseUrl: "holdyounger.github.io"
   ignorePatterns:
@@ -32,9 +33,9 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: "Schibsted Grotesk"
-      body: "Source Sans Pro"
-      code: "IBM Plex Mono"
+      header: "Noto Sans SC"
+      body: "Noto Sans SC"
+      code: "JetBrains Mono"
     colors:
       lightMode:
         light: "#faf8f8"
@@ -105,18 +106,16 @@ plugins:
 
   - source: github:quartz-community/latex
     enabled: true
-    options:
-      renderEngine: katex
     order: 80
 
   # ===== Filters =====
   - source: github:quartz-community/remove-draft
     enabled: true
 
+  # ===== Emitters =====
   - source: github:quartz-community/alias-redirects
     enabled: true
 
-  # ===== Emitters =====
   - source: github:quartz-community/content-index
     enabled: true
     options:
@@ -127,7 +126,13 @@ plugins:
     enabled: true
 
   - source: github:quartz-community/og-image
+    enabled: true
+
+  - source: github:quartz-community/cname
     enabled: false
+
+  - source: github:quartz-community/canvas-page
+    enabled: true
 
   - source: github:quartz-community/content-page
     enabled: true
@@ -141,50 +146,34 @@ plugins:
   - source: github:quartz-community/bases-page
     enabled: true
 
+  # ===== UI Components =====
   - source: github:quartz-community/explorer
     enabled: true
-    layout:
-      position: left
-      priority: 50
+    order: 50
 
   - source: github:quartz-community/graph
     enabled: true
-    layout:
-      position: right
-      priority: 10
+    order: 10
 
   - source: github:quartz-community/search
     enabled: true
-    layout:
-      position: left
-      priority: 20
-      group: toolbar
-      groupOptions:
-        grow: true
+    order: 20
 
   - source: github:quartz-community/backlinks
     enabled: true
-    layout:
-      position: right
-      priority: 30
+    order: 30
 
   - source: github:quartz-community/article-title
     enabled: true
-    layout:
-      position: beforeBody
-      priority: 10
+    order: 10
 
   - source: github:quartz-community/content-meta
     enabled: true
-    layout:
-      position: beforeBody
-      priority: 20
+    order: 20
 
   - source: github:quartz-community/page-title
     enabled: true
-    layout:
-      position: left
-      priority: 10
+    order: 10
 
   - source: github:quartz-community/darkmode
     enabled: true
@@ -211,7 +200,7 @@ plugins:
     enabled: true
     options:
       links:
-        GitHub: https://github.com/holdyounger/holdyounger.github.io
+        GitHub: "https://github.com/holdyounger/holdyounger.github.io"
 
   - source: github:quartz-community/note-properties
     enabled: true
@@ -231,14 +220,9 @@ plugins:
       priority: 15
       display: all
 
-  - source: github:quartz-community/canvas-page
-    enabled: true
-
-  - source: github:quartz-community/encrypted-pages
-    enabled: false
-
   - source: github:quartz-community/spacer
     enabled: true
+    options: {}
     order: 25
     layout:
       position: left
@@ -249,12 +233,16 @@ plugins:
     enabled: true
     order: 45
 
+  - source: github:quartz-community/encrypted-pages
+    enabled: false
+
 layout:
   groups:
     toolbar:
       priority: 35
       direction: row
       gap: 0.5rem
+
   byPageType:
     "404":
       positions:
