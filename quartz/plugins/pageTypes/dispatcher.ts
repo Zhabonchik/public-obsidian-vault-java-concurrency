@@ -77,17 +77,9 @@ async function emitPage(
   treeTransforms?: TreeTransform[],
 ) {
   const cfg = ctx.cfg.configuration
-  // For the 404 page, use an absolute base path so assets resolve correctly
-  // when the hosting provider serves 404.html from any URL depth.
-  // During local dev (--serve), the dev server strips baseDir itself and
-  // serves files from root, so the 404 page must use "/" to avoid requesting
-  // assets under a path prefix that the dev server doesn't serve.
-  const baseDir =
-    slug === "404"
-      ? ((ctx.argv.serve
-          ? "/"
-          : new URL(`https://${cfg.baseUrl ?? "example.com"}`).pathname) as FullSlug)
-      : pathToRoot(slug)
+  // Use relative paths for all pages. Head.tsx emits a base element for the
+  // 404 page so these paths resolve from the configured site root.
+  const baseDir = slug === "404" && ctx.argv.serve ? ("/" as FullSlug) : pathToRoot(slug)
   const externalResources = pageResources(baseDir, resources, ctx)
   const componentData: QuartzComponentProps = {
     ctx,
