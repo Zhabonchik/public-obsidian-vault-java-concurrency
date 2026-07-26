@@ -18,7 +18,7 @@ npx quartz plugin add <github-url>
 <!-- Add community plugins here as they become available -->
 <!-- Format: - **[Plugin Name](link)** — Brief description -->
 
-_No community plugins listed yet. Be the first to share yours!_
+- **[Image Zoom](https://github.com/vazome/quartz-image-zoom)** — Click any image to open it full-size, using a native `<dialog>` so Esc-to-close and focus trapping come from the platform.
 
 ## Tools & Integrations
 
