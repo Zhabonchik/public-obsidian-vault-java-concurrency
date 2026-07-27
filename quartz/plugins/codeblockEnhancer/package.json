@@ -1,0 +1,14 @@
+{
+  "name": "@local/codeblock-enhancer",
+  "version": "0.1.0",
+  "description": "CodeBlock Enhancer plugin for Quartz v5",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "quartz": {
+    "type": "transformer"
+  }
+}

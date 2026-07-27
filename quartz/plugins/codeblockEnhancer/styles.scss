@@ -1,0 +1,404 @@
+/**
+ * CodeBlock Enhancer — Styles
+ *
+ * Themes: obsidian, dracula, gruvbox, nord, tokyo-night, solarized
+ * Supports light/dark mode via [data-theme] / prefers-color-scheme
+ */
+
+/* ============================================================
+ * Theme Variables
+ * ============================================================ */
+
+/* --- Obsidian --- */
+.cb-theme-obsidian {
+  --cb-header-bg: #1e1e2e;
+  --cb-header-fg: #cdd6f4;
+  --cb-header-border: #313244;
+  --cb-lang-badge-bg: #45475a;
+  --cb-lang-badge-fg: #a6adc8;
+  --cb-copy-btn-fg: #a6adc8;
+  --cb-copy-btn-hover-fg: #cdd6f4;
+  --cb-copy-btn-hover-bg: #45475a;
+  --cb-fold-icon: #585b70;
+  --cb-wrapper-border: #313244;
+  --cb-wrapper-radius: 8px;
+  --cb-mark-default: rgba(250, 179, 135, 0.25);
+}
+
+/* --- Dracula --- */
+.cb-theme-dracula {
+  --cb-header-bg: #282a36;
+  --cb-header-fg: #f8f8f2;
+  --cb-header-border: #44475a;
+  --cb-lang-badge-bg: #44475a;
+  --cb-lang-badge-fg: #bd93f9;
+  --cb-copy-btn-fg: #6272a4;
+  --cb-copy-btn-hover-fg: #f8f8f2;
+  --cb-copy-btn-hover-bg: #44475a;
+  --cb-fold-icon: #6272a4;
+  --cb-wrapper-border: #44475a;
+  --cb-wrapper-radius: 8px;
+  --cb-mark-default: rgba(255, 184, 108, 0.25);
+}
+
+/* --- Gruvbox --- */
+.cb-theme-gruvbox {
+  --cb-header-bg: #282828;
+  --cb-header-fg: #ebdbb2;
+  --cb-header-border: #3c3836;
+  --cb-lang-badge-bg: #504945;
+  --cb-lang-badge-fg: #d5c4a1;
+  --cb-copy-btn-fg: #928374;
+  --cb-copy-btn-hover-fg: #ebdbb2;
+  --cb-copy-btn-hover-bg: #504945;
+  --cb-fold-icon: #928374;
+  --cb-wrapper-border: #3c3836;
+  --cb-wrapper-radius: 8px;
+  --cb-mark-default: rgba(250, 189, 47, 0.25);
+}
+
+/* --- Nord --- */
+.cb-theme-nord {
+  --cb-header-bg: #2e3440;
+  --cb-header-fg: #d8dee9;
+  --cb-header-border: #3b4252;
+  --cb-lang-badge-bg: #434c5e;
+  --cb-lang-badge-fg: #88c0d0;
+  --cb-copy-btn-fg: #616e88;
+  --cb-copy-btn-hover-fg: #d8dee9;
+  --cb-copy-btn-hover-bg: #434c5e;
+  --cb-fold-icon: #616e88;
+  --cb-wrapper-border: #3b4252;
+  --cb-wrapper-radius: 8px;
+  --cb-mark-default: rgba(136, 192, 208, 0.25);
+}
+
+/* --- Tokyo Night --- */
+.cb-theme-tokyo-night {
+  --cb-header-bg: #1a1b26;
+  --cb-header-fg: #c0caf5;
+  --cb-header-border: #292e42;
+  --cb-lang-badge-bg: #33467c;
+  --cb-lang-badge-fg: #7aa2f7;
+  --cb-copy-btn-fg: #565f89;
+  --cb-copy-btn-hover-fg: #c0caf5;
+  --cb-copy-btn-hover-bg: #33467c;
+  --cb-fold-icon: #565f89;
+  --cb-wrapper-border: #292e42;
+  --cb-wrapper-radius: 8px;
+  --cb-mark-default: rgba(224, 170, 104, 0.25);
+}
+
+/* --- Solarized --- */
+.cb-theme-solarized {
+  --cb-header-bg: #002b36;
+  --cb-header-fg: #93a1a1;
+  --cb-header-border: #073642;
+  --cb-lang-badge-bg: #073642;
+  --cb-lang-badge-fg: #2aa198;
+  --cb-copy-btn-fg: #586e75;
+  --cb-copy-btn-hover-fg: #93a1a1;
+  --cb-copy-btn-hover-bg: #073642;
+  --cb-fold-icon: #586e75;
+  --cb-wrapper-border: #073642;
+  --cb-wrapper-radius: 8px;
+  --cb-mark-default: rgba(181, 137, 0, 0.25);
+}
+
+/* Light mode overrides for solarized */
+[data-theme="light"] .cb-theme-solarized {
+  --cb-header-bg: #eee8d5;
+  --cb-header-fg: #586e75;
+  --cb-header-border: #93a1a1;
+  --cb-lang-badge-bg: #93a1a1;
+  --cb-lang-badge-fg: #2aa198;
+  --cb-copy-btn-fg: #93a1a1;
+  --cb-copy-btn-hover-fg: #586e75;
+  --cb-copy-btn-hover-bg: #93a1a1;
+  --cb-fold-icon: #93a1a1;
+  --cb-wrapper-border: #93a1a1;
+  --cb-mark-default: rgba(181, 137, 0, 0.2);
+}
+
+/* ============================================================
+ * Wrapper
+ * ============================================================ */
+
+.cb-wrapper {
+  position: relative;
+  margin: 1.5rem 0;
+  border: 1px solid var(--cb-wrapper-border, #313244);
+  border-radius: var(--cb-wrapper-radius, 8px);
+  overflow: hidden;
+  background: var(--cb-header-bg, #1e1e2e);
+
+  /* Ensure the pre block fills the wrapper */
+  & > pre {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+  }
+}
+
+/* ============================================================
+ * Header
+ * ============================================================ */
+
+.cb-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--cb-header-bg, #1e1e2e);
+  border-bottom: 1px solid var(--cb-header-border, #313244);
+  font-size: 0.8rem;
+  font-family: var(--cb-font-mono, "JetBrains Mono", "Fira Code", monospace);
+  color: var(--cb-header-fg, #cdd6f4);
+  user-select: none;
+}
+
+.cb-lang-icon {
+  display: inline-flex;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+
+  svg,
+  img {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+}
+
+.cb-filename {
+  flex: 1;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cb-lang-badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  background: var(--cb-lang-badge-bg, #45475a);
+  color: var(--cb-lang-badge-fg, #a6adc8);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+ * Copy Button
+ * ============================================================ */
+
+.cb-copy {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.5rem;
+  background: transparent;
+  border: 1px solid var(--cb-header-border, #313244);
+  border-radius: 5px;
+  color: var(--cb-copy-btn-fg, #a6adc8);
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-family: var(--cb-font-mono, monospace);
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+  z-index: 10;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.cb-wrapper:hover .cb-copy {
+  opacity: 1;
+}
+
+.cb-copy:hover {
+  background: var(--cb-copy-btn-hover-bg, #45475a);
+  color: var(--cb-copy-btn-hover-fg, #cdd6f4);
+}
+
+.cb-copy.cb-copied {
+  color: #7ec699 !important;
+  border-color: #7ec699 !important;
+}
+
+/* ============================================================
+ * Line Highlighting
+ * ============================================================ */
+
+.cb-wrapper > pre code span[data-line][data-hl] {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Colour-specific highlight styles */
+span[data-line][data-hl~="red"] {
+  background-color: rgba(248, 131, 121, 0.15) !important;
+  border-left: 3px solid #f88379 !important;
+}
+
+span[data-line][data-hl~="green"] {
+  background-color: rgba(126, 198, 153, 0.15) !important;
+  border-left: 3px solid #7ec699 !important;
+}
+
+span[data-line][data-hl~="yellow"] {
+  background-color: rgba(226, 199, 112, 0.15) !important;
+  border-left: 3px solid #e2c770 !important;
+}
+
+span[data-line][data-hl~="blue"] {
+  background-color: rgba(108, 174, 230, 0.15) !important;
+  border-left: 3px solid #6caee6 !important;
+}
+
+span[data-line][data-hl~="purple"] {
+  background-color: rgba(198, 120, 221, 0.15) !important;
+  border-left: 3px solid #c678dd !important;
+}
+
+span[data-line][data-hl~="orange"] {
+  background-color: rgba(229, 176, 123, 0.15) !important;
+  border-left: 3px solid #e5b07b !important;
+}
+
+span[data-line][data-hl~="pink"] {
+  background-color: rgba(240, 160, 192, 0.15) !important;
+  border-left: 3px solid #f0a0c0 !important;
+}
+
+span[data-line][data-hl~="cyan"] {
+  background-color: rgba(86, 182, 194, 0.15) !important;
+  border-left: 3px solid #56b6c2 !important;
+}
+
+/* ============================================================
+ * Text Highlighting (<mark>)
+ * ============================================================ */
+
+mark.cb-text-hl {
+  padding: 0.05em 0.15em;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+mark.cb-hl-red {
+  background-color: rgba(248, 131, 121, 0.25);
+  color: #f88379;
+}
+
+mark.cb-hl-green {
+  background-color: rgba(126, 198, 153, 0.25);
+  color: #7ec699;
+}
+
+mark.cb-hl-yellow {
+  background-color: rgba(226, 199, 112, 0.25);
+  color: #e2c770;
+}
+
+mark.cb-hl-blue {
+  background-color: rgba(108, 174, 230, 0.25);
+  color: #6caee6;
+}
+
+mark.cb-hl-purple {
+  background-color: rgba(198, 120, 221, 0.25);
+  color: #c678dd;
+}
+
+mark.cb-hl-orange {
+  background-color: rgba(229, 176, 123, 0.25);
+  color: #e5b07b;
+}
+
+mark.cb-hl-pink {
+  background-color: rgba(240, 160, 192, 0.25);
+  color: #f0a0c0;
+}
+
+mark.cb-hl-cyan {
+  background-color: rgba(86, 182, 194, 0.25);
+  color: #56b6c2;
+}
+
+/* ============================================================
+ * Foldable Code Blocks
+ * ============================================================ */
+
+.cb-wrapper.cb-foldable > pre {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.cb-wrapper.cb-foldable.cb-folded > pre {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.cb-foldable .cb-header {
+  cursor: pointer;
+  /* Reserve space for the copy button (absolute positioned at right: 0.5rem, ~31px wide) */
+  padding-right: 2.75rem;
+}
+
+/* Fold arrow on the LEFT side (conventional IDE style) */
+.cb-foldable .cb-header::before {
+  content: "▼";
+  margin-right: 0.5rem;
+  color: var(--cb-fold-icon, #585b70);
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.cb-foldable.cb-folded .cb-header::before {
+  transform: rotate(-90deg);
+}
+
+/* ============================================================
+ * Responsive
+ * ============================================================ */
+
+@media (max-width: 768px) {
+  .cb-header {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .cb-lang-icon {
+    width: 16px;
+    height: 16px;
+
+    svg,
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .cb-lang-badge {
+    font-size: 0.6rem;
+  }
+
+  .cb-copy {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
