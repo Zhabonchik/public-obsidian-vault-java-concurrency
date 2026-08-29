@@ -1,6 +1,5 @@
-### Atomicity
 
-Operation is considered to be atomic if it is a single and not divisible. Incrementing integer value (count++) is not atomic since it requires 3 atomic operations: read-increment-write.
+Operation is considered to be **atomic** if it is single and not divisible. Incrementing integer value (count++) is not atomic since it requires 3 atomic operations: read-update-write.
 
 Race condition vs Data race:
 - **Race Condition:** A flaw in execution logic where correctness depends on the relative timing or interleaving of threads by the runtime (e.g., two threads getting different instances from `getInstance()`).
