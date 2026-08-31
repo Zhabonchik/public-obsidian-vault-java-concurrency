@@ -1,4 +1,3 @@
-
 If we add a second state thread-safe variable it won't guarantee thread-safety of the class. Because if there are 2 variables and they are interconnected, then they must be updated atomically, otherwise there can be a timing when 1 of them is updated, the second one is not, which results in race condition.
 
 One of the locking mechanism is an intrinsic locking mechanism - **synchronized block**. An intrinsic lock is the underlying lock mechanism built into every Java object, while a `synchronized` block is the Java language syntax used to acquire and release that lock.

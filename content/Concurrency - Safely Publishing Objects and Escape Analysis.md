@@ -28,16 +28,16 @@ public class SafeListener {
 }
 ```
 
-_Stack confinement_ is a special case of thread confinement in which an object can only be reached through local variables. Using a non-thread-safe object in a within-thread object is still thread-safe since thread-local objects are stored in a stack within that thread. Just make sure those objects do no escape.
-Another alternative of thread confinement is a ThreadLocal object. It stores the copy of a value for each thread that uses it.
+_Stack confinement_ is a special case of thread confinement in which an object can only be reached through local variables. Using a non-thread-safe object in a within-thread object is still thread-safe since thread-local objects are stored in a stack within that thread. Just make sure those objects do not escape.
+Another alternative of thread confinement is a _ThreadLocal_ object. It stores the copy of a value for each thread that uses it.
 
 Immutable objects can't be modified, so they can also be considered thread-safe. (final fields don't guarantee immutability if they reference mutable objects)
 Whenever a group of related data items must be acted on atomically, consider creating an immutable holder class for them. And then an object of this class can be stored in a volatile variable.
 
 ### Safe publication
-I**Immutability Requirements** An object is immutable if its state cannot be modified after creation, all fields are `final`, and `this` did not escape during construction. Immutable objects can be safely accessed by any thread without synchronization, regardless of how they are published.
+**Immutability Requirements.** An object is immutable if its state cannot be modified after creation, all fields are `final`, and `this` did not escape during construction. Immutable objects can be safely accessed by any thread without synchronization, regardless of how they are published.
 
-**Safe Publication Idioms** To safely publish a reference to a mutable or effectively immutable object, you must use one of the following mechanisms:
+**Safe Publication Idioms.** To safely publish a reference to a mutable or effectively immutable object, you must use one of the following mechanisms:
 - Initializing an object reference from a **static initializer** (guaranteed by JVM class loading).
 - Storing the reference in a **`volatile` field** or `AtomicReference`.
 - Storing the reference in a **`final` field** of a properly constructed object.
