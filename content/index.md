@@ -32,7 +32,7 @@ Welcome to the central hub for **Java Concurrency**. This map bridges foundation
 - [ ] [[Concurrency - Intrinsic Locks and Synchronized Blocks]]
 - [ ] [[Concurrency - Visibility, Volatile Variables, and Memory Piggybacking]]
 - [ ] [[Concurrency - Safely Publishing Objects and Escape Analysis]]
-- [ ] [[Concurrency - Immutability and Thread-Safe Object Design]]
+- [ ] [[Concurrency - Thread-Safe Object Design]]
 
 ### 2. 🧩 Building Concurrent Applications (JCIP Part II)
 *Thread-safe collections, building blocks, and task execution frameworks.*
