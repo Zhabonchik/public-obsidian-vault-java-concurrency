@@ -70,3 +70,76 @@ public class ImprovedList<T> implements List<T> {
 }
 ```
 
+
+Excercise:
+```java
+package org.example.Chapters2To4;
+
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@ThreadSafe
+public class BoundedEventTracker {
+
+    private final int maxCapacity;
+
+    @GuardedBy("this")
+    private int totalProcessedCount = 0;
+
+    @GuardedBy("this")
+    private final Map<String, EventDetails> events;
+
+    private BoundedEventTracker(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+        this.events = new HashMap<>(maxCapacity);
+    }
+
+    public static BoundedEventTracker create(int maxCapacity) {
+        return new BoundedEventTracker(maxCapacity);
+    }
+
+    public synchronized boolean registerEvent(String eventId, String payload) {
+        boolean exists = events.containsKey(eventId);
+        
+        // Reject only if it's a NEW key and capacity is reached
+        if (!exists && events.size() >= maxCapacity) {
+            return false;
+        }
+
+        events.put(eventId, new EventDetails(eventId, payload, Instant.now()));
+
+        if (!exists) {
+            totalProcessedCount++;
+        }
+        return true;
+    }
+
+    public synchronized EventDetails getEvent(String eventId) {
+        return events.get(eventId);
+    }
+
+    public synchronized List<EventDetails> getActiveEvents() {
+        return List.copyOf(events.values());
+    }
+
+    public synchronized TrackerStats getStats() {
+        return new TrackerStats(events.size(), maxCapacity, totalProcessedCount);
+    }
+}
+
+@Immutable
+public record EventDetails(
+        String eventId,
+        String payload,
+        Instant timestamp
+) {}
+
+@Immutable
+public record TrackerStats(
+        int currentSize,
+        int maxCapacity,
+        int totalProcessedCount
+) {}
+```
