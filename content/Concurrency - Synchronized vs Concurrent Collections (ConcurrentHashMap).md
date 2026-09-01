@@ -9,3 +9,27 @@ But synchronizing the whole process of iteration through collection can be costl
 
 Iterators can throw _ConcurrentModificationException_ if one thread changed the collection while another is processing it but it is not deterministic. It is possible to cause it even in a single-threaded environment by means of modifying a collection not via iterator.
 Also you should keep in mind Hidden iterators: when the usage of iterators is not that obvious and is hidden inside some code.
+
+### Concurrent collections
+
+Replacing synchronized collections with concurrent collections can offer dramatic scalability improvements with little risk. The only reason to use synchronized collections is when you need an exclusive lock on the whole collection. Also their iterators are **weakly consistent** and don't throw _ConcurrentModificationException_ and tolerate collection size as approximate since it is a constantly changing value.
+
+synchronized Map -> ConcurrentHashMap
+synchronized TreeMap -> ConcurrentSkipListMap
+synchronized TreeSet -> ConcurrentSkipListSet
+synchronized List -> CopyOnWriteArrayList
+synchronized Set -> CopyOnWriteArraySet
+synchronized Queue -> ConcurrentLinkedQueue, BlockingQueue
+
+ConcurrentHashMap allows better performance because it does not acquire the exclusive lock for each operation. It uses lock-striping which allows concurrent access of readers and writers.
+It is not possible to lock an instance of a ConcurrentHashMap externally via _synchronized(map)_. For this reason ConcurrentMap interface provides the following built-in atomic methods:
+```java
+putIfAbsent(key, value);
+
+remove(key, value);
+
+replace(key, oldValue, newValue);
+```
+
+CopyOnWriteArrayList creates a copy each time a list is modified, so its use-case is when the number of traversals is much bigger than the number of modifications (some event-notification systems).
+Iterators for `CopyOnWriteArrayList` hold an immutable reference to the array snapshot created at the moment the iterator was instantiated. Calling `iterator.remove()` throws an `UnsupportedOperationException`.
