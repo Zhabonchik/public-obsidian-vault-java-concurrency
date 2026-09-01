@@ -33,3 +33,16 @@ replace(key, oldValue, newValue);
 
 CopyOnWriteArrayList creates a copy each time a list is modified, so its use-case is when the number of traversals is much bigger than the number of modifications (some event-notification systems).
 Iterators for `CopyOnWriteArrayList` hold an immutable reference to the array snapshot created at the moment the iterator was instantiated. Calling `iterator.remove()` throws an `UnsupportedOperationException`.
+
+### Blocking Queues and Producer-consumer pattern
+
+BlockingQueue provides 2 blocking methods: _put_ and _take_. If the queue is full, _put_ blocks the thread. Similarly if the queue is empty, the _take_ method blocks the thread. Such queues are called **Bounded**.
+
+Bounded queues are a powerful resource management tool for building reliable applications: they make your program more robust to overload by throttling activities that threaten to produce more work than can be handled.
+Bounded queues are widely used in a concurrent producer-consumer pattern.
+
+**`SynchronousQueue` (Direct Handoff):** A zero-capacity queue where a `put()` call blocks until another thread executes a `take()` (and vice versa). It hands off work directly without storing elements, reducing handoff latency when consumer capacity is readily available.
+
+ **Work Stealing & `Deque`:** Chapter 5.3 introduces `BlockingDeque` and the **Work Stealing** pattern. Unlike standard producer-consumer where all workers share a single queue, every consumer thread has its own `Deque`. If a worker exhausts its own queue, it "steals" tasks from the tail of another worker's `Deque`, significantly reducing lock contention.
+
+ **Serial Thread Confinement:** Transferring a mutable object through a `BlockingQueue` safely hands off ownership from the producer to the consumer thread. As long as the producer releases all references to the object after enqueuing it, publication is thread-safe without further explicit locking.
