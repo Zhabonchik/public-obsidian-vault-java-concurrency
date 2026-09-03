@@ -44,3 +44,37 @@ Since JVM can exit only after all (non-daemon) threads are have been terminated,
 **Limitations of Parallelism**
 - **Heterogeneous Tasks:** Splitting a process into a few unequal, distinct tasks (e.g., rendering text while downloading all images) yields limited performance gains due to execution time imbalance.
 - **Homogeneous Tasks:** Real scalability requires decomposing large workloads into many small, independent, identical tasks that can be executed evenly across worker threads.
+
+The formula for a pool size:
+![[Pool size formula.png]]
+
+### Configuring ThreadPoolExecutor
+- `corePoolSize` defines the target size, the implementation will try to maintain this amount of threads even if there are no tasks or unless the work queue is full;
+- `maximumPoolSize` defines the upper bound on how many threads can be active at once;
+- `keepAliveTime` - if a thread is idle for more than this parameter, then it becomes a candidate for reaping and can be terminated of the current amount of threads is bigger than the `corePoolSize`;
+
+### Managing queued tasks
+There are 3 approaches to task queuing: unbounded, bounded and synchronous.
+- For `newFixedThreadPool` and `newSingleThreadPool` use an unbounded `LinkedBlockingQueue`. A queue will grow unlimited if tasks keep coming faster than they are processed by threads.
+- Using bounded queues such as `ArrayBlockingQueue`, bounded `LinkedBlockingQueue` or `PriorityBlockingQueue` allows you to avoid resource exhaustion but you have to think what to do with new tasks when the queue is full.
+- It is possible to use `SynchronousQueue` to bypass queuing entirely and submit tasks to threads directly. If there is no available thread and the pool size is smaller than the maxim, then a new thread is created, otherwise the task is rejected. `newCachedThreadPool` uses `SynchronousQueue`. It is a practical choice when a pool size is inbounded or rejection policy is acceptable.
+
+The **newCachedThreadPool** factory is a good default choice for an Executor, providing better queuing performance than a fixed thread pool. **A fixed size thread pool** is a good choice when you need to limit the number of concurrent tasks for resource‐management purposes, as in a server application that accepts requests from network clients and would otherwise be vulnerable to overload.
+
+### Saturation policies
+Saturation policies determine how a `ThreadPoolExecutor` handles newly submitted tasks when its bounded queue is full, all threads are busy, or the executor is shutting down. You configure these policies by passing a `RejectedExecutionHandler` to the executor.
+
+**Built-In Saturation Policies**
+
+| **Policy**                  | **Behavior**                                                                         | **Primary Use Case / Trade-off**                                                                                            |
+| --------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| **AbortPolicy** _(Default)_ | Throws `RejectedExecutionException`.                                                 | Forces the caller to catch and handle the submission failure explicitly.                                                    |
+| **CallerRunsPolicy**        | The submitting thread executes the task itself instead of running it asynchronously. | Creates natural backpressure; slows down the task producer so worker threads can catch up.                                  |
+| **DiscardPolicy**           | Silently drops the newly submitted task with no notification.                        | Best for non-critical tasks (e.g., metrics collection, logging) where dropped data is acceptable.                           |
+| **DiscardOldestPolicy**     | Drops the oldest task in the queue to make room for the newly submitted task.        | Useful when newer tasks render older ones obsolete. _Avoid using with priority queues_, as it drops highest-priority tasks. |
+
+**Custom Bounded Submissions**
+If none of the default policies fit, you can implement a custom `RejectedExecutionHandler`. A common technique described in the book is using a `Semaphore` or calling `queue.put()` to force the producer thread to block until room opens up in the queue, achieving backpressure without running tasks directly on the caller thread.
+
+### Thread factories
+Executors use thread factories to create new threads. It is a good practice to pass the custom ThreadFactory to an executor to create custom threads with name, logger, UncaughtExceptionHandler and so on. Also it is possible to configure an Executor after its creation through setters.
