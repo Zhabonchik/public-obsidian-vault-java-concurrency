@@ -80,3 +80,5 @@ Welcome to the central hub for **Java Concurrency**. This map bridges foundation
 * [[Choosing the Right Concurrency Abstraction (Decision Tree)]]
 * [[Virtual Threads Migration Guide for Legacy Applications]]
 * [[JCIP Part summaries]]
+
+[[Prompts]]

@@ -1,0 +1,1 @@
+I am reading Java Concurrency in Practice and making summaries of each chapter. I will specify the chapter I have read and you will ask me questions about its contents. My answers to your questions should form a summary of the item. Later you can refactor and polish my answers for a complete summary of the item.
